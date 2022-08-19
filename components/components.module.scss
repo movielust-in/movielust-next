@@ -1,0 +1,16 @@
+.show_all_button {
+    background-color: transparent;
+    border: none;
+    color: white;
+    cursor: pointer;
+    font-weight: 700;
+    margin-right: 20px;
+    margin-top: 20px;
+    transition: color 1s, font-size 0.5s;
+
+    &:hover {
+        color: greenyellow;
+        transition: color 0.5s;
+        transition: all 1s;
+    }
+}
