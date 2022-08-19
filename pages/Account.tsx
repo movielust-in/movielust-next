@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useCallback } from "react";
 import styled from "@emotion/styled";
 import { keyframes } from "@emotion/react";
-import { useRouter as useNavigate } from "next/router";
+import { useRouter } from "next/router";
 
 import { FaEdit } from "react-icons/fa";
 import Modal from "react-modal";
@@ -14,14 +14,14 @@ import { fetchAvatars, updateAvatar, deleteUser } from "../api/user";
 
 import { useLockBodyScroll } from "../hooks";
 
-import "../styles/avatar_modal.css";
+import styles from "../styles/avatar_modal.module.scss";
 
 import { LoginImage, SadImage } from "../assets";
 import { Avatar } from "../types/avatar";
 
 function Account() {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
+  const router = useRouter();
   const user = useSelector((state) => state.user);
   const [openAvatarModal, setOpenAvatarModal] = useState(false);
   const [avatars, setAvatars] = useState<Avatar[]>([]);
@@ -38,9 +38,11 @@ function Account() {
     setOpenAvatarModal(false);
   }, []);
 
-  if (!user.isLoggedIn) {
-    navigate.push("/login");
-  }
+  useEffect(() => {
+    if (!user.isLoggedIn) {
+      router.push("/login");
+    }
+  }, [router, user]);
 
   const customStyles = {
     overlay: {
@@ -91,7 +93,7 @@ function Account() {
         })
       );
       localStorage.removeItem("movielust_user");
-      navigate.push("/");
+      router.push("/");
     }
   };
 
@@ -165,7 +167,7 @@ function Account() {
           isOpen={openAvatarModal}
           onRequestClose={closeModal}
           style={customStyles}
-          className="avatar_modal"
+          className={styles.avatar_modal}
           contentLabel="profile"
           ariaHideApp={false}
         >
@@ -194,7 +196,7 @@ function Account() {
           isOpen={deleteModal}
           onRequestClose={confirmDelete}
           style={customStyles}
-          className="delete_modal"
+          className={styles.delete_modal}
           contentLabel="profile"
           ariaHideApp={false}
         >

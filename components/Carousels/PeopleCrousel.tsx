@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { useRouter as useNavigate } from "next/router";
+import { useRouter } from "next/router";
 import Wrap from "../CarouselSlices/Wrap";
 import Carousel from "./Carousel";
 import { Person } from "../../types/tmdb";
@@ -10,7 +10,7 @@ interface PeopleCrouselProps {
 }
 
 function PeopleCrousel({ data, title }: PeopleCrouselProps) {
-  const navigate = useNavigate();
+  const router = useRouter();
 
   return (
     <>
@@ -22,7 +22,7 @@ function PeopleCrousel({ data, title }: PeopleCrouselProps) {
               <Card
                 role="presentation"
                 onClick={() => {
-                  navigate.push(`/person/${member.id}`);
+                  router.push(`/person/${member.id}`);
                 }}
               >
                 <Wrap

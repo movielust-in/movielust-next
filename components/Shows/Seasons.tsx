@@ -10,7 +10,7 @@ import {
   FaStop,
 } from "react-icons/fa";
 
-import { useRouter as useNavigate } from "next/router";
+import { useRouter } from "next/router";
 // import ReactGA from "react-ga";
 import { motion } from "framer-motion";
 
@@ -26,6 +26,7 @@ import { LoadingGhost } from "../../assets";
 
 import { markRecentStale } from "../../redux/reducers/recent.reducer";
 import { TvSeasonResponse } from "../../types/tmdb";
+import Image from "next/image";
 
 export interface SeasonsProps {
   id: string;
@@ -35,7 +36,7 @@ export interface SeasonsProps {
 }
 
 function Seasons({ id, title, totalSeasons, setSeasonMagnets }: SeasonsProps) {
-  const router = useNavigate();
+  const router = useRouter();
   const [show, setShow] = useState(false);
   const [season, setSeason] = useState(0);
   const [seasons, setSeasons] = useState<
@@ -335,7 +336,11 @@ function Seasons({ id, title, totalSeasons, setSeasonMagnets }: SeasonsProps) {
                         {gettingTorrents === true && (
                           <TorrentDownload>
                             <FaDownload />
-                            <img src={LoadingGhost} alt="loading" width="30" />
+                            <Image
+                              src={LoadingGhost}
+                              alt="loading"
+                              width="30"
+                            />
                           </TorrentDownload>
                         )}
                         {showEpisode === episode.episode_number && (

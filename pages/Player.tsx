@@ -1,6 +1,5 @@
 import { useEffect } from "react";
 import styled from "@emotion/styled";
-import "../index.css";
 
 function Player() {
   useEffect(() => {

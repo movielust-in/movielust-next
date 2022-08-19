@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import * as Yup from "yup";
 import { toast } from "react-toastify";
-import { useRouter as useNavigate } from "next/router";
+import { useRouter } from "next/router";
 
 // import { Form, Validate } from '../components';
 
@@ -17,14 +17,13 @@ interface StepOneDataInterface {
 }
 
 function SignUp() {
-  const navigate = useNavigate();
+  const router = useRouter();
   const otpRef = useRef<string>();
   const OTP_HEADER = "Enter OTP";
 
   const stepOneData = useRef<StepOneDataInterface>();
 
   useEffect(() => {
-    window.scrollTo(0, 0);
     document.title = "Signup - Movielust";
   }, []);
 
@@ -94,7 +93,7 @@ function SignUp() {
 
           toast(registerRes.data.message);
 
-          navigate.push("/login");
+          router.push("/login");
         }
       } else {
         toast(verifyOtpRes.data.message);

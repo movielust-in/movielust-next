@@ -65,11 +65,11 @@ export const fetchAllTvCast = (
             results.forEach((result) => {
               casts = [...casts, ...result.data.cast];
               const key = "id";
-              uniqueCast = [
+              uniqueCast = Array.from(
                 new Map(
                   casts.map((item: { [x: string]: any }) => [item[key], item])
-                ).values(),
-              ];
+                ).values()
+              );
             });
             casts = casts.filter(
               (value: { id: any }, index: any, self: any[]) =>

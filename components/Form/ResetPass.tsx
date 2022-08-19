@@ -1,7 +1,7 @@
 import { useState, useRef } from "react";
 import * as Yup from "yup";
 import { toast } from "react-toastify";
-import { useRouter as useNavigate } from "next/router";
+import { useRouter } from "next/router";
 
 // import { Validate, Form } from '..';
 
@@ -15,7 +15,7 @@ const OTP_HEADER = "Enter OTP";
 const NEW_PASSWORD_H = "Create New Password";
 
 function ResetPass() {
-  const navigate = useNavigate();
+  const router = useRouter();
   const otpRef = useRef<string>();
 
   const [email, setEmail] = useState("");
@@ -122,10 +122,10 @@ function ResetPass() {
           const { data } = res;
           if (data.success === true) {
             toast("Password Updated!");
-            navigate.push("/login");
+            router.push("/login");
           } else {
             toast(data.message);
-            navigate.push("/login");
+            router.push("/login");
           }
         })
         .catch(() => {

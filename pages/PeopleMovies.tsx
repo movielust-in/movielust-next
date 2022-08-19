@@ -49,7 +49,6 @@ function PeopleMovies() {
 
   useEffect(() => {
     reset();
-    window.scrollTo(0, 0);
 
     setIsLoading(true);
     fetchMovies();

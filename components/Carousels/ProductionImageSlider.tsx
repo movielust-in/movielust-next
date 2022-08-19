@@ -25,7 +25,6 @@ function ProductionImageSlider({ data }: ProductionImageSliderPros) {
   const [company, setcompany] = useState<any>([]);
 
   useEffect(() => {
-    window.scrollTo(0, 0);
     setIsLoading(true);
     setcompany(data);
     setIsLoading(false);

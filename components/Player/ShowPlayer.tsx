@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import styled from "@emotion/styled";
 import { FaAngleDown } from "react-icons/fa";
 
-import { useRouter as useNavigate } from "next/router";
+import { useRouter } from "next/router";
 import {
   BackArrow,
   PLayerContainer,
@@ -36,7 +36,7 @@ function ShowPlayer({
 }: ShowPlayerProps) {
   // console.log(episodemag)
   const [currMagnet, setMagnet] = useState(playerMag);
-  const router = useNavigate();
+  const router = useRouter();
 
   const [showQualityOpt, setShowQualityOpt] = useState(false);
   const [qualityText, setQualityText] = useState("Select Quality");

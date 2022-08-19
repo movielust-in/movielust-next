@@ -36,7 +36,6 @@ function Watchlist() {
   };
 
   useEffect(() => {
-    window.scrollTo(0, 0);
     if (isAuthenticated && !watchlist.set) {
       setIsLoading(true);
       fetchWatchlist()

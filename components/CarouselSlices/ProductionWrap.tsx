@@ -1,133 +1,134 @@
-import { useState } from 'react';
-import styled from '@emotion/styled';
+import { useState } from "react";
+import styled from "@emotion/styled";
 // import ColorThief from 'colorthief';
 
-import Spinner from '../UI/Spinner';
+import Spinner from "../UI/Spinner";
 
-import { MovielustLogo } from '../../assets';
+import { MovielustLogo } from "../../assets";
 
 // const colorThief = new ColorThief();
 
 interface ProductionWrapProps {
-    src: string;
-    alt: string;
-    hover?: boolean;
+  src: string;
+  alt: string;
+  hover?: boolean;
 }
 
 ProductionWrap.defaultProps = {
-    hover: false,
+  hover: false,
 };
 // const [domColor, setDomColor] = useState([]);
 
 // const backgroundRef = useRef<HTMLImageElement>();
 
 function ProductionWrap({ src, alt, hover }: ProductionWrapProps) {
-    const [loading, setLoading] = useState(false);
-    const [opacity, setOpacity] = useState(true);
-    const [imgSrc, setImgSrc] = useState(src);
+  const [loading, setLoading] = useState(false);
+  const [opacity, setOpacity] = useState(true);
+  const [imgSrc, setImgSrc] = useState(src);
 
-    const onLoad = () => {
-        setLoading(false);
-        setOpacity(true);
-        // setDomColor(colorThief.getColor(backgroundRef.current));
-    };
-    // console.log(domColor)
+  const onLoad = () => {
+    setLoading(false);
+    setOpacity(true);
+    // setDomColor(colorThief.getColor(backgroundRef.current));
+  };
+  // console.log(domColor)
 
-    const onError = () => {
-        setLoading(false);
-        setImgSrc(MovielustLogo);
-    };
+  const onError = () => {
+    setLoading(false);
+    setImgSrc(MovielustLogo.src);
+  };
 
-    return src ? (
-        <Wrapper hover={hover as boolean}>
-            {loading && (
-                <Loading>
-                    <Spinner />
-                </Loading>
-            )}
-            <Photo
-                src={imgSrc}
-                alt={alt || 'no alt'}
-                onLoad={() => {
-                    onLoad();
-                }}
-                opaque={opacity}
-                onError={onError}
-            />
-        </Wrapper>
-    ) : null;
+  return src ? (
+    <Wrapper hover={hover as boolean}>
+      {loading && (
+        <Loading>
+          <Spinner />
+        </Loading>
+      )}
+      <Photo
+        src={imgSrc}
+        alt={alt || "no alt"}
+        onLoad={() => {
+          onLoad();
+        }}
+        opaque={opacity}
+        onError={onError}
+      />
+    </Wrapper>
+  ) : null;
 }
 
 export default ProductionWrap;
 
 interface WrapperPros {
-    hover: boolean;
+  hover: boolean;
 }
 
 const Wrapper = styled.div<WrapperPros>`
-    align-items: center;
-    border: 1px solid rgba(249, 249, 249, 0.1);
-    border-radius: 6px;
-    cursor: pointer;
-    display: flex;
-    flex: 1;
-    height: 15vh;
-    justify-content: center;
-    overflow: hidden;
-    transition: all 250ms cubic-bezier(0.25, 0.46, 0.45, 0.94) 0s;
-    width: 100%;
+  align-items: center;
+  border: 1px solid rgba(249, 249, 249, 0.1);
+  border-radius: 6px;
+  cursor: pointer;
+  display: flex;
+  flex: 1;
+  height: 15vh;
+  justify-content: center;
+  overflow: hidden;
+  transition: all 250ms cubic-bezier(0.25, 0.46, 0.45, 0.94) 0s;
+  width: 100%;
 
+  &:hover {
+    border-color: rgba(249, 249, 249, 0.8);
+    box-shadow: rgb(0, 0, 0, 0.29) 0px 20px 20px -20px,
+      rgb(0, 0, 0, 0.73) 0px 16px 10px -10px;
+    transform: ${(props) => (props.hover ? "scale(1.2)" : "none")};
+    z-index: 2;
+  }
+
+  &:active {
+    transform: scale(0.95);
+  }
+  @media (max-width: 620px) {
+    min-height: 60px;
+  }
+  @media (max-width: 724px) {
+    min-height: 100px;
     &:hover {
-        border-color: rgba(249, 249, 249, 0.8);
-        box-shadow: rgb(0, 0, 0, 0.29) 0px 20px 20px -20px, rgb(0, 0, 0, 0.73) 0px 16px 10px -10px;
-        transform: ${(props) => (props.hover ? 'scale(1.2)' : 'none')};
-        z-index: 2;
+      transform: none;
     }
-
-    &:active {
-        transform: scale(0.95);
-    }
-    @media (max-width: 620px) {
-        min-height: 60px;
-    }
-    @media (max-width: 724px) {
-        min-height: 100px;
-        &:hover {
-            transform: none;
-        }
-    }
-    @media (max-width: 920px) {
-        min-height: 120px;
-    }
-    @media (max-width: 1320px) {
-        min-height: 130px;
-    }
+  }
+  @media (max-width: 920px) {
+    min-height: 120px;
+  }
+  @media (max-width: 1320px) {
+    min-height: 130px;
+  }
 `;
 
 const Loading = styled.div`
-    align-items: center;
-    display: flex;
-    height: 100vh;
-    justify-content: center;
-    margin: 0;
-    position: absolute;
-    width: 100vw;
+  align-items: center;
+  display: flex;
+  height: 100vh;
+  justify-content: center;
+  margin: 0;
+  position: absolute;
+  width: 100vw;
 
-    img {
-        height: 50px;
-        width: 50px;
-    }
+  img {
+    height: 50px;
+    width: 50px;
+  }
 `;
 
 interface PhotoProps {
-    opaque: boolean;
+  opaque: boolean;
 }
 
 const Photo = styled.img<PhotoProps>`
-    object-fit: contain;
-    opacity: ${(props) => (props.opaque ? 1 : 0)};
-    pointer-events: none !important;
-    transform: scale(${(props) => (props.opaque ? 1 : 0)});
-    transition: all 200ms ease;
-    width: 45%;
+  object-fit: contain;
+  opacity: ${(props) => (props.opaque ? 1 : 0)};
+  pointer-events: none !important;
+  transform: scale(${(props) => (props.opaque ? 1 : 0)});
+  transition: all 200ms ease;
+  width: 45%;
 `;

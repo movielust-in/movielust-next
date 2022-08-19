@@ -1,7 +1,7 @@
 import { MouseEventHandler, useEffect, useState } from "react";
 import styled from "@emotion/styled";
 import { FaAngleDown } from "react-icons/fa";
-import { useRouter as useNavigate } from "next/router";
+import { useRouter } from "next/router";
 import StarRatings from "react-star-ratings";
 
 import Spinner from "../UI/Spinner";
@@ -15,7 +15,7 @@ import {
   PLayerContainer,
   Title,
 } from "./Player-Styled";
-import { ImdbRating } from "../../pages/Details/DetailTypes";
+import { ImdbRating } from "../Details/DetailTypes";
 
 interface PlayerModalProps {
   title: string;
@@ -38,7 +38,7 @@ function PlayerModal({
   collection,
   rating,
 }: PlayerModalProps) {
-  const router = useNavigate();
+  const router = useRouter();
   const [id, setId] = useState<string>();
   const [type, setType] = useState<string>();
   const [qualityText, setQualityText] = useState("Select Quality");

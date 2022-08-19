@@ -20,7 +20,7 @@ function DetailHelmet({ commonData }: DetailHelmetProps) {
       />
       <meta property="og:description" content={commonData?.overview} />
       <meta property="og:site_name" content="Movielust" />
-      <meta property="og:url" content={window.location.href} />
+      {/* <meta property="og:url" content={window.location.href} /> */}
       <meta
         property="og:image"
         content={image(200, commonData?.poster || "")}

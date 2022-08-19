@@ -1,7 +1,7 @@
 import { memo } from "react";
 import styled from "@emotion/styled";
 import { css } from "@emotion/react";
-import { useRouter as useNavigate } from "next/router";
+import { useRouter } from "next/router";
 import { SwiperSlide } from "swiper/react";
 
 import Carousel from "./Carousel";
@@ -33,7 +33,7 @@ function CastCarousel({
   dom,
   contentTitle,
 }: CastCarouselProps) {
-  const navigate = useNavigate();
+  const router = useRouter();
   const casts = cast.slice(0, 20);
 
   return (
@@ -64,7 +64,7 @@ function CastCarousel({
               id="cast_slider"
               key={member.id}
               onClick={() => {
-                navigate.push(`/person/${member.id}`);
+                router.push(`/person/${member.id}`);
               }}
             >
               {type === "tv" ? (

@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef, MutableRefObject } from "react";
 import styled from "@emotion/styled";
-import ColorThief from "colorthief";
+// @ts-ignore
+// import ColorThief from "../node_modules/colorthief/dist/color-thief.mjs";
 
 import {
   fetchPerson,
@@ -34,8 +35,9 @@ import {
   TVCreditCast,
 } from "../types/tmdb";
 import { useRouter } from "next/router";
+import Image from "next/image";
 
-const colorThief = new ColorThief();
+// const colorThief = new ColorThief();
 
 function PeopleDeatail() {
   const backgroundRef = useRef<HTMLImageElement>();
@@ -87,7 +89,6 @@ function PeopleDeatail() {
   const mounted = useRef(false);
 
   useEffect(() => {
-    window.scrollTo(0, 0);
     mounted.current = true;
     setLoading(true);
 
@@ -143,7 +144,7 @@ function PeopleDeatail() {
       ) : (
         <>
           <Background>
-            <img
+            <Image
               alt="movieposter"
               crossOrigin="anonymous"
               src={DefaultBackground}
@@ -155,7 +156,7 @@ function PeopleDeatail() {
               <img
                 ref={backgroundRef as MutableRefObject<HTMLImageElement>}
                 onLoad={() => {
-                  setDomColor(colorThief.getColor(backgroundRef.current));
+                  // setDomColor(colorThief.getColor(backgroundRef.current));
                 }}
                 crossOrigin="anonymous"
                 alt={name}

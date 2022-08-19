@@ -28,8 +28,6 @@ function ShowAllCasts() {
   const [title, settitle] = useState<any>();
 
   useEffect(() => {
-    window.scrollTo(0, 0);
-
     setIsLoading(true);
     const setSeries = (data: ShowResponse) => {
       const seasons = data.number_of_seasons;

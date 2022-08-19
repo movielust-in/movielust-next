@@ -42,7 +42,6 @@ export function Production() {
 
   useEffect(() => {
     reset();
-    window.scrollTo(0, 0);
     setIsLoading(true);
     CompaniesTopImages(id!).then((data) => {
       setcompany(data);

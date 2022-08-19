@@ -15,44 +15,44 @@ import { toast } from "react-toastify";
 
 import { useRouter } from "next/router";
 
-import { useSelector, useDispatch } from "../../redux";
+import { useSelector, useDispatch } from "../redux";
 
-import ImageCrousel from "../../components/Carousels/ImageCrousel";
+import ImageCrousel from "../components/Carousels/ImageCrousel";
 
-import { addWatched } from "../../api/user";
+import { addWatched } from "../api/user";
 
-import { fetchDetails } from "../../api/tmdb";
+import { fetchDetails } from "../api/tmdb";
 
-import { fetchMagnets } from "../../api/torrent";
+import { fetchMagnets } from "../api/torrent";
 
-import { fetchIMDBRating } from "../../api/imdb";
+import { fetchIMDBRating } from "../api/imdb";
 
 import {
   fetchTvExternalIds,
   fetchTvImages as fetchImages,
   fetchAllTvCast,
-} from "../../api/tmdb/series";
+} from "../api/tmdb/series";
 
-import { fetchCollection, fetchExternalIds } from "../../api/tmdb/movies";
+import { fetchCollection, fetchExternalIds } from "../api/tmdb/movies";
 
-import { addToWatchlist } from "../../api/user/watchlist";
+import { addToWatchlist } from "../api/user/watchlist";
 
-import { VIDEO } from "../../api/Urls";
+import { VIDEO } from "../api/Urls";
 
 // import { Cast, Movie, Similar, Loading } from '../../components';
 
-import CastCarousel from "../../components/Carousels/CastCarousel";
-import MovieCarousel from "../../components/Carousels/MovieCarousel";
-import SimilarCarousel from "../../components/Movies/SimilarMovies";
-import Loading from "../../components/UI/Loading";
+import CastCarousel from "../components/Carousels/CastCarousel";
+import MovieCarousel from "../components/Carousels/MovieCarousel";
+import SimilarCarousel from "../components/Movies/SimilarMovies";
+import Loading from "../components/UI/Loading";
 
-import { FULL_MONTHS } from "../../config";
+import { FULL_MONTHS } from "../config";
 
-import ProductionCompanies from "../../components/Carousels/ProductionCompanies";
+import ProductionCompanies from "../components/Carousels/ProductionCompanies";
 
-import { useLockBodyScroll } from "../../hooks";
+import { useLockBodyScroll } from "../hooks";
 
-import { markRecentStale } from "../../redux/reducers/recent.reducer";
+import { markRecentStale } from "../redux/reducers/recent.reducer";
 
 import {
   DetailResponse,
@@ -61,34 +61,31 @@ import {
   ShowResponse,
   TvImagesResponse,
   Video,
-} from "../../types/tmdb";
+} from "../types/tmdb";
 
-import { Magnet } from "../../types/apiResponses";
+import { Magnet } from "../types/apiResponses";
 
-import tmdbClient from "../../api/tmdbClient";
-
-import "../../assets/fonts/Bariol/bariol.css";
+import tmdbClient from "../api/tmdbClient";
 
 import {
   addMovieToWatchlist,
   addShowToWatchlist,
-} from "../../redux/reducers/watchlist.reducer";
-import InformationComponent from "./Information";
-import DetailHelmet from "./DetailHelmet";
-import Background from "./BackgroundImage";
-import PosterAndIframe from "./PosterAndIframe";
-import { CommonData, ImdbRating } from "./DetailTypes";
+} from "../redux/reducers/watchlist.reducer";
+import InformationComponent from "../components/Details/Information";
+import DetailHelmet from "../components/Details/DetailHelmet";
+import Background from "../components/Details/BackgroundImage";
+import PosterAndIframe from "../components/Details/PosterAndIframe";
+import { CommonData, ImdbRating } from "../components/Details/DetailTypes";
 
-import styles from "./Detail.module.scss";
+import styles from "../components/Details/Detail.module.scss";
 
 let PlayerModal: LazyExoticComponent<any>;
 
-const Seasons = lazy(() => import("../../components/Shows/Seasons"));
+const Seasons = lazy(() => import("../components/Shows/Seasons"));
 
 function Detail() {
-  const navigate = useRouter();
-  const dispatch = useDispatch();
   const router = useRouter();
+  const dispatch = useDispatch();
 
   const type = router.query["type"] as string;
   const id = router.query["id"] as string;
@@ -103,27 +100,26 @@ function Detail() {
 
   useEffect(() => {
     if ((type !== "movie" && type !== "tv") || Number.isNaN(id)) {
-      navigate.push("/");
+      router.push("/");
     }
 
     if (type === "tv")
-      PlayerModal = lazy(() => import("../../components/Player/ShowPlayer"));
-    else
-      PlayerModal = lazy(() => import("../../components/Player/MoviePlayer"));
+      PlayerModal = lazy(() => import("../components/Player/ShowPlayer"));
+    else PlayerModal = lazy(() => import("../components/Player/MoviePlayer"));
 
     if (mag !== null) {
       setPlayerMag(mag);
       setPlayable(true);
     }
-  }, [type, id, navigate, router]);
+  }, [type, id, router, mag]);
 
   const playWebtor = (magnet: Magnet) => {
-    if (hash.includes("#")) {
-      navigate.push(
+    if (hash && hash.includes("#")) {
+      router.push(
         `${router.pathname}?m=${magnet.magnet}&q=${magnet.quality}${hash}player`
       );
     } else {
-      navigate.push(
+      router.push(
         `${router.pathname}?m=${magnet.magnet}&q=${magnet.quality}#player`
       );
     }
@@ -157,7 +153,7 @@ function Detail() {
   const [seasonToPlay, setSeaToPlay] = useState(0);
   const [loading, setLoading] = useState(false);
 
-  useLockBodyScroll(hash.includes("player"));
+  useLockBodyScroll(hash && hash.includes("player") ? true : false);
 
   const setTrailer = useCallback(
     (videos: Video[], lang: string) => {
@@ -412,8 +408,8 @@ function Detail() {
   };
 
   const closePlayerModal = useCallback(() => {
-    navigate.push(router.pathname + hash.replace("player", ""));
-  }, [navigate, hash, router.pathname]);
+    router.push(router.pathname + hash.replace("player", ""));
+  }, [hash, router]);
 
   const playMovie = (movieTitle: string, path: string) => {
     toogleMovie((state) => !state);
@@ -567,6 +563,7 @@ function Detail() {
         </div>
 
         {type === "movie" &&
+        hash &&
         hash.includes("player") &&
         playable &&
         playerMag !== "" ? (
@@ -582,7 +579,7 @@ function Detail() {
           />
         ) : null}
 
-        {type === "tv" && hash.includes("player") && playable ? (
+        {type === "tv" && hash && hash.includes("player") && playable ? (
           <PlayerModal
             title={commonData?.title}
             episode={episodeToPlay}

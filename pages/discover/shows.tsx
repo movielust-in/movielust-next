@@ -45,7 +45,6 @@ function Series() {
   };
 
   useEffect(() => {
-    window.scrollTo(0, 0);
     setIsLoading(true);
     dispatch(setCurrentPage("series"));
     document.title = "Series - Watch and Download latest series";

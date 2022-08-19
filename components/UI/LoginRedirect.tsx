@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { useRouter as useNavigate } from "next/router";
+import { useRouter } from "next/router";
 
 import { useLockBodyScroll } from "../../hooks";
 import { MovielustLogo } from "../../assets";
@@ -9,10 +9,10 @@ interface LoginRedirectProps {
 }
 
 function LoginRedirect({ afterLoginRedirectTo = "/" }: LoginRedirectProps) {
-  const navigate = useNavigate();
+  const router = useRouter();
   useLockBodyScroll();
   const toLogin = () =>
-    navigate.push(`/login?redirectto=${afterLoginRedirectTo}`);
+    router.push(`/login?redirectto=${afterLoginRedirectTo}`);
 
   return (
     <LoginContainer>

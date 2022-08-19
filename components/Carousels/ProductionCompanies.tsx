@@ -2,7 +2,7 @@ import styled from "@emotion/styled";
 // import {useRef} from 'react';
 
 import { SwiperSlide } from "swiper/react";
-import { useRouter as useNavigate } from "next/router";
+import { useRouter } from "next/router";
 // import ColorThief from 'colorthief';
 
 import { Title } from "../../styles/Carousel-Styled";
@@ -19,7 +19,7 @@ interface ProductionCompaniesPros {
 // const backgroundRef = useRef<HTMLImageElement>();
 
 function ProductionCompanies({ data, title, dom }: ProductionCompaniesPros) {
-  const navigate = useNavigate();
+  const router = useRouter();
   return (
     <Container dom={dom}>
       {title &&
@@ -35,7 +35,7 @@ function ProductionCompanies({ data, title, dom }: ProductionCompaniesPros) {
               <SwiperSlide
                 key={detail.id}
                 onClick={() => {
-                  navigate.push(`/production/${detail.id}`);
+                  router.push(`/production/${detail.id}`);
                 }}
               >
                 <ProductionWrap
@@ -49,7 +49,7 @@ function ProductionCompanies({ data, title, dom }: ProductionCompaniesPros) {
               <SwiperSlide
                 key={detail.id}
                 onClick={() => {
-                  navigate.push(`/production/${detail.id}`);
+                  router.push(`/production/${detail.id}`);
                 }}
               >
                 <ProductionWrap

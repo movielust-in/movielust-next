@@ -10,7 +10,7 @@ import {
 } from "react";
 import styled from "@emotion/styled";
 import { keyframes, css } from "@emotion/react";
-import { useRouter as useNavigate } from "next/router";
+import { useRouter } from "next/router";
 import { FaArrowLeft } from "react-icons/fa";
 
 import { image } from "../../api/Urls";
@@ -48,7 +48,7 @@ function SaveDataToLocalStorage(data: any, cb: Function) {
 
 function Search({ show }: { show: boolean }) {
   const inputRef = useRef<HTMLInputElement>();
-  const router = useNavigate();
+  const router = useRouter();
   const cLocation = useRef<string>();
 
   const [loading, setLoading] = useState(false);
@@ -372,7 +372,7 @@ interface CardProps {
 }
 
 function ResultSection({ data, type, weight, cb }: CardProps) {
-  const navigate = useNavigate();
+  const router = useRouter();
   return (
     <Section weight={weight}>
       <SectionTitle>{Titles[type as keyof typeof Titles]}</SectionTitle>
@@ -391,7 +391,7 @@ function ResultSection({ data, type, weight, cb }: CardProps) {
               key={content.id}
               onClick={() => {
                 if (typeof clearSearch === "function") clearSearch();
-                navigate.push(
+                router.push(
                   type === "movie"
                     ? detailLink(
                         "movie",

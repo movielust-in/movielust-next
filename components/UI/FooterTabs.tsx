@@ -2,7 +2,7 @@ import styled from "@emotion/styled";
 
 import Link from "next/link";
 
-import { useRouter as useNavigate } from "next/router";
+import { useRouter } from "next/router";
 
 import {
   MdPlaylistPlay as WatchlistIcon,
@@ -16,7 +16,7 @@ import { AiFillPlaySquare as SeriesIcon } from "react-icons/ai";
 import { BiSearchAlt as SearchIcon } from "react-icons/bi";
 
 function FooterTabs() {
-  const router = useNavigate();
+  const router = useRouter();
 
   const hash = router.asPath.split("#")[1];
 
