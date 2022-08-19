@@ -116,33 +116,45 @@ function Header({ isOnline }: HeaderProps) {
         ) : null}
 
         <Link href="/" className="header_logo">
-          <Logo
-            src={MovielustLogo}
-            alt="Movielust Logo"
-            className="header_logo"
-          />
+          <a>
+            <Logo
+              src={MovielustLogo}
+              alt="Movielust Logo"
+              className="header_logo"
+            />
+          </a>
         </Link>
 
         <NavMenu>
           <Link href="/">
-            <HomeIcon />
-            <Title active={router.pathname === "/"}>Home</Title>
+            <a>
+              <HomeIcon />
+              <Title active={router.pathname === "/"}>Home</Title>
+            </a>
           </Link>
           <Link href="/watchlist">
-            <WatchlistIcon />
-            <Title active={router.pathname === "/watchlist"}>Watchlist</Title>
+            <a>
+              <WatchlistIcon />
+              <Title active={router.pathname === "/watchlist"}>Watchlist</Title>
+            </a>
           </Link>
 
           <Link href="/discover/movies">
-            <MoviesIcon />
-            <Title active={router.pathname === "/discover/movies"}>
-              Movies
-            </Title>
+            <a>
+              <MoviesIcon />
+              <Title active={router.pathname === "/discover/movies"}>
+                Movies
+              </Title>
+            </a>
           </Link>
 
           <Link href="/discover/series">
-            <SeriesIcon />
-            <Title active={router.pathname === "/discover/series"}>Shows</Title>
+            <a>
+              <SeriesIcon />
+              <Title active={router.pathname === "/discover/series"}>
+                Shows
+              </Title>
+            </a>
           </Link>
         </NavMenu>
 

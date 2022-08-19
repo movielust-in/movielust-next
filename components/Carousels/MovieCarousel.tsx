@@ -55,35 +55,37 @@ function MovieCarousel({
                         movie.title || movie.name
                       )}
                     >
-                      <Wrap
-                        src={`https://image.tmdb.org/t/p/w200/${movie.poster_path}`}
-                        alt={movie.title || movie.name || ""}
-                        title={movie.title || movie.name}
-                        description={`${movie?.overview
-                          ?.split(".")
-                          .slice(0, 3)
-                          .join(".")}.`}
-                        backdrop={movie.backdrop_path}
-                        showCard={showCard}
-                        genres={
-                          movie.genre_ids
-                            ? movie.genre_ids
-                                .map((genre: number) =>
-                                  type === "combined"
-                                    ? getGenreName(genre, movie.media_type)
-                                    : getGenreName(genre, type)
-                                )
-                                .filter((genre: any) => genre)
-                            : []
-                        }
-                      />
+                      <a>
+                        <Wrap
+                          src={`https://image.tmdb.org/t/p/w200/${movie.poster_path}`}
+                          alt={movie.title || movie.name || ""}
+                          title={movie.title || movie.name}
+                          description={`${movie?.overview
+                            ?.split(".")
+                            .slice(0, 3)
+                            .join(".")}.`}
+                          backdrop={movie.backdrop_path}
+                          showCard={showCard}
+                          genres={
+                            movie.genre_ids
+                              ? movie.genre_ids
+                                  .map((genre: number) =>
+                                    type === "combined"
+                                      ? getGenreName(genre, movie.media_type)
+                                      : getGenreName(genre, type)
+                                  )
+                                  .filter((genre: any) => genre)
+                              : []
+                          }
+                        />
 
-                      {movie.character && (
-                        <Detail>
-                          {movie.name}
-                          <div>as {movie.character}</div>
-                        </Detail>
-                      )}
+                        {movie.character && (
+                          <Detail>
+                            {movie.name}
+                            <div>as {movie.character}</div>
+                          </Detail>
+                        )}
+                      </a>
                     </Link>
                   </SwiperSlide>
                 ))}

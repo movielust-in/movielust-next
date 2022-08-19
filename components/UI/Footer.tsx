@@ -7,14 +7,22 @@ function Footer() {
   return (
     <Container>
       <Link href="/">
-        <TitleBar>
-          <Title> Movielust </Title>
-        </TitleBar>
+        <a>
+          <TitleBar>
+            <Title> Movielust </Title>
+          </TitleBar>
+        </a>
       </Link>
       <Footernotice>
-        <Link href="/aboutus">About us</Link>
-        <Link href="/disclaimer">Disclaimer</Link>
-        <Link href="/contactus">Contact us</Link>
+        <Link href="/aboutus">
+          <a>About us</a>
+        </Link>
+        <Link href="/disclaimer">
+          <a>Disclaimer</a>
+        </Link>
+        <Link href="/contactus">
+          <a>Contact us</a>
+        </Link>
       </Footernotice>
       <MDBContainer>
         &copy; {new Date().getFullYear()} Copyright : The DBA Pvt.{" "}

@@ -70,35 +70,39 @@ function Scroller({ movies, total, type }: ScrollerProps) {
               <Card>
                 {type === "cast" ? (
                   <Link href={`/person/${movie.id}`}>
-                    <PersonCard
-                      title={movie.name}
-                      key={movie.id}
-                      alt={movie.name}
-                      src={`https://image.tmdb.org/t/p/w185/${movie.profile_path}`}
-                      // hover
-                      // role={movie.roles[0].character}
-                    />
+                    <a>
+                      <PersonCard
+                        title={movie.name}
+                        key={movie.id}
+                        alt={movie.name}
+                        src={`https://image.tmdb.org/t/p/w185/${movie.profile_path}`}
+                        // hover
+                        // role={movie.roles[0].character}
+                      />
+                    </a>
                   </Link>
                 ) : (
                   <Link
                     href={detailLink(type, movie.id, movie.title || movie.name)}
                   >
-                    <Wrap
-                      alt={movie.title || movie.name}
-                      title={movie.title || movie.name}
-                      // rating={movie.vote_average}
-                      key={movie.id}
-                      src={`https://image.tmdb.org/t/p/w185/${movie.poster_path}`}
-                      backdrop={movie.backdrop_path!}
-                      description={movie.overview!}
-                      showCard
-                      genres={
-                        movie.genre_ids?.map((id: number) =>
-                          getGenreName(id, "movie")
-                        ) || []
-                      }
-                      // hover
-                    />
+                    <a>
+                      <Wrap
+                        alt={movie.title || movie.name}
+                        title={movie.title || movie.name}
+                        // rating={movie.vote_average}
+                        key={movie.id}
+                        src={`https://image.tmdb.org/t/p/w185/${movie.poster_path}`}
+                        backdrop={movie.backdrop_path!}
+                        description={movie.overview!}
+                        showCard
+                        genres={
+                          movie.genre_ids?.map((id: number) =>
+                            getGenreName(id, "movie")
+                          ) || []
+                        }
+                        // hover
+                      />
+                    </a>
                   </Link>
                 )}
               </Card>

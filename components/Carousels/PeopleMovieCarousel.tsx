@@ -55,17 +55,19 @@ function PeopleMovieCarousel({
                         movie.title || movie.name
                       )}
                     >
-                      <Wrap
-                        src={`https://image.tmdb.org/t/p/w200/${movie.poster_path}`}
-                        alt={movie.title}
-                        // hover={hover}
-                      />
-                      {movie.character && (
-                        <Detail>
-                          {movie.name}
-                          <div>as {movie.character}</div>
-                        </Detail>
-                      )}
+                      <a>
+                        <Wrap
+                          src={`https://image.tmdb.org/t/p/w200/${movie.poster_path}`}
+                          alt={movie.title}
+                          // hover={hover}
+                        />
+                        {movie.character && (
+                          <Detail>
+                            {movie.name}
+                            <div>as {movie.character}</div>
+                          </Detail>
+                        )}
+                      </a>
                     </Link>
                   </SwiperSlide>
                 ))}

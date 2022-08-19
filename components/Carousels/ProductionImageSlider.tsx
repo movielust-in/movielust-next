@@ -54,62 +54,64 @@ function ProductionImageSlider({ data }: ProductionImageSliderPros) {
             ) => (
               <SwiperSlide key={movie.file_path!}>
                 <Link href={detailLink("movie", movie.id!, movie.title!)}>
-                  <Wrap>
-                    <div>
-                      <span>{movie.title}</span>
-                      <Overview>{movie.overview!.slice(0, 200)}.</Overview>
-                      {movie.imdb_rating! ? (
-                        <StarRatings
-                          rating={movie.imdb_rating!}
-                          numberOfStars={10}
-                          starRatedColor="gold"
-                          starEmptyColor="gray"
-                          starDimension="16px"
-                        />
-                      ) : movie.vote_average ? (
-                        <StarRatings
-                          rating={movie.vote_average}
-                          numberOfStars={10}
-                          starRatedColor="gold"
-                          starEmptyColor="gray"
-                          starDimension="16px"
-                        />
-                      ) : null}
+                  <a>
+                    <Wrap>
+                      <div>
+                        <span>{movie.title}</span>
+                        <Overview>{movie.overview!.slice(0, 200)}.</Overview>
+                        {movie.imdb_rating! ? (
+                          <StarRatings
+                            rating={movie.imdb_rating!}
+                            numberOfStars={10}
+                            starRatedColor="gold"
+                            starEmptyColor="gray"
+                            starDimension="16px"
+                          />
+                        ) : movie.vote_average ? (
+                          <StarRatings
+                            rating={movie.vote_average}
+                            numberOfStars={10}
+                            starRatedColor="gold"
+                            starEmptyColor="gray"
+                            starDimension="16px"
+                          />
+                        ) : null}
 
-                      {movie.imdb_rating! ? (
-                        <h5>
-                          Rating:
-                          {movie.imdb_rating!}
-                          /10
-                        </h5>
-                      ) : movie.vote_average ? (
-                        <h5>
-                          Rating:
-                          {movie.vote_average}
-                          /10
-                        </h5>
-                      ) : null}
-                    </div>
+                        {movie.imdb_rating! ? (
+                          <h5>
+                            Rating:
+                            {movie.imdb_rating!}
+                            /10
+                          </h5>
+                        ) : movie.vote_average ? (
+                          <h5>
+                            Rating:
+                            {movie.vote_average}
+                            /10
+                          </h5>
+                        ) : null}
+                      </div>
 
-                    <picture>
-                      <source
-                        media="(max-width:300px)"
-                        srcSet={image(300, movie.backdrop_path!)}
-                      />
-                      <source
-                        media="(max-width:780px)"
-                        srcSet={image(780, movie.backdrop_path!)}
-                      />
-                      <source
-                        media="(max-width:1280px)"
-                        srcSet={image(780, movie.backdrop_path!)}
-                      />
-                      <img
-                        src={`https://image.tmdb.org/t/p/w1280/${movie.backdrop_path}`}
-                        alt={movie.title}
-                      />
-                    </picture>
-                  </Wrap>
+                      <picture>
+                        <source
+                          media="(max-width:300px)"
+                          srcSet={image(300, movie.backdrop_path!)}
+                        />
+                        <source
+                          media="(max-width:780px)"
+                          srcSet={image(780, movie.backdrop_path!)}
+                        />
+                        <source
+                          media="(max-width:1280px)"
+                          srcSet={image(780, movie.backdrop_path!)}
+                        />
+                        <img
+                          src={`https://image.tmdb.org/t/p/w1280/${movie.backdrop_path}`}
+                          alt={movie.title}
+                        />
+                      </picture>
+                    </Wrap>
+                  </a>
                 </Link>
               </SwiperSlide>
             )

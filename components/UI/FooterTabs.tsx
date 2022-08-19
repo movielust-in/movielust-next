@@ -32,21 +32,25 @@ function FooterTabs() {
     <Footer>
       <Item>
         <Link href="/">
-          <HomeIcon
-            size="22px"
-            color={router.pathname === "/" ? "red" : "white"}
-          />
-          <h5>Home</h5>
+          <a>
+            <HomeIcon
+              size="22px"
+              color={router.pathname === "/" ? "red" : "white"}
+            />
+            <h5>Home</h5>
+          </a>
         </Link>
       </Item>
       <Item>
         <Link href="/watchlist">
-          <WatchlistIcon
-            size="22px"
-            color={router.pathname === "/watchlist" ? "red" : "white"}
-          />
-          {/* <Image src={WatchlistIcon} alt="Watchlist" /> */}
-          <h5>Watchlist</h5>
+          <a>
+            <WatchlistIcon
+              size="22px"
+              color={router.pathname === "/watchlist" ? "red" : "white"}
+            />
+            {/* <Image src={WatchlistIcon} alt="Watchlist" /> */}
+            <h5>Watchlist</h5>
+          </a>
         </Link>
       </Item>
       <Item role="presentation" onClick={showSearch}>
@@ -57,21 +61,25 @@ function FooterTabs() {
       </Item>
       <Item>
         <Link href="/discover/movies">
-          <MovieIcon
-            size="22px"
-            color={router.pathname === "/discover/movies" ? "red" : "white"}
-          />
-          {/* <Image src={MovieIcon} alt="Movies" /> */}
-          <h5>Movies</h5>
+          <a>
+            <MovieIcon
+              size="22px"
+              color={router.pathname === "/discover/movies" ? "red" : "white"}
+            />
+            {/* <Image src={MovieIcon} alt="Movies" /> */}
+            <h5>Movies</h5>
+          </a>
         </Link>
       </Item>
       <Item>
         <Link href="/discover/series">
-          <SeriesIcon
-            size="21px"
-            color={router.pathname === "/discover/series" ? "red" : "white"}
-          />
-          <h5>Shows</h5>
+          <a>
+            <SeriesIcon
+              size="21px"
+              color={router.pathname === "/discover/series" ? "red" : "white"}
+            />
+            <h5>Shows</h5>
+          </a>
         </Link>
       </Item>
     </Footer>

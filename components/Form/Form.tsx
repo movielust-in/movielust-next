@@ -285,7 +285,9 @@ function Form({ formik, fields, isSubmitting, extraData }: FormProps) {
                 fields.links.length > 0 &&
                 fields.links.map((link: any) => (
                   <Link href={link.href} key={link.text}>
-                    <p>{link.text}</p>
+                    <a>
+                      <p>{link.text}</p>
+                    </a>
                   </Link>
                 ))}
             </List>
