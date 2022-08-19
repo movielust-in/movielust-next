@@ -11,6 +11,7 @@ import PersonCard from "../CarouselSlices/PersonCard";
 import { LoadingGhost } from "../../assets";
 import { detailLink } from "../../utils";
 import getGenreName from "../../utils/getGenreName";
+import Image from "next/image";
 
 interface ScrollerProps {
   movies: any[];
@@ -62,61 +63,53 @@ function Scroller({ movies, total, type }: ScrollerProps) {
       <CardContainer>
         {total.results > 0 &&
           movies.slice(0, page * 20 - 1).map((movie) => (
-            <motion.div
-              key={movie.id}
-              initial={{ opacity: 0.5 }}
-              whileInView={{ opacity: 1 }}
-            >
-              <Card>
-                {type === "cast" ? (
-                  <Link href={`/person/${movie.id}`}>
-                    <a>
-                      <PersonCard
-                        title={movie.name}
-                        key={movie.id}
-                        alt={movie.name}
-                        src={`https://image.tmdb.org/t/p/w185/${movie.profile_path}`}
-                        // hover
-                        // role={movie.roles[0].character}
-                      />
-                    </a>
-                  </Link>
-                ) : (
-                  <Link
-                    href={detailLink(type, movie.id, movie.title || movie.name)}
-                  >
-                    <a>
-                      <Wrap
-                        alt={movie.title || movie.name}
-                        title={movie.title || movie.name}
-                        // rating={movie.vote_average}
-                        key={movie.id}
-                        src={`https://image.tmdb.org/t/p/w185/${movie.poster_path}`}
-                        backdrop={movie.backdrop_path!}
-                        description={movie.overview!}
-                        showCard
-                        genres={
-                          movie.genre_ids?.map((id: number) =>
-                            getGenreName(id, "movie")
-                          ) || []
-                        }
-                        // hover
-                      />
-                    </a>
-                  </Link>
-                )}
-              </Card>
-            </motion.div>
+            <Card key={movie.id}>
+              {type === "cast" ? (
+                <Link href={`/person/${movie.id}`}>
+                  <a>
+                    <PersonCard
+                      title={movie.name}
+                      key={movie.id}
+                      alt={movie.name}
+                      src={`https://image.tmdb.org/t/p/w185/${movie.profile_path}`}
+                      // hover
+                      // role={movie.roles[0].character}
+                    />
+                  </a>
+                </Link>
+              ) : (
+                <Link
+                  href={detailLink(type, movie.id, movie.title || movie.name)}
+                >
+                  <a>
+                    <Wrap
+                      alt={movie.title || movie.name}
+                      title={movie.title || movie.name}
+                      key={movie.id}
+                      src={`https://image.tmdb.org/t/p/w200/${movie.poster_path}`}
+                      backdrop={movie.backdrop_path!}
+                      description={movie.overview!}
+                      showCard
+                      genres={
+                        movie.genre_ids?.map((id: number) =>
+                          getGenreName(id, "movie")
+                        ) || []
+                      }
+                    />
+                  </a>
+                </Link>
+              )}
+            </Card>
           ))}
       </CardContainer>
       {total.pages > page && loadingMore && (
         <Loading>
-          <img src={LoadingGhost} alt="loading" />
+          <Image src={LoadingGhost} alt="loading" />
         </Loading>
       )}
       {total.pages > page && (
         <Trigger ref={ref} onClick={loadMore}>
-          <img src={LoadingGhost} alt="loading" />
+          <Image src={LoadingGhost} alt="loading" />
           Loading more results
         </Trigger>
       )}
@@ -131,8 +124,8 @@ export default Scroller;
 
 const Container = styled.div`
   align-items: flex-start;
-  display: flex row;
-  justify-content: start;
+  display: flex;
+  flex-direction: column;
 `;
 
 const CardContainer = styled.div`
@@ -154,10 +147,11 @@ to{transform:translateX(0);}
 `;
 
 const Card = styled.div`
-  /* flex: 0 1 calc(20%-1em); */
+  flex: 0 1 calc(20%-1em);
   animation: ${slideIn} 500ms ease linear;
   margin: 10px;
   width: 150px;
+
   @media (max-width: 724px) {
     width: 120px;
     margin: 15px 0;

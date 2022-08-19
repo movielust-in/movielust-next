@@ -23,6 +23,7 @@ import { Content } from "../../types/tmdb";
 
 import { detailLink } from "../../utils";
 import { LoadingGhost } from "../../assets";
+import Image from "next/image";
 
 const Titles = {
   movie: "Movies",
@@ -326,7 +327,7 @@ function Search({ show }: { show: boolean }) {
 
       {loading ? (
         <Loading>
-          <img src={LoadingGhost} alt="loading" />
+          <Image src={LoadingGhost} alt="loading" />
           Getting results...
         </Loading>
       ) : (
@@ -410,9 +411,10 @@ function ResultSection({ data, type, weight, cb }: CardProps) {
               {(type === "person"
                 ? content.profile_path
                 : content.poster_path) && (
-                <img
+                <Image
                   alt="People"
-                  width="65"
+                  width="65px"
+                  height="100px"
                   src={image(
                     92,
                     type === "person"

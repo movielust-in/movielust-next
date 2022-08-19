@@ -1,26 +1,149 @@
-html,
-body {
-  padding: 0;
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
-}
+@import url('https://fonts.googleapis.com/css?family=Pirata+One|Rubik:900');
 
-a {
-  color: inherit;
-  text-decoration: none;
+:root {
+    --toastify-toast-min-height: 50px;
+    --toastify-toast-max-height: 50px;
+    --toastify-icon-color-error: rgba(255, 0, 0, 0.6);
+
+    --header-height: 50px;
 }
 
 * {
   box-sizing: border-box;
 }
 
-@media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
+html,
+body {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.app_container {
+  @media (max-width: 724px) {
+      margin-bottom: 50px;
   }
-  body {
+  @media (max-width: 724px) and (display-mode: standalone),
+      (max-width: 870px) and (display-mode: standalone) {
+      padding-top: 55px;
+  }
+}
+
+.header_logo {
+  @media (max-width: 724px) and (display-mode: standalone) {
+      display: none;
+  }
+}
+
+
+body {
+    width: 100%;
+    margin: 0;
+    padding: 0;
     color: white;
-    background: black;
-  }
+    overflow-y: scroll;
+    background-color: #090c14;
+    font-family: 'bariolregular', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+        'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+    font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
+}
+
+body::-webkit-scrollbar {
+    width: 8px;
+}
+
+body::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 6px rgba(255, 255, 255, 0.1);
+}
+
+body::-webkit-scrollbar-thumb {
+    background-color: darkgrey;
+    outline: 1px solid slategrey;
+    border-radius: 8px;
+}
+
+body::-webkit-scrollbar-thumb:hover {
+    background-color: grey;
+    outline: 1px solid darkgrey;
+}
+
+body::-webkit-scrollbar-thumb:active {
+    background-color: grey;
+    outline: 2px solid darkgrey;
+}
+
+a {
+    text-decoration: none;
+}
+
+.react-multi-carousel-list {
+    overflow: visible !important;
+}
+
+.fill {
+    object-fit: fill;
+}
+
+.force-no-hover-transform > div:hover {
+    transform: none !important;
+}
+
+.genre-filter-active {
+    background: rgb(148, 148, 148);
+    color: rgb(0, 0, 0);
+}
+
+.swiper-button-prev,
+.swiper-button-next {
+    display: none !important;
+    margin: 0;
+}
+
+.swiper-button-prev::after,
+.swiper-button-next::after {
+    border-radius: 8px;
+    color: rgba(255, 255, 255, 0.6);
+    background: rgba(1, 1, 1, 0.4);
+    padding: 70%;
+    border: 1px solid silver;
+    position: absolute !important;
+}
+
+.swiper-button-prev::after {
+    margin-left: 15px;
+}
+
+.swiper-button-next::after {
+    margin-right: 40px;
+}
+
+.mejs__logo-button {
+    display: none !important;
+}
+
+.type-icon fa-icon {
+    display: none !important;
+}
+
+.ReactModal__Overlay {
+    opacity: 0;
+    transition: opacity 400ms ease-in-out;
+}
+
+.ReactModal__Overlay--after-open {
+    opacity: 1;
+}
+
+.ReactModal__Overlay--before-close {
+    opacity: 0;
+}
+
+.swiper_carousel {
+    overflow: visible;
 }

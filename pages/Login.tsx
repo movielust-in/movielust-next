@@ -1,12 +1,10 @@
 import { useEffect, useState } from "react";
 import * as Yup from "yup";
 
-import { useRouter as useNavigate } from "next/router";
+import { useRouter } from "next/router";
 import { toast } from "react-toastify";
 
 import { useDispatch } from "../redux";
-import { useQuery } from "../hooks";
-// import { Form, Validate } from '../components';
 import Form from "../components/Form/Form";
 import Validate from "../components/Form/Validation";
 import { setUserLogin } from "../redux/reducers/user.reducer";
@@ -18,15 +16,13 @@ function Login() {
     document.title = "Login - Movielust";
   }, []);
 
-  const query = useQuery();
-
-  const navigate = useNavigate();
+  const router = useRouter();
 
   const dispatch = useDispatch();
 
   const [submitting, setSubmitting] = useState(false);
 
-  let redirectTo = query.get("redirectto") || "/";
+  let redirectTo = (router.query["redirectto"] || "/") as string;
 
   redirectTo =
     redirectTo !== "/" &&
@@ -86,7 +82,7 @@ function Login() {
         dispatch(setUserLogin(userObj));
         localStorage.setItem("movielust_user", user.token);
         localStorage.setItem("user", JSON.stringify(userObj));
-        navigate.push(redirectTo);
+        router.push(redirectTo);
       }
     } catch (err: any) {
       toast(err.response.data.message);

@@ -1,22 +1,27 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef } from "react";
 
-export default function useEventListener(eventName: string, handler: any, element = window) {
-    const handlerInstance: any = useRef();
+export default function useEventListener(
+  eventName: string,
+  handler: any,
+  element = null
+) {
+  const handlerInstance: any = useRef();
 
-    useEffect(() => {
-        if (handler instanceof Function) handlerInstance.current = handler;
-        else handlerInstance.current = () => {};
-    }, [handler]);
+  useEffect(() => {
+    if (handler instanceof Function) handlerInstance.current = handler;
+    else handlerInstance.current = () => {};
+  }, [handler]);
 
-    useEffect(() => {
-        const isSupported = element && element.addEventListener;
-        if (!isSupported) return () => {};
+  useEffect(() => {
+    const isSupported =
+      (element || window) && (element || window).addEventListener;
+    if (!isSupported) return () => {};
 
-        const eventListener = (event: any) => handlerInstance.current(event);
-        element.addEventListener(eventName, eventListener);
+    const eventListener = (event: any) => handlerInstance.current(event);
+    (element || window).addEventListener(eventName, eventListener);
 
-        return () => {
-            element.removeEventListener(eventName, eventListener);
-        };
-    }, [eventName, element]);
+    return () => {
+      (element || window).removeEventListener(eventName, eventListener);
+    };
+  }, [eventName, element]);
 }

@@ -22,7 +22,7 @@ import {
   PhoneImage,
 } from "../../assets";
 
-import "../../styles/avatar_modal.css";
+import styles from "../../styles/avatar_modal.module.scss";
 import Spinner from "../UI/Spinner";
 
 interface FormProps {
@@ -86,14 +86,14 @@ function Form({ formik, fields, isSubmitting, extraData }: FormProps) {
             {fields.name === "Login" ? (
               <Logo
                 submitting={isSubmitting}
-                src={LoginImage}
+                src={LoginImage.src}
                 alt="personlogin"
               />
             ) : null}
             {fields.name === "Contact Us" ? (
               <Logo
                 submitting={isSubmitting}
-                src={PhoneImage}
+                src={PhoneImage.src}
                 alt="personlogin"
               />
             ) : null}
@@ -101,7 +101,7 @@ function Form({ formik, fields, isSubmitting, extraData }: FormProps) {
             {fields.name === "Reset Password" ? (
               <Logo
                 submitting={isSubmitting}
-                src={ForgotPassImage}
+                src={ForgotPassImage.src}
                 alt="personlogin"
               />
             ) : null}
@@ -110,7 +110,7 @@ function Form({ formik, fields, isSubmitting, extraData }: FormProps) {
             fields.name === "Create New Password" ? (
               <Logo
                 submitting={isSubmitting}
-                src={PasswordImage}
+                src={PasswordImage.src}
                 alt="personlogin"
               />
             ) : null}
@@ -178,7 +178,7 @@ function Form({ formik, fields, isSubmitting, extraData }: FormProps) {
                           isOpen={isModalOpen}
                           onRequestClose={closeModal}
                           style={customStyles}
-                          className="avatar_modal"
+                          className={styles.avatar_modal}
                           contentLabel="profile"
                           ariaHideApp={false}
                         >

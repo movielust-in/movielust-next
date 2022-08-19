@@ -1,247 +1,250 @@
-import { useState, useCallback, useRef } from 'react';
-import ReactModal from 'react-modal';
-import styled from '@emotion/styled';
-import { FaAngleLeft, FaAngleRight, FaExpand, FaTimes } from 'react-icons/fa';
+import { useState, useCallback, useRef } from "react";
+import ReactModal from "react-modal";
+import { default as NextImage } from "next/image";
+import styled from "@emotion/styled";
+import { FaAngleLeft, FaAngleRight, FaExpand, FaTimes } from "react-icons/fa";
 
-import { useEventListener, useSwipeEvent } from '../../hooks';
-import { PlayerSpinner } from '../../assets';
+import { useEventListener, useSwipeEvent } from "../../hooks";
+import { PlayerSpinner } from "../../assets";
 
 const customStyles: ReactModal.Styles = {
-    overlay: {
-        backgroundColor: 'rgba(1,1,1,0.6)',
-        position: 'fixed',
-        top: 0,
-        left: 0,
-        right: 0,
-        bottom: 0,
-        zIndex: 999999999999,
-    },
-    content: {
-        top: '50%',
-        left: '50%',
-        right: 'auto',
-        bottom: 'auto',
-        transform: 'translate(-50%, -50%)',
-        zIndex: 999999999999,
-        padding: 0,
-        overflow: 'hidden',
-    },
+  overlay: {
+    backgroundColor: "rgba(1,1,1,0.6)",
+    position: "fixed",
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    zIndex: 999999999999,
+  },
+  content: {
+    top: "50%",
+    left: "50%",
+    right: "auto",
+    bottom: "auto",
+    transform: "translate(-50%, -50%)",
+    zIndex: 999999999999,
+    padding: 0,
+    overflow: "hidden",
+  },
 };
 
 interface ModalProps {
-    imagess?: string[];
-    onClose: Function;
-    at?: number;
+  imagess?: string[];
+  onClose: Function;
+  at?: number;
 }
 
 Modal.defaultProps = {
-    imagess: ['https://image.tmdb.org/t/p/original/1953j0QEbtN17WFFTnJHIm6bn6I.jpg'],
-    at: 0,
+  imagess: [
+    "https://image.tmdb.org/t/p/original/1953j0QEbtN17WFFTnJHIm6bn6I.jpg",
+  ],
+  at: 0,
 };
 
-ReactModal.setAppElement('#root');
+ReactModal.setAppElement("#root");
 
 function Modal({ imagess, onClose, at }: ModalProps) {
-    const [index, setState] = useState(at || 0);
-    const [loading, setLoading] = useState(true);
+  const [index, setState] = useState(at || 0);
+  const [loading, setLoading] = useState(true);
 
-    const imgRef = useRef();
+  const imgRef = useRef();
 
-    const images = imagess || [
-        'https://image.tmdb.org/t/p/original/1953j0QEbtN17WFFTnJHIm6bn6I.jpg',
-    ];
+  const images = imagess || [
+    "https://image.tmdb.org/t/p/original/1953j0QEbtN17WFFTnJHIm6bn6I.jpg",
+  ];
 
-    const nextSlide = useCallback(() => {
-        if (!loading) {
-            setState((state) => {
-                if (state < images.length - 1) {
-                    setLoading(true);
-                    return state + 1;
-                }
-                setLoading(true);
-                return 0;
-            });
+  const nextSlide = useCallback(() => {
+    if (!loading) {
+      setState((state) => {
+        if (state < images.length - 1) {
+          setLoading(true);
+          return state + 1;
         }
-    }, [images.length, loading]);
+        setLoading(true);
+        return 0;
+      });
+    }
+  }, [images.length, loading]);
 
-    const prevSlide = useCallback(() => {
-        if (!loading) {
-            setState((state) => {
-                if (state > 0) {
-                    setLoading(true);
-                    return state - 1;
-                }
-                setLoading(true);
-                return images.length - 1;
-            });
+  const prevSlide = useCallback(() => {
+    if (!loading) {
+      setState((state) => {
+        if (state > 0) {
+          setLoading(true);
+          return state - 1;
         }
-    }, [images.length, loading]);
+        setLoading(true);
+        return images.length - 1;
+      });
+    }
+  }, [images.length, loading]);
 
-    const keyBoardNavigation = useCallback(
-        (e: KeyboardEvent) => {
-            if (e.key === 'ArrowRight') {
-                nextSlide();
-            } else if (e.key === 'ArrowLeft') {
-                prevSlide();
-            } else if (e.key === 'Escape') {
-                onClose();
-            }
-        },
-        [nextSlide, prevSlide, onClose]
-    );
+  const keyBoardNavigation = useCallback(
+    (e: KeyboardEvent) => {
+      if (e.key === "ArrowRight") {
+        nextSlide();
+      } else if (e.key === "ArrowLeft") {
+        prevSlide();
+      } else if (e.key === "Escape") {
+        onClose();
+      }
+    },
+    [nextSlide, prevSlide, onClose]
+  );
 
-    useEventListener('keydown', keyBoardNavigation);
+  useEventListener("keydown", keyBoardNavigation);
 
-    const loaded = () => {
-        setLoading(false);
-    };
+  const loaded = () => {
+    setLoading(false);
+  };
 
-    const tasks = {
-        left: prevSlide,
-        right: nextSlide,
-    };
+  const tasks = {
+    left: prevSlide,
+    right: nextSlide,
+  };
 
-    useSwipeEvent(tasks, imgRef);
+  useSwipeEvent(tasks, imgRef);
 
-    const fullScreen = () => {
-        if (imgRef.current) {
-            if (document.fullscreenElement === null) {
-                (imgRef.current as any).requestFullscreen();
-            } else {
-                document.exitFullscreen();
-            }
-        }
-    };
+  const fullScreen = () => {
+    if (imgRef.current) {
+      if (document.fullscreenElement === null) {
+        (imgRef.current as any).requestFullscreen();
+      } else {
+        document.exitFullscreen();
+      }
+    }
+  };
 
-    return (
-        <ReactModal isOpen onRequestClose={onClose as any} style={customStyles}>
-            <Container ref={imgRef as any}>
-                {loading && (
-                    <Loader>
-                        <img src={PlayerSpinner} alt="loading" />
-                    </Loader>
-                )}
-                <Image
-                    onDoubleClick={fullScreen}
-                    extends={90}
-                    src={images[index]}
-                    alt=""
-                    onLoad={loaded}
-                />
-                <Prev onClick={prevSlide}>
-                    <FaAngleLeft />
-                </Prev>
-                <Next onClick={nextSlide}>
-                    <FaAngleRight />
-                </Next>
-                <FullScreen onClick={fullScreen} />
-                <Cross role="presentation" onClick={onClose as any}>
-                    <FaTimes />
-                </Cross>
-            </Container>
-        </ReactModal>
-    );
+  return (
+    <ReactModal isOpen onRequestClose={onClose as any} style={customStyles}>
+      <Container ref={imgRef as any}>
+        {loading && (
+          <Loader>
+            <NextImage src={PlayerSpinner} alt="loading" />
+          </Loader>
+        )}
+        <Image
+          onDoubleClick={fullScreen}
+          extends={90}
+          src={images[index]}
+          alt=""
+          onLoad={loaded}
+        />
+        <Prev onClick={prevSlide}>
+          <FaAngleLeft />
+        </Prev>
+        <Next onClick={nextSlide}>
+          <FaAngleRight />
+        </Next>
+        <FullScreen onClick={fullScreen} />
+        <Cross role="presentation" onClick={onClose as any}>
+          <FaTimes />
+        </Cross>
+      </Container>
+    </ReactModal>
+  );
 }
 
 export default Modal;
 
 const Image = styled.img<{ extends: number }>`
-    height: ${(props) => (props.extends === 90 ? '35%' : '25%')};
-    object-fit: contain;
-    position: relative;
-    user-select: none;
-    &:fullscreen,
-    &:-webkit-full-screen {
-        height: 100%;
-        object-fit: fill;
-    }
+  height: ${(props) => (props.extends === 90 ? "35%" : "25%")};
+  object-fit: contain;
+  position: relative;
+  user-select: none;
+  &:fullscreen,
+  &:-webkit-full-screen {
+    height: 100%;
+    object-fit: fill;
+  }
 `;
 
 const Cross = styled.div`
-    cursor: pointer;
-    font-size: 2rem;
-    font-weight: 400;
-    margin: 10px;
-    padding: 5px;
+  cursor: pointer;
+  font-size: 2rem;
+  font-weight: 400;
+  margin: 10px;
+  padding: 5px;
 
-    @media (max-width: 724px) {
-        display: none;
-    }
+  @media (max-width: 724px) {
+    display: none;
+  }
 `;
 
 const Container = styled.div`
-    display: flex;
-    position: relative;
-    width: 80vw;
-    @media (max-width: 724px) {
-        flex-direction: column;
-        width: 90vw;
+  display: flex;
+  position: relative;
+  width: 80vw;
+  @media (max-width: 724px) {
+    flex-direction: column;
+    width: 90vw;
+  }
+  &:fullscreen,
+  &:-webkit-full-screen {
+    width: 100vw;
+    height: 100vh;
+    ${Cross} {
+      font-size: 3rem;
+      position: absolute;
+      right: 80px;
     }
-    &:fullscreen,
-    &:-webkit-full-screen {
-        width: 100vw;
-        height: 100vh;
-        ${Cross} {
-            font-size: 3rem;
-            position: absolute;
-            right: 80px;
-        }
-        img {
-            height: 100%;
-            object-fit: contain;
-        }
+    img {
+      height: 100%;
+      object-fit: contain;
     }
+  }
 `;
 
 const Loader = styled.div`
-    align-items: center;
-    background: rgba(1, 1, 1, 0.4);
-    display: flex;
-    height: 100%;
-    justify-content: center;
-    margin: auto;
-    position: absolute;
-    width: 100%;
-    z-index: 1;
-    img {
-        width: 60px;
-    }
+  align-items: center;
+  background: rgba(1, 1, 1, 0.4);
+  display: flex;
+  height: 100%;
+  justify-content: center;
+  margin: auto;
+  position: absolute;
+  width: 100%;
+  z-index: 1;
+  img {
+    width: 60px;
+  }
 `;
 
 const Nav = styled.button`
-    align-items: center;
-    background: rgba(1, 1, 1, 0.1);
-    border: none;
-    color: white;
-    cursor: pointer;
-    display: flex;
-    font-size: 3.5rem;
-    font-weight: 100;
-    height: 100%;
-    justify-content: center;
+  align-items: center;
+  background: rgba(1, 1, 1, 0.1);
+  border: none;
+  color: white;
+  cursor: pointer;
+  display: flex;
+  font-size: 3.5rem;
+  font-weight: 100;
+  height: 100%;
+  justify-content: center;
 
-    padding: 10px;
-    position: absolute;
-    user-select: none;
-    @media (max-width: 724px) {
-        font-size: 2rem;
-    }
+  padding: 10px;
+  position: absolute;
+  user-select: none;
+  @media (max-width: 724px) {
+    font-size: 2rem;
+  }
 `;
 
 const Prev = styled(Nav)`
-    left: 0;
+  left: 0;
 `;
 const Next = styled(Nav)`
-    right: 0;
+  right: 0;
 `;
 
 const FullScreen = styled(FaExpand)`
-    bottom: 50px;
-    font-size: 1.2rem;
-    position: absolute;
-    right: 120px;
-    @media (max-width: 724px) {
-        right: 60px;
-        bottom: 20px;
-    }
+  bottom: 50px;
+  font-size: 1.2rem;
+  position: absolute;
+  right: 120px;
+  @media (max-width: 724px) {
+    right: 60px;
+    bottom: 20px;
+  }
 `;

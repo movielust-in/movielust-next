@@ -4,18 +4,17 @@ import { keyframes } from "@emotion/react";
 import Link from "next/link";
 import { FaTimes } from "react-icons/fa";
 
-import { discoverMovie } from "../api/tmdb/movies";
-import { image } from "../api/Urls";
-// import { GenreFilter, Wrap, SortBy } from '../components';
+import { discoverMovie } from "../../api/tmdb/movies";
+import { image } from "../../api/Urls";
 
-import SortBy from "../components/Filters/SortBy";
-import GenreFilter from "../components/Filters/GenreFilter";
-import Wrap from "../components/CarouselSlices/Wrap";
+import SortBy from "../../components/Filters/SortBy";
+import GenreFilter from "../../components/Filters/GenreFilter";
+import Wrap from "../../components/CarouselSlices/Wrap";
 
-import { useDispatch, useSelector } from "../redux/store";
-import { MovieResult } from "../types/tmdb";
+import { useDispatch, useSelector } from "../../redux/store";
+import { MovieResult } from "../../types/tmdb";
 
-import { MOVIE_GENRES } from "../config";
+import { MOVIE_GENRES } from "../../config";
 
 import {
   addMovies,
@@ -23,9 +22,9 @@ import {
   resetMovies,
   setTotalPages as setTotalPagesStore,
   toggleMovieGenreId,
-} from "../redux/reducers/movie.reducer";
-import { detailLink } from "../utils";
-import getGenreName from "../utils/getGenreName";
+} from "../../redux/reducers/movie.reducer";
+import { detailLink } from "../../utils";
+import getGenreName from "../../utils/getGenreName";
 
 const options = { root: null, rootMargin: "20px", threshold: 1.0 };
 
@@ -62,9 +61,12 @@ function Movie() {
     if (target.isIntersecting) incrementCurrentPage();
   };
 
-  const observer = useRef(new IntersectionObserver(handleObserver, options));
+  const observer = useRef<IntersectionObserver>();
 
   useEffect(() => {
+    if (!observer.current)
+      observer.current = new IntersectionObserver(handleObserver, options);
+
     const currentObserver = observer.current;
 
     if (trigger) currentObserver.observe(trigger);
@@ -120,22 +122,27 @@ function Movie() {
       <CardContainer>
         {Object.values(data).map((results) =>
           results.map((movie) => (
-            <Card
+            <Link
               key={movie.id}
               href={detailLink("movie", movie.id!, movie.title!)}
             >
-              <Wrap
-                src={image(200, movie.poster_path!)}
-                showCard
-                alt={movie.title!}
-                title={movie.title!}
-                backdrop={movie.backdrop_path!}
-                description={movie.overview!}
-                genres={
-                  movie.genre_ids?.map((id) => getGenreName(id, "movie")) || []
-                }
-              />
-            </Card>
+              <a>
+                <Card style={{ width: "150px" }}>
+                  <Wrap
+                    src={image(200, movie.poster_path!)}
+                    showCard
+                    alt={movie.title!}
+                    title={movie.title!}
+                    backdrop={movie.backdrop_path!}
+                    description={movie.overview!}
+                    genres={
+                      movie.genre_ids?.map((id) => getGenreName(id, "movie")) ||
+                      []
+                    }
+                  />
+                </Card>
+              </a>
+            </Link>
           ))
         )}
       </CardContainer>
@@ -174,12 +181,15 @@ const Filters = styled.div`
 
 const CardContainer = styled.div`
   display: flex;
+  flex-direction: row;
+  justify-content: center;
   align-items: center;
   flex-wrap: wrap;
-  justify-content: center;
+  margin-top: 70px;
+  min-height: 100vh;
   @media (max-width: 724px) {
-    justify-content: space-between;
-    padding: 0;
+    padding: 0 10px;
+    margin-top: 0;
   }
 `;
 
@@ -206,11 +216,11 @@ from{transform:translateX(100%);}
 to{transform:translateX(0);}
 `;
 
-const Card = styled(Link)`
+const Card = styled.div`
   animation: ${slideIn} 500ms ease linear;
-  position: relative;
   margin: 10px;
   width: 150px;
+
   @media (max-width: 724px) {
     width: 120px;
     margin: 15px 0;

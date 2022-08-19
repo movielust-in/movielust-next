@@ -88,14 +88,14 @@ function Form({ formik, steps, fields, isSubmitting, login }: FormProps) {
               {fields.name === "Login" ? (
                 <Logo
                   submitting={isSubmitting}
-                  src={LoginImage}
+                  src={LoginImage.src}
                   alt="personlogin"
                 />
               ) : null}
               {fields.name === "Contact Us" ? (
                 <Logo
                   submitting={isSubmitting}
-                  src={PhoneImage}
+                  src={PhoneImage.src}
                   alt="personlogin"
                 />
               ) : null}
@@ -103,7 +103,7 @@ function Form({ formik, steps, fields, isSubmitting, login }: FormProps) {
               {fields.name === "Reset Password" ? (
                 <Logo
                   submitting={isSubmitting}
-                  src={ForgotPassImage}
+                  src={ForgotPassImage.src}
                   alt="personlogin"
                 />
               ) : null}

@@ -136,7 +136,7 @@ function Account() {
             )}
           </ProfilePicture>
         ) : (
-          <ProfilePicture src={LoginImage}>
+          <ProfilePicture src={LoginImage.src}>
             {isUpdating ? (
               <Spinner width="70%" />
             ) : (
@@ -198,7 +198,7 @@ function Account() {
           contentLabel="profile"
           ariaHideApp={false}
         >
-          <Sadimg src={SadImage} alt="Sad" />
+          <Sadimg src={SadImage.src} alt="Sad" />
           <DeletePrompt>Are you sure?</DeletePrompt>
           <div>
             <No onClick={confirmDelete}>No</No>

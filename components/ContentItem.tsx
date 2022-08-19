@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 import styled from "@emotion/styled";
 import { keyframes } from "@emotion/react";
-import { detailLink } from "../../utils";
+import { detailLink } from "../utils";
 
 interface WatchlistItemProps {
   id: number;

@@ -10,7 +10,7 @@ import { motion } from "framer-motion";
 
 import Link from "next/link";
 
-import { useRouter as useNavigate, useRouter } from "next/router";
+import { useRouter } from "next/router";
 
 import {
   MdPlaylistPlay as WatchlistIcon,
@@ -38,7 +38,6 @@ interface HeaderProps {
 }
 
 function Header({ isOnline }: HeaderProps) {
-  const navigate = useNavigate();
   const router = useRouter();
 
   const hash = router.asPath.split("#")[1];
@@ -81,17 +80,17 @@ function Header({ isOnline }: HeaderProps) {
       clearInterval(interval);
       clearTimeout(reactGATimeout);
     };
-  }, [router]);
+  }, [hash, router]);
 
   const showSearch = () => {
     if (hash && hash.includes("search")) {
-      navigate.push(
+      router.push(
         router.pathname + location.search + hash.replace("search", "")
       );
-    } else if (hash.includes("#")) {
-      navigate.push(`${router.pathname + location.search + hash}search`);
+    } else if (hash && hash.includes("#")) {
+      router.push(`${router.pathname + location.search + hash}search`);
     } else {
-      navigate.push(`${router.pathname + location.search}#search`);
+      router.push(`${router.pathname + location.search}#search`);
     }
   };
 
@@ -106,19 +105,19 @@ function Header({ isOnline }: HeaderProps) {
         animate={{ y: 0, opacity: 1 }}
         fixed={hash && hash.includes("search")}
         opacity={
-          (!hash.includes("search") && !hash.includes("player")
+          (!hash || (!hash.includes("search") && !hash.includes("player"))
             ? scroll / 100
             : 1) || 0
         }
       >
-        {window.matchMedia("(display-mode: standalone)").matches ? (
-          <Back onClick={() => navigate.push("-1")} />
+        {true || window.matchMedia("(display-mode: standalone)").matches ? (
+          <Back onClick={() => router.back()} />
         ) : null}
 
         <Link href="/" className="header_logo">
           <a>
             <Logo
-              src={MovielustLogo}
+              src={MovielustLogo.src}
               alt="Movielust Logo"
               className="header_logo"
             />
@@ -148,7 +147,7 @@ function Header({ isOnline }: HeaderProps) {
             </a>
           </Link>
 
-          <Link href="/discover/series">
+          <Link href="/discover/shows">
             <a>
               <SeriesIcon />
               <Title active={router.pathname === "/discover/series"}>
@@ -171,17 +170,17 @@ function Header({ isOnline }: HeaderProps) {
               role="presentation"
               src={user.avatar as string}
               onClick={() => {
-                navigate.push("/account");
+                router.push("/account");
               }}
               onError={({ currentTarget }) => {
                 currentTarget.onerror = null; // prevents looping
-                currentTarget.src = LoginImage;
+                currentTarget.src = LoginImage.src;
               }}
             />
           ) : !user.isLoggingIn ? (
             <LoginPromt
               onClick={() => {
-                navigate.push(`/login?redirectto=${router.pathname}`);
+                router.push(`/login?redirectto=${router.pathname}`);
               }}
             >
               LOGIN

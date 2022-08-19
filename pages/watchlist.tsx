@@ -3,22 +3,20 @@ import { useEffect, useState } from "react";
 import Helmet from "next/head";
 import styled from "@emotion/styled";
 
-import { useDispatch, useSelector } from "../../redux";
+import { useDispatch, useSelector } from "../redux";
 
-import { fetchWatchlist, removeFromWL } from "../../api/user/watchlist";
+import { fetchWatchlist, removeFromWL } from "../api/user/watchlist";
 
 import {
   setWatchlist,
   setWatchlistView,
   removeFromWatchlist,
-} from "../../redux/reducers/watchlist.reducer";
+} from "../redux/reducers/watchlist.reducer";
 
-// import { LoginRedirect, Loading } from '../../components';
+import LoginRedirect from "../components/UI/LoginRedirect";
+import Loading from "../components/UI/Loading";
 
-import LoginRedirect from "../../components/UI/LoginRedirect";
-import Loading from "../../components/UI/Loading";
-
-import WatchlistItem from "./WatchlistItem";
+import ContetnCard from "../components/ContentItem";
 
 function Watchlist() {
   const dispatch = useDispatch();
@@ -34,7 +32,6 @@ function Watchlist() {
       if (res === true) {
         dispatch(removeFromWatchlist({ id, view }));
       }
-      // eslint-disable-next-line no-empty
     } catch {}
   };
 
@@ -91,7 +88,8 @@ function Watchlist() {
               {watchlist[view === "movie" ? "movies" : "series"].length ? (
                 watchlist[view === "movie" ? "movies" : "series"].map(
                   (movie) => (
-                    <WatchlistItem
+                    <ContetnCard
+                      key={movie.id}
                       id={movie.id!}
                       title={(movie.title || movie.name)!}
                       overview={movie.overview!}
@@ -108,7 +106,7 @@ function Watchlist() {
           )}
         </Container>
       ) : (
-        <LoginRedirect afterLoginRedirectTo={window.location.pathname} />
+        <LoginRedirect afterLoginRedirectTo={"/watchlist"} />
       )}
     </>
   );
