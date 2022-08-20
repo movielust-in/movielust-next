@@ -88,10 +88,10 @@ const Detail = ({ data }: DetailProps) => {
         location={router}
       />
 
-      {type === "tv" && data && data.title && (
+      {type === "tv" && data && data.name && (
         <Seasons
-          id={id!}
-          title={data.title}
+          id={id}
+          title={data.name}
           totalSeasons={data.number_of_seasons}
           setSeasonMagnets={() => {}}
         />
@@ -142,7 +142,7 @@ const Detail = ({ data }: DetailProps) => {
         />
       )}
 
-      {data?.genres?.length !== 0 && (
+      {type === "movie" && data?.genres?.length !== 0 && (
         <SimilarMovies
           id={id!}
           type={type!}
@@ -223,6 +223,12 @@ export const getServerSideProps: GetServerSideProps = async ({ query }) => {
     else if (numOfSeasons > 1)
       data = { ...data, runtime: `${numOfSeasons} Seasons` };
     else data = { ...data, runtime: "1 Season" };
+
+    const firstYear = showData.first_air_date!.slice(0, 4);
+    const lastYear = showData.last_air_date?.slice(0, 4) || firstYear;
+
+    if (firstYear === lastYear) data = { ...data, release_date: lastYear };
+    else data = { ...data, release_date: `${firstYear}-${lastYear}` };
   }
 
   const externalIds = await fetchExternalIds(id, type);
