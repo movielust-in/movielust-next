@@ -24,6 +24,7 @@ import CastCarousel from "../../../components/Carousels/CastCarousel";
 import ImageCrousel from "../../../components/Carousels/ImageCrousel";
 import ProductionCompanies from "../../../components/Carousels/ProductionCompanies";
 import SimilarMovies from "../../../components/Movies/SimilarMovies";
+import DetailHelmet from "../../../components/Details/DetailHelmet";
 interface DetailProps {
   contentData: DetailResponse;
 }
@@ -44,6 +45,27 @@ const Detail: NextPage<DetailProps> = ({ contentData }) => {
 
   return (
     <div className={styles.Container}>
+      <DetailHelmet
+        link={router.asPath}
+        commonData={{
+          id,
+          title: contentData.title || contentData.name || "",
+          backdrop: contentData.backdrop_path,
+          poster: contentData.poster_path,
+          overview: contentData.overview,
+          prodCompanies: contentData.production_companies,
+          cast: contentData.credits.cast,
+          tmdbRating: contentData.vote_average,
+          voteCount: contentData.vote_count,
+          genres: contentData.genres,
+          genreString:
+            contentData?.genres?.map((genre: Genre) => genre.name).join(", ") ||
+            "",
+          original_language: contentData.original_language,
+          imdbId: contentData.imdb_id,
+        }}
+      />
+
       <BackgroundImage backdrop={contentData.backdrop_path} />
       <PosterAndIframe
         id={id}

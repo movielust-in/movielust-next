@@ -34,6 +34,8 @@ function PersonCard({ title, src, alt }: WrapPros) {
         </Loading>
       )}
       <Photo
+        width={200}
+        height={300}
         src={imgSrc}
         alt={alt || "no alt"}
         onLoad={onLoad}
@@ -142,7 +144,7 @@ interface PhotoProps {
   opaque: boolean;
 }
 
-const Photo = styled.img<PhotoProps>`
+const Photo = styled(Image)<PhotoProps>`
   min-height: 100%;
   object-fit: contain;
   opacity: ${(props) => (props.opaque ? 1 : 0)};
