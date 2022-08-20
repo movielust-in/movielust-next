@@ -38,7 +38,7 @@ function ShowAllCasts() {
         setIsLoading(false);
       });
     };
-    fetchDetails(id, type).then((data) => {
+    fetchDetails(id, type).then(({ data }) => {
       settitle(data.name);
 
       setBackdrop(data.backdrop_path);

@@ -35,7 +35,7 @@ function ImgSlider() {
       if (!(movies && movies.results)) return;
 
       const externalIdsRes = await Promise.all(
-        movies.results.map((movie) => fetchExternalIds(movie.id!))
+        movies.results.map((movie) => fetchExternalIds(movie.id!, "movie"))
       );
 
       const imdbIds = externalIdsRes.map(

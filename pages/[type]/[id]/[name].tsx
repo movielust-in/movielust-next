@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { GetServerSideProps } from "next";
+import { GetServerSideProps, NextPage } from "next";
 import { useRouter } from "next/router";
 
 import BackgroundImage from "../../../components/Details/BackgroundImage";
@@ -11,7 +11,7 @@ import {
   fetchExternalIds,
 } from "../../../helpers/tmdb/movies";
 import { fetchTvImages as fetchImages } from "../../../helpers/tmdb/series";
-import { ShowResponse } from "../../../types/tmdb";
+import { Genre, ShowResponse } from "../../../types/tmdb";
 import tmdbClient from "../../../helpers/tmdbClient";
 import { VIDEO } from "../../../helpers/Urls";
 import PosterAndIframe from "../../../components/Details/PosterAndIframe";
@@ -25,12 +25,10 @@ import ImageCrousel from "../../../components/Carousels/ImageCrousel";
 import ProductionCompanies from "../../../components/Carousels/ProductionCompanies";
 import SimilarMovies from "../../../components/Movies/SimilarMovies";
 interface DetailProps {
-  contentData: DetailProps;
+  contentData: any;
 }
 
-const Detail = ({ contentData }: DetailProps) => {
-  console.log(contentData);
-
+const Detail: NextPage<DetailProps> = ({ contentData }) => {
   const [loadingMovieIframe, setMovieIframeLoading] = useState(false);
 
   const iframeLoaded = () => {
@@ -69,7 +67,9 @@ const Detail = ({ contentData }: DetailProps) => {
           tmdbRating: contentData.vote_average,
           voteCount: contentData.vote_count,
           genres: contentData.genres,
-          genreString: contentData.genres.map((genre) => genre.name).join(", "),
+          genreString: contentData.genres
+            .map((genre: Genre) => genre.name)
+            .join(", "),
           original_language: contentData.original_language,
           imdbId: contentData.imdb_id,
         }}
@@ -112,8 +112,9 @@ const Detail = ({ contentData }: DetailProps) => {
       {contentData &&
       contentData.collection &&
       contentData.collection.parts &&
-      contentData.collection.parts.filter((movie) => movie.poster_path !== null)
-        .length > 1 ? (
+      contentData.collection.parts.filter(
+        (movie: any) => movie.poster_path !== null
+      ).length > 1 ? (
         <div
           // style={{
           //   backgroundColor: `rgba(${domColor[0]}, ${domColor[1]}, ${domColor[2]}, 0.3)`,

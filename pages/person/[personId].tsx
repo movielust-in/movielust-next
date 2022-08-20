@@ -233,11 +233,7 @@ function PeopleDeatail() {
             </MobileImages>
 
             {popularPeople && (
-              <CastCarousel
-                cast={popularPeople}
-                title="Popular"
-                dom={domColor}
-              />
+              <CastCarousel cast={popularPeople} title="Popular" />
             )}
           </LowerContainer>
         </>

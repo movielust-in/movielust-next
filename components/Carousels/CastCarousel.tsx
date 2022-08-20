@@ -15,7 +15,6 @@ interface CastCarouselProps {
   title: string;
   type?: string;
   id?: string;
-  dom: any;
   contentTitle?: string;
 }
 
@@ -30,7 +29,6 @@ function CastCarousel({
   title,
   type,
   id,
-  dom,
   contentTitle,
 }: CastCarouselProps) {
   const router = useRouter();
@@ -97,7 +95,7 @@ function CastCarousel({
 
 export default memo(CastCarousel);
 
-const BigContainer = styled.div<{ dom?: any }>`
+const BigContainer = styled.div`
   border-radius: 15px;
   box-shadow: 5px 3px 20px black;
   margin-top: 10px;

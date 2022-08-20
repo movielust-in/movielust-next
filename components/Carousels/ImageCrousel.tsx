@@ -40,8 +40,8 @@ function ImageCrousel({ images, type, title, dom }: ImageCrouselProps) {
           <Carousel carosel_id="image_slider">
             {images &&
               images
-                .filter((movie) => movie !== null)
-                .map((movie, index) => (
+                .filter((movie: any) => movie !== null)
+                .map((movie: any, index: number) => (
                   <SwiperSlide key={movie.file_path}>
                     <Wrapper
                       role="presentation"
@@ -66,7 +66,8 @@ function ImageCrousel({ images, type, title, dom }: ImageCrouselProps) {
           at={modalIndex}
           onClose={closeModal}
           imagess={images.map(
-            (movie) => `https://image.tmdb.org/t/p/w1280/${movie.file_path}`
+            (movie: any) =>
+              `https://image.tmdb.org/t/p/w1280/${movie.file_path}`
           )}
         />
       ) : open ? (
@@ -74,7 +75,8 @@ function ImageCrousel({ images, type, title, dom }: ImageCrouselProps) {
           at={modalIndex}
           onClose={closeModal}
           imagess={images.map(
-            (movie) => `https://image.tmdb.org/t/p/w1280/${movie.file_path}`
+            (movie: any) =>
+              `https://image.tmdb.org/t/p/w1280/${movie.file_path}`
           )}
         />
       ) : null}
