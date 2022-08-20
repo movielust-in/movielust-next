@@ -1,0 +1,93 @@
+{
+    "short_name": "Movielust",
+    "name": "Movielust",
+    "description": "Movielust is India's largest free streaming platform that offers a wide variety of premium TV shows, movies, anime, documentaries and even more",
+
+    "icons": [
+        {
+            "src": "images/maskable/48.png",
+            "sizes": "48x48",
+            "type": "image/png",
+            "purpose": "any"
+        },
+        {
+            "src": "images/maskable/72.png",
+            "sizes": "72x72",
+            "type": "image/png",
+            "purpose": "any"
+        },
+        {
+            "src": "images/maskable/96.png",
+            "sizes": "96x96",
+            "type": "image/png",
+            "purpose": "any"
+        },
+        {
+            "src": "images/maskable/128.png",
+            "sizes": "128x128",
+            "type": "image/png",
+            "purpose": "any"
+        },
+        {
+            "src": "images/maskable/192.png",
+            "sizes": "192x192",
+            "type": "image/png",
+            "purpose": "any"
+        },
+        {
+            "src": "images/maskable/384.png",
+            "sizes": "384x384",
+            "type": "image/png",
+            "purpose": "any"
+        },
+        {
+            "src": "images/maskable/512.png",
+            "sizes": "512x512",
+            "type": "image/png",
+            "purpose": "any"
+        }
+    ],
+    "shortcuts": [
+        {
+            "name": "Movies",
+            "short_name": "Movie",
+            "description": "Watch new movies",
+            "url": "/discover/movies",
+            "icons": [{ "src": "images/maskable/192.png", "sizes": "192x192" }]
+        },
+        {
+            "name": "Shows",
+            "short_name": "Shows",
+            "description": "Watch new Series",
+            "url": "/discover/series",
+            "icons": [{ "src": "images/maskable/192.png", "sizes": "192x192" }]
+        },
+        {
+            "name": "Search",
+            "short_name": "Search",
+            "description": "Search Movies, Shows and celebrities.",
+            "url": "/#search",
+            "icons": [{ "src": "images/maskable/192.png", "sizes": "192x192" }]
+        },
+        {
+            "name": "Watchlist",
+            "short_name": "Watchlist",
+            "description": "Access your watchlist.",
+            "url": "/watchlist",
+            "icons": [{ "src": "images/maskable/192.png", "sizes": "192x192" }]
+        },
+        {
+            "name": "Account",
+            "short_name": "Account",
+            "description": "Your Movielust Account.",
+            "url": "/account",
+            "icons": [{ "src": "images/maskable/192.png", "sizes": "192x192" }]
+        }
+    ],
+
+    "start_url": "/",
+    "display": "standalone",
+    "display_override": ["window-controls-overlay"],
+    "theme_color": "#090c14",
+    "background_color": "#090c14"
+}

@@ -61,27 +61,21 @@ function ImageCrousel({ images, type, title, dom }: ImageCrouselProps) {
         </Container>
       ) : null}
 
-      {open && (type === "movie" || type === "tv") ? (
+      {open && images && (type === "movie" || type === "tv") ? (
         <ImageModal
           at={modalIndex}
           onClose={closeModal}
-          imagess={
-            posters &&
-            posters.map(
-              (movie) => `https://image.tmdb.org/t/p/w1280/${movie.file_path}`
-            )
-          }
+          imagess={images.map(
+            (movie) => `https://image.tmdb.org/t/p/w1280/${movie.file_path}`
+          )}
         />
       ) : open ? (
         <PeopleModal
           at={modalIndex}
           onClose={closeModal}
-          imagess={
-            posters &&
-            posters.map(
-              (movie) => `https://image.tmdb.org/t/p/w1280/${movie.file_path}`
-            )
-          }
+          imagess={images.map(
+            (movie) => `https://image.tmdb.org/t/p/w1280/${movie.file_path}`
+          )}
         />
       ) : null}
     </>

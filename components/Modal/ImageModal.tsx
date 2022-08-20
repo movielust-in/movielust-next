@@ -138,7 +138,7 @@ function Modal({ imagess, onClose, at }: ModalProps) {
           <FaAngleRight />
         </Next>
         <FullScreen onClick={fullScreen} />
-        <Cross role="presentation" onClick={onClose as any}>
+        <Cross className="cross" role="presentation" onClick={onClose as any}>
           <FaTimes />
         </Cross>
       </Container>
@@ -184,7 +184,7 @@ const Container = styled.div`
   &:-webkit-full-screen {
     width: 100vw;
     height: 100vh;
-    ${Cross} {
+    .cross {
       font-size: 3rem;
       position: absolute;
       right: 80px;

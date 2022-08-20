@@ -25,11 +25,11 @@ import ImageCrousel from "../../../components/Carousels/ImageCrousel";
 import ProductionCompanies from "../../../components/Carousels/ProductionCompanies";
 import SimilarMovies from "../../../components/Movies/SimilarMovies";
 interface DetailProps {
-  data: DetailProps;
+  contentData: DetailProps;
 }
 
-const Detail = ({ data }: DetailProps) => {
-  console.log(data);
+const Detail = ({ contentData }: DetailProps) => {
+  console.log(contentData);
 
   const [loadingMovieIframe, setMovieIframeLoading] = useState(false);
 
@@ -42,16 +42,16 @@ const Detail = ({ data }: DetailProps) => {
   const id = router.query.id as string;
   const type = router.query.type as string;
 
-  if (!data) return <p>Loading....</p>;
+  if (!contentData) return <p>Loading....</p>;
 
   return (
     <div className={styles.Container}>
-      <BackgroundImage backdrop={data.backdrop_path} />
+      <BackgroundImage backdrop={contentData.backdrop_path} />
       <PosterAndIframe
         id={id}
-        poster={data.poster_path}
+        poster={contentData.poster_path}
         showMovie={false}
-        trailerKey={data.trailerKey}
+        trailerKey={contentData.trailerKey}
         iframeLoaded={iframeLoaded}
       />
 
@@ -60,59 +60,59 @@ const Detail = ({ data }: DetailProps) => {
         type={type}
         commonData={{
           id,
-          title: data.title,
-          backdrop: data.backdrop_path,
-          poster: data.poster_path,
-          overview: data.overview,
-          prodCompanies: data.production_companies,
-          cast: data.credits.cast,
-          tmdbRating: data.vote_average,
-          voteCount: data.vote_count,
-          genres: data.genres,
-          genreString: data.genres.map((genre) => genre.name).join(", "),
-          original_language: data.original_language,
-          imdbId: data.imdb_id,
+          title: contentData.title,
+          backdrop: contentData.backdrop_path,
+          poster: contentData.poster_path,
+          overview: contentData.overview,
+          prodCompanies: contentData.production_companies,
+          cast: contentData.credits.cast,
+          tmdbRating: contentData.vote_average,
+          voteCount: contentData.vote_count,
+          genres: contentData.genres,
+          genreString: contentData.genres.map((genre) => genre.name).join(", "),
+          original_language: contentData.original_language,
+          imdbId: contentData.imdb_id,
         }}
-        releaseDate={data.release_date}
-        releaseYear={data.release_date.split(" ")[-1]}
+        releaseDate={contentData.release_date}
+        releaseYear={contentData.release_date.split(" ")[-1]}
         playMovie={() => {}}
         loadingMovieIframe={loadingMovieIframe}
         showMovie={false}
         IMDBRating={{ rating: 8, votes: 1000 }}
         magnets={[]}
-        runtime={data.runtime}
-        externalIds={data.externalIds}
-        released={data.released}
+        runtime={contentData.runtime}
+        externalIds={contentData.externalIds}
+        released={contentData.released}
         addToWatchlsit={() => {}}
         playWebtor={() => {}}
         location={router}
       />
 
-      {type === "tv" && data && data.name && (
+      {type === "tv" && contentData && contentData.name && (
         <Seasons
           id={id}
-          title={data.name}
-          totalSeasons={data.number_of_seasons}
+          title={contentData.name}
+          totalSeasons={contentData.number_of_seasons}
           setSeasonMagnets={() => {}}
         />
       )}
 
       {/* Cast */}
       {type === "movie" &&
-        data?.credits?.cast &&
-        data?.credits?.cast.length !== 0 && (
+        contentData?.credits?.cast &&
+        contentData?.credits?.cast.length !== 0 && (
           <CastCarousel
-            cast={data.credits.cast}
+            cast={contentData.credits.cast}
             title="Featured Cast"
             type="movie"
             // dom={domColor}
           />
         )}
 
-      {data &&
-      data.collection &&
-      data.collection.parts &&
-      data.collection.parts.filter((movie) => movie.poster_path !== null)
+      {contentData &&
+      contentData.collection &&
+      contentData.collection.parts &&
+      contentData.collection.parts.filter((movie) => movie.poster_path !== null)
         .length > 1 ? (
         <div
           // style={{
@@ -122,35 +122,37 @@ const Detail = ({ data }: DetailProps) => {
         >
           <MovieCarousel
             type={type!}
-            movies={data.collection.parts}
-            title={data.collection.name}
+            movies={contentData.collection.parts}
+            title={contentData.collection.name}
             showCard={false}
           />
         </div>
       ) : null}
 
       {/* IMAGES */}
-      {data.images && data.images.length >= 0 ? (
-        <ImageCrousel images={data.images} type={type} title="Images" />
+      {contentData.images && contentData.images.length >= 0 ? (
+        <ImageCrousel images={contentData.images} type={type} title="Images" />
       ) : null}
 
-      {data?.production_companies && data?.production_companies.length > 0 && (
-        <ProductionCompanies
-          data={data?.production_companies}
-          title="Production"
-          // dom={domColor}
-        />
-      )}
+      {contentData?.production_companies &&
+        contentData?.production_companies.length > 0 && (
+          <ProductionCompanies
+            data={contentData?.production_companies}
+            title="Production"
+            // dom={domColor}
+          />
+        )}
 
-      {type === "movie" && data?.genres?.length !== 0 && (
+      {/* TODO: move similar movie fetching logic to supabase functions */}
+      {type === "movie" && contentData?.genres?.length !== 0 && (
         <SimilarMovies
           id={id!}
           type={type!}
           title={
             type === "movie" ? "Movies you may like" : "Shows you may like"
           }
-          genres={data?.genres}
-          toBeFiltered={data.collection.parts}
+          genres={contentData?.genres}
+          toBeFiltered={contentData?.collection?.parts || []}
           // dom={domColor}
         />
       )}
@@ -160,11 +162,19 @@ const Detail = ({ data }: DetailProps) => {
 
 export default Detail;
 
-export const getServerSideProps: GetServerSideProps = async ({ query }) => {
+export const getServerSideProps: GetServerSideProps = async ({
+  query,
+  res,
+}) => {
   enum TYPE {
     movie = "movie",
     tv = "tv",
   }
+
+  res.setHeader(
+    "Cache-Control",
+    "public, s-maxage=604800, stale-while-revalidate=86400"
+  );
 
   const { id, type } = query as { id: string; type: string };
 
@@ -273,7 +283,7 @@ export const getServerSideProps: GetServerSideProps = async ({ query }) => {
 
   return {
     props: {
-      data,
+      contentData: data,
     },
   };
 };

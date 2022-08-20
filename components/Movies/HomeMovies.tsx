@@ -205,7 +205,7 @@ function Movies() {
 
       {TOTAL_NO_CAROUSELS > page && (
         <Trigger ref={ref} onClick={loadMore}>
-          <Image src={ColorSpinner} alt="loading" width="50px" />
+          <ColorSpinner alt="loading" width="50px" />
         </Trigger>
       )}
     </Container>

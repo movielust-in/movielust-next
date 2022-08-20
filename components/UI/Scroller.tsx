@@ -126,6 +126,7 @@ const Container = styled.div`
   align-items: flex-start;
   display: flex;
   flex-direction: column;
+  min-height: 90vh;
 `;
 
 const CardContainer = styled.div`

@@ -4,12 +4,11 @@ import Image from "next/future/image";
 import { MouseEventHandler, useState } from "react";
 import { image } from "../../helpers/Urls";
 
-import { ColorSpinner } from "../../assets";
-
 import ErroredImage from "../../assets/images/placeholder-image.png";
 import { Genre } from "../../types/tmdb";
 
 import styles from "./Wrap.module.scss";
+import { ColorSpinner } from "../../assets";
 
 interface WrapPros {
   src: string;
@@ -103,10 +102,9 @@ function Wrap({
       {/* Loading Spinner */}
       {loading ? (
         <div className={styles.loadingImg}>
-          <Image src={ColorSpinner} alt="loading" loading="lazy" />
+          <ColorSpinner width="45px" />
         </div>
       ) : null}
-
       {/* Poster */}
       <Image
         className={styles.image}
@@ -119,7 +117,6 @@ function Wrap({
         width={150}
         height={220}
       />
-
       {/* Hover Card */}
       {showCard ? (
         <div

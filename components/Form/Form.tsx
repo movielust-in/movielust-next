@@ -171,7 +171,7 @@ function Form({ formik, fields, isSubmitting, extraData }: FormProps) {
                     return (
                       <>
                         <ProfilePicture src={profile} submitting={isSubmitting}>
-                          <Edit onClick={openModal} />
+                          <Edit id="editProfilePicture" onClick={openModal} />
                         </ProfilePicture>
 
                         <Modal
@@ -306,11 +306,6 @@ const Title = styled.h2``;
 
 const List = styled.ul``;
 
-const threeSixty = keyframes`
-0% {opacity:1;transform:scale(1);}
-100% {opacity:0.2;transform:scale(0.8);}
-`;
-
 const Edit = styled(FaEdit)`
   background-color: rgba(1, 1, 1, 0.3);
   border-radius: 100%;
@@ -326,13 +321,13 @@ const Logo = styled.img<{ submitting: boolean }>`
   ${(props) =>
     props.submitting &&
     css`
-      animation: ${threeSixty} 1.5s ease 100ms infinite alternate;
+      animation: zoomInOut 1.5s ease 100ms infinite alternate;
     `}
   @media (max-width: 724px) {
     width: 30%;
   }
   &:hover {
-    ${Edit} {
+    #editProfilePicture {
       display: flex;
     }
   }
@@ -505,6 +500,6 @@ const ProfilePicture = styled.div<{ src: string; submitting: boolean }>`
   ${(props) =>
     props.submitting &&
     css`
-      animation: ${threeSixty} 1.5s ease 100ms infinite alternate;
+      animation: zoomInOut 1.5s ease 100ms infinite alternate;
     `}
 `;
