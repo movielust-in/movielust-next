@@ -1,58 +1,47 @@
-/* eslint-disable no-nested-ternary */
-import {
-  useState,
-  useEffect,
-  useRef,
-  useCallback,
-  memo,
-  lazy,
-  LazyExoticComponent,
-} from "react";
-
-// import ReactGA from "react-ga";
+import { useState, useEffect, useRef, useCallback, memo, lazy } from "react";
 
 import { toast } from "react-toastify";
 
+import dynamic from "next/dynamic";
+
 import { useRouter } from "next/router";
 
-import { useSelector, useDispatch } from "../redux";
+import { useSelector, useDispatch } from "../../../redux";
 
-import ImageCrousel from "../components/Carousels/ImageCrousel";
+import ImageCrousel from "../../../components/Carousels/ImageCrousel";
 
-import { addWatched } from "../api/user";
+import { addWatched } from "../../../api/user";
 
-import { fetchDetails } from "../api/tmdb";
+import { fetchDetails } from "../../../api/tmdb";
 
-import { fetchMagnets } from "../api/torrent";
+import { fetchMagnets } from "../../../api/torrent";
 
-import { fetchIMDBRating } from "../api/imdb";
+import { fetchIMDBRating } from "../../../api/imdb";
 
 import {
   fetchTvExternalIds,
   fetchTvImages as fetchImages,
   fetchAllTvCast,
-} from "../api/tmdb/series";
+} from "../../../api/tmdb/series";
 
-import { fetchCollection, fetchExternalIds } from "../api/tmdb/movies";
+import { fetchCollection, fetchExternalIds } from "../../../api/tmdb/movies";
 
-import { addToWatchlist } from "../api/user/watchlist";
+import { addToWatchlist } from "../../../api/user/watchlist";
 
-import { VIDEO } from "../api/Urls";
+import { VIDEO } from "../../../api/Urls";
 
 // import { Cast, Movie, Similar, Loading } from '../../components';
 
-import CastCarousel from "../components/Carousels/CastCarousel";
-import MovieCarousel from "../components/Carousels/MovieCarousel";
-import SimilarCarousel from "../components/Movies/SimilarMovies";
-import Loading from "../components/UI/Loading";
+import CastCarousel from "../../../components/Carousels/CastCarousel";
+import MovieCarousel from "../../../components/Carousels/MovieCarousel";
+import SimilarCarousel from "../../../components/Movies/SimilarMovies";
+import Loading from "../../../components/UI/Loading";
 
-import { FULL_MONTHS } from "../config";
+import { FULL_MONTHS } from "../../../config";
 
-import ProductionCompanies from "../components/Carousels/ProductionCompanies";
+import ProductionCompanies from "../../../components/Carousels/ProductionCompanies";
 
-import { useLockBodyScroll } from "../hooks";
-
-import { markRecentStale } from "../redux/reducers/recent.reducer";
+import { markRecentStale } from "../../../redux/reducers/recent.reducer";
 
 import {
   DetailResponse,
@@ -61,27 +50,30 @@ import {
   ShowResponse,
   TvImagesResponse,
   Video,
-} from "../types/tmdb";
+} from "../../../types/tmdb";
 
-import { Magnet } from "../types/apiResponses";
+import { Magnet } from "../../../types/apiResponses";
 
-import tmdbClient from "../api/tmdbClient";
+import tmdbClient from "../../../api/tmdbClient";
 
 import {
   addMovieToWatchlist,
   addShowToWatchlist,
-} from "../redux/reducers/watchlist.reducer";
-import InformationComponent from "../components/Details/Information";
-import DetailHelmet from "../components/Details/DetailHelmet";
-import Background from "../components/Details/BackgroundImage";
-import PosterAndIframe from "../components/Details/PosterAndIframe";
-import { CommonData, ImdbRating } from "../components/Details/DetailTypes";
+} from "../../../redux/reducers/watchlist.reducer";
+import InformationComponent from "../../../components/Details/Information";
+import DetailHelmet from "../../../components/Details/DetailHelmet";
+import Background from "../../../components/Details/BackgroundImage";
+import PosterAndIframe from "../../../components/Details/PosterAndIframe";
+import {
+  CommonData,
+  ImdbRating,
+} from "../../../components/Details/DetailTypes";
 
-import styles from "../components/Details/Detail.module.scss";
+import styles from "../../../components/Details/Detail.module.scss";
 
-let PlayerModal: LazyExoticComponent<any>;
+let PlayerModal: any;
 
-const Seasons = lazy(() => import("../components/Shows/Seasons"));
+const Seasons = dynamic(() => import("../../../components/Shows/Seasons"));
 
 function Detail() {
   const router = useRouter();
@@ -99,13 +91,20 @@ function Detail() {
   const [playerMag, setPlayerMag] = useState("");
 
   useEffect(() => {
-    if ((type !== "movie" && type !== "tv") || Number.isNaN(id)) {
-      router.push("/");
-    }
+    console.log(type, id, mag);
+
+    // if ((type !== "movie" && type !== "tv") || Number.isNaN(id)) {
+    //   router.push("/");
+    // }
 
     if (type === "tv")
-      PlayerModal = lazy(() => import("../components/Player/ShowPlayer"));
-    else PlayerModal = lazy(() => import("../components/Player/MoviePlayer"));
+      PlayerModal = dynamic(
+        () => import("../../../components/Player/ShowPlayer")
+      );
+    else
+      PlayerModal = dynamic(
+        () => import("../../../components/Player/MoviePlayer")
+      );
 
     if (mag !== null) {
       setPlayerMag(mag);
@@ -151,9 +150,8 @@ function Detail() {
   const [showMovie, toogleMovie] = useState(false);
   const [episodeToPlay, setEpitoPlay] = useState(0);
   const [seasonToPlay, setSeaToPlay] = useState(0);
-  const [loading, setLoading] = useState(false);
 
-  useLockBodyScroll(hash && hash.includes("player") ? true : false);
+  // useLockBodyScroll(hash && hash.includes("player") ? true : false);
 
   const setTrailer = useCallback(
     (videos: Video[], lang: string) => {
@@ -286,18 +284,18 @@ function Detail() {
   }, [locationUrl]);
 
   useEffect(() => {
-    if (called.current) return;
-
     called.current = true;
 
     (async () => {
+      if (!id) return;
+      if (!type) return;
+
       setMagnets([]);
       toogleMovie(false);
-      setLoading(true);
       setIMDBRating({ rating: 0, votes: 0 });
       setCollection([]);
 
-      const data = await fetchDetails(id!, type!);
+      const data = await fetchDetails(id, type);
 
       setCommonData({
         id: data.id!,
@@ -345,7 +343,6 @@ function Detail() {
             setMagnets([]);
           });
       }
-      setLoading(false);
     })();
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -437,12 +434,8 @@ function Detail() {
 
     return !isLoading ? (
       <>
-        <DetailHelmet commonData={commonData} />
-
-        <Background setDomColor={setDomColor} backdrop={commonData?.backdrop} />
-
-        {loading ? <Loading /> : null}
-
+        {/* <DetailHelmet commonData={commonData} /> */}
+        {/* <Background setDomColor={setDomColor} backdrop={commonData?.backdrop} /> */}
         <div className={styles.Container}>
           <PosterAndIframe
             id={id!}
@@ -561,8 +554,7 @@ function Detail() {
             />
           )}
         </div>
-
-        {type === "movie" &&
+        {/* {type === "movie" &&
         hash &&
         hash.includes("player") &&
         playable &&
@@ -578,7 +570,6 @@ function Detail() {
             onClose={closePlayerModal}
           />
         ) : null}
-
         {type === "tv" && hash && hash.includes("player") && playable ? (
           <PlayerModal
             title={commonData?.title}
@@ -588,11 +579,11 @@ function Detail() {
             magnets={seasonMags}
             episodemag={episodeMag}
           />
-        ) : null}
+        ) : null} */}
       </>
     ) : (
       <Loading />
     );
   };
 }
-export default memo(Detail as any);
+export default Detail;

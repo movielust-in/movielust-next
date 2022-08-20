@@ -42,7 +42,7 @@ Modal.defaultProps = {
   at: 0,
 };
 
-ReactModal.setAppElement("#root");
+// ReactModal.setAppElement("#root");
 
 function Modal({ imagess, onClose, at }: ModalProps) {
   const [index, setState] = useState(at || 0);
