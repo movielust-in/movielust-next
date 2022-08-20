@@ -7,11 +7,11 @@ import styles from "./Detail.module.scss";
 // const colorThief = new ColorThief();
 
 interface DetailBackgroundProps {
-  setDomColor: any;
+  // setDomColor: any;
   backdrop: string | undefined;
 }
 
-function BackgroundComp({ setDomColor, backdrop }: DetailBackgroundProps) {
+function BackgroundComp({ backdrop }: DetailBackgroundProps) {
   const backgroundRef = useRef<HTMLImageElement>();
 
   return (

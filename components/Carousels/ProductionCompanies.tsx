@@ -13,15 +13,21 @@ import ProductionWrap from "../CarouselSlices/ProductionWrap";
 interface ProductionCompaniesPros {
   data: any[];
   title: string;
-  dom: any;
+  // dom: any;
 }
 
 // const backgroundRef = useRef<HTMLImageElement>();
 
-function ProductionCompanies({ data, title, dom }: ProductionCompaniesPros) {
+function ProductionCompanies({
+  data,
+  title,
+}: // dom
+ProductionCompaniesPros) {
   const router = useRouter();
   return (
-    <Container dom={dom}>
+    <Container
+    // dom={dom}
+    >
       {title &&
       data.filter((detail) => detail.logo_path !== null).length > 0 ? (
         <Title>
@@ -68,17 +74,13 @@ function ProductionCompanies({ data, title, dom }: ProductionCompaniesPros) {
 
 export default ProductionCompanies;
 
-const Container = styled.div<{ dom: any }>`
+const Container = styled.div`
   border-radius: 15px;
   box-shadow: 5px 3px 30px black;
   margin: 10px 0;
   overflow: hidden;
   padding: 10px;
   position: relative;
-  @media (min-width: 724px) {
-    background-color: ${({ dom }) =>
-      dom.length > 0 ? `rgba(${dom[0]}, ${dom[1]}, ${dom[2]}, 0.2)` : ""};
-  }
 `;
 
 const Detail = styled.div`

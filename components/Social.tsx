@@ -43,7 +43,7 @@ function Social({ externalIds, type, name, title }: SocialProps) {
       {externalIds.instagram_id && (
         <Logo>
           <a href={Instagram} target="_blank" rel="noreferrer">
-            <Image src={InstagramIcon} alt="instagram" />
+            <InstagramIcon width="25px" height="25px" />
           </a>
         </Logo>
       )}
@@ -51,28 +51,28 @@ function Social({ externalIds, type, name, title }: SocialProps) {
         <Logo>
           {" "}
           <a href={Twitter} target="_blank" rel="noreferrer">
-            <Image src={TwitterIcon} alt="twitter" />
+            <TwitterIcon width="25px" height="25px" />
           </a>
         </Logo>
       )}
       {externalIds.facebook_id && (
         <Logo>
           <a href={Facebook} target="_blank" rel="noreferrer">
-            <Image alt="Facebook" src={FaceBookIcon} />
+            <FaceBookIcon width="25px" height="25px" />
           </a>
         </Logo>
       )}
       {externalIds.imdb_id && (
         <Logo>
           <a href={IMDB} target="_blank" rel="noreferrer">
-            <Image alt="Imdb" src={IMDBIcon} />
+            <IMDBIcon width="25px" height="25px" />
           </a>
         </Logo>
       )}
 
       <Wiki>
         <a href={Wikipedia} target="_blank" rel="noreferrer">
-          <Image alt="Wikipedia" src={WikiPediaIcon} />
+          <WikiPediaIcon width="25px" height="25px" />
         </a>
       </Wiki>
     </Socials>

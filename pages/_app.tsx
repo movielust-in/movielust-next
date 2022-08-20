@@ -6,6 +6,7 @@ import Layout from "../components/Layout";
 import "swiper/css";
 import "swiper/css/navigation";
 import "../styles/globals.css";
+import "../styles/font.css";
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (

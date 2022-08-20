@@ -54,10 +54,12 @@ export const discoverMovie = (filters: Filters, page: number) => {
   return tmdbClient.get<DiscoverMovieResponse>(DISCOVER_MOVIES, { params });
 };
 
-export const fetchCollection = (id: string): Promise<CollectionInfoResponse> =>
+export const fetchCollection = (
+  collectionId: string
+): Promise<CollectionInfoResponse> =>
   new Promise((resolve, reject) => {
     tmdbClient
-      .get<CollectionInfoResponse>(COLLECTION(id))
+      .get<CollectionInfoResponse>(COLLECTION(collectionId))
       .then((response) => {
         resolve(response.data);
       })
@@ -166,13 +168,14 @@ export const fetchMoviesOfAllGenres = () =>
   });
 
 export const fetchExternalIds = (
-  id: string | number
+  id: string | number,
+  type: string
 ): Promise<MovieExternalIdsResponse> =>
   new Promise((resolve, reject) => {
     (async () => {
       try {
         const res = await tmdbClient.get<MovieExternalIdsResponse>(
-          EXTERNAL_IDS(id)
+          EXTERNAL_IDS(id, type)
         );
         resolve(res.data);
       } catch (err) {

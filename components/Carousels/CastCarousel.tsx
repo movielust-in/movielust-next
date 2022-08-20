@@ -37,7 +37,9 @@ function CastCarousel({
   const casts = cast.slice(0, 20);
 
   return (
-    <BigContainer dom={dom}>
+    <BigContainer
+    // dom={dom}
+    >
       {type === "tv"
         ? cast.length > 0 && (
             <Title>
@@ -95,7 +97,7 @@ function CastCarousel({
 
 export default memo(CastCarousel);
 
-const BigContainer = styled.div<{ dom: any }>`
+const BigContainer = styled.div<{ dom?: any }>`
   border-radius: 15px;
   box-shadow: 5px 3px 20px black;
   margin-top: 10px;
@@ -103,14 +105,6 @@ const BigContainer = styled.div<{ dom: any }>`
   /* background: hsla(0, 0%, 100%, 0.2); */
   padding: 10px;
   position: relative;
-  @media (min-width: 724px) {
-    ${({ dom }) =>
-      dom.length > 0
-        ? css`
-            background-color: rgba(${dom[0]}, ${dom[1]}, ${dom[2]}, 0.2);
-          `
-        : ""};
-  }
 `;
 
 // const Title = styled.div`

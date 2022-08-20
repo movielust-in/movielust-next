@@ -1,6 +1,6 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
-import Image from "next/image";
+import Image from "next/future/image";
 import { MouseEventHandler, useState } from "react";
 import { image } from "../../helpers/Urls";
 
@@ -108,7 +108,7 @@ function Wrap({
       ) : null}
 
       {/* Poster */}
-      <img
+      <Image
         className={styles.image}
         src={imgSrc}
         alt={alt || "no alt"}
@@ -116,6 +116,8 @@ function Wrap({
         style={{ opacity }}
         onError={onError}
         loading="lazy"
+        width={150}
+        height={220}
       />
 
       {/* Hover Card */}

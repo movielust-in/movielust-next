@@ -12,7 +12,6 @@ interface SimilarMoviesProps {
   title: string;
   toBeFiltered: any[];
   genres: any;
-  dom: any;
 }
 
 function SimilarMovies({
@@ -21,7 +20,6 @@ function SimilarMovies({
   title,
   toBeFiltered,
   genres,
-  dom,
 }: SimilarMoviesProps) {
   const [similar, setSimilar] = useState<Array<Content | undefined>>();
 
@@ -47,7 +45,7 @@ function SimilarMovies({
   }, [genres, id, toBeFiltered, type]);
 
   return (
-    <Container dom={dom}>
+    <Container>
       {similar && similar.length > 0 ? (
         <MovieCarousel title={title} type={type} movies={similar} />
       ) : null}
@@ -60,20 +58,13 @@ export default memo(
   (prev, curr) => prev.id === curr.id && prev.type === curr.type
 );
 
-const Container = styled.div<{ dom: any }>`
+const Container = styled.div`
   border-radius: 15px;
   box-shadow: 5px 3px 30px black;
   margin-top: 10px;
   padding: 10px;
   position: relative;
-  @media (min-width: 724px) {
-    ${({ dom }) =>
-      dom.length > 0
-        ? css`
-            background-color: rgba(${dom[0]}, ${dom[1]}, ${dom[2]}, 0.2);
-          `
-        : ""};
-  }
+  overflow: hidden;
   @media (max-width: 724px) {
     overflow: hidden;
     padding: 5px;

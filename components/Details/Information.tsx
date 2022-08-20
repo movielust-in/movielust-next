@@ -17,6 +17,7 @@ import Spinner from "../../components/UI/Spinner";
 import styles from "./Detail.module.scss";
 import { image } from "../../helpers/Urls";
 import { PlayerSpinner } from "../../assets";
+import Image from "next/image";
 
 const openImdbRatingCharts = (movieImdbId: string) => {
   const IMDB = `https://www.imdb.com/title/${movieImdbId}/ratings`;
@@ -24,7 +25,7 @@ const openImdbRatingCharts = (movieImdbId: string) => {
 };
 
 interface InformationComponentProps {
-  domColor: any;
+  domColor?: any;
   type: string;
   commonData: CommonData | undefined;
   releaseDate: string | undefined;
@@ -98,9 +99,9 @@ export default function InformationComponent({
 
   return (
     <motion.div
-      style={{
-        backgroundColor: `rgba(${domColor[0]}, ${domColor[1]}, ${domColor[2]}, 0.3)`,
-      }}
+      // style={{
+      //   backgroundColor: `rgba(${domColor[0]}, ${domColor[1]}, ${domColor[2]}, 0.3)`,
+      // }}
       initial={{ y: 10, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       className={styles.Information}
@@ -136,7 +137,7 @@ export default function InformationComponent({
         {/* ShareButton for Whatsapp,FB */}
 
         {loadingShareImg ? (
-          <img
+          <Image
             src={PlayerSpinner}
             alt="loading"
             className={styles.ShareButton}

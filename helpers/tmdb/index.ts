@@ -4,16 +4,8 @@ import axios from "../tmdbClient";
 import { getAll } from "../Get";
 import { DETAIL, SIMILAR } from "../Urls";
 
-export const fetchDetails = (
-  id: string | number,
-  type: string
-): Promise<DetailResponse> =>
-  new Promise((resolve, reject) => {
-    axios
-      .get<DetailResponse>(DETAIL(id, type))
-      .then((response) => resolve(response.data))
-      .catch((err) => reject(err));
-  });
+export const fetchDetails = (id: string | number, type: string) =>
+  axios.get<DetailResponse>(DETAIL(id, type));
 
 export const fetchSimilar = (
   id: string | number,
