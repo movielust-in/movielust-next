@@ -1600,6 +1600,7 @@ export interface DetailResponse extends MovieResponse, TvResult {
   };
   runtime?: string;
   trailerKey?: string;
+  number_of_seasons?: number;
   images: MovieImagesResponse["backdrops"];
   similar: Content[];
   externalIds: MovieExternalIdsResponse;

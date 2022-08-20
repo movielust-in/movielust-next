@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import { useEffect, useState, useRef, MutableRefObject } from "react";
 import styled from "@emotion/styled";
 import { keyframes } from "@emotion/react";

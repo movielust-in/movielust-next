@@ -1,6 +1,9 @@
 import { useEffect } from "react";
 import styled from "@emotion/styled";
-import Footer from "../components/UI/Footer";
+
+import TMDB_LOGO from "../assets/images/svgs/tmdb_attr.svg";
+import YTS_LOGO from "../assets/images/yts_logo.png";
+import Image from "next/image";
 
 function Aboutus() {
   useEffect(() => {
@@ -21,18 +24,10 @@ function Aboutus() {
         <li>
           <div style={{ display: "flex", justifyContent: "space-between" }}>
             <a href="https://www.themoviedb.org/">
-              <img
-                width="100"
-                src="https://www.themoviedb.org/assets/2/v4/logos/v2/blue_short-8e7b30f73a4020692ccca9c88bafe5dcb6f8a62a4c6bc55cd9ba82bb2cd95f6c.svg"
-                alt="TMDB Logo"
-              />
+              <TMDB_LOGO width="100" alt="TMDB Logo" />
             </a>
             <a href="https://en.wikipedia.org/wiki/YIFY">
-              <img
-                width="40"
-                src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4e/Logo-YTS.svg/220px-Logo-YTS.svg.png"
-                alt="YTS logo"
-              />
+              <Image width={40} height={20} src={YTS_LOGO} alt="YTS logo" />
             </a>
           </div>
 

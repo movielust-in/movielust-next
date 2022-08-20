@@ -11,7 +11,7 @@ import {
   fetchExternalIds,
 } from "../../../helpers/tmdb/movies";
 import { fetchTvImages as fetchImages } from "../../../helpers/tmdb/series";
-import { Genre, ShowResponse } from "../../../types/tmdb";
+import { DetailResponse, Genre, ShowResponse } from "../../../types/tmdb";
 import tmdbClient from "../../../helpers/tmdbClient";
 import { VIDEO } from "../../../helpers/Urls";
 import PosterAndIframe from "../../../components/Details/PosterAndIframe";
@@ -25,7 +25,7 @@ import ImageCrousel from "../../../components/Carousels/ImageCrousel";
 import ProductionCompanies from "../../../components/Carousels/ProductionCompanies";
 import SimilarMovies from "../../../components/Movies/SimilarMovies";
 interface DetailProps {
-  contentData: any;
+  contentData: DetailResponse;
 }
 
 const Detail: NextPage<DetailProps> = ({ contentData }) => {
@@ -58,7 +58,7 @@ const Detail: NextPage<DetailProps> = ({ contentData }) => {
         type={type}
         commonData={{
           id,
-          title: contentData.title,
+          title: contentData.title || contentData.name || "",
           backdrop: contentData.backdrop_path,
           poster: contentData.poster_path,
           overview: contentData.overview,
@@ -67,14 +67,14 @@ const Detail: NextPage<DetailProps> = ({ contentData }) => {
           tmdbRating: contentData.vote_average,
           voteCount: contentData.vote_count,
           genres: contentData.genres,
-          genreString: contentData.genres
-            .map((genre: Genre) => genre.name)
-            .join(", "),
+          genreString:
+            contentData?.genres?.map((genre: Genre) => genre.name).join(", ") ||
+            "",
           original_language: contentData.original_language,
           imdbId: contentData.imdb_id,
         }}
         releaseDate={contentData.release_date}
-        releaseYear={contentData.release_date.split(" ")[-1]}
+        releaseYear={contentData?.release_date?.split(" ")[-1] || ""}
         playMovie={() => {}}
         loadingMovieIframe={loadingMovieIframe}
         showMovie={false}
@@ -82,20 +82,23 @@ const Detail: NextPage<DetailProps> = ({ contentData }) => {
         magnets={[]}
         runtime={contentData.runtime}
         externalIds={contentData.externalIds}
-        released={contentData.released}
+        released={contentData.released!}
         addToWatchlsit={() => {}}
         playWebtor={() => {}}
         location={router}
       />
 
-      {type === "tv" && contentData && contentData.name && (
-        <Seasons
-          id={id}
-          title={contentData.name}
-          totalSeasons={contentData.number_of_seasons}
-          setSeasonMagnets={() => {}}
-        />
-      )}
+      {type === "tv" &&
+        contentData &&
+        contentData.name &&
+        contentData.number_of_seasons && (
+          <Seasons
+            id={id}
+            title={contentData.name}
+            totalSeasons={contentData.number_of_seasons}
+            setSeasonMagnets={() => {}}
+          />
+        )}
 
       {/* Cast */}
       {type === "movie" &&

@@ -22,6 +22,7 @@ import {
 } from "../../redux/reducers/movie.reducer";
 import { ProductionCompany } from "../../types/tmdb";
 import { useRouter } from "next/router";
+import Image from "next/image";
 
 export function Production() {
   const [isLoading, setIsLoading] = useState(true);
@@ -79,7 +80,9 @@ export function Production() {
 
       {production && (
         <Title>
-          <img
+          <Image
+            width={200}
+            height={70}
             src={`https://image.tmdb.org/t/p/w300/${production.logo_path}`}
             alt="Logo"
           />

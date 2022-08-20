@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import { CommonData } from "./DetailTypes";
 import { TWO_EMBED } from "../../config";
 

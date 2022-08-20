@@ -1,6 +1,6 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
-import Image from "next/future/image";
+import Image from "next/image";
 import { MouseEventHandler, useState } from "react";
 import { image } from "../../helpers/Urls";
 

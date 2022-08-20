@@ -34,21 +34,20 @@ function PeopleMovies() {
     dispatch(setCurrentPage("peoplemovies"));
   }, [dispatch]);
 
-  const fetchMovies = () => {
-    fetchCastMovies(id).then((movies) => {
-      dispatch(setCastMovies(movies.results));
-      dispatch(
-        setCastMoviesTotal({
-          results: movies.total_results,
-          pages: movies.total_pages,
-        })
-      );
-    });
-  };
-
-  const reset = () => dispatch(resetMovies());
-
   useEffect(() => {
+    const reset = () => dispatch(resetMovies());
+
+    const fetchMovies = () => {
+      fetchCastMovies(id).then((movies) => {
+        dispatch(setCastMovies(movies.results));
+        dispatch(
+          setCastMoviesTotal({
+            results: movies.total_results,
+            pages: movies.total_pages,
+          })
+        );
+      });
+    };
     reset();
 
     setIsLoading(true);
@@ -60,7 +59,7 @@ function PeopleMovies() {
       setName(detail.name);
     });
     setIsLoading(false);
-  }, [fetchMovies, id, reset]);
+  }, [dispatch, id]);
 
   return isLoading ? (
     <Loading />

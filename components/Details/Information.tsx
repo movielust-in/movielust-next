@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 /* eslint-disable no-nested-ternary */
 import { useState } from "react";
 import { MdPlaylistAdd } from "react-icons/md";

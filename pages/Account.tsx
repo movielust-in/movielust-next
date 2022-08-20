@@ -18,6 +18,7 @@ import styles from "../styles/avatar_modal.module.scss";
 
 import { LoginImage, SadImage } from "../assets";
 import { Avatar } from "../types/avatar";
+import Image from "next/image";
 
 function Account() {
   const dispatch = useDispatch();
@@ -134,7 +135,7 @@ function Account() {
             {isUpdating ? (
               <Spinner width="70%" />
             ) : (
-              <Edit onClick={openModal} />
+              <Edit id="accountProfileEdit" onClick={openModal} />
             )}
           </ProfilePicture>
         ) : (
@@ -174,6 +175,7 @@ function Account() {
           {avatars &&
             avatars.length > 0 &&
             avatars.map((data) => (
+              // eslint-disable-next-line @next/next/no-img-element
               <img
                 role="presentation"
                 onClick={() => {
@@ -269,7 +271,7 @@ const LogOut = styled.button`
 `;
 
 const DeletePrompt = styled.h2`
-  animation: ${slideInU} 400ms ease 1;
+  /* animation: ${slideInU} 400ms ease 1; */
   color: white;
   margin: 10px;
   text-align: center;
@@ -287,12 +289,12 @@ const PromptButton = styled.button`
 `;
 
 const Yes = styled(PromptButton)`
-  animation: ${slideInR} 400ms ease 1;
+  /* animation: ${slideInR} 400ms ease 1; */
   background-color: rgba(255, 0, 0, 0.8);
 `;
 
 const No = styled(PromptButton)`
-  animation: ${slideInL} 400ms ease 1;
+  /* animation: ${slideInL} 400ms ease 1; */
   background-color: rgba(128, 128, 128, 0.8);
 `;
 
@@ -361,7 +363,7 @@ const Info = styled.div`
 `;
 
 const Sadimg = styled.img`
-  animation: ${slideInU} 500ms ease 1;
+  /* animation: ${slideInU} 500ms ease 1; */
   margin: 20px 0 0 0;
   width: 80px;
 `;
@@ -440,7 +442,7 @@ const ProfilePicture = styled.div<{ src: string }>`
   transition: all 200ms ease;
 
   &:hover {
-    ${Edit} {
+    #accountProfileEdit {
       display: flex;
     }
   }

@@ -58,7 +58,7 @@ function Loading({ delay }: LoadingProps) {
 
   return show ? (
     <Container>
-      <Image src={LoadingGhost.src} alt="loading" />
+      <Image src={LoadingGhost} alt="loading" />
       <p>{message}</p>
     </Container>
   ) : null;

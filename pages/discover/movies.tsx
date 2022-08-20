@@ -74,6 +74,7 @@ function Movie() {
     return () => {
       if (trigger) currentObserver.unobserve(trigger);
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [trigger]);
 
   // data fetching logic

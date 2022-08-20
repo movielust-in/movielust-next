@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import { MouseEventHandler, useEffect, useState } from "react";
 import styled from "@emotion/styled";
 import { FaAngleDown } from "react-icons/fa";

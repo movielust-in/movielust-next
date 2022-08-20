@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import { useRef, MutableRefObject } from "react";
 // @ts-ignore
 // import ColorThief from "colorthief";

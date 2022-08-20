@@ -154,11 +154,13 @@ function PeopleDeatail() {
           <UpperContainer>
             {/* Profile Poster */}
             <Profile>
-              <img
-                ref={backgroundRef as MutableRefObject<HTMLImageElement>}
+              <Image
+                // ref={backgroundRef as MutableRefObject<HTMLImageElement>}
                 onLoad={() => {
                   // setDomColor(colorThief.getColor(backgroundRef.current));
                 }}
+                width={300}
+                height={500}
                 crossOrigin="anonymous"
                 alt={name}
                 src={`https://image.tmdb.org/t/p/w500/${profile}`}

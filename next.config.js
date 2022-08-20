@@ -5,7 +5,6 @@ const nextConfig = {
   images: {
     domains: ["tmdb.org", "themoviedb.org", "image.tmdb.org"],
   },
-  experimental: { images: { allowFutureImage: true } },
   webpack(config) {
     config.module.rules.push({
       test: /\.svg$/i,
