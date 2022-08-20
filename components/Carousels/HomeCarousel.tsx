@@ -6,10 +6,10 @@ import { Navigation, Autoplay } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
 
 import { useDispatch, useSelector } from "../../redux";
-import { fetchTrending } from "../../api/tmdb/trending";
-import { fetchExternalIds } from "../../api/tmdb/movies";
-import { fetchIMDBRatings } from "../../api/imdb";
-import { image } from "../../api/Urls";
+import { fetchTrending } from "../../helpers/tmdb/trending";
+import { fetchExternalIds } from "../../helpers/tmdb/movies";
+import { fetchIMDBRatings } from "../../helpers/imdb";
+import { image } from "../../helpers/Urls";
 import { setTrending } from "../../redux/reducers/movie.reducer";
 import { detailLink } from "../../utils";
 

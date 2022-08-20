@@ -8,7 +8,11 @@ import { useRouter } from "next/router";
 import Form from "../components/Form/Form";
 import Validate from "../components/Form/Validation";
 
-import { sendEmailVerifyOtp, submitSingUp, verifyOtp } from "../api/user/auth";
+import {
+  sendEmailVerifyOtp,
+  submitSingUp,
+  verifyOtp,
+} from "../helpers/user/auth";
 
 interface StepOneDataInterface {
   email: string;

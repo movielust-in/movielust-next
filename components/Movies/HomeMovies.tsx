@@ -10,15 +10,15 @@ import {
   fetchBollywood,
   fetchSouth,
   fetchGujarati,
-} from "../../api/tmdb/movies";
+} from "../../helpers/tmdb/movies";
 
 import {
   fetchPopularSeries,
   fetchLatestSeries,
   fetchTopRatedAnimes,
-} from "../../api/tmdb/series";
+} from "../../helpers/tmdb/series";
 
-import { fetchTrendingToday } from "../../api/tmdb/trending";
+import { fetchTrendingToday } from "../../helpers/tmdb/trending";
 
 import { setHomeMovies } from "../../redux/reducers/movie.reducer";
 

@@ -8,7 +8,7 @@ import { useDispatch } from "../redux";
 import Form from "../components/Form/Form";
 import Validate from "../components/Form/Validation";
 import { setUserLogin } from "../redux/reducers/user.reducer";
-import { login as loginUser } from "../api/user/auth";
+import { login as loginUser } from "../helpers/user/auth";
 
 function Login() {
   useEffect(() => {

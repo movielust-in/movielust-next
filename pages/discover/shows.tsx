@@ -3,7 +3,7 @@ import styled from "@emotion/styled";
 import { FaTimes } from "react-icons/fa";
 import { useDispatch, useSelector } from "../../redux";
 
-import { discover } from "../../api/tmdb/series";
+import { discover } from "../../helpers/tmdb/series";
 import { setCurrentPage } from "../../redux/reducers/nav.reducer";
 import {
   addSeries,

@@ -13,9 +13,9 @@ import { keyframes, css } from "@emotion/react";
 import { useRouter } from "next/router";
 import { FaArrowLeft } from "react-icons/fa";
 
-import { image } from "../../api/Urls";
+import { image } from "../../helpers/Urls";
 
-import search from "../../api/tmdb/search";
+import search from "../../helpers/tmdb/search";
 
 import { useLockBodyScroll } from "../../hooks";
 

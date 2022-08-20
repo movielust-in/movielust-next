@@ -10,25 +10,28 @@ import { useSelector, useDispatch } from "../../../redux";
 
 import ImageCrousel from "../../../components/Carousels/ImageCrousel";
 
-import { addWatched } from "../../../api/user";
+import { addWatched } from "../../../helpers/user";
 
-import { fetchDetails } from "../../../api/tmdb";
+import { fetchDetails } from "../../../helpers/tmdb";
 
-import { fetchMagnets } from "../../../api/torrent";
+import { fetchMagnets } from "../../../helpers/torrent";
 
-import { fetchIMDBRating } from "../../../api/imdb";
+import { fetchIMDBRating } from "../../../helpers/imdb";
 
 import {
   fetchTvExternalIds,
   fetchTvImages as fetchImages,
   fetchAllTvCast,
-} from "../../../api/tmdb/series";
+} from "../../../helpers/tmdb/series";
 
-import { fetchCollection, fetchExternalIds } from "../../../api/tmdb/movies";
+import {
+  fetchCollection,
+  fetchExternalIds,
+} from "../../../helpers/tmdb/movies";
 
-import { addToWatchlist } from "../../../api/user/watchlist";
+import { addToWatchlist } from "../../../helpers/user/watchlist";
 
-import { VIDEO } from "../../../api/Urls";
+import { VIDEO } from "../../../helpers/Urls";
 
 // import { Cast, Movie, Similar, Loading } from '../../components';
 
@@ -54,7 +57,7 @@ import {
 
 import { Magnet } from "../../../types/apiResponses";
 
-import tmdbClient from "../../../api/tmdbClient";
+import tmdbClient from "../../../helpers/tmdbClient";
 
 import {
   addMovieToWatchlist,

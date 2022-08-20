@@ -7,7 +7,7 @@ import { toast } from "react-toastify";
 import Form from "../../components/Form/Form";
 import Validate from "../../components/Form/Validation";
 
-import { submitContactForm } from "../../api/user";
+import { submitContactForm } from "../../helpers/user";
 import { ContactFormInterface } from "../../types/requestData";
 
 function Contactus() {

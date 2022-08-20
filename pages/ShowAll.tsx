@@ -9,9 +9,9 @@ import {
   fetchallTRM,
   fetchallSouth,
   fetchallGujarati,
-} from "../api/tmdb/movies";
+} from "../helpers/tmdb/movies";
 
-import { fetchAllAnimes, fetchAllPopularSeries } from "../api/tmdb/series";
+import { fetchAllAnimes, fetchAllPopularSeries } from "../helpers/tmdb/series";
 import { AllResponse } from "../types/tmdb";
 import { useRouter } from "next/router";
 

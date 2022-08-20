@@ -10,7 +10,7 @@ import { motion } from "framer-motion";
 import { useSelector, useDispatch } from "../redux";
 import Spinner from "../components/UI/Spinner";
 import { setSignOut, setUserLogin } from "../redux/reducers/user.reducer";
-import { fetchAvatars, updateAvatar, deleteUser } from "../api/user";
+import { fetchAvatars, updateAvatar, deleteUser } from "../helpers/user";
 
 import { useLockBodyScroll } from "../hooks";
 

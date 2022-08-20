@@ -7,7 +7,7 @@ import StarRatings from "react-star-ratings";
 import Spinner from "../UI/Spinner";
 
 import Scrollbar from "../../styles/Scrollbar";
-import { fetchSimilar } from "../../api/tmdb";
+import { fetchSimilar } from "../../helpers/tmdb";
 import { Magnet } from "../../types/apiResponses";
 import {
   VideoContainer,

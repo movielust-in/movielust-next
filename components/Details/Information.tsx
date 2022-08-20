@@ -15,7 +15,7 @@ import { MovieExternalIdsResponse } from "../../types/tmdb";
 import Spinner from "../../components/UI/Spinner";
 
 import styles from "./Detail.module.scss";
-import { image } from "../../api/Urls";
+import { image } from "../../helpers/Urls";
 import { PlayerSpinner } from "../../assets";
 
 const openImdbRatingCharts = (movieImdbId: string) => {

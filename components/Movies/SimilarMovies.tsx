@@ -2,7 +2,7 @@ import React, { useState, useEffect, memo } from "react";
 import styled from "@emotion/styled";
 import { css } from "@emotion/react";
 
-import { fetchSimilar } from "../../api/tmdb";
+import { fetchSimilar } from "../../helpers/tmdb";
 import { Content } from "../../types/tmdb";
 import MovieCarousel from "../Carousels/MovieCarousel";
 

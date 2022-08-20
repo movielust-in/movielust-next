@@ -13,7 +13,7 @@ import Modal from "react-modal";
 import OtpInput from "../OtpInput/otpInput";
 import FormContainer from "./FormContainer";
 
-import { fetchAvatars } from "../../api/user";
+import { fetchAvatars } from "../../helpers/user";
 
 import {
   ForgotPassImage,

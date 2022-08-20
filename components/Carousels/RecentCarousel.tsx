@@ -5,7 +5,7 @@ import Link from "next/link";
 
 import { useDispatch, useSelector } from "../../redux";
 
-import { fetchWatched } from "../../api/user";
+import { fetchWatched } from "../../helpers/user";
 import Carousel from "./Carousel";
 import WrapH from "../CarouselSlices/Wrap_Horizantal";
 import { setRecents } from "../../redux/reducers/recent.reducer";

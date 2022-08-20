@@ -2,7 +2,7 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 import Image from "next/image";
 import { MouseEventHandler, useState } from "react";
-import { image } from "../../api/Urls";
+import { image } from "../../helpers/Urls";
 
 import { ColorSpinner } from "../../assets";
 

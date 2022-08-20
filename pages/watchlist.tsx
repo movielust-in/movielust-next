@@ -5,7 +5,7 @@ import styled from "@emotion/styled";
 
 import { useDispatch, useSelector } from "../redux";
 
-import { fetchWatchlist, removeFromWL } from "../api/user/watchlist";
+import { fetchWatchlist, removeFromWL } from "../helpers/user/watchlist";
 
 import {
   setWatchlist,

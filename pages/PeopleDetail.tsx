@@ -10,7 +10,7 @@ import {
   fetchPersonTvCredits,
   fetchPeopleExternalIds,
   fetchPersonImage,
-} from "../api/tmdb/person";
+} from "../helpers/tmdb/person";
 
 // import { Loading, Movie as MovieCarousel, Cast, Social } from '../components';
 

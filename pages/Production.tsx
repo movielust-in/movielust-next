@@ -2,8 +2,8 @@ import { useEffect, useState } from "react";
 import styled from "@emotion/styled";
 import { useDispatch, useSelector } from "../redux";
 
-import { fetchCompanies } from "../api/tmdb/company";
-import { fetchCompanyMovies, CompaniesTopImages } from "../api/tmdb/movies";
+import { fetchCompanies } from "../helpers/tmdb/company";
+import { fetchCompanyMovies, CompaniesTopImages } from "../helpers/tmdb/movies";
 
 // import { Loading, Scroller } from '../components';
 

@@ -4,8 +4,8 @@ import { keyframes } from "@emotion/react";
 import Link from "next/link";
 import { FaTimes } from "react-icons/fa";
 
-import { discoverMovie } from "../../api/tmdb/movies";
-import { image } from "../../api/Urls";
+import { discoverMovie } from "../../helpers/tmdb/movies";
+import { image } from "../../helpers/Urls";
 
 import SortBy from "../../components/Filters/SortBy";
 import GenreFilter from "../../components/Filters/GenreFilter";

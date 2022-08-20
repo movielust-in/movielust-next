@@ -4,8 +4,8 @@ import { keyframes } from "@emotion/react";
 
 import { useRouter } from "next/router";
 
-import { fetchDetails } from "../../api/tmdb";
-import { fetchAllTvCast } from "../../api/tmdb/series";
+import { fetchDetails } from "../../helpers/tmdb";
+import { fetchAllTvCast } from "../../helpers/tmdb/series";
 
 // import { Loading, Scroller } from '..';
 

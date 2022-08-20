@@ -1,6 +1,6 @@
 import Helmet from "next/head";
 import { CommonData } from "./DetailTypes";
-import { image } from "../../api/Urls";
+import { image } from "../../helpers/Urls";
 
 interface DetailHelmetProps {
   commonData: CommonData | undefined;

@@ -16,10 +16,10 @@ import { motion } from "framer-motion";
 
 import { useDispatch, useSelector } from "../../redux";
 import Spinner from "../UI/Spinner";
-import { image } from "../../api/Urls";
-import { addWatched } from "../../api/user";
-import { fetchSeason } from "../../api/tmdb/series";
-import { fetchShowMagnets } from "../../api/torrent";
+import { image } from "../../helpers/Urls";
+import { addWatched } from "../../helpers/user";
+import { fetchSeason } from "../../helpers/tmdb/series";
+import { fetchShowMagnets } from "../../helpers/torrent";
 
 import { FULL_MONTHS, TWO_EMBED } from "../../config";
 import { LoadingGhost } from "../../assets";

@@ -10,8 +10,8 @@ import { Swiper, SwiperSlide } from "swiper/react";
 
 import Loading from "../UI/Loading";
 
-import { image } from "../../api/Urls";
-// import { CompaniesTopImages } from '../../api/tmdb/movies';
+import { image } from "../../helpers/Urls";
+// import { CompaniesTopImages } from '../../helpers/tmdb/movies';
 
 import { MovieResult } from "../../types/tmdb";
 import { detailLink } from "../../utils";

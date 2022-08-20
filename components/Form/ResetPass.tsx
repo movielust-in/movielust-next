@@ -8,7 +8,11 @@ import { useRouter } from "next/router";
 import Form from "./Form";
 import Validate from "./Validation";
 
-import { sendPassReOtp, verifyOtp, resetPassword } from "../../api/user/auth";
+import {
+  sendPassReOtp,
+  verifyOtp,
+  resetPassword,
+} from "../../helpers/user/auth";
 
 const FORM_NAME = "Reset Password";
 const OTP_HEADER = "Enter OTP";

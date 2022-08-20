@@ -7,8 +7,8 @@ import Loading from "../components/UI/Loading";
 import Scroller from "../components/UI/Scroller";
 
 import { setCurrentPage } from "../redux/reducers/nav.reducer";
-import { fetchPerson } from "../api/tmdb/person";
-import { fetchCastMovies } from "../api/tmdb/movies";
+import { fetchPerson } from "../helpers/tmdb/person";
+import { fetchCastMovies } from "../helpers/tmdb/movies";
 import {
   setCastMovies,
   setCastMoviesTotal,
