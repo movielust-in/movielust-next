@@ -1,0 +1,11 @@
+.container {
+  margin-top: 15px;
+  min-height: 200px;
+  h2 {
+    color: rgba(255, 255, 255, 0.9);
+    margin-left: 15px;
+  }
+  @media (max-width: 724px) {
+    min-height: 150px;
+  }
+}

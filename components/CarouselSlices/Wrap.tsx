@@ -6,6 +6,7 @@ import ErroredImage from "../../assets/images/placeholder-image.png";
 import { Genre } from "../../types/tmdb";
 
 import styles from "../../styles/Wrap.module.scss";
+import Shimmer from "../UI/Shimmer";
 
 interface WrapPros {
   src: string;
@@ -32,20 +33,6 @@ enum Directions {
   DOWN = "DOWN",
 }
 
-const shimmer = (w: number, h: number) => `
-<svg width="${w}" height="${h}" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-  <defs>
-    <linearGradient id="g">
-      <stop stop-color="#333" offset="20%" />
-      <stop stop-color="#222" offset="50%" />
-      <stop stop-color="#333" offset="70%" />
-    </linearGradient>
-  </defs>
-  <rect width="${w}" height="${h}" fill="#333" />
-  <rect id="r" width="${w}" height="${h}" fill="url(#g)" />
-  <animate xlink:href="#r" attributeName="x" from="-${w}" to="${w}" dur="1s" repeatCount="indefinite"  />
-</svg>`;
-
 function Wrap({
   src,
   alt,
@@ -55,17 +42,9 @@ function Wrap({
   genres,
   showCard,
 }: WrapPros) {
-  const [loading, setLoading] = useState(true);
-  const [opacity, setOpacity] = useState(0);
   const [imgSrc, setImgSrc] = useState(src);
 
-  const onLoad = () => {
-    setLoading(false);
-    setOpacity(1);
-  };
-
   const onError = () => {
-    setLoading(false);
     setImgSrc(ErroredImage.src);
   };
 
@@ -121,11 +100,9 @@ function Wrap({
         placeholder="blur"
         src={imgSrc}
         alt={alt || "no alt"}
-        onLoad={onLoad}
-        style={{ opacity }}
         onError={onError}
         loading="lazy"
-        blurDataURL={`data:image/svg+xml;base64,${toBase64(shimmer(150, 220))}`}
+        blurDataURL={Shimmer(150, 220)}
         width={150}
         height={220}
       />

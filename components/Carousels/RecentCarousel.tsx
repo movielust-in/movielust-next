@@ -12,6 +12,8 @@ import { setRecents } from "../../redux/reducers/recent.reducer";
 import { detailLink } from "../../utils";
 import { detailLinkWithEpisode } from "../../utils/dashedTitle";
 
+import styles from "../../styles/recent_carousel.module.scss";
+
 const breakPoints = {
   1024: {
     slidesPerView: 4,
@@ -43,7 +45,7 @@ function RecentCarousel() {
   }, [dispatch, isStale]);
 
   return recents.length > 0 ? (
-    <Container>
+    <div className={styles.container}>
       <h2>Recently viewed</h2>
       <Carousel carosel_id="recent_carosel" breakPoints={breakPoints}>
         {recents.map((content: any) => (
@@ -80,20 +82,8 @@ function RecentCarousel() {
           </SwiperSlide>
         ))}
       </Carousel>
-    </Container>
+    </div>
   ) : null;
 }
 
 export default RecentCarousel;
-
-const Container = styled.div`
-  margin-top: 15px;
-  min-height: 200px;
-  h2 {
-    color: rgba(255, 255, 255, 0.9);
-    margin-left: 15px;
-  }
-  @media (max-width: 724px) {
-    min-height: 150px;
-  }
-`;

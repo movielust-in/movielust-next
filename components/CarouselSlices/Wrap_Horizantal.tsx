@@ -4,6 +4,7 @@ import NextImage from "next/image";
 import { WrapText, Loading } from "./Wrap-Styled";
 import Errored from "../../assets/images/placeholder-image-h.png";
 import { ColorSpinner } from "../../assets";
+import Shimmer from "../UI/Shimmer";
 
 interface WrapPros {
   src: string;
@@ -20,12 +21,10 @@ WrapH.defaultProps = {
 
 function WrapH({ src, alt, hover, title, rating }: WrapPros) {
   const [loading, setLoading] = useState(true);
-  const [opacity, setOpacity] = useState(false);
   const [imgSrc, setImgSrc] = useState(src);
 
   const onLoad = () => {
     setLoading(false);
-    setOpacity(true);
   };
 
   const onError = () => {
@@ -35,17 +34,14 @@ function WrapH({ src, alt, hover, title, rating }: WrapPros) {
 
   return src ? (
     <Wrapper hover={hover} loading={loading.toString()}>
-      {loading ? (
-        <Loading>
-          <NextImage src={ColorSpinner} alt="loading" />
-        </Loading>
-      ) : null}
-
-      <Image
+      <NextImage
+        width={400}
+        height={210}
         src={imgSrc}
         alt={alt || "no alt"}
         onLoad={onLoad}
-        opaque={opacity}
+        blurDataURL={Shimmer(400, 210)}
+        placeholder="blur"
         onError={onError}
         loading="lazy"
       />
