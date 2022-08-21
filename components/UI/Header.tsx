@@ -1,12 +1,5 @@
-/* eslint-disable no-nested-ternary */
-import { useState, useEffect, KeyboardEvent, lazy } from "react";
-
-import styled from "@emotion/styled";
-import { css } from "@emotion/react";
-
-// import ReactGA from "react-ga";
-
-import { motion } from "framer-motion";
+/* eslint-disable @next/next/no-img-element */
+import { useState, useEffect, KeyboardEvent } from "react";
 
 import Link from "next/link";
 
@@ -32,7 +25,11 @@ import { LoginImage, MovielustLogo } from "../../assets";
 
 import Spinner from "./Spinner";
 
-const Search = lazy(() => import("../Search/Search"));
+import styles from "../../styles/header.module.scss";
+
+import dynamic from "next/dynamic";
+
+const Search = dynamic(() => import("../Search/Search"));
 interface HeaderProps {
   isOnline: boolean;
 }
@@ -100,72 +97,89 @@ function Header({ isOnline }: HeaderProps) {
 
   return (
     <>
-      <NavBar
-        initial={{ y: 10, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        fixed={hash && hash.includes("search")}
-        opacity={
-          (!hash || (!hash.includes("search") && !hash.includes("player"))
-            ? scroll / 100
-            : 1) || 0
-        }
+      <nav
+        className={`${styles.Navbar} ${
+          !hash || (!hash.includes("search") && !hash.includes("player"))
+            ? scroll <= 20
+              ? styles.transparent
+              : styles.gradient
+            : styles.gradient
+        }`}
       >
         {true || window.matchMedia("(display-mode: standalone)").matches ? (
-          <Back onClick={() => router.back()} />
+          <LeftArrow className={styles.Back} onClick={() => router.back()} />
         ) : null}
 
         <Link href="/" className="header_logo">
           <a>
-            <Logo
+            <img
               src={MovielustLogo.src}
               alt="Movielust Logo"
-              className="header_logo"
+              className={`${styles.Logo} header_logo`}
             />
           </a>
         </Link>
 
-        <NavMenu>
+        <div className={styles.NavMenu}>
           <Link href="/">
             <a>
               <HomeIcon />
-              <Title active={router.pathname === "/"}>Home</Title>
+              <h1 className={styles.Title}>
+                {/* // active={router.pathname === "/"} */}
+                Home
+              </h1>
             </a>
           </Link>
           <Link href="/watchlist">
             <a>
               <WatchlistIcon />
-              <Title active={router.pathname === "/watchlist"}>Watchlist</Title>
+              <h1
+                className={styles.Title}
+                // active={router.pathname === "/watchlist"}
+              >
+                Watchlist
+              </h1>
             </a>
           </Link>
 
           <Link href="/discover/movies">
             <a>
               <MoviesIcon />
-              <Title active={router.pathname === "/discover/movies"}>
+              <h1
+                className={styles.Title}
+                // active={router.pathname === "/discover/movies"}
+              >
                 Movies
-              </Title>
+              </h1>
             </a>
           </Link>
 
           <Link href="/discover/shows">
             <a>
               <SeriesIcon />
-              <Title active={router.pathname === "/discover/series"}>
+              <h1
+                className={styles.Title}
+                // active={router.pathname === "/discover/series"}
+              >
                 Shows
-              </Title>
+              </h1>
             </a>
           </Link>
-        </NavMenu>
+        </div>
 
-        {isOnline ? null : <Offline>No internet!</Offline>}
+        {isOnline ? null : <div className={styles.Offline}>No internet!</div>}
 
-        <SearchIconContainer onClick={showSearch}>
+        <button
+          className={`${styles.LoginPrompt} ${styles.SearchIconContainer}`}
+          onClick={showSearch}
+        >
           <SearchIcon size={20} />
-        </SearchIconContainer>
+        </button>
 
-        <StatusContainer>
+        <div className={styles.StatusContainer}>
           {user.isLoggedIn ? (
-            <UserImg
+            <img
+              className={styles.UserImg}
               alt="avatar"
               role="presentation"
               src={user.avatar as string}
@@ -178,18 +192,19 @@ function Header({ isOnline }: HeaderProps) {
               }}
             />
           ) : !user.isLoggingIn ? (
-            <LoginPromt
+            <button
+              className={styles.LoginPrompt}
               onClick={() => {
                 router.push(`/signin?redirectto=${router.asPath}`);
               }}
             >
               LOGIN
-            </LoginPromt>
+            </button>
           ) : (
             <Spinner width={30} />
           )}
-        </StatusContainer>
-      </NavBar>
+        </div>
+      </nav>
 
       {searchView ? <Search show={searchView} /> : null}
     </>
@@ -197,177 +212,3 @@ function Header({ isOnline }: HeaderProps) {
 }
 
 export default Header;
-
-const NavBar = styled(motion.nav)<{ fixed: string | boolean; opacity: number }>`
-  align-items: center;
-  background-blend-mode: lighten;
-  display: flex;
-  height: 50px;
-  justify-content: space-between;
-  left: 0;
-  padding: 0 40px;
-  position: fixed;
-  top: 0;
-  user-select: none;
-  width: 100%;
-  z-index: 1001;
-  /* transition: all 500ms ease; */
-
-  @media (min-width: 724px) {
-    ${({ opacity }) => css`
-      background-color: rgba(3, 29, 48, ${opacity});
-      background-image: linear-gradient(
-        315deg,
-        rgba(9, 12, 20, ${opacity}) 0%,
-        rgba(3, 29, 48, ${opacity}) 79%
-      );
-    `}
-  }
-
-  @media (max-width: 724px), (max-width: 870px) {
-    position: relative;
-    height: 55px;
-    padding: 0 20px;
-    background-color: rgba(3, 29, 48, 1);
-    background-image: linear-gradient(
-      315deg,
-      rgba(9, 12, 20, 1) 0%,
-      rgba(3, 29, 48, 1) 79%
-    );
-  }
-
-  @media (max-width: 724px) and (display-mode: standalone),
-    (max-width: 870px) and (display-mode: standalone) {
-    position: fixed;
-    height: 55px;
-    padding: 0 20px;
-    background-color: rgba(3, 29, 48, 1);
-    background-image: linear-gradient(
-      315deg,
-      rgba(9, 12, 20, 1) 0%,
-      rgba(3, 29, 48, 1) 79%
-    );
-  }
-`;
-
-const Logo = styled.img`
-  cursor: pointer;
-  object-fit: contain;
-  padding: 5px;
-  width: 65px;
-  @media (max-width: 724px) {
-    width: 60px;
-  }
-`;
-
-const NavMenu = styled.div`
-  align-items: center;
-  display: flex;
-  flex: 1;
-  padding: 0 30px;
-  transition: all 0.5s;
-  a {
-    align-items: center;
-    color: white;
-    cursor: pointer;
-    display: flex;
-    padding: 0 12px;
-    text-decoration: none;
-    img {
-      height: 20px;
-    }
-    svg {
-      height: 20px;
-    }
-    &:hover {
-      span:after {
-        opacity: 1;
-        transform: scaleX(1.1) scaleY(1);
-      }
-    }
-  }
-  @media (max-width: 724px) {
-    display: none;
-  }
-`;
-
-const Title = styled.h1<{ active: boolean }>`
-  font-size: 13px;
-  letter-spacing: 1.42px;
-  position: relative;
-  vertical-align: middle;
-
-  &:after {
-    background: white;
-    bottom: -6px;
-    content: "";
-    height: 2px;
-    left: 0;
-    position: absolute;
-    right: 0;
-    transform-origin: left center;
-    transition: all 250ms cubic-bezier(0.25, 0.46, 0.45, 0.94) 0s;
-
-    ${({ active }) =>
-      active
-        ? css`
-            opacity: 1;
-            transform: scaleX(1.3) scaleY(0.5) translateX(-10px);
-          `
-        : css`
-            opacity: 0;
-            transform: scaleX(0);
-          `};
-  }
-`;
-
-const UserImg = styled.img`
-  border-radius: 40%;
-  cursor: pointer;
-  display: flex;
-  height: 40px;
-  transition: all 300ms linear;
-  width: 40px;
-`;
-
-const StatusContainer = styled.div`
-  padding: 10px;
-`;
-
-const Offline = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: rgba(255, 0, 0, 0.8);
-  border: 1px solid red;
-  border-radius: 6px;
-  padding: 5px 10px;
-`;
-
-const LoginPromt = styled.button`
-  background: none;
-  border: none;
-  color: white;
-  cursor: pointer;
-  font-size: 12px;
-  font-weight: 600;
-  margin: 2px;
-`;
-
-const SearchIconContainer = styled(LoginPromt)`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-right: 15px;
-  height: 100%;
-
-  @media (max-width: 724px) {
-    display: none;
-  }
-`;
-
-const Back = styled(LeftArrow)`
-  cursor: pointer;
-  margin-right: 8px;
-  transform: scale(1.6);
-`;
