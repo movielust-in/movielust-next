@@ -6,6 +6,7 @@ import {
   DiscoverTvResponse,
   TvExternalIdsResponse,
   TvImagesResponse,
+  TvResult,
   TvSeasonResponse,
 } from "../../types/tmdb";
 import { getAll } from "../Get";
@@ -88,7 +89,7 @@ export const fetchAllTvCast = (
   });
 
 export const fetchPopularSeries = () =>
-  new Promise((resolve) => {
+  new Promise<TvResult[]>((resolve) => {
     getAll(
       [
         POPULRAR_SERIES(1),
@@ -181,7 +182,7 @@ export const fetchSeason = (
   });
 
 export const fetchLatestSeries = () =>
-  new Promise((resolve, reject) => {
+  new Promise<TvResult[]>((resolve, reject) => {
     (async () => {
       try {
         const res = await tmdbClient.get(LATEST_SHOWS);
@@ -194,7 +195,7 @@ export const fetchLatestSeries = () =>
   });
 
 export const fetchTopRatedAnimes = () =>
-  new Promise((resolve, reject) => {
+  new Promise<TvResult[]>((resolve, reject) => {
     (async () => {
       try {
         const res = await tmdbClient.get(TR_ANIME);

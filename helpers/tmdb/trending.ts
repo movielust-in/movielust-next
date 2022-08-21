@@ -2,7 +2,7 @@ import axios from "../tmdbClient";
 
 import { TRENDING, TRENDINGTODAY } from "../Urls";
 
-import { MixedResponse } from "../../types/tmdb";
+import { MixedResponse, MovieResult } from "../../types/tmdb";
 
 export const fetchTrending = (): Promise<MixedResponse> =>
   new Promise((resolve, reject) => {
@@ -17,7 +17,7 @@ export const fetchTrending = (): Promise<MixedResponse> =>
   });
 
 export const fetchTrendingToday = () =>
-  new Promise((resolve, reject) => {
+  new Promise<MovieResult[]>((resolve, reject) => {
     (async () => {
       try {
         const res = await axios.get(TRENDINGTODAY);

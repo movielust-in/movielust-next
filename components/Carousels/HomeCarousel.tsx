@@ -14,49 +14,54 @@ import { setTrending } from "../../redux/reducers/movie.reducer";
 import { detailLink } from "../../utils";
 
 import styles from "./HomeCarousel.module.scss";
+import { MovieResult } from "../../types/tmdb";
 
-function ImgSlider() {
-  const dispatch = useDispatch();
+function ImgSlider({
+  movies,
+}: {
+  movies: (MovieResult & { imdb_rating?: number })[];
+}) {
+  // const dispatch = useDispatch();
 
-  const trendingMovies = useSelector((state) => state.movie.trending);
+  // const trendingMovies = useSelector((state) => state.movie.trending);
 
-  const called = useRef(false);
+  // const called = useRef(false);
 
-  useEffect(() => {
-    if (trendingMovies.length || called.current) return;
+  // useEffect(() => {
+  //   if (trendingMovies.length || called.current) return;
 
-    const fetchData = async () => {
-      called.current = true;
+  //   const fetchData = async () => {
+  //     called.current = true;
 
-      const movies = await fetchTrending();
+  //     const movies = await fetchTrending();
 
-      dispatch(setTrending(movies.results));
+  //     dispatch(setTrending(movies.results));
 
-      if (!(movies && movies.results)) return;
+  //     if (!(movies && movies.results)) return;
 
-      const externalIdsRes = await Promise.all(
-        movies.results.map((movie) => fetchExternalIds(movie.id!, "movie"))
-      );
+  //     const externalIdsRes = await Promise.all(
+  //       movies.results.map((movie) => fetchExternalIds(movie.id!, "movie"))
+  //     );
 
-      const imdbIds = externalIdsRes.map(
-        (external_id) => external_id.imdb_id as string
-      );
+  //     const imdbIds = externalIdsRes.map(
+  //       (external_id) => external_id.imdb_id as string
+  //     );
 
-      const ratingsRes = await fetchIMDBRatings(imdbIds);
+  //     const ratingsRes = await fetchIMDBRatings(imdbIds);
 
-      const ratings = ratingsRes.data.results;
+  //     const ratings = ratingsRes.data.results;
 
-      const moviesWithImdbRating = movies.results!.map((movie, index) => ({
-        ...movie,
-        imdb_rating: ratings[index].rating,
-      }));
+  //     const moviesWithImdbRating = movies.results!.map((movie, index) => ({
+  //       ...movie,
+  //       imdb_rating: ratings[index].rating,
+  //     }));
 
-      dispatch(setTrending(moviesWithImdbRating));
-    };
+  //     dispatch(setTrending(moviesWithImdbRating));
+  //   };
 
-    fetchData();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  //   fetchData();
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, []);
 
   return (
     <Swiper
@@ -72,7 +77,7 @@ function ImgSlider() {
       scrollbar={{ draggable: true }}
       modules={[Navigation, Autoplay]}
     >
-      {trendingMovies.map((movie: any) => (
+      {movies.map((movie: any) => (
         <SwiperSlide key={movie.id}>
           <Link href={detailLink("movie", movie.id, movie.title)}>
             <a>

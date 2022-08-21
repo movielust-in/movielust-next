@@ -69,7 +69,7 @@ export const fetchCollection = (
   });
 
 export const fetchBollywood = () =>
-  new Promise((resolve, reject) => {
+  new Promise<MovieResult[]>((resolve, reject) => {
     tmdbClient
       .get(BOLLYWOOD)
       .then((response) => {
@@ -81,7 +81,7 @@ export const fetchBollywood = () =>
   });
 
 export const fetchSouth = () =>
-  new Promise((resolve, reject) => {
+  new Promise<MovieResult[]>((resolve, reject) => {
     tmdbClient
       .get(SOUTH)
       .then((response) => {
@@ -93,7 +93,7 @@ export const fetchSouth = () =>
   });
 
 export const fetchGujarati = () =>
-  new Promise((resolve, reject) => {
+  new Promise<MovieResult[]>((resolve, reject) => {
     tmdbClient
       .get(GUJARATI)
       .then((response) => {
@@ -105,7 +105,7 @@ export const fetchGujarati = () =>
   });
 
 export const fetchTRM = () =>
-  new Promise((resolve) => {
+  new Promise<MovieResult[]>((resolve) => {
     getAll([TRM(1), TRM(2), TRM(3), TRM(4), TRM(5)], tmdbClient).then(
       (response) => {
         const results = [
@@ -125,7 +125,7 @@ export const fetchTRM = () =>
   });
 
 export const fetchUpcomingMovies = () =>
-  new Promise((resolve, reject) => {
+  new Promise<MovieResult[]>((resolve, reject) => {
     tmdbClient
       .get(UPCOMING_MOVIES)
       .then((movie) => {

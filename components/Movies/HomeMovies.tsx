@@ -1,95 +1,98 @@
 import React, { useState, useEffect, useRef, useMemo, memo } from "react";
 import styled from "@emotion/styled";
-import { useDispatch, useSelector } from "../../redux";
+import { useSelector } from "../../redux";
 import MovieCarousel from "../Carousels/MovieCarousel";
 import ShowAllButton from "../CarouselSlices/ShowAllButton";
 
-import {
-  fetchTRM,
-  fetchUpcomingMovies,
-  fetchBollywood,
-  fetchSouth,
-  fetchGujarati,
-} from "../../helpers/tmdb/movies";
+// import {
+//   fetchTRM,
+//   fetchUpcomingMovies,
+//   fetchBollywood,
+//   fetchSouth,
+//   fetchGujarati,
+// } from "../../helpers/tmdb/movies";
 
-import {
-  fetchPopularSeries,
-  fetchLatestSeries,
-  fetchTopRatedAnimes,
-} from "../../helpers/tmdb/series";
+// import {
+//   fetchPopularSeries,
+//   fetchLatestSeries,
+//   fetchTopRatedAnimes,
+// } from "../../helpers/tmdb/series";
 
-import { fetchTrendingToday } from "../../helpers/tmdb/trending";
+// import { fetchTrendingToday } from "../../helpers/tmdb/trending";
 
-import { setHomeMovies } from "../../redux/reducers/movie.reducer";
+// import { setHomeMovies } from "../../redux/reducers/movie.reducer";
 
 import { ColorSpinner, LoadingGhost } from "../../assets";
 import Image from "next/image";
+import { HomeMovies } from "../../types/apiResponses";
 
 const RecentCarousel = React.lazy(() => import("../Carousels/RecentCarousel"));
 
 const TOTAL_NO_CAROUSELS = 9;
 
-function Movies() {
-  const dispatch = useDispatch();
+interface MoviesProps {
+  movies: HomeMovies;
+}
 
-  const [isLoading, setIsLoading] = useState(true);
+function Movies({ movies }: MoviesProps) {
+  // const dispatch = useDispatch();
 
-  const movies = useSelector((state) => state.movie.homeMovies);
+  // const movies = useSelector((state) => state.movie.homeMovies);
 
   const isAuthenticated = useSelector((state) => state.user.isLoggedIn);
 
-  useEffect(() => {
-    const fetchAll = async () => {
-      setIsLoading(true);
-      Promise.all([
-        fetchTRM(),
-        fetchUpcomingMovies(),
-        fetchPopularSeries(),
-        fetchBollywood(),
-        fetchSouth(),
-        fetchLatestSeries(),
-        fetchTrendingToday(),
-        fetchTopRatedAnimes(),
-        fetchGujarati(),
-      ]).then((results) => {
-        const homeMovies = {
-          TRM: results[0],
-          latestMovies: results[1],
-          popularSeries: results[2],
-          bollywood: results[3],
-          southIndian: results[4],
-          latestSeries: results[5],
-          trendingToday: results[6],
-          topAnimes: results[7],
-          gujarati: results[8],
-          set: true,
-        };
+  // useEffect(() => {
+  //   const fetchAll = async () => {
+  //     setIsLoading(true);
+  //     Promise.all([
+  //       fetchTRM(),
+  //       fetchUpcomingMovies(),
+  //       fetchPopularSeries(),
+  //       fetchBollywood(),
+  //       fetchSouth(),
+  //       fetchLatestSeries(),
+  //       fetchTrendingToday(),
+  //       fetchTopRatedAnimes(),
+  //       fetchGujarati(),
+  //     ]).then((results) => {
+  //       const homeMovies = {
+  //         TRM: results[0],
+  //         latestMovies: results[1],
+  //         popularSeries: results[2],
+  //         bollywood: results[3],
+  //         southIndian: results[4],
+  //         latestSeries: results[5],
+  //         trendingToday: results[6],
+  //         topAnimes: results[7],
+  //         gujarati: results[8],
+  //         set: true,
+  //       };
 
-        dispatch(setHomeMovies(homeMovies));
+  //       dispatch(setHomeMovies(homeMovies));
 
-        setIsLoading(false);
-        const date = new Date();
-        const obj = {
-          homeMovies,
-          exp: date.setHours(date.getHours() + 23),
-        };
-        localStorage.homeMovies = JSON.stringify(obj);
-      });
-    };
+  //       setIsLoading(false);
+  //       const date = new Date();
+  //       const obj = {
+  //         homeMovies,
+  //         exp: date.setHours(date.getHours() + 23),
+  //       };
+  //       localStorage.homeMovies = JSON.stringify(obj);
+  //     });
+  //   };
 
-    if (!movies.set) {
-      if (localStorage.homeMovies !== undefined) {
-        const obj = JSON.parse(localStorage.homeMovies);
-        const { exp } = obj;
-        if (new Date() > new Date(exp)) fetchAll();
-        else dispatch(setHomeMovies(obj.homeMovies));
-      } else {
-        fetchAll();
-      }
-    } else {
-      setIsLoading(false);
-    }
-  }, [movies.set, dispatch]);
+  //   if (!movies.set) {
+  //     if (localStorage.homeMovies !== undefined) {
+  //       const obj = JSON.parse(localStorage.homeMovies);
+  //       const { exp } = obj;
+  //       if (new Date() > new Date(exp)) fetchAll();
+  //       else dispatch(setHomeMovies(obj.homeMovies));
+  //     } else {
+  //       fetchAll();
+  //     }
+  //   } else {
+  //     setIsLoading(false);
+  //   }
+  // }, [movies.set, dispatch]);
 
   const ref = useRef(null);
 
@@ -192,7 +195,7 @@ function Movies() {
     [movies]
   );
 
-  return isLoading ? (
+  return false ? (
     <LoadingContainer>
       <Image src={LoadingGhost} alt="Ghost is coming..." />
       <p>Loading...</p>
