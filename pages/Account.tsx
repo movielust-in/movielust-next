@@ -41,7 +41,7 @@ function Account() {
 
   useEffect(() => {
     if (!user.isLoggedIn) {
-      router.push("/login");
+      router.push("/signin");
     }
   }, [router, user]);
 

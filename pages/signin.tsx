@@ -22,7 +22,7 @@ function Login() {
 
   redirectTo =
     redirectTo !== "/" &&
-    (redirectTo.includes("/login") || redirectTo.includes("/signup"))
+    (redirectTo.includes("/signin") || redirectTo.includes("/signup"))
       ? "/"
       : redirectTo;
 

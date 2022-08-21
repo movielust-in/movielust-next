@@ -97,7 +97,7 @@ function SignUp() {
 
           toast(registerRes.data.message);
 
-          router.push("/login");
+          router.push("/signin");
         }
       } else {
         toast(verifyOtpRes.data.message);
@@ -135,7 +135,7 @@ function SignUp() {
           autocomplete: "on",
         },
       ],
-      links: [{ text: "Already have an account? Login", href: "/login" }],
+      links: [{ text: "Already have an account? Login", href: "/signin" }],
     },
 
     formik: {

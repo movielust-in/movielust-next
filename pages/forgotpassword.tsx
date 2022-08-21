@@ -122,10 +122,10 @@ function ResetPass() {
           const { data } = res;
           if (data.success === true) {
             toast("Password Updated!");
-            router.push("/login");
+            router.push("/signin");
           } else {
             toast(data.message);
-            router.push("/login");
+            router.push("/signin");
           }
         })
         .catch(() => {

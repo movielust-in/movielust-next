@@ -12,7 +12,7 @@ function LoginRedirect({ afterLoginRedirectTo = "/" }: LoginRedirectProps) {
   const router = useRouter();
   useLockBodyScroll();
   const toLogin = () =>
-    router.push(`/login?redirectto=${afterLoginRedirectTo}`);
+    router.push(`/signin?redirectto=${afterLoginRedirectTo}`);
 
   return (
     <LoginContainer>
