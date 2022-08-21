@@ -26,7 +26,7 @@ import { LoadingGhost } from "../../assets";
 import Image from "next/image";
 import { HomeMovies } from "../../types/apiResponses";
 
-import styles from "./HomeMOvies.module.scss";
+import styles from "./HomeMovies.module.scss";
 
 const RecentCarousel = React.lazy(() => import("../Carousels/RecentCarousel"));
 
