@@ -5,11 +5,10 @@ import { SwiperSlide } from "swiper/react";
 import { useRouter } from "next/router";
 // import ColorThief from 'colorthief';
 
-import { Title } from "../../styles/Carousel-Styled";
-
 import Carousel from "./Carousel";
 import ProductionWrap from "../CarouselSlices/ProductionWrap";
 
+import styles from "../../styles/carousel.module.scss";
 interface ProductionCompaniesPros {
   data: any[];
   title: string;
@@ -30,9 +29,9 @@ ProductionCompaniesPros) {
     >
       {title &&
       data.filter((detail) => detail.logo_path !== null).length > 0 ? (
-        <Title>
+        <div className={styles.Title}>
           <h2>{title}</h2>
-        </Title>
+        </div>
       ) : null}
       <Carousel carosel_id="movie_slider">
         {data &&

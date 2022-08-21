@@ -1,14 +1,15 @@
 import { memo } from "react";
 import styled from "@emotion/styled";
-import { css } from "@emotion/react";
 import { useRouter } from "next/router";
 import { SwiperSlide } from "swiper/react";
 
 import Carousel from "./Carousel";
 import PCard from "../CarouselSlices/PersonCard";
 import ShowAllButton from "../CarouselSlices/ShowAllButton";
-import { Title } from "../../styles/Carousel-Styled";
+
 import { dashedTitle } from "../../utils";
+
+import styles from "../../styles/carousel.module.scss";
 
 interface CastCarouselProps {
   cast: any[];
@@ -40,7 +41,7 @@ function CastCarousel({
     >
       {type === "tv"
         ? cast.length > 0 && (
-            <Title>
+            <div className={styles.Title}>
               <h2>{title}</h2>
               {id && contentTitle && (
                 <ShowAllButton
@@ -48,12 +49,12 @@ function CastCarousel({
                   label="See all cast"
                 />
               )}
-            </Title>
+            </div>
           )
         : cast.length > 0 && (
-            <Title>
+            <div className={styles.Title}>
               <h2>{title}</h2>
-            </Title>
+            </div>
           )}
 
       <Carousel carosel_id="cast_slider">

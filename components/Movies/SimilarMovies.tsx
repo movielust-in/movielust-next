@@ -47,7 +47,12 @@ function SimilarMovies({
   return (
     <Container>
       {similar && similar.length > 0 ? (
-        <MovieCarousel title={title} type={type} movies={similar} />
+        <MovieCarousel
+          title={title}
+          type={type}
+          movies={similar}
+          showCard={false}
+        />
       ) : null}
     </Container>
   );

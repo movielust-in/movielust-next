@@ -31,8 +31,6 @@ interface DetailProps {
 }
 
 const Detail: NextPage<DetailProps> = ({ contentData }) => {
-  console.log(contentData);
-
   const [loadingMovieIframe, setMovieIframeLoading] = useState(false);
 
   const iframeLoaded = () => {
@@ -43,8 +41,6 @@ const Detail: NextPage<DetailProps> = ({ contentData }) => {
 
   const id = router.query.id as string;
   const type = router.query.type as string;
-
-  if (!contentData) return <p>Loading....</p>;
 
   return (
     <div className={styles.Container}>
@@ -70,6 +66,7 @@ const Detail: NextPage<DetailProps> = ({ contentData }) => {
       />
 
       <BackgroundImage backdrop={contentData.backdrop_path} />
+
       <PosterAndIframe
         id={id}
         poster={contentData.poster_path}

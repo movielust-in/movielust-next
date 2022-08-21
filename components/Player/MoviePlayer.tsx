@@ -7,7 +7,6 @@ import StarRatings from "react-star-ratings";
 
 import Spinner from "../UI/Spinner";
 
-import Scrollbar from "../../styles/Scrollbar";
 import { fetchSimilar } from "../../helpers/tmdb";
 import { Magnet } from "../../types/apiResponses";
 import {
@@ -285,7 +284,6 @@ const SideBar = styled.div`
     font-weight: 600;
     margin: 12px;
   }
-  ${Scrollbar}
   @media (max-width: 724px) {
     position: relative;
     overflow-y: visible;

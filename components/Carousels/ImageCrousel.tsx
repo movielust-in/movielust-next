@@ -3,13 +3,14 @@ import { memo, useState } from "react";
 import styled from "@emotion/styled";
 import { SwiperSlide } from "swiper/react";
 import Carousel from "./Carousel";
-import { Title } from "../../styles/Carousel-Styled";
 
 import ImageModal from "../Modal/ImageModal";
 import PeopleModal from "../Modal/PeopleModal";
 
 // const ImageModal = React.lazy(() => import('../Modal/ImageModal'));
 // const PeopleModal = React.lazy(() => import('../Modal/PeopleModal'));
+
+import styles from "../../styles/carousel.module.scss";
 interface ImageCrouselProps {
   images: any;
   type: string;
@@ -33,9 +34,9 @@ function ImageCrousel({ images, type, title, dom }: ImageCrouselProps) {
       {images !== undefined && images.length > 0 ? (
         <Container>
           {title && (
-            <Title>
+            <div className={styles.Title}>
               <h2>{title}</h2>
-            </Title>
+            </div>
           )}
           <Carousel carosel_id="image_slider">
             {images &&

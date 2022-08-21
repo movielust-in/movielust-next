@@ -14,7 +14,6 @@ import {
   toggleSeriesGenreId,
   setSeriesGenres,
 } from "../../redux/reducers/series.reducer";
-import { ScrollbarStyle } from "../../styles";
 
 interface GenreFilterProps {
   type: string;
@@ -165,8 +164,6 @@ const DropList = styled.ul<{ open: boolean }>`
   &::-webkit-scrollbar {
     /* display: none; */
   }
-
-  ${ScrollbarStyle}
 
   @media (max-width: 724px) {
     display: ${(props) => (props.open ? "flex" : "none")};

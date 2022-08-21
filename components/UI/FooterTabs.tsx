@@ -56,7 +56,7 @@ function FooterTabs() {
       <div className={styles.Item} role="presentation" onClick={showSearch}>
         <SearchIcon
           size="28px"
-          color={hash.includes("search") ? "red" : "white"}
+          color={hash && hash.includes("search") ? "red" : "white"}
         />
       </div>
       <div className={styles.Item}>
