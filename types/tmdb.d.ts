@@ -1,3 +1,5 @@
+import { IMDBRating } from "./apiResponses";
+
 export enum HttpMethod {
   Get = "get",
   Post = "post",
@@ -1608,6 +1610,7 @@ export interface DetailResponse extends MovieResponse, TvResult {
   credits: CreditsResponse;
   production_companies: ProductionCompany[];
   belongs_to_collection?: { id: string };
+  imdbRating?: { rating: number; votes: number };
 }
 
 export interface AllResponse<T = any> {

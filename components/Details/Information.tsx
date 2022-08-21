@@ -33,7 +33,7 @@ interface InformationComponentProps {
   playMovie: (movieTitle: string, path: string) => void;
   loadingMovieIframe: boolean;
   showMovie: boolean;
-  IMDBRating: ImdbRating;
+  IMDBRating?: ImdbRating;
   magnets: Magnet[] | undefined;
   runtime: string | undefined;
   externalIds: MovieExternalIdsResponse | undefined;
@@ -160,11 +160,11 @@ export default function InformationComponent({
         <h2>{commonData!.title}</h2> {releaseYear && <h4>({releaseYear})</h4>}
       </div>
       <div className={styles.Rating}>
-        {IMDBRating.rating || commonData?.tmdbRating ? (
+        {IMDBRating?.rating || commonData?.tmdbRating ? (
           <FaStar size="20px" color="rgba(255,255,0,0.8)" />
         ) : // <img width={20} src={FaStar} alt="star" />
         null}
-        {IMDBRating.rating > 0 ? (
+        {IMDBRating && IMDBRating.rating > 0 ? (
           <span
             role="presentation"
             className={styles.IMDBRatings}

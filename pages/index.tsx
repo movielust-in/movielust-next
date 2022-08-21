@@ -9,6 +9,7 @@ import Footer from "../components/UI/Footer";
 import Movies from "../components/Movies/HomeMovies";
 
 import { setCurrentPage } from "../redux/reducers/nav.reducer";
+import { GetStaticProps } from "next";
 
 function Home() {
   const dispatch = useDispatch();
@@ -32,6 +33,12 @@ function Home() {
 }
 
 export default Home;
+
+export const getStaticProps: GetStaticProps = (_context) => {
+  return {
+    props: {},
+  };
+};
 
 const Container = styled.div`
   position: relative;

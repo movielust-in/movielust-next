@@ -159,3 +159,7 @@ a {
     transform: scale(0.8);
   }
 }
+
+.layout__main {
+  min-height: 100vh;
+}

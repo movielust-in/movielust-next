@@ -86,7 +86,9 @@ function Seasons({ id, title, totalSeasons, setSeasonMagnets }: SeasonsProps) {
       `/tv/${id}/${title
         .split(" ")
         .join("-")
-        .toLowerCase()}?s=${season}&e=${index}`
+        .toLowerCase()}?s=${season}&e=${index}`,
+      undefined,
+      { shallow: true }
     );
     if (showEpisode === index) {
       return setEpisode(undefined);
@@ -150,7 +152,9 @@ function Seasons({ id, title, totalSeasons, setSeasonMagnets }: SeasonsProps) {
     router.push(
       `/tv/${id}/${title.split(" ").join("-").toLowerCase()}?s=${
         seasonNumber + 1
-      }&e=0`
+      }&e=0`,
+      undefined,
+      { shallow: true }
     );
     if (seasonNumber === -1) {
       setShow(false);
@@ -172,7 +176,9 @@ function Seasons({ id, title, totalSeasons, setSeasonMagnets }: SeasonsProps) {
     router.push(
       `${location.pathname}?m=${episode.magnet || episode.torrent}&q=${
         episode.quality
-      }#player`
+      }#player`,
+      undefined,
+      { shallow: true }
     );
   };
 

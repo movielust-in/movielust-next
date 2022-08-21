@@ -6,7 +6,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   return (
     <>
       <Header isOnline />
-      <main>{children}</main>
+      <main className="layout__main">{children}</main>
       <Footer />
     </>
   );

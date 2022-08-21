@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import { useState, useEffect } from "react";
 import styled from "@emotion/styled";
 
@@ -58,7 +59,7 @@ function Loading({ delay }: LoadingProps) {
 
   return show ? (
     <Container>
-      <Image src={LoadingGhost} alt="loading" />
+      <img src={LoadingGhost.src} alt="loading" />
       <p>{message}</p>
     </Container>
   ) : null;

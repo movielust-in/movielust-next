@@ -25,11 +25,14 @@ import ImageCrousel from "../../../components/Carousels/ImageCrousel";
 import ProductionCompanies from "../../../components/Carousels/ProductionCompanies";
 import SimilarMovies from "../../../components/Movies/SimilarMovies";
 import DetailHelmet from "../../../components/Details/DetailHelmet";
+import { fetchIMDBRating } from "../../../helpers/imdb";
 interface DetailProps {
   contentData: DetailResponse;
 }
 
 const Detail: NextPage<DetailProps> = ({ contentData }) => {
+  console.log(contentData);
+
   const [loadingMovieIframe, setMovieIframeLoading] = useState(false);
 
   const iframeLoaded = () => {
@@ -100,7 +103,7 @@ const Detail: NextPage<DetailProps> = ({ contentData }) => {
         playMovie={() => {}}
         loadingMovieIframe={loadingMovieIframe}
         showMovie={false}
-        IMDBRating={{ rating: 8, votes: 1000 }}
+        IMDBRating={contentData.imdbRating}
         magnets={[]}
         runtime={contentData.runtime}
         externalIds={contentData.externalIds}
@@ -302,6 +305,14 @@ export const getServerSideProps: GetServerSideProps = async ({
           ? officialVideos[officialVideos.length - 1].key
           : data.videos?.results![0].key,
     };
+  }
+
+  if (type === TYPE.movie && data.imdb_id) {
+    try {
+      const imdbRating = await fetchIMDBRating(data.imdb_id);
+
+      data = { ...data, imdbRating };
+    } catch (error) {}
   }
 
   delete data["videos"];
