@@ -1,0 +1,10 @@
+.container {
+  position: relative;
+  min-height: calc(100vh - 65px);
+  margin-bottom: 20px;
+  overflow-x: hidden;
+  overflow-y: hidden;
+  @media (max-width: 724px) {
+    padding: 10px calc(3.5vw + 5px);
+  }
+}

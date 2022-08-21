@@ -1,5 +1,6 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import * as Yup from "yup";
+import Head from "next/head";
 
 import { useRouter } from "next/router";
 import { toast } from "react-toastify";
@@ -11,11 +12,6 @@ import { setUserLogin } from "../redux/reducers/user.reducer";
 import { login as loginUser } from "../helpers/user/auth";
 
 function Login() {
-  useEffect(() => {
-    window.scrollTo(0, 0);
-    document.title = "Login - Movielust";
-  }, []);
-
   const router = useRouter();
 
   const dispatch = useDispatch();
@@ -98,12 +94,17 @@ function Login() {
   };
 
   return (
-    <Form
-      formik={formik}
-      fields={fields}
-      isSubmitting={submitting}
-      extraData={() => login()}
-    />
+    <>
+      <Head>
+        <title>Login - Movielust</title>
+      </Head>
+      <Form
+        formik={formik}
+        fields={fields}
+        isSubmitting={submitting}
+        extraData={() => login()}
+      />
+    </>
   );
 }
 

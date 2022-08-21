@@ -1,16 +1,11 @@
-import { useEffect } from "react";
-import styled from "@emotion/styled";
-import Helmet from "next/head";
-
-import { useDispatch } from "../redux";
+import Head from "next/head";
+import { GetStaticPropsContext } from "next";
 
 import TrendingCarousel from "../components/Carousels/HomeCarousel";
-import Footer from "../components/UI/Footer";
 import Movies from "../components/Movies/HomeMovies";
 
-import { setCurrentPage } from "../redux/reducers/nav.reducer";
-import { GetStaticProps, GetStaticPropsContext } from "next";
 import { fetchTrending, fetchTrendingToday } from "../helpers/tmdb/trending";
+
 import {
   fetchBollywood,
   fetchExternalIds,
@@ -19,14 +14,20 @@ import {
   fetchTRM,
   fetchUpcomingMovies,
 } from "../helpers/tmdb/movies";
+
 import { fetchIMDBRatings } from "../helpers/imdb";
-import { MovieResult, TvResult } from "../types/tmdb";
+
+import { MovieResult } from "../types/tmdb";
+
 import {
   fetchLatestSeries,
   fetchPopularSeries,
   fetchTopRatedAnimes,
 } from "../helpers/tmdb/series";
+
 import { HomeMovies } from "../types/apiResponses";
+
+import styles from "../styles/index.module.scss";
 
 interface HomeProps {
   trendingMovies: (MovieResult & { imdb_rating?: number })[];
@@ -34,24 +35,15 @@ interface HomeProps {
 }
 
 function Home({ trendingMovies, homeMovies }: HomeProps) {
-  const dispatch = useDispatch();
-
-  console.log({ trendingMovies, homeMovies });
-
-  useEffect(() => {
-    document.title = "Home - Movielust | Latest Movies and TV Shows";
-    dispatch(setCurrentPage("home"));
-  }, [dispatch]);
-
   return (
     <>
-      <Helmet>
+      <Head>
         <title>Home - Movielust</title>
-      </Helmet>
-      <Container>
+      </Head>
+      <div className={styles.container}>
         <TrendingCarousel movies={trendingMovies} />
         <Movies movies={homeMovies} />
-      </Container>
+      </div>
     </>
   );
 }
@@ -111,14 +103,3 @@ export const getStaticProps = async (context: GetStaticPropsContext) => {
     revalidate: 259200,
   };
 };
-
-const Container = styled.div`
-  position: relative;
-  min-height: calc(100vh - 65px);
-  margin-bottom: 20px;
-  overflow-x: hidden;
-  overflow-y: hidden;
-  @media (max-width: 724px) {
-    padding: 10px calc(3.5vw + 5px);
-  }
-`;

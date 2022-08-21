@@ -1,5 +1,3 @@
-/* eslint-disable jsx-a11y/click-events-have-key-events */
-/* eslint-disable jsx-a11y/no-static-element-interactions */
 import Image from "next/image";
 import { MouseEventHandler, useState } from "react";
 import { image } from "../../helpers/Urls";
@@ -8,7 +6,6 @@ import ErroredImage from "../../assets/images/placeholder-image.png";
 import { Genre } from "../../types/tmdb";
 
 import styles from "./Wrap.module.scss";
-import { ColorSpinner } from "../../assets";
 
 interface WrapPros {
   src: string;
@@ -34,6 +31,20 @@ enum Directions {
   UP = "UP",
   DOWN = "DOWN",
 }
+
+const shimmer = (w: number, h: number) => `
+<svg width="${w}" height="${h}" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <defs>
+    <linearGradient id="g">
+      <stop stop-color="#333" offset="20%" />
+      <stop stop-color="#222" offset="50%" />
+      <stop stop-color="#333" offset="70%" />
+    </linearGradient>
+  </defs>
+  <rect width="${w}" height="${h}" fill="#333" />
+  <rect id="r" width="${w}" height="${h}" fill="url(#g)" />
+  <animate xlink:href="#r" attributeName="x" from="-${w}" to="${w}" dur="1s" repeatCount="indefinite"  />
+</svg>`;
 
 function Wrap({
   src,
@@ -93,27 +104,28 @@ function Wrap({
     }
   };
 
+  const toBase64 = (str: string) =>
+    typeof window === "undefined"
+      ? Buffer.from(str).toString("base64")
+      : window.btoa(str);
+
   return src ? (
     <div
       className={styles.wrapper}
       onMouseOver={handleMouseOver}
       onFocus={handleMouseOver as any}
     >
-      {/* Loading Spinner */}
-      {loading ? (
-        <div className={styles.loadingImg}>
-          <ColorSpinner width="45px" />
-        </div>
-      ) : null}
       {/* Poster */}
       <Image
         className={styles.image}
+        placeholder="blur"
         src={imgSrc}
         alt={alt || "no alt"}
         onLoad={onLoad}
         style={{ opacity }}
         onError={onError}
         loading="lazy"
+        blurDataURL={`data:image/svg+xml;base64,${toBase64(shimmer(150, 220))}`}
         width={150}
         height={220}
       />

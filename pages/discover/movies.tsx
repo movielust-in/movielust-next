@@ -167,6 +167,9 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   overflow-x: hidden;
+  justify-content: center;
+  align-items: center;
+
   @media (min-width: 724px) {
     padding-top: 60px;
   }
@@ -183,10 +186,11 @@ const Filters = styled.div`
 const CardContainer = styled.div`
   display: flex;
   flex-direction: row;
-  justify-content: center;
+  justify-content: start;
   align-items: center;
+  margin: 70px auto 0 auto;
   flex-wrap: wrap;
-  margin-top: 70px;
+  width: 90%;
   min-height: 100vh;
   @media (max-width: 724px) {
     padding: 0 10px;
