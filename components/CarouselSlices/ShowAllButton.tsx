@@ -9,8 +9,8 @@ interface ShowAllButtonProps {
 
 function ShowAllButton({ link, label }: ShowAllButtonProps) {
   return (
-    <Link href={link} className={styles.show_all_button}>
-      <a>{label}</a>
+    <Link href={link}>
+      <a className={styles.show_all_button}>{label}</a>
     </Link>
   );
 }

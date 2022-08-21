@@ -22,9 +22,11 @@ import ShowAllButton from "../CarouselSlices/ShowAllButton";
 
 // import { setHomeMovies } from "../../redux/reducers/movie.reducer";
 
-import { ColorSpinner, LoadingGhost } from "../../assets";
+import { LoadingGhost } from "../../assets";
 import Image from "next/image";
 import { HomeMovies } from "../../types/apiResponses";
+
+import styles from "./HomeMOvies.module.scss";
 
 const RecentCarousel = React.lazy(() => import("../Carousels/RecentCarousel"));
 
@@ -128,204 +130,97 @@ function Movies({ movies }: MoviesProps) {
 
   const all = useMemo(
     () => [
-      <CarouselContainer key="trending">
-        <Header>Latest & Trending</Header>
+      <div className={styles.CarouselContainer} key="trending">
+        <div className={styles.Title}>
+          <div className={styles.Header}>Latest & Trending</div>
+        </div>
         <MovieCarousel movies={movies.trendingToday} type="combined" />
-      </CarouselContainer>,
+      </div>,
 
-      <CarouselContainer key="latestmovies">
-        <Header>Latest Movies</Header>
+      <div className={styles.CarouselContainer} key="latestmovies">
+        <div className={styles.Title}>
+          <div className={styles.Header}>Latest Movies</div>
+        </div>
         <MovieCarousel movies={movies.latestMovies} type="movie" />
-      </CarouselContainer>,
+      </div>,
 
-      <CarouselContainer key="latestshows">
-        <Header> Trending Shows</Header>
+      <div className={styles.CarouselContainer} key="latestshows">
+        <div className={styles.Title}>
+          <div className={styles.Header}> Trending Shows</div>
+        </div>
         <MovieCarousel movies={movies.latestSeries} type="tv" />
-      </CarouselContainer>,
+      </div>,
 
-      <CarouselContainer key="toprated">
-        <Title>
-          <Header>Top Rated Movies</Header>
+      <div className={styles.CarouselContainer} key="toprated">
+        <div className={styles.Title}>
+          <div className={styles.Header}>Top Rated Movies</div>
           <ShowAllButton link="/showall/movie/TopRated" label="See all" />
-        </Title>
+        </div>
         <MovieCarousel movies={movies.TRM} type="movie" />
-      </CarouselContainer>,
+      </div>,
 
-      <CarouselContainer key="bollywood">
-        <Title>
-          <Header>Bollywood Movies</Header>
+      <div className={styles.CarouselContainer} key="bollywood">
+        <div className={styles.Title}>
+          <div className={styles.Header}>Bollywood Movies</div>
           <ShowAllButton link="/showall/movie/Bollywood" label="See all" />
-        </Title>
+        </div>
         <MovieCarousel movies={movies.bollywood} type="movie" />
-      </CarouselContainer>,
+      </div>,
 
-      <CarouselContainer key="southIndian">
-        <Title>
-          <Header>South Indian Movies</Header>
+      <div className={styles.CarouselContainer} key="southIndian">
+        <div className={styles.Title}>
+          <div className={styles.Header}>South Indian Movies</div>
           <ShowAllButton link="/showall/movie/SouthIndian" label="See all" />
-        </Title>
+        </div>
         <MovieCarousel movies={movies.southIndian} type="movie" />
-      </CarouselContainer>,
+      </div>,
 
-      <CarouselContainer key="gujarati">
-        <Title>
-          <Header>Gujarati Movies</Header>
+      <div className={styles.CarouselContainer} key="gujarati">
+        <div className={styles.Title}>
+          <div className={styles.Header}>Gujarati Movies</div>
           <ShowAllButton link="/showall/movie/Gujarati" label="See all" />
-        </Title>
+        </div>
 
         <MovieCarousel movies={movies.gujarati} type="movie" />
-      </CarouselContainer>,
+      </div>,
 
-      <CarouselContainer key="popshows">
-        <Title>
-          <Header>Popular Shows</Header>
+      <div className={styles.CarouselContainer} key="popshows">
+        <div className={styles.Title}>
+          <div className={styles.Header}>Popular Shows</div>
           <ShowAllButton link="/showall/tv/PopularSeries" label="See all" />
-        </Title>
+        </div>
         <MovieCarousel movies={movies.popularSeries} type="tv" />
-      </CarouselContainer>,
+      </div>,
 
-      <CarouselContainer key="animes">
-        <Title>
-          <Header>Top Rated Animes</Header>
+      <div className={styles.CarouselContainer} key="animes">
+        <div className={styles.Title}>
+          <div className={styles.Header}>Top Rated Animes</div>
           <ShowAllButton link="/showall/tv/anime" label="See all" />
-        </Title>
+        </div>
         <MovieCarousel movies={movies.topAnimes} type="tv" />
-      </CarouselContainer>,
+      </div>,
     ],
     [movies]
   );
 
   return false ? (
-    <LoadingContainer>
+    <div className={styles.LoadingContainer}>
       <Image src={LoadingGhost} alt="Ghost is coming..." />
       <p>Loading...</p>
-    </LoadingContainer>
+    </div>
   ) : (
-    <Container>
+    <div className={styles.Container}>
       {isAuthenticated ? <RecentCarousel /> : null}
 
       {all.slice(0, page).map((carousel) => carousel)}
 
       {TOTAL_NO_CAROUSELS > page && (
-        <Trigger ref={ref} onClick={loadMore}>
+        <button className={styles.Trigger} ref={ref} onClick={loadMore}>
           Loading...
-        </Trigger>
+        </button>
       )}
-    </Container>
+    </div>
   );
 }
 
 export default memo(Movies);
-
-const Container = styled.div`
-  @media (max-width: 724px) {
-    h2 {
-      font-size: 15px;
-    }
-  }
-  @media (min-width: 724px) {
-    padding: 0 calc(3vw);
-  }
-`;
-const Header = styled.h2`
-  font-weight: 500;
-  font-size: 20px;
-  text-transform: none;
-  text-overflow: ellipsis;
-  letter-spacing: 0.5px;
-  overflow: hidden;
-
-  @media (orientation: landscape) and (min-width: 600px) and (max-width: 896px) {
-    margin: 5px 0 5px 0;
-    padding: 0;
-    font-size: 20px;
-  }
-`;
-
-const CarouselContainer = styled.div`
-  margin-top: 15px;
-`;
-
-const Title = styled.div`
-  display: flex;
-  justify-content: space-between;
-  z-index: -1;
-
-  h2 {
-    text-align: start;
-  }
-  p {
-    cursor: pointer;
-    font-weight: 700;
-    margin-right: 20px;
-    margin-top: 20px;
-    transition: color 1s, font-size 0.5s;
-
-    &:hover {
-      color: greenyellow;
-      transition: color 0.5s;
-      transition: all 1s;
-    }
-  }
-  @media (max-width: 724px) {
-    margin: 30px 0 10px 0;
-    h2 {
-      font-size: 15px;
-      padding: 0;
-    }
-    p {
-      font-weight: 700;
-      font-size: 12px;
-      cursor: pointer;
-      margin-top: 15px;
-    }
-    &:hover {
-      transition: none;
-    }
-  }
-  @media (orientation: landscape) and (min-width: 600px) and (max-width: 896px) {
-    margin: 0;
-    h2 {
-      padding: 0;
-      margin: 0;
-    }
-    p {
-      font-weight: 500;
-      font-size: 15px;
-      cursor: pointer;
-      margin-top: 0px;
-    }
-  }
-`;
-
-const LoadingContainer = styled.div`
-  align-items: center;
-  display: flex;
-  flex-direction: column;
-  height: 100vh;
-  justify-content: center;
-  width: 100vw;
-  img {
-    filter: drop-shadow(0 0 50px #bbdefb);
-  }
-`;
-
-const Trigger = styled.button`
-  align-items: center;
-  background-color: transparent;
-  border: none;
-  color: white;
-  font-size: 16px;
-  margin: 15px;
-  padding: 10px;
-  font-weight: 600;
-  text-align: center;
-  width: 100%;
-  img {
-    width: 100px;
-  }
-
-  @media (max-width: 724px) {
-    font-size: 15px;
-  }
-`;

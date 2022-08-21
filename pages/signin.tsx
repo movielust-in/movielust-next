@@ -96,7 +96,7 @@ function Login() {
   return (
     <>
       <Head>
-        <title>Login - Movielust</title>
+        <title>Sign in - Movielust</title>
       </Head>
       <Form
         formik={formik}

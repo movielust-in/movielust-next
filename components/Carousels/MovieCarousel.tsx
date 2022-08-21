@@ -1,13 +1,13 @@
 import Link from "next/link";
 import { SwiperSlide } from "swiper/react";
 
-import { Title, Detail } from "../../styles/Carousel-Styled";
-
 import Carousel from "./Carousel";
 import Wrap from "../CarouselSlices/Wrap";
 import ShowAllButton from "../CarouselSlices/ShowAllButton";
 import { detailLink } from "../../utils";
 import getGenreName from "../../utils/getGenreName";
+
+import styles from "../../styles/carousel.module.scss";
 
 interface MovieCarouselInterface {
   movies: any[];
@@ -33,12 +33,12 @@ function MovieCarousel({
   return (
     <>
       {title && (
-        <Title>
+        <div className={styles.Title}>
           <h2>{title}</h2>
           {watchall && (
             <ShowAllButton link={`/peoplemovies/${watchall}`} label="See all" />
           )}
-        </Title>
+        </div>
       )}
       {movies && movies.length > 0 && (
         <div>
@@ -80,10 +80,10 @@ function MovieCarousel({
                         />
 
                         {movie.character && (
-                          <Detail>
+                          <div className={styles.Detail}>
                             {movie.name}
                             <div>as {movie.character}</div>
-                          </Detail>
+                          </div>
                         )}
                       </a>
                     </Link>

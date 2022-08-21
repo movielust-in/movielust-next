@@ -1,0 +1,113 @@
+.Container {
+  @media (max-width: 724px) {
+    h2 {
+      font-size: 15px;
+    }
+  }
+  @media (min-width: 724px) {
+    padding: 0 calc(3vw);
+  }
+}
+
+.Header {
+  font-weight: 500;
+  font-size: 20px;
+  text-transform: none;
+  text-overflow: ellipsis;
+  letter-spacing: 0.5px;
+  overflow: hidden;
+
+  @media (orientation: landscape) and (min-width: 600px) and (max-width: 896px) {
+    margin: 5px 0 5px 0;
+    padding: 0;
+    font-size: 20px;
+  }
+}
+
+.CarouselContainer {
+  margin-top: 15px;
+}
+
+.Title {
+  display: flex;
+  justify-content: space-between;
+  z-index: -1;
+
+  h2 {
+    text-align: start;
+  }
+  p {
+    cursor: pointer;
+    font-weight: 700;
+    margin-right: 20px;
+    margin-top: 20px;
+    transition: color 1s, font-size 0.5s;
+
+    &:hover {
+      color: greenyellow;
+      transition: color 0.5s;
+      transition: all 1s;
+    }
+  }
+  @media (max-width: 724px) {
+    margin: 30px 0 10px 0;
+    h2 {
+      font-size: 15px;
+      padding: 0;
+    }
+    p {
+      font-weight: 700;
+      font-size: 12px;
+      cursor: pointer;
+      margin-top: 15px;
+    }
+    &:hover {
+      transition: none;
+    }
+  }
+  @media (orientation: landscape) and (min-width: 600px) and (max-width: 896px) {
+    margin: 0;
+    h2 {
+      padding: 0;
+      margin: 0;
+    }
+    p {
+      font-weight: 500;
+      font-size: 15px;
+      cursor: pointer;
+      margin-top: 0px;
+    }
+  }
+}
+
+.LoadingContainer {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  justify-content: center;
+  width: 100vw;
+  img {
+    filter: drop-shadow(0 0 50px #bbdefb);
+  }
+}
+
+.Trigger {
+  align-items: center;
+  background-color: transparent;
+  border: none;
+  color: white;
+  font-size: 16px;
+  margin: 15px;
+  padding: 10px;
+  font-weight: 600;
+  text-align: center;
+  width: 100%;
+  img {
+    width: 100px;
+  }
+
+  @media (max-width: 724px) {
+    font-size: 15px;
+  }
+}

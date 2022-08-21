@@ -1,16 +1,10 @@
-/* eslint-disable no-nested-ternary */
-import React, { useEffect, useRef } from "react";
+import React from "react";
 import StarRatings from "react-star-ratings";
 import Link from "next/link";
 import { Navigation, Autoplay } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
 
-import { useDispatch, useSelector } from "../../redux";
-import { fetchTrending } from "../../helpers/tmdb/trending";
-import { fetchExternalIds } from "../../helpers/tmdb/movies";
-import { fetchIMDBRatings } from "../../helpers/imdb";
 import { image } from "../../helpers/Urls";
-import { setTrending } from "../../redux/reducers/movie.reducer";
 import { detailLink } from "../../utils";
 
 import styles from "./HomeCarousel.module.scss";

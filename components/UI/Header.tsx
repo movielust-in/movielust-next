@@ -180,7 +180,7 @@ function Header({ isOnline }: HeaderProps) {
           ) : !user.isLoggingIn ? (
             <LoginPromt
               onClick={() => {
-                router.push(`/signin?redirectto=${router.pathname}`);
+                router.push(`/signin?redirectto=${router.asPath}`);
               }}
             >
               LOGIN
