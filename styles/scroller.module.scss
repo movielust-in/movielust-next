@@ -1,0 +1,126 @@
+.Container {
+  //  styled.div`
+  display: flex;
+  flex-direction: column;
+  overflow-x: hidden;
+  justify-content: center;
+  align-items: center;
+
+  @media (min-width: 724px) {
+    padding-top: 60px;
+  }
+  @media (max-width: 724px) {
+    padding-left: 10px;
+  }
+}
+
+.Filters {
+  //  styled.div`
+  display: flex;
+  justify-content: center;
+}
+
+.CardContainer {
+  //  styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  margin: 70px auto 0 auto;
+  flex-wrap: wrap;
+  width: 90%;
+  min-height: 100vh;
+  @media (max-width: 724px) {
+    padding: 0 10px;
+    margin-top: 0;
+  }
+}
+
+.GenreBar {
+  //  styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 10px;
+}
+
+.GenreBubble {
+  //  styled.span`
+  span {
+    margin-right: 5px;
+    vertical-align: center;
+  }
+  svg {
+    color: rgba(255, 255, 255, 0.4);
+    cursor: pointer;
+  }
+}
+
+.slideIn {
+  //  keyframes`
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+.Card {
+  //  styled.div`
+  animation: slideIn 500ms ease linear;
+  margin: 10px;
+  width: 150px;
+
+  @media (max-width: 724px) {
+    width: 120px;
+    margin: 15px 0;
+  }
+
+  @media (max-width: 360px) {
+    width: 160px;
+    margin: 15px 0;
+  }
+  @media (orientation: landscape) and (min-width: 600px) and (max-width: 896px) {
+    width: 150px;
+    margin: 15px 0;
+  }
+  @media (orientation: landscape) and (min-width: 320px) and (max-width: 480px) {
+    width: 100px;
+    margin: 15px 0;
+  }
+}
+
+.Trigger {
+  //  styled.button`
+  align-items: center;
+  background-color: transparent;
+  border: none;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  font-weight: 600;
+  justify-content: center;
+  margin-bottom: 15px;
+  padding: 7px 11px;
+  text-align: center;
+  width: 100%;
+  img {
+    width: 100px;
+  }
+
+  @media (max-width: 724px) {
+    font-size: 15px;
+  }
+}
+
+.Info {
+  //  styled.div`
+  color: white;
+  font-size: 2rem;
+  font-weight: 900;
+  letter-spacing: 1.2px;
+  padding: 30px;
+  text-align: center;
+  width: 100%;
+}

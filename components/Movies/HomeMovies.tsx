@@ -208,7 +208,7 @@ function Movies({ movies }: MoviesProps) {
 
       {TOTAL_NO_CAROUSELS > page && (
         <Trigger ref={ref} onClick={loadMore}>
-          <ColorSpinner alt="loading" width="50px" />
+          Loading...
         </Trigger>
       )}
     </Container>
@@ -315,12 +315,10 @@ const Trigger = styled.button`
   background-color: transparent;
   border: none;
   color: white;
-  display: flex;
-  flex-direction: column;
-  font-size: 0;
-  justify-content: center;
-  margin-bottom: 15px;
-  padding: 7px 11px;
+  font-size: 16px;
+  margin: 15px;
+  padding: 10px;
+  font-weight: 600;
   text-align: center;
   width: 100%;
   img {

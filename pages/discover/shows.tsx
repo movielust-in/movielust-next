@@ -87,8 +87,10 @@ function Series() {
 export default Series;
 
 const Container = styled.div`
-  display: flex row;
+  display: flex;
   justify-content: center;
+  align-items: center;
+  flex-direction: column;
   margin-top: 70px;
   padding: 0 1px;
   overflow-x: hidden;

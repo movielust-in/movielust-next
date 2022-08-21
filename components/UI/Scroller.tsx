@@ -1,8 +1,7 @@
 import { useRef, useState, useEffect } from "react";
-import styled from "@emotion/styled";
-import { keyframes } from "@emotion/react";
 import Link from "next/link";
-import { motion } from "framer-motion";
+
+import styles from "../../styles/scroller.module.scss";
 
 import Wrap from "../CarouselSlices/Wrap";
 
@@ -59,11 +58,11 @@ function Scroller({ movies, total, type }: ScrollerProps) {
   }, [movies]);
 
   return (
-    <Container>
-      <CardContainer>
+    <div className={styles.Container}>
+      <div className={styles.CardContainer}>
         {total.results > 0 &&
           movies.slice(0, page * 20 - 1).map((movie) => (
-            <Card key={movie.id}>
+            <div className={styles.Card} key={movie.id}>
               {type === "cast" ? (
                 <Link href={`/person/${movie.id}`}>
                   <a>
@@ -99,111 +98,24 @@ function Scroller({ movies, total, type }: ScrollerProps) {
                   </a>
                 </Link>
               )}
-            </Card>
+            </div>
           ))}
-      </CardContainer>
+      </div>
       {total.pages > page && loadingMore && (
-        <Loading>
+        <div>
           <Image src={LoadingGhost} alt="loading" />
-        </Loading>
+        </div>
       )}
       {total.pages > page && (
-        <Trigger ref={ref} onClick={loadMore}>
-          <Image src={LoadingGhost} alt="loading" />
-          Loading more results
-        </Trigger>
+        <button className={styles.Trigger} ref={ref} onClick={loadMore}>
+          Loading more results...
+        </button>
       )}
       {page > 1 && page >= total.pages && movies.length > 0 && (
-        <Info>Yay! You have scrolled all.</Info>
+        <div className={styles.Info}>Yay! You have scrolled all.</div>
       )}
-    </Container>
+    </div>
   );
 }
 
 export default Scroller;
-
-const Container = styled.div`
-  align-items: flex-start;
-  display: flex;
-  flex-direction: column;
-  min-height: 90vh;
-`;
-
-const CardContainer = styled.div`
-  align-items: center;
-  justify-content: center;
-  display: flex;
-  flex-wrap: wrap;
-  margin: 0 auto;
-  @media (max-width: 724px) {
-    justify-content: space-between;
-    padding: 0;
-    width: 100%;
-  }
-`;
-
-const slideIn = keyframes`
-from{transform:translateX(100%);}
-to{transform:translateX(0);}
-`;
-
-const Card = styled.div`
-  flex: 0 1 calc(20%-1em);
-  animation: ${slideIn} 500ms ease linear;
-  margin: 10px;
-  width: 150px;
-
-  @media (max-width: 724px) {
-    width: 120px;
-    margin: 15px 0;
-  }
-
-  @media (max-width: 360px) {
-    width: 160px;
-    margin: 15px 0;
-  }
-  @media (orientation: landscape) and (min-width: 600px) and (max-width: 896px) {
-    width: 150px;
-    margin: 15px 0;
-  }
-  @media (orientation: landscape) and (min-width: 320px) and (max-width: 480px) {
-    width: 100px;
-    margin: 15px 0;
-  }
-`;
-const Loading = styled.div`
-  display: flex;
-  justify-content: center;
-`;
-
-const Trigger = styled.button`
-  align-items: center;
-  background-color: transparent;
-  border: none;
-  color: white;
-  display: flex;
-  flex-direction: column;
-  font-weight: 400;
-  justify-content: center;
-  margin-bottom: 15px;
-  padding: 7px 11px;
-  text-align: center;
-  width: 100%;
-  img {
-    width: 100px;
-  }
-
-  @media (max-width: 724px) {
-    font-size: 15px;
-  }
-`;
-
-const Info = styled.div`
-  color: white;
-  font-size: 2rem;
-  font-weight: 900;
-  letter-spacing: 1.2px;
-  padding: 30px;
-  text-align: center;
-  width: 100%;
-`;

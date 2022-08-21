@@ -1,6 +1,4 @@
 import { useEffect, useState, useRef } from "react";
-import styled from "@emotion/styled";
-import { keyframes } from "@emotion/react";
 import Link from "next/link";
 import { FaTimes } from "react-icons/fa";
 
@@ -25,6 +23,8 @@ import {
 } from "../../redux/reducers/movie.reducer";
 import { detailLink } from "../../utils";
 import getGenreName from "../../utils/getGenreName";
+
+import styles from "../../styles/scroller.module.scss";
 
 const options = { root: null, rootMargin: "20px", threshold: 1.0 };
 
@@ -97,15 +97,16 @@ function Movie() {
   };
 
   return (
-    <Container>
-      <Filters>
+    <div className={styles.Container}>
+      <div className={styles.Filters}>
         <SortBy type="movie" />
         <GenreFilter type="movie" />
-      </Filters>
-      <GenreBar>
+      </div>
+      <div className={styles.GenreBar}>
         {filters.genres.map((id) => (
           // eslint-disable-next-line react/jsx-key
-          <GenreBubble
+          <div
+            className={styles.GenreBubble}
             style={{
               border: "1px solid silver",
               padding: "5px",
@@ -117,10 +118,10 @@ function Movie() {
           >
             <span>{MOVIE_GENRES.find((genre) => id === genre.id)!.name}</span>
             <FaTimes onClick={() => addOrRemoveGenreIdFromFilter(id)} />
-          </GenreBubble>
+          </div>
         ))}
-      </GenreBar>
-      <CardContainer>
+      </div>
+      <div className={styles.CardContainer}>
         {Object.values(data).map((results) =>
           results.map((movie) => (
             <Link
@@ -128,7 +129,7 @@ function Movie() {
               href={detailLink("movie", movie.id!, movie.title!)}
             >
               <a>
-                <Card style={{ width: "150px" }}>
+                <div className={styles.Card} style={{ width: "150px" }}>
                   <Wrap
                     src={image(200, movie.poster_path!)}
                     showCard
@@ -141,138 +142,24 @@ function Movie() {
                       []
                     }
                   />
-                </Card>
+                </div>
               </a>
             </Link>
           ))
         )}
-      </CardContainer>
+      </div>
       {totalPages > page && (
-        <Trigger ref={setTrigger} onClick={loadMore}>
+        <button className={styles.Trigger} ref={setTrigger} onClick={loadMore}>
           <p style={{ textAlign: "center" }}>
             <b>Loading...</b>
           </p>
-        </Trigger>
+        </button>
       )}
       {page > 1 && page >= totalPages && (
-        <Info>Yay! You have scrolled it all.</Info>
+        <div className={styles.Info}>Yay! You have scrolled it all.</div>
       )}
-    </Container>
+    </div>
   );
 }
 
 export default Movie;
-
-const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  overflow-x: hidden;
-  justify-content: center;
-  align-items: center;
-
-  @media (min-width: 724px) {
-    padding-top: 60px;
-  }
-  @media (max-width: 724px) {
-    padding-left: 10px;
-  }
-`;
-
-const Filters = styled.div`
-  display: flex;
-  justify-content: center;
-`;
-
-const CardContainer = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: start;
-  align-items: center;
-  margin: 70px auto 0 auto;
-  flex-wrap: wrap;
-  width: 90%;
-  min-height: 100vh;
-  @media (max-width: 724px) {
-    padding: 0 10px;
-    margin-top: 0;
-  }
-`;
-
-const GenreBar = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: 10px;
-`;
-
-const GenreBubble = styled.span`
-  span {
-    margin-right: 5px;
-    vertical-align: center;
-  }
-  svg {
-    color: rgba(255, 255, 255, 0.4);
-    cursor: pointer;
-  }
-`;
-
-const slideIn = keyframes`
-from{transform:translateX(100%);}
-to{transform:translateX(0);}
-`;
-
-const Card = styled.div`
-  animation: ${slideIn} 500ms ease linear;
-  margin: 10px;
-  width: 150px;
-
-  @media (max-width: 724px) {
-    width: 120px;
-    margin: 15px 0;
-  }
-
-  @media (max-width: 360px) {
-    width: 160px;
-    margin: 15px 0;
-  }
-  @media (orientation: landscape) and (min-width: 600px) and (max-width: 896px) {
-    width: 150px;
-    margin: 15px 0;
-  }
-  @media (orientation: landscape) and (min-width: 320px) and (max-width: 480px) {
-    width: 100px;
-    margin: 15px 0;
-  }
-`;
-
-const Trigger = styled.button`
-  align-items: center;
-  background-color: transparent;
-  border: none;
-  color: white;
-  display: flex;
-  flex-direction: column;
-  font-weight: 400;
-  justify-content: center;
-  margin-bottom: 15px;
-  padding: 7px 11px;
-  text-align: center;
-  width: 100%;
-  img {
-    width: 100px;
-  }
-
-  @media (max-width: 724px) {
-    font-size: 15px;
-  }
-`;
-
-const Info = styled.div`
-  color: white;
-  font-size: 2rem;
-  font-weight: 900;
-  letter-spacing: 1.2px;
-  padding: 30px;
-  text-align: center;
-  width: 100%;
-`;
