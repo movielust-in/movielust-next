@@ -93,15 +93,15 @@ function Wrap({
       setDirection((current) => ({ ...current, x: Directions.LEFT }));
     }
 
-    if (!cardRef) return;
+    // if (!cardRef) return;
 
-    if (cardDimens.y + cardDimens.height >= window.innerHeight) {
-      setDirection((current) => ({ ...current, h: Directions.UP }));
-    } else if (cardDimens.y < 100)
-      setDirection((current) => ({ ...current, h: Directions.DOWN }));
-    else {
-      setDirection((current) => ({ ...current, h: Directions.UP }));
-    }
+    // if (cardDimens.y + cardDimens.height >= window.innerHeight) {
+    //   setDirection((current) => ({ ...current, h: Directions.UP }));
+    // } else if (cardDimens.y < 100)
+    //   setDirection((current) => ({ ...current, h: Directions.DOWN }));
+    // else {
+    //   setDirection((current) => ({ ...current, h: Directions.UP }));
+    // }
   };
 
   const toBase64 = (str: string) =>

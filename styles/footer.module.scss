@@ -1,0 +1,88 @@
+@use "./animation";
+
+.Container {
+  background-color: #031d30;
+  bottom: 0;
+  padding: 0 60px 20px 60px;
+  user-select: none;
+  @media (max-width: 724px) {
+    padding: 0 40px 80px 40px;
+  }
+}
+
+@include animation.keyframes(glow) {
+  from {
+    text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #0000ff,
+      0 0 40px #e60073, 0 0 40px #e60073, 0 0 40px #0000ff, 0 0 40px #0000ff;
+  }
+  to {
+    text-shadow: 0 0 20px #fff, 0 0 30px #ff4da6, 0 0 40px #ff4da6,
+      0 0 50px #0000ff, 0 0 60px #0000ff, 0 0 70px #0000ff, 0 0 80px #ff4da6;
+  }
+}
+
+.Title {
+  color: white;
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+  font-size: 40px;
+  font-weight: 550;
+  letter-spacing: 1px;
+  margin: 0;
+  padding: 10px;
+
+  &:hover {
+    animation: glow 1500ms ease-in-out infinite alternate;
+  }
+  @media (max-width: 724px) {
+    font-size: 25px;
+  }
+}
+
+.TitleBar {
+  border-bottom: 1px solid silver;
+  margin-bottom: 20px;
+  text-align: center;
+  @media (max-width: 724px) {
+    margin-bottom: 10px;
+  }
+}
+
+.Footernotice {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin-bottom: 5px;
+
+  a {
+    border-left: 1px solid silver;
+    border-right: 1px solid silver;
+    color: white;
+    font-size: 14px;
+    font-weight: 500;
+    margin-bottom: 15px;
+    padding: 0 20px 0 20px;
+    text-decoration: none;
+  }
+  @media (max-width: 724px) {
+    margin-bottom: 0;
+    a {
+      font-size: 10px;
+      padding: 0 5px 0 5px;
+    }
+  }
+  @media (max-width: 400px) {
+    a {
+      font-size: 8px;
+      padding: 0 5px 0 5px;
+    }
+  }
+}
+
+.MDBContainer {
+  display: flex;
+  font-size: 11px;
+  justify-content: center;
+  @media (max-width: 724px) {
+    font-size: 9px;
+  }
+}

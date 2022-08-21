@@ -99,8 +99,3 @@ function Carousel({ children, carosel_id, breakPoints }: CaroselProps) {
 }
 
 export default Carousel;
-
-interface NavProps {
-  disable: boolean;
-  show: boolean;
-}

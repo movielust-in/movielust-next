@@ -8,10 +8,9 @@ import {
   MutableRefObject,
   useMemo,
 } from "react";
-import styled from "@emotion/styled";
-import { keyframes, css } from "@emotion/react";
+
+import Image from "next/image";
 import { useRouter } from "next/router";
-import { FaArrowLeft } from "react-icons/fa";
 
 import { image } from "../../helpers/Urls";
 
@@ -23,7 +22,6 @@ import { Content } from "../../types/tmdb";
 
 import { detailLink } from "../../utils";
 import { LoadingGhost } from "../../assets";
-import Image from "next/image";
 
 import styles from "./search.module.scss";
 
