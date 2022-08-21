@@ -1,6 +1,9 @@
-# https://www.robotstxt.org/robotstxt.html
+# *
 User-agent: *
 Allow: /
+
+# Host
+Host: https://movielust.in
+
+# Sitemaps
 Sitemap: https://movielust.in/sitemap.xml
-
-
