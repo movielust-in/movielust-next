@@ -1,8 +1,8 @@
 import Head from "next/head";
 import { GetStaticPropsContext } from "next";
 
-import TrendingCarousel from "../components/Carousels/HomeCarousel";
 import Movies from "../components/Movies/HomeMovies";
+import TrendingCarousel from "../components/Carousels/HomeCarousel";
 
 import { fetchTrending, fetchTrendingToday } from "../helpers/tmdb/trending";
 
@@ -50,6 +50,7 @@ function Home({ trendingMovies, homeMovies }: HomeProps) {
 
 export default Home;
 
+// SSR LOGIC
 export const getStaticProps = async (context: GetStaticPropsContext) => {
   const movies = await fetchTrending();
 

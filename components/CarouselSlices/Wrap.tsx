@@ -5,7 +5,7 @@ import { image } from "../../helpers/Urls";
 import ErroredImage from "../../assets/images/placeholder-image.png";
 import { Genre } from "../../types/tmdb";
 
-import styles from "./Wrap.module.scss";
+import styles from "../../styles/Wrap.module.scss";
 
 interface WrapPros {
   src: string;

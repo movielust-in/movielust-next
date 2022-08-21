@@ -9,12 +9,12 @@ import { setUserLogin } from "../redux/reducers/user.reducer";
 export default function useSetUser() {
   const dispatch = useDispatch();
 
-  const called = useRef(false);
+  // const called = useRef(false);
 
   useEffect(() => {
-    if (called.current) return;
+    // if (called.current) return;
 
-    called.current = true;
+    // called.current = true;
 
     const getUserProfile = async () => {
       try {

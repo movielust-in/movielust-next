@@ -7,8 +7,9 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { image } from "../../helpers/Urls";
 import { detailLink } from "../../utils";
 
-import styles from "./HomeCarousel.module.scss";
 import { MovieResult } from "../../types/tmdb";
+
+import styles from "../../styles/HomeCarousel.module.scss";
 
 function ImgSlider({
   movies,

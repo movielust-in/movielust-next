@@ -1,34 +1,18 @@
 import React, { useState, useEffect, useRef, useMemo, memo } from "react";
-import styled from "@emotion/styled";
+
+import Image from "next/image";
+import dynamic from "next/dynamic";
+
 import { useSelector } from "../../redux";
 import MovieCarousel from "../Carousels/MovieCarousel";
 import ShowAllButton from "../CarouselSlices/ShowAllButton";
 
-// import {
-//   fetchTRM,
-//   fetchUpcomingMovies,
-//   fetchBollywood,
-//   fetchSouth,
-//   fetchGujarati,
-// } from "../../helpers/tmdb/movies";
-
-// import {
-//   fetchPopularSeries,
-//   fetchLatestSeries,
-//   fetchTopRatedAnimes,
-// } from "../../helpers/tmdb/series";
-
-// import { fetchTrendingToday } from "../../helpers/tmdb/trending";
-
-// import { setHomeMovies } from "../../redux/reducers/movie.reducer";
-
 import { LoadingGhost } from "../../assets";
-import Image from "next/image";
 import { HomeMovies } from "../../types/apiResponses";
 
 import styles from "./HomeMovies.module.scss";
 
-const RecentCarousel = React.lazy(() => import("../Carousels/RecentCarousel"));
+const RecentCarousel = dynamic(() => import("../Carousels/RecentCarousel"));
 
 const TOTAL_NO_CAROUSELS = 9;
 
@@ -37,64 +21,7 @@ interface MoviesProps {
 }
 
 function Movies({ movies }: MoviesProps) {
-  // const dispatch = useDispatch();
-
-  // const movies = useSelector((state) => state.movie.homeMovies);
-
   const isAuthenticated = useSelector((state) => state.user.isLoggedIn);
-
-  // useEffect(() => {
-  //   const fetchAll = async () => {
-  //     setIsLoading(true);
-  //     Promise.all([
-  //       fetchTRM(),
-  //       fetchUpcomingMovies(),
-  //       fetchPopularSeries(),
-  //       fetchBollywood(),
-  //       fetchSouth(),
-  //       fetchLatestSeries(),
-  //       fetchTrendingToday(),
-  //       fetchTopRatedAnimes(),
-  //       fetchGujarati(),
-  //     ]).then((results) => {
-  //       const homeMovies = {
-  //         TRM: results[0],
-  //         latestMovies: results[1],
-  //         popularSeries: results[2],
-  //         bollywood: results[3],
-  //         southIndian: results[4],
-  //         latestSeries: results[5],
-  //         trendingToday: results[6],
-  //         topAnimes: results[7],
-  //         gujarati: results[8],
-  //         set: true,
-  //       };
-
-  //       dispatch(setHomeMovies(homeMovies));
-
-  //       setIsLoading(false);
-  //       const date = new Date();
-  //       const obj = {
-  //         homeMovies,
-  //         exp: date.setHours(date.getHours() + 23),
-  //       };
-  //       localStorage.homeMovies = JSON.stringify(obj);
-  //     });
-  //   };
-
-  //   if (!movies.set) {
-  //     if (localStorage.homeMovies !== undefined) {
-  //       const obj = JSON.parse(localStorage.homeMovies);
-  //       const { exp } = obj;
-  //       if (new Date() > new Date(exp)) fetchAll();
-  //       else dispatch(setHomeMovies(obj.homeMovies));
-  //     } else {
-  //       fetchAll();
-  //     }
-  //   } else {
-  //     setIsLoading(false);
-  //   }
-  // }, [movies.set, dispatch]);
 
   const ref = useRef(null);
 

@@ -10,6 +10,7 @@ import "../styles/font.css";
 import { useEffect, useRef, useState } from "react";
 import Router from "next/router";
 import Loading from "../components/UI/Loading";
+import { useSetUser } from "../hooks";
 
 function MyApp({ Component, pageProps }: AppProps) {
   const [loading, setLoading] = useState(false);
