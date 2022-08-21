@@ -26,10 +26,11 @@
   flex-direction: row;
   justify-content: flex-start;
   align-items: center;
-  margin: 70px auto 0 auto;
+  margin: 0px auto 0 auto;
   flex-wrap: wrap;
   width: 90%;
-  min-height: 100vh;
+  min-height: 90vh;
+  overflow: hidden;
   @media (max-width: 724px) {
     padding: 0 10px;
     margin-top: 0;
