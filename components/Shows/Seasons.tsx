@@ -12,7 +12,6 @@ import {
 
 import { useRouter } from "next/router";
 // import ReactGA from "react-ga";
-import { motion } from "framer-motion";
 
 import { useDispatch, useSelector } from "../../redux";
 import Spinner from "../UI/Spinner";
@@ -275,8 +274,8 @@ function Seasons({ id, title, totalSeasons, setSeasonMagnets }: SeasonsProps) {
 
                 {showEpisode === episode.episode_number && (
                   <EpisodeContent
-                    animate={{ maxHeight: [0, 500] }}
-                    transition={{ duration: 0.4 }}
+                    // animate={{ maxHeight: [0, 500] }}
+                    // transition={{ duration: 0.4 }}
                     ref={episodeRef as any}
                     onLoad={() => {
                       setCurrEpisode(
@@ -656,7 +655,7 @@ from{opacity:0;}
 to{opacity:1;}
 `;
 
-const EpisodeContent = styled(motion.div)`
+const EpisodeContent = styled.div`
   width: 100%;
   margin-top: 1px;
   background-color: rgba(0, 0, 0, 0.5);

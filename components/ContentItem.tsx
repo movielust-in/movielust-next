@@ -1,4 +1,3 @@
-import { motion } from "framer-motion";
 import Link from "next/link";
 import styled from "@emotion/styled";
 import { keyframes } from "@emotion/react";
@@ -55,7 +54,7 @@ function WatchlistItem({
 
 export default WatchlistItem;
 
-const Item = styled(motion.li)<any>`
+const Item = styled.li<any>`
   background-color: #090c14;
   background-image: linear-gradient(315deg, #090c14 0%, #031d30 79%);
   border: 1px solid rgba(192, 192, 192, 0.2);

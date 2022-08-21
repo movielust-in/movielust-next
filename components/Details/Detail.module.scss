@@ -1,8 +1,4 @@
 /* stylelint-disable at-rule-no-unknown */
-// import { motion } from 'framer-motion';
-// import { FaShareAlt } from 'react-icons/fa';
-// import styled from '@emotion/styled';
-// import { keyframes, css } from '@emotion/react';
 
 @mixin animate($animation, $duration, $method, $times) {
   animation: $animation $duration $method $times;

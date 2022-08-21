@@ -3,7 +3,6 @@
 import { useState } from "react";
 import { MdPlaylistAdd } from "react-icons/md";
 import { FaDownload, FaPlay, FaStar, FaStop, FaShareAlt } from "react-icons/fa";
-import { motion } from "framer-motion";
 
 // import { ShareOptions, Social } from '../../components';
 
@@ -99,12 +98,10 @@ export default function InformationComponent({
   };
 
   return (
-    <motion.div
+    <div
       // style={{
       //   backgroundColor: `rgba(${domColor[0]}, ${domColor[1]}, ${domColor[2]}, 0.3)`,
       // }}
-      initial={{ y: 10, opacity: 0 }}
-      animate={{ y: 0, opacity: 1 }}
       className={styles.Information}
     >
       <div className={styles.Controls}>
@@ -240,6 +237,6 @@ export default function InformationComponent({
       {commonData && commonData.overview ? (
         <div className={styles.Description}>{commonData.overview}</div>
       ) : null}
-    </motion.div>
+    </div>
   );
 }

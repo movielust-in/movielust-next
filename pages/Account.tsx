@@ -5,7 +5,6 @@ import { useRouter } from "next/router";
 
 import { FaEdit } from "react-icons/fa";
 import Modal from "react-modal";
-import { motion } from "framer-motion";
 
 import { useSelector, useDispatch } from "../redux";
 import Spinner from "../components/UI/Spinner";
@@ -100,10 +99,7 @@ function Account() {
 
   return (
     <Container>
-      <Index
-        animate={{ y: [50, 0], opacity: [0, 1] }}
-        transition={{ duration: 0.5 }}
-      >
+      <Index>
         <List>
           <li>
             <IndexItem>Details</IndexItem>
@@ -126,10 +122,7 @@ function Account() {
         </List>
       </Index>
 
-      <Information
-        animate={{ y: [50, 0], opacity: [0, 1] }}
-        transition={{ duration: 0.5 }}
-      >
+      <Information>
         {user.avatar ? (
           <ProfilePicture src={user.avatar}>
             {isUpdating ? (
@@ -148,7 +141,7 @@ function Account() {
           </ProfilePicture>
         )}
 
-        <List animate={{ x: [10, 0] }} transition={{ delay: 0.05 }}>
+        <List>
           <li>
             <h6>Name</h6>
             <span>{user.name} </span>
@@ -305,7 +298,7 @@ const IndexItem = styled.div`
   padding: 10px;
 `;
 
-const Index = styled(motion.div)`
+const Index = styled.div`
   background-color: #090c14;
   background-image: linear-gradient(315deg, #090c14 0%, #031d30 79%);
   border: 2px solid silver;
@@ -349,7 +342,7 @@ const Index = styled(motion.div)`
   }
 `;
 
-const List = styled(motion.ul)`
+const List = styled.ul`
   border-top: 0.1px solid rgba(192, 192, 192, 0.2);
   list-style: none;
   margin: 2px;
@@ -368,7 +361,7 @@ const Sadimg = styled.img`
   width: 80px;
 `;
 
-const Information = styled(motion.div)`
+const Information = styled.div`
   background-color: #090c14;
   background-image: linear-gradient(315deg, #090c14 0%, #031d30 79%);
   border: 2px solid silver;

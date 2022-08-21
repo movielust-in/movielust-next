@@ -7,9 +7,6 @@ import Carousel from "./Carousel";
 import ImageModal from "../Modal/ImageModal";
 import PeopleModal from "../Modal/PeopleModal";
 
-// const ImageModal = React.lazy(() => import('../Modal/ImageModal'));
-// const PeopleModal = React.lazy(() => import('../Modal/PeopleModal'));
-
 import styles from "../../styles/carousel.module.scss";
 interface ImageCrouselProps {
   images: any;
