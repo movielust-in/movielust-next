@@ -75,48 +75,30 @@ export function Production() {
   return isLoading ? (
     <Loading />
   ) : (
-    <Container>
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+        alignItems: "center",
+        gap: 10,
+      }}
+    >
       {company.length ? <ProductionImageSlider data={company} /> : null}
 
       {production && (
-        <Title>
+        <div>
           <Image
             width={200}
             height={70}
             src={`https://image.tmdb.org/t/p/w300/${production.logo_path}`}
             alt="Logo"
           />
-        </Title>
+        </div>
       )}
 
       <Scroller movies={storeMovies} total={total} type="movie" />
-    </Container>
+    </div>
   );
 }
 export default Production;
-
-const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  overflow-x: hidden;
-  padding: 0 1px;
-  text-align: center;
-  @media (max-width: 724px) {
-    padding: 0 10px;
-    margin-top: 0;
-  }
-`;
-
-const Title = styled.div`
-  margin: 20px 0 20px 0;
-  img {
-    width: 20%;
-  }
-  @media (max-width: 724px) {
-    img {
-      width: 20%;
-      max-height: 100px;
-    }
-  }
-`;

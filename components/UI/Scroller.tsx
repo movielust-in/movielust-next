@@ -25,33 +25,33 @@ function Scroller({ movies, total, type }: ScrollerProps) {
 
   const options = { root: null, rootMargin: "20px", threshold: 1.0 };
 
-  // eslint-disable-next-line no-undef
   const handleObserver: IntersectionObserverCallback = (entities) => {
     const target = entities[0];
-    if (target.isIntersecting) {
-      if (total.pages > page) {
-        setPage((currPage) => currPage + 1);
-      }
-    }
+    if (target.isIntersecting) setPage((currPage) => currPage + 1);
   };
 
-  const attachObserver = () => {
-    const observer = new IntersectionObserver(handleObserver, options);
-    if (ref.current) {
-      observer.observe(ref.current);
-    }
-  };
-
-  setTimeout(attachObserver, 200);
+  const observer = useRef<IntersectionObserver>();
 
   const loadMore = () => {
     setLoadingMore(true);
     setPage((currPage) => currPage + 1);
   };
+
+  const [trigger, setTrigger] = useState<any>(null);
+
   useEffect(() => {
-    attachObserver();
-    // eslint-disable-next-line
-  }, []);
+    if (!observer.current)
+      observer.current = new IntersectionObserver(handleObserver, options);
+
+    const currentObserver = observer.current;
+
+    if (trigger) currentObserver.observe(trigger);
+
+    return () => {
+      if (trigger) currentObserver.unobserve(trigger);
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [trigger]);
 
   useEffect(() => {
     setPage(1);
@@ -107,7 +107,7 @@ function Scroller({ movies, total, type }: ScrollerProps) {
         </div>
       )}
       {total.pages > page && (
-        <button className={styles.Trigger} ref={ref} onClick={loadMore}>
+        <button className={styles.Trigger} ref={setTrigger} onClick={loadMore}>
           Loading more results...
         </button>
       )}
