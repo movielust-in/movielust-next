@@ -1,5 +1,3 @@
-import styled from "@emotion/styled";
-
 import Link from "next/link";
 
 import { useRouter } from "next/router";
@@ -15,6 +13,8 @@ import { AiFillPlaySquare as SeriesIcon } from "react-icons/ai";
 
 import { BiSearchAlt as SearchIcon } from "react-icons/bi";
 
+import styles from "../../styles/footerTabs.module.scss";
+
 function FooterTabs() {
   const router = useRouter();
 
@@ -29,8 +29,8 @@ function FooterTabs() {
   };
 
   return (
-    <Footer>
-      <Item>
+    <div className={styles.Footer}>
+      <div className={styles.Item}>
         <Link href="/">
           <a>
             <HomeIcon
@@ -40,8 +40,8 @@ function FooterTabs() {
             <h5>Home</h5>
           </a>
         </Link>
-      </Item>
-      <Item>
+      </div>
+      <div className={styles.Item}>
         <Link href="/watchlist">
           <a>
             <WatchlistIcon
@@ -52,14 +52,14 @@ function FooterTabs() {
             <h5>Watchlist</h5>
           </a>
         </Link>
-      </Item>
-      <Item role="presentation" onClick={showSearch}>
+      </div>
+      <div className={styles.Item} role="presentation" onClick={showSearch}>
         <SearchIcon
           size="28px"
           color={hash.includes("search") ? "red" : "white"}
         />
-      </Item>
-      <Item>
+      </div>
+      <div className={styles.Item}>
         <Link href="/discover/movies">
           <a>
             <MovieIcon
@@ -70,8 +70,8 @@ function FooterTabs() {
             <h5>Movies</h5>
           </a>
         </Link>
-      </Item>
-      <Item>
+      </div>
+      <div className={styles.Item}>
         <Link href="/discover/series">
           <a>
             <SeriesIcon
@@ -81,55 +81,9 @@ function FooterTabs() {
             <h5>Shows</h5>
           </a>
         </Link>
-      </Item>
-    </Footer>
+      </div>
+    </div>
   );
 }
 
 export default FooterTabs;
-
-const Footer = styled.div`
-  background-color: #090c14;
-  bottom: 0;
-  display: flex;
-  height: 60px;
-  justify-content: space-around;
-  left: 0;
-  margin-bottom: -2px;
-  position: fixed;
-  width: 100%;
-  z-index: 10000 !important;
-  @media (min-width: 724px) {
-    display: none;
-  }
-`;
-
-const Item = styled.div`
-  align-self: center;
-  display: flex;
-  flex-direction: column;
-  font-size: 10px;
-  font-weight: 100;
-  letter-spacing: 1px;
-  a {
-    align-items: center;
-    color: inherit;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    text-decoration: none;
-
-    h5 {
-      margin: 0;
-    }
-
-    svg {
-      font-size: 2px;
-      font-weight: 100;
-    }
-  }
-`;
-
-// const Image = styled.img`
-//     width: 30px;
-// `;
