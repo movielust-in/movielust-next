@@ -1,3 +1,5 @@
+import { MovieResult, TvResult } from './tmdb';
+
 export interface Avatar {
   id: number;
   link: string;
@@ -40,10 +42,6 @@ export interface HomeMovies {
   TRM: MovieResult[];
   latestMovies: MovieResult[];
   popularSeries: TvResult[];
-  bollywood: MovieResult[];
-  southIndian: MovieResult[];
   latestSeries: TvResult[];
   trendingToday: MovieResult[];
-  topAnimes: TvResult[];
-  gujarati: MovieResult[];
 }

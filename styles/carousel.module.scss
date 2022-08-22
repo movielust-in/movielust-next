@@ -105,3 +105,12 @@
 .display_none {
   display: none;
 }
+
+.big_container {
+  border-radius: 15px;
+  box-shadow: 5px 3px 20px black;
+  margin-top: 10px;
+  overflow: hidden;
+  padding: 10px;
+  position: relative;
+}

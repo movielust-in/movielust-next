@@ -59,73 +59,73 @@ function Movies({ movies }: MoviesProps) {
     () => [
       <div className={styles.CarouselContainer} key="trending">
         <div className={styles.Title}>
-          <div className={styles.Header}>Latest & Trending</div>
+          <p className={styles.Header}>Latest & Trending</p>
         </div>
         <MovieCarousel movies={movies.trendingToday} type="combined" />
       </div>,
 
       <div className={styles.CarouselContainer} key="latestmovies">
         <div className={styles.Title}>
-          <div className={styles.Header}>Latest Movies</div>
+          <p className={styles.Header}>Latest Movies</p>
         </div>
         <MovieCarousel movies={movies.latestMovies} type="movie" />
       </div>,
 
       <div className={styles.CarouselContainer} key="latestshows">
         <div className={styles.Title}>
-          <div className={styles.Header}> Trending Shows</div>
+          <p className={styles.Header}> Trending Shows</p>
         </div>
         <MovieCarousel movies={movies.latestSeries} type="tv" />
       </div>,
 
       <div className={styles.CarouselContainer} key="toprated">
         <div className={styles.Title}>
-          <div className={styles.Header}>Top Rated Movies</div>
+          <p className={styles.Header}>Top Rated Movies</p>
           <ShowAllButton link="/showall/movie/TopRated" label="See all" />
         </div>
         <MovieCarousel movies={movies.TRM} type="movie" />
       </div>,
 
-      <div className={styles.CarouselContainer} key="bollywood">
-        <div className={styles.Title}>
-          <div className={styles.Header}>Bollywood Movies</div>
-          <ShowAllButton link="/showall/movie/Bollywood" label="See all" />
-        </div>
-        <MovieCarousel movies={movies.bollywood} type="movie" />
-      </div>,
+      // <div className={styles.CarouselContainer} key="bollywood">
+      //   <div className={styles.Title}>
+      //     <p className={styles.Header}>Bollywood Movies</p>
+      //     <ShowAllButton link="/showall/movie/Bollywood" label="See all" />
+      //   </div>
+      //   <MovieCarousel movies={movies.bollywood} type="movie" />
+      // </div>,
 
-      <div className={styles.CarouselContainer} key="southIndian">
-        <div className={styles.Title}>
-          <div className={styles.Header}>South Indian Movies</div>
-          <ShowAllButton link="/showall/movie/SouthIndian" label="See all" />
-        </div>
-        <MovieCarousel movies={movies.southIndian} type="movie" />
-      </div>,
+      // <div className={styles.CarouselContainer} key="southIndian">
+      //   <div className={styles.Title}>
+      //     <p className={styles.Header}>South Indian Movies</p>
+      //     <ShowAllButton link="/showall/movie/SouthIndian" label="See all" />
+      //   </div>
+      //   <MovieCarousel movies={movies.southIndian} type="movie" />
+      // </div>,
 
-      <div className={styles.CarouselContainer} key="gujarati">
-        <div className={styles.Title}>
-          <div className={styles.Header}>Gujarati Movies</div>
-          <ShowAllButton link="/showall/movie/Gujarati" label="See all" />
-        </div>
+      // <div className={styles.CarouselContainer} key="gujarati">
+      //   <div className={styles.Title}>
+      //     <p className={styles.Header}>Gujarati Movies</p>
+      //     <ShowAllButton link="/showall/movie/Gujarati" label="See all" />
+      //   </div>
 
-        <MovieCarousel movies={movies.gujarati} type="movie" />
-      </div>,
+      //   <MovieCarousel movies={movies.gujarati} type="movie" />
+      // </div>,
 
       <div className={styles.CarouselContainer} key="popshows">
         <div className={styles.Title}>
-          <div className={styles.Header}>Popular Shows</div>
+          <p className={styles.Header}>Popular Shows</p>
           <ShowAllButton link="/showall/tv/PopularSeries" label="See all" />
         </div>
         <MovieCarousel movies={movies.popularSeries} type="tv" />
       </div>,
 
-      <div className={styles.CarouselContainer} key="animes">
-        <div className={styles.Title}>
-          <div className={styles.Header}>Top Rated Animes</div>
-          <ShowAllButton link="/showall/tv/anime" label="See all" />
-        </div>
-        <MovieCarousel movies={movies.topAnimes} type="tv" />
-      </div>,
+      // <div className={styles.CarouselContainer} key="animes">
+      //   <div className={styles.Title}>
+      //     <p className={styles.Header}>Top Rated Animes</p>
+      //     <ShowAllButton link="/showall/tv/anime" label="See all" />
+      //   </div>
+      //   <MovieCarousel movies={movies.topAnimes} type="tv" />
+      // </div>,
     ],
     [movies]
   );

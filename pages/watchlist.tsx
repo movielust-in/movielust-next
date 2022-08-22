@@ -16,7 +16,7 @@ import {
 import LoginRedirect from '../components/UI/LoginRedirect';
 import Loading from '../components/UI/Loading';
 
-import ContetnCard from '../components/ContentItem';
+import ContetnCard from '../components/ContentItem/ContentItem';
 
 function Watchlist() {
   const dispatch = useDispatch();

@@ -1,22 +1,22 @@
-import React, { useCallback, useRef, useState } from "react";
-import { Swiper } from "swiper/react";
-import { Navigation, FreeMode } from "swiper";
-import { FaAngleLeft, FaAngleRight } from "react-icons/fa";
+import { useCallback, useRef, useState, ReactNode } from 'react';
+import { Swiper } from 'swiper/react';
+import { Navigation, FreeMode } from 'swiper';
+import { FaAngleLeft, FaAngleRight } from 'react-icons/fa';
 
-import styles from "../../styles/carousel.module.scss";
+import styles from '../../styles/carousel.module.scss';
 
 interface CaroselProps {
-  children: React.ReactNode;
+  children: ReactNode;
   carosel_id?: string;
-  breakPoints?: Record<number, Record<"slidesPerView", number>>;
+  breakPoints?: Record<number, Record<'slidesPerView', number>>;
 }
 
 Carousel.defaultProps = {
-  carosel_id: "",
+  carosel_id: '',
   breakPoints: {
     1024: {
       slidesPerView: 7,
-      as: "sdasd",
+      as: 'sdasd',
     },
     464: {
       slidesPerView: 7,
@@ -38,9 +38,9 @@ function Carousel({ children, carosel_id, breakPoints }: CaroselProps) {
     setTimeout(() => {
       const breakPoint = swiper.currentBreakpoint;
       const nSlides = swiper.slides ? swiper.slides.length : 0;
-      if ((breakPoint === "1024" || breakPoint === "424") && nSlides <= 7) {
+      if ((breakPoint === '1024' || breakPoint === '424') && nSlides <= 7) {
         setNav(true);
-      } else if (breakPoint === "0" && nSlides <= 3) setNav(true);
+      } else if (breakPoint === '0' && nSlides <= 3) setNav(true);
     }, 100);
     if (!swiper.allowSlideNext) setNext(false);
     if (swiper && swiper.params && swiper.params.navigation) {

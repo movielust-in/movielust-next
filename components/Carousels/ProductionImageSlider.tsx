@@ -1,20 +1,21 @@
 /* eslint-disable no-nested-ternary */
-import { useEffect, useState } from "react";
-import styled from "@emotion/styled";
-import { Navigation, Autoplay } from "swiper";
-import Link from "next/link";
-import StarRatings from "react-star-ratings";
-import { Swiper, SwiperSlide } from "swiper/react";
+import { useEffect, useState } from 'react';
+import { Navigation, Autoplay } from 'swiper';
+import Link from 'next/link';
+import StarRatings from 'react-star-ratings';
+import { Swiper, SwiperSlide } from 'swiper/react';
 
 // import { Loading } from '..';
 
-import Loading from "../UI/Loading";
+import Loading from '../UI/Loading';
 
-import { image } from "../../helpers/Urls";
+import { image } from '../../helpers/Urls';
 // import { CompaniesTopImages } from '../../helpers/tmdb/movies';
 
-import { MovieResult } from "../../types/tmdb";
-import { detailLink } from "../../utils";
+import { MovieResult } from '../../types/tmdb';
+import { detailLink } from '../../utils';
+
+import styles from '../../styles/prodctuion_img_slider.module.scss';
 
 interface ProductionImageSliderPros {
   data: [];
@@ -34,9 +35,10 @@ function ProductionImageSlider({ data }: ProductionImageSliderPros) {
     <Loading />
   ) : (
     company && (
-      <StyledSwiper
+      <Swiper
         loop
         id="production_slider"
+        className={styles.StyledSwiper}
         modules={[Navigation, Autoplay]}
         navigation={false}
         spaceBetween={0}
@@ -52,12 +54,14 @@ function ProductionImageSlider({ data }: ProductionImageSliderPros) {
               movie: MovieResult & { imdb_rating: number; file_path: string }
             ) => (
               <SwiperSlide key={movie.file_path!}>
-                <Link href={detailLink("movie", movie.id!, movie.title!)}>
+                <Link href={detailLink('movie', movie.id!, movie.title!)}>
                   <a>
-                    <Wrap>
+                    <div className={styles.Wrap}>
                       <div>
                         <span>{movie.title}</span>
-                        <Overview>{movie.overview!.slice(0, 200)}.</Overview>
+                        <p className={styles.Overview}>
+                          {movie.overview!.slice(0, 200)}.
+                        </p>
                         {movie.imdb_rating! ? (
                           <StarRatings
                             rating={movie.imdb_rating!}
@@ -109,112 +113,15 @@ function ProductionImageSlider({ data }: ProductionImageSliderPros) {
                           alt={movie.title}
                         />
                       </picture>
-                    </Wrap>
+                    </div>
                   </a>
                 </Link>
               </SwiperSlide>
             )
           )}
-      </StyledSwiper>
+      </Swiper>
     )
   );
 }
 
 export default ProductionImageSlider;
-
-const StyledSwiper = styled(Swiper)`
-  min-height: 250px;
-  transition: all 200ms ease;
-  user-select: none;
-  width: 100%;
-  @media (max-width: 724px) {
-    min-height: 150px;
-  }
-`;
-
-const Wrap = styled.div`
-  background: linear-gradient(
-    to left,
-    rgba(42, 159, 255, 0) 0%,
-    rgba(9, 12, 20, 1) 76%,
-    rgba(9, 12, 20, 1) 100%
-  );
-  background-blend-mode: multiply;
-  cursor: pointer;
-  display: flex;
-  justify-content: space-between;
-  user-select: none;
-  width: 100%;
-  div {
-    align-self: center;
-    color: white;
-    flex: 1;
-    font-weight: 300;
-    text-align: center;
-    text-decoration: none;
-    z-index: 1;
-    @media (max-width: 724px) {
-      font-size: 10px;
-    }
-  }
-
-  picture {
-    float: right;
-    height: 580px;
-    width: 75%;
-    z-index: -100;
-  }
-
-  img {
-    opacity: 0.8;
-    width: 100%;
-    z-index: -100;
-  }
-
-  span {
-    font-family: "Roboto", sans-serif;
-    font-size: 25px;
-    font-weight: 500;
-  }
-
-  @media (max-width: 724px) {
-    background: linear-gradient(
-      to bottom,
-      rgba(42, 159, 255, 0) 0%,
-      rgba(9, 12, 20, 1) 94%,
-      rgba(9, 12, 20, 1) 100%
-    );
-    flex-direction: column-reverse;
-    picture {
-      width: 100%;
-      border-radius: 5px;
-      height: 200px;
-    }
-    img {
-      border-radius: 5px;
-      width: 100%;
-      height: 200px;
-    }
-    div {
-      position: absolute;
-    }
-    span {
-      background: RGBA(9, 12, 20, 0.85);
-      margin: auto;
-      padding: 0 5px 0 5px;
-      font-size: 15px;
-      border-radius: 5px;
-    }
-  }
-`;
-
-const Overview = styled.p`
-  font-size: 13px;
-  font-weight: 500;
-  letter-spacing: 0.5px;
-  padding: 0 40px 0 40px;
-  text-align: justify;
-  @media (max-width: 724px) {
-    display: none;
-  }
-`;

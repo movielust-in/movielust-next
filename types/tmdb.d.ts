@@ -1,10 +1,8 @@
-import { IMDBRating } from "./apiResponses";
-
 export enum HttpMethod {
-  Get = "get",
-  Post = "post",
-  Put = "put",
-  Delete = "delete",
+  Get = 'get',
+  Post = 'post',
+  Put = 'put',
+  Delete = 'delete',
 }
 
 export interface Endpoint {
@@ -105,7 +103,7 @@ export interface MovieResult {
   release_date?: string;
   genre_ids?: number[];
   id?: number;
-  media_type: "movie";
+  media_type: 'movie';
   original_title?: string;
   original_language?: string;
   title?: string;
@@ -117,7 +115,7 @@ export interface MovieResult {
 }
 
 export interface MediaType {
-  media_type?: "string";
+  media_type?: 'string';
 }
 
 export interface TvResult {
@@ -127,7 +125,7 @@ export interface TvResult {
   overview?: string;
   backdrop_path?: string;
   vote_average?: number;
-  media_type: "tv";
+  media_type: 'tv';
   first_air_date?: string;
   origin_country?: string[];
   genre_ids?: number[];
@@ -178,7 +176,7 @@ export interface Logo {
   file_path?: string;
   height?: number;
   id?: string;
-  file_type?: ".svg" | ".png";
+  file_type?: '.svg' | '.png';
   vote_average?: number;
   vote_count?: number;
   width?: number;
@@ -238,12 +236,12 @@ export interface Video {
   site?: string;
   size?: 360 | 480 | 720 | 1080;
   type?:
-    | "Trailer"
-    | "Teaser"
-    | "Clip"
-    | "Featurette"
-    | "Behind the Scenes"
-    | "Bloopers";
+    | 'Trailer'
+    | 'Teaser'
+    | 'Clip'
+    | 'Featurette'
+    | 'Behind the Scenes'
+    | 'Bloopers';
 }
 
 export interface Translation {
@@ -376,14 +374,14 @@ export interface Episode {
 }
 
 export enum ExternalId {
-  ImdbId = "imdb_id",
-  Freebase_Mid = "freebase_mid",
-  FreebaseId = "freebase_id",
-  TvdbId = "tvdb_id",
-  TvrageId = "tvrage_id",
-  FacebookId = "facebook_id",
-  TwitterId = "twitter_id",
-  InstagramId = "instagram_id",
+  ImdbId = 'imdb_id',
+  Freebase_Mid = 'freebase_mid',
+  FreebaseId = 'freebase_id',
+  TvdbId = 'tvdb_id',
+  TvrageId = 'tvrage_id',
+  FacebookId = 'facebook_id',
+  TwitterId = 'twitter_id',
+  InstagramId = 'instagram_id',
 }
 
 export interface ConfigurationResponse extends Response {
@@ -569,38 +567,38 @@ export interface CollectionTranslationsResponse extends Response {
 export interface DiscoverMovieRequest extends RequestParams {
   region?: string;
   sort_by?:
-    | "popularity.asc"
-    | "popularity.desc"
-    | "release_date.asc"
-    | "release_date.desc"
-    | "revenue.asc"
-    | "revenue.desc"
-    | "primary_release_date.asc"
-    | "primary_release_date.desc"
-    | "original_title.asc"
-    | "original_title.desc"
-    | "vote_average.asc"
-    | "vote_average.desc"
-    | "vote_count.asc"
-    | "vote_count.desc";
+    | 'popularity.asc'
+    | 'popularity.desc'
+    | 'release_date.asc'
+    | 'release_date.desc'
+    | 'revenue.asc'
+    | 'revenue.desc'
+    | 'primary_release_date.asc'
+    | 'primary_release_date.desc'
+    | 'original_title.asc'
+    | 'original_title.desc'
+    | 'vote_average.asc'
+    | 'vote_average.desc'
+    | 'vote_count.asc'
+    | 'vote_count.desc';
   certification_country?: string;
   certification?: string;
-  "certification.lte"?: string;
-  "certification.gte"?: string;
+  'certification.lte'?: string;
+  'certification.gte'?: string;
   include_adult?: boolean;
   include_video?: boolean;
   page?: number;
   primary_release_year?: number;
-  "primary_release_date.gte"?: string;
-  "primary_release_date.lte"?: string;
-  "release_date.gte"?: string;
-  "release_date.lte"?: string;
+  'primary_release_date.gte'?: string;
+  'primary_release_date.lte'?: string;
+  'release_date.gte'?: string;
+  'release_date.lte'?: string;
   with_release_type?: number;
   year?: number;
-  "vote_count.gte"?: number;
-  "vote_count.lte"?: number;
-  "vote_average.gte"?: number;
-  "vote_average.lte"?: number;
+  'vote_count.gte'?: number;
+  'vote_count.lte'?: number;
+  'vote_average.gte'?: number;
+  'vote_average.lte'?: number;
   with_cast?: string;
   with_crew?: string;
   with_people?: string;
@@ -609,8 +607,8 @@ export interface DiscoverMovieRequest extends RequestParams {
   without_genres?: string;
   with_keywords?: string;
   without_keywords?: string;
-  "with_runtime.gte"?: number;
-  "with_runtime.lte"?: number;
+  'with_runtime.gte'?: number;
+  'with_runtime.lte'?: number;
   with_original_language?: string;
   with_watch_providers?: string;
   watch_region?: string;
@@ -623,20 +621,20 @@ export interface DiscoverMovieResponse extends PaginatedResponse {
 
 export interface DiscoverTvRequest extends RequestParams {
   sort_by?: string;
-  "air_date.gte"?: string;
-  "air_date.lte"?: string;
-  "first_air_date.gte"?: string;
-  "first_air_date.lte"?: string;
+  'air_date.gte'?: string;
+  'air_date.lte'?: string;
+  'first_air_date.gte'?: string;
+  'first_air_date.lte'?: string;
   first_air_date_year?: number;
   page?: number;
   timezone?: string;
-  "vote_average.gte"?: number;
-  "vote_count.gte"?: number;
+  'vote_average.gte'?: number;
+  'vote_count.gte'?: number;
   with_genres?: string;
   with_networks?: string;
   without_genres?: string;
-  "with_runtime.gte"?: number;
-  "with_runtime.lte"?: number;
+  'with_runtime.gte'?: number;
+  'with_runtime.lte'?: number;
   include_null_first_air_dates?: boolean;
   with_original_language?: string;
   without_keywords?: string;
@@ -653,8 +651,8 @@ export interface DiscoverTvResponse extends PaginatedResponse {
 }
 
 export interface TrendingRequest extends RequestParams {
-  media_type: "all" | "movie" | "tv" | "person";
-  time_window: "day" | "week";
+  media_type: 'all' | 'movie' | 'tv' | 'person';
+  time_window: 'day' | 'week';
 }
 
 export interface TrendingResponse extends PaginatedResponse {
@@ -682,12 +680,12 @@ export interface MovieResponse extends Response {
   runtime?: number;
   spoken_languages?: SpokenLanguage[];
   status?:
-    | "Rumored"
-    | "Planned"
-    | "In Production"
-    | "Post Production"
-    | "Released"
-    | "Canceled";
+    | 'Rumored'
+    | 'Planned'
+    | 'In Production'
+    | 'Post Production'
+    | 'Released'
+    | 'Canceled';
   tagline?: string;
   title?: string;
   video?: boolean;
@@ -1180,14 +1178,14 @@ export interface EpisodeVideosResponse extends Response {
     site?: string;
     size?: 360 | 480 | 720 | 1080;
     type?:
-      | "Trailer"
-      | "Teaser"
-      | "Clip"
-      | "Featurette"
-      | "Opening Credits"
-      | "Behind the Scenes"
-      | "Bloopers"
-      | "Recap";
+      | 'Trailer'
+      | 'Teaser'
+      | 'Clip'
+      | 'Featurette'
+      | 'Opening Credits'
+      | 'Behind the Scenes'
+      | 'Bloopers'
+      | 'Recap';
   }>;
 }
 
@@ -1521,17 +1519,17 @@ export interface AccountListsResponse extends PaginatedResponse {
 }
 
 export interface AccountMediaRequest extends PagedRequestParams {
-  sort_by?: "created_at.asc" | "created_at.desc";
+  sort_by?: 'created_at.asc' | 'created_at.desc';
 }
 
 export interface MarkAsFavoriteRequest extends IdRequestParams {
-  media_type: "movie" | "tv";
+  media_type: 'movie' | 'tv';
   media_id: number;
   favorite: boolean;
 }
 
 export interface AccountWatchlistRequest extends IdRequestParams {
-  media_type: "movie" | "tv";
+  media_type: 'movie' | 'tv';
   media_id: number;
   watchlist: boolean;
 }
@@ -1603,7 +1601,7 @@ export interface DetailResponse extends MovieResponse, TvResult {
   runtime?: string;
   trailerKey?: string;
   number_of_seasons?: number;
-  images: MovieImagesResponse["backdrops"];
+  images: MovieImagesResponse['backdrops'];
   similar: Content[];
   externalIds: MovieExternalIdsResponse;
   videos?: VideosResponse;

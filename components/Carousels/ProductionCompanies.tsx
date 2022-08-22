@@ -1,14 +1,12 @@
-import styled from '@emotion/styled';
-// import {useRef} from 'react';
-
 import { SwiperSlide } from 'swiper/react';
 import { useRouter } from 'next/router';
-// import ColorThief from 'colorthief';
 
 import Carousel from './Carousel';
 import ProductionWrap from '../CarouselSlices/ProductionWrap';
 
 import styles from '../../styles/carousel.module.scss';
+
+import prodCompaniesStyles from '../../styles/production_companies.modules.scss';
 
 interface ProductionCompaniesPros {
   data: any[];
@@ -25,8 +23,9 @@ function ProductionCompanies({
 ProductionCompaniesPros) {
   const router = useRouter();
   return (
-    <Container
-    // dom={dom}
+    <div
+      className={prodCompaniesStyles.Container}
+      // dom={dom}
     >
       {title &&
       data.filter((detail) => detail.logo_path !== null).length > 0 ? (
@@ -49,7 +48,11 @@ ProductionCompaniesPros) {
                   alt={detail.name}
                 />
 
-                {detail.name && <Detail>{detail.name}</Detail>}
+                {detail.name && (
+                  <div className={prodCompaniesStyles.Detail}>
+                    {detail.name}
+                  </div>
+                )}
               </SwiperSlide>
             ) : (
               <SwiperSlide
@@ -63,43 +66,17 @@ ProductionCompaniesPros) {
                   alt={detail.name}
                 />
 
-                {detail.name && <Detail>{detail.name}</Detail>}
+                {detail.name && (
+                  <div className={prodCompaniesStyles.Detail}>
+                    {detail.name}
+                  </div>
+                )}
               </SwiperSlide>
             )
           )}
       </Carousel>
-    </Container>
+    </div>
   );
 }
 
 export default ProductionCompanies;
-
-const Container = styled.div`
-  border-radius: 15px;
-  box-shadow: 5px 3px 30px black;
-  margin: 10px 0;
-  overflow: hidden;
-  padding: 10px;
-  position: relative;
-`;
-
-const Detail = styled.div`
-  font-size: 20px;
-  margin-top: 6px;
-  text-align: center;
-
-  div {
-    color: #a6a6a6;
-    text-align: center;
-  }
-  @media (max-width: 724px) {
-    font-size: 15px;
-    div {
-      font-size: 11px;
-    }
-  }
-  &:hover {
-    transform: scale(1.1);
-    transition: all 250ms cubic-bezier(0.25, 0.46, 0.45, 0.94) 3000ms;
-  }
-`;

@@ -6,10 +6,7 @@ import TrendingCarousel from '../components/Carousels/HomeCarousel';
 import { fetchTrending, fetchTrendingToday } from '../helpers/tmdb/trending';
 
 import {
-  fetchBollywood,
   fetchExternalIds,
-  fetchGujarati,
-  fetchSouth,
   fetchTRM,
   fetchUpcomingMovies,
 } from '../helpers/tmdb/movies';
@@ -18,11 +15,7 @@ import { fetchIMDBRatings } from '../helpers/imdb';
 
 import { MovieResult } from '../types/tmdb';
 
-import {
-  fetchLatestSeries,
-  fetchPopularSeries,
-  fetchTopRatedAnimes,
-} from '../helpers/tmdb/series';
+import { fetchLatestSeries, fetchPopularSeries } from '../helpers/tmdb/series';
 
 import { HomeMovies } from '../types/apiResponses';
 
@@ -72,26 +65,18 @@ export const getStaticProps = async () => {
     imdb_rating: ratings[index].rating,
   }));
 
-  const homeMovies = await Promise.all([
+  const homeMovies: HomeMovies = await Promise.all([
     fetchTRM(),
     fetchUpcomingMovies(),
     fetchPopularSeries(),
-    fetchBollywood(),
-    fetchSouth(),
     fetchLatestSeries(),
     fetchTrendingToday(),
-    fetchTopRatedAnimes(),
-    fetchGujarati(),
   ]).then((results) => ({
     TRM: results[0],
     latestMovies: results[1],
     popularSeries: results[2],
-    bollywood: results[3],
-    southIndian: results[4],
-    latestSeries: results[5],
-    trendingToday: results[6],
-    topAnimes: results[7],
-    gujarati: results[8],
+    latestSeries: results[3],
+    trendingToday: results[4],
   }));
 
   return {
