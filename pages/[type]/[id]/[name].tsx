@@ -1,76 +1,131 @@
-import React, { useState } from "react";
-import { GetServerSideProps, NextPage } from "next";
-import { useRouter } from "next/router";
+import { toast } from 'react-toastify';
+import React, { useCallback, useState } from 'react';
+import { GetServerSideProps, NextPage } from 'next';
+import { useRouter } from 'next/router';
+import dynamic from 'next/dynamic';
 
-import BackgroundImage from "../../../components/Details/BackgroundImage";
-import InformationComponent from "../../../components/Details/Information";
+import BackgroundImage from '../../../components/Details/BackgroundImage';
+import InformationComponent from '../../../components/Details/Information';
 
-import { fetchDetails, fetchSimilar } from "../../../helpers/tmdb";
+import { fetchDetails } from '../../../helpers/tmdb';
 import {
   fetchCollection,
   fetchExternalIds,
-} from "../../../helpers/tmdb/movies";
-import { fetchTvImages as fetchImages } from "../../../helpers/tmdb/series";
-import { DetailResponse, Genre, ShowResponse } from "../../../types/tmdb";
-import tmdbClient from "../../../helpers/tmdbClient";
-import { VIDEO } from "../../../helpers/Urls";
-import PosterAndIframe from "../../../components/Details/PosterAndIframe";
+} from '../../../helpers/tmdb/movies';
+import { fetchTvImages as fetchImages } from '../../../helpers/tmdb/series';
+import { DetailResponse, Genre, ShowResponse } from '../../../types/tmdb';
+import tmdbClient from '../../../helpers/tmdbClient';
+import { VIDEO } from '../../../helpers/Urls';
+import PosterAndIframe from '../../../components/Details/PosterAndIframe';
 
-import styles from "../../../components/Details/Detail.module.scss";
-import { FULL_MONTHS } from "../../../config";
-import MovieCarousel from "../../../components/Carousels/MovieCarousel";
-import Seasons from "../../../components/Shows/Seasons";
-import CastCarousel from "../../../components/Carousels/CastCarousel";
-import ImageCrousel from "../../../components/Carousels/ImageCrousel";
-import ProductionCompanies from "../../../components/Carousels/ProductionCompanies";
-import SimilarMovies from "../../../components/Movies/SimilarMovies";
-import DetailHelmet from "../../../components/Details/DetailHelmet";
-import { fetchIMDBRating } from "../../../helpers/imdb";
+import styles from '../../../components/Details/Detail.module.scss';
+import { FULL_MONTHS } from '../../../config';
+import MovieCarousel from '../../../components/Carousels/MovieCarousel';
+import CastCarousel from '../../../components/Carousels/CastCarousel';
+import ImageCrousel from '../../../components/Carousels/ImageCrousel';
+import ProductionCompanies from '../../../components/Carousels/ProductionCompanies';
+import SimilarMovies from '../../../components/Movies/SimilarMovies';
+import DetailHelmet from '../../../components/Details/DetailHelmet';
+import { fetchIMDBRating } from '../../../helpers/imdb';
+import { useDispatch, useSelector } from '../../../redux/store';
+import {
+  addMovieToWatchlist,
+  addShowToWatchlist,
+} from '../../../redux/reducers/watchlist.reducer';
+import { addToWatchlist } from '../../../helpers/user/watchlist';
+
+const Seasons = dynamic(() => import('../../../components/Shows/Seasons'));
 interface DetailProps {
   contentData: DetailResponse;
 }
 
-const Detail: NextPage<DetailProps> = ({ contentData }) => {
+const Detail: NextPage<DetailProps> = ({ contentData }: DetailProps) => {
+  const router = useRouter();
+
+  const id = router.query.id as string;
+  const type = router.query.type as string;
+
+  const dispatch = useDispatch();
+
+  const isAuthenticated = useSelector((state) => state.user.isLoggedIn);
+
+  const toWatchlist = useCallback(async () => {
+    if (!isAuthenticated) {
+      toast('Login to access watchlist!');
+      return;
+    }
+    try {
+      await addToWatchlist(parseInt(id!, 10), type!);
+
+      const data = {
+        id,
+        type,
+        title: contentData?.title,
+        overview: contentData?.overview,
+        poster_path: contentData?.poster_path,
+      };
+
+      if (type === 'movie') dispatch(addMovieToWatchlist(data));
+      else dispatch(addShowToWatchlist(data));
+
+      // toast('Added to Watchlist');
+    } catch (err: any) {
+      if (err && err.response && err.response.statusText) {
+        toast('Already in Watchlist!');
+        return;
+      }
+      toast('Something went wrong!');
+    }
+  }, [
+    contentData?.overview,
+    contentData?.poster_path,
+    contentData?.title,
+    dispatch,
+    id,
+    isAuthenticated,
+    type,
+  ]);
+
   const [loadingMovieIframe, setMovieIframeLoading] = useState(false);
 
   const iframeLoaded = () => {
     setMovieIframeLoading(false);
   };
 
-  const router = useRouter();
+  const [showMovie, setShowMovie] = useState(false);
 
-  const id = router.query.id as string;
-  const type = router.query.type as string;
+  const toggleMovie = () => {
+    setMovieIframeLoading(true);
+    setShowMovie((state) => !state);
+  };
+
+  const commonData = {
+    id,
+    title: contentData.title || contentData.name || '',
+    backdrop: contentData.backdrop_path,
+    poster: contentData.poster_path,
+    overview: contentData.overview,
+    prodCompanies: contentData.production_companies,
+    cast: contentData.credits.cast,
+    tmdbRating: contentData.vote_average,
+    voteCount: contentData.vote_count,
+    genres: contentData.genres,
+    genreString:
+      contentData?.genres?.map((genre: Genre) => genre.name).join(', ') || '',
+    original_language: contentData.original_language,
+    imdbId: contentData.imdb_id,
+  };
 
   return (
     <div className={styles.Container}>
-      <DetailHelmet
-        link={router.asPath}
-        commonData={{
-          id,
-          title: contentData.title || contentData.name || "",
-          backdrop: contentData.backdrop_path,
-          poster: contentData.poster_path,
-          overview: contentData.overview,
-          prodCompanies: contentData.production_companies,
-          cast: contentData.credits.cast,
-          tmdbRating: contentData.vote_average,
-          voteCount: contentData.vote_count,
-          genres: contentData.genres,
-          genreString:
-            contentData?.genres?.map((genre: Genre) => genre.name).join(", ") ||
-            "",
-          original_language: contentData.original_language,
-          imdbId: contentData.imdb_id,
-        }}
-      />
+      <DetailHelmet link={router.asPath} commonData={commonData} />
 
       <BackgroundImage backdrop={contentData.backdrop_path} />
 
       <PosterAndIframe
         id={id}
         poster={contentData.poster_path}
-        showMovie={false}
+        showMovie={showMovie}
         trailerKey={contentData.trailerKey}
         iframeLoaded={iframeLoaded}
       />
@@ -78,39 +133,23 @@ const Detail: NextPage<DetailProps> = ({ contentData }) => {
       <InformationComponent
         // domColor={domColor}
         type={type}
-        commonData={{
-          id,
-          title: contentData.title || contentData.name || "",
-          backdrop: contentData.backdrop_path,
-          poster: contentData.poster_path,
-          overview: contentData.overview,
-          prodCompanies: contentData.production_companies,
-          cast: contentData.credits.cast,
-          tmdbRating: contentData.vote_average,
-          voteCount: contentData.vote_count,
-          genres: contentData.genres,
-          genreString:
-            contentData?.genres?.map((genre: Genre) => genre.name).join(", ") ||
-            "",
-          original_language: contentData.original_language,
-          imdbId: contentData.imdb_id,
-        }}
+        commonData={commonData}
         releaseDate={contentData.release_date}
-        releaseYear={contentData?.release_date?.split(" ")[-1] || ""}
-        playMovie={() => {}}
+        releaseYear={contentData?.release_date?.split(' ')[-1] || ''}
+        playMovie={toggleMovie}
         loadingMovieIframe={loadingMovieIframe}
-        showMovie={false}
+        showMovie={showMovie}
         IMDBRating={contentData.imdbRating}
         magnets={[]}
         runtime={contentData.runtime}
         externalIds={contentData.externalIds}
         released={contentData.released!}
-        addToWatchlsit={() => {}}
+        addToWatchlsit={toWatchlist}
         playWebtor={() => {}}
         location={router}
       />
 
-      {type === "tv" &&
+      {type === 'tv' &&
         contentData &&
         contentData.name &&
         contentData.number_of_seasons && (
@@ -123,7 +162,7 @@ const Detail: NextPage<DetailProps> = ({ contentData }) => {
         )}
 
       {/* Cast */}
-      {type === "movie" &&
+      {type === 'movie' &&
         contentData?.credits?.cast &&
         contentData?.credits?.cast.length !== 0 && (
           <CastCarousel
@@ -170,12 +209,12 @@ const Detail: NextPage<DetailProps> = ({ contentData }) => {
         )}
 
       {/* TODO: move similar movie fetching logic to supabase functions */}
-      {type === "movie" && contentData?.genres?.length !== 0 && (
+      {type === 'movie' && contentData?.genres?.length !== 0 && (
         <SimilarMovies
           id={id!}
           type={type!}
           title={
-            type === "movie" ? "Movies you may like" : "Shows you may like"
+            type === 'movie' ? 'Movies you may like' : 'Shows you may like'
           }
           genres={contentData?.genres}
           toBeFiltered={contentData?.collection?.parts || []}
@@ -193,13 +232,13 @@ export const getServerSideProps: GetServerSideProps = async ({
   res,
 }) => {
   enum TYPE {
-    movie = "movie",
-    tv = "tv",
+    movie = 'movie',
+    tv = 'tv',
   }
 
   res.setHeader(
-    "Cache-Control",
-    "public, s-maxage=604800, stale-while-revalidate=86400"
+    'Cache-Control',
+    'public, s-maxage=604800, stale-while-revalidate=86400'
   );
 
   const { id, type } = query as { id: string; type: string };
@@ -211,7 +250,7 @@ export const getServerSideProps: GetServerSideProps = async ({
     credits: {
       cast: data.credits.cast?.slice(0, 20),
 
-      crew: data.credits.crew?.filter((member) => member.job === "Director"),
+      crew: data.credits.crew?.filter((member) => member.job === 'Director'),
     },
   };
 
@@ -220,7 +259,7 @@ export const getServerSideProps: GetServerSideProps = async ({
       const relDate = new Date(data.release_date);
       data = {
         ...data,
-        released: relDate > new Date() ? false : true,
+        released: !(relDate > new Date()),
         release_date: `${
           FULL_MONTHS[relDate.getMonth()]
         }, ${relDate.getDate()} ${relDate.getFullYear()}`,
@@ -228,7 +267,7 @@ export const getServerSideProps: GetServerSideProps = async ({
     }
 
     if (data.runtime) {
-      const time = parseInt(data.runtime) / 60;
+      const time = parseInt(data.runtime, 10) / 60;
       data = {
         ...data,
         runtime: `${Math.floor(time)} hrs ${-Math.round(
@@ -258,7 +297,7 @@ export const getServerSideProps: GetServerSideProps = async ({
     if (!numOfSeasons) data = { ...data, runtime: undefined };
     else if (numOfSeasons > 1)
       data = { ...data, runtime: `${numOfSeasons} Seasons` };
-    else data = { ...data, runtime: "1 Season" };
+    else data = { ...data, runtime: '1 Season' };
 
     const firstYear = showData.first_air_date!.slice(0, 4);
     const lastYear = showData.last_air_date?.slice(0, 4) || firstYear;
@@ -277,11 +316,13 @@ export const getServerSideProps: GetServerSideProps = async ({
 
   let vids = data.videos?.results || [];
   if (vids?.length <= 0) {
-    const res = await tmdbClient.get(VIDEO(id, type, data.original_language!));
-    vids = res.data.results;
+    const videoRes = await tmdbClient.get(
+      VIDEO(id, type, data.original_language!)
+    );
+    vids = videoRes.data.results;
     if (vids.length > 0) {
       const officialVideos = vids.filter(
-        (video) => video.official === true && video.type === "Trailer"
+        (video) => video.official === true && video.type === 'Trailer'
       );
       data = {
         ...data,
@@ -293,7 +334,7 @@ export const getServerSideProps: GetServerSideProps = async ({
     }
   } else {
     const officialVideos = vids.filter(
-      (video) => video.official === true && video.type === "Trailer"
+      (video) => video.official === true && video.type === 'Trailer'
     );
     data = {
       ...data,
@@ -309,11 +350,13 @@ export const getServerSideProps: GetServerSideProps = async ({
       const imdbRating = await fetchIMDBRating(data.imdb_id);
 
       data = { ...data, imdbRating };
-    } catch (error) {}
+    } catch (error) {
+      //
+    }
   }
 
-  delete data["videos"];
-  delete data["production_countries"];
+  delete data.videos;
+  delete data.production_countries;
 
   return {
     props: {

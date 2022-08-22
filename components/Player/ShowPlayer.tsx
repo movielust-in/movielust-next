@@ -1,19 +1,19 @@
 /* eslint-disable no-console */
-import { useState, useEffect } from "react";
-import styled from "@emotion/styled";
-import { FaAngleDown } from "react-icons/fa";
+import { useState, useEffect } from 'react';
+import styled from '@emotion/styled';
+import { FaAngleDown } from 'react-icons/fa';
 
-import { useRouter } from "next/router";
+import { useRouter } from 'next/router';
 import {
   BackArrow,
   PLayerContainer,
   VideoContainer,
   Title,
-} from "./Player-Styled";
-import Spinner from "../UI/Spinner";
+} from './Player-Styled';
+import Spinner from '../UI/Spinner';
 
-import BackgroundImage from "../UI/BackgroundImage";
-import { Magnet } from "../../types/apiResponses";
+import BackgroundImage from '../UI/BackgroundImage';
+import { Magnet } from '../../types/apiResponses';
 
 interface ShowPlayerProps {
   poster: string;
@@ -39,23 +39,23 @@ function ShowPlayer({
   const router = useRouter();
 
   const [showQualityOpt, setShowQualityOpt] = useState(false);
-  const [qualityText, setQualityText] = useState("Select Quality");
+  const [qualityText, setQualityText] = useState('Select Quality');
 
-  const hash = router.asPath.split("#")[1];
+  const hash = router.asPath.split('#')[1];
 
   useEffect(() => {
-    const mag = router.query["m"] as string;
+    const mag = router.query.m as string;
     if (mag !== null) {
       setMagnet(mag);
     }
-    const quality = router.query["q"] as string;
+    const quality = router.query.q as string;
     if (quality !== null) setQualityText(quality);
   }, [router]);
 
   useEffect(() => {
-    const webtorScript = document.createElement("script");
+    const webtorScript = document.createElement('script');
     webtorScript.src =
-      "https://cdn.jsdelivr.net/npm/@webtor/embed-sdk-js/dist/index.min.js";
+      'https://cdn.jsdelivr.net/npm/@webtor/embed-sdk-js/dist/index.min.js';
     webtorScript.async = true;
     document.body.append(webtorScript);
     return () => {
@@ -68,7 +68,7 @@ function ShowPlayer({
       <BackgroundImage src={poster} />
       <BackArrow
         onClick={() =>
-          router.push(router.pathname + hash.replace("player", ""))
+          router.push(router.pathname + hash.replace('player', ''))
         }
       />
       <VidContainer>
@@ -163,12 +163,12 @@ const Select = styled.div`
 `;
 
 const AngleDownIcon = styled(FaAngleDown)<{ open: boolean }>`
-  transform: ${(props) => (props.open ? "rotate(180deg)" : "rotate(0deg)")};
+  transform: ${(props) => (props.open ? 'rotate(180deg)' : 'rotate(0deg)')};
   transition: all 200ms ease;
 `;
 const Options = styled.div<{ show: boolean; n: number }>`
   height: ${(props) => (props.show ? `${35 * props.n}px` : 0)};
-  transform: ${(props) => (props.show ? "scaleY(1)" : "scaleY(0)")};
+  transform: ${(props) => (props.show ? 'scaleY(1)' : 'scaleY(0)')};
   transition: all 0.2s ease;
   width: 150px;
 `;

@@ -1,3 +1,22 @@
 {
-  "extends": "next/core-web-vitals"
+  "extends": ["next/core-web-vitals", "airbnb", "prettier"],
+  "plugins": ["@typescript-eslint"],
+  "rules": {
+    "import/extensions": "off",
+    "react/jsx-filename-extension": [
+      2,
+      { "extensions": [".js", ".jsx", ".ts", ".tsx"] }
+    ],
+    "no-use-before-define": "off",
+    "react/react-in-jsx-scope": "off",
+    "jsx-a11y/anchor-is-valid": "off",
+    "no-param-reassign": "off",
+    "react/function-component-definition": "off",
+    "react/require-default-props": "off",
+    "no-unused-vars": "off",
+    "@typescript-eslint/no-unused-vars": ["error"],
+    "no-shadow": "off",
+    "camelcase": "off",
+    "@typescript-eslint/no-shadow": ["error"]
+  }
 }

@@ -1,8 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
-import { CommonData } from "./DetailTypes";
-import { TWO_EMBED } from "../../config";
+import { TWO_EMBED } from '../../config';
 
-import styles from "./Detail.module.scss";
+import styles from './Detail.module.scss';
 
 interface PosterAndIframeProps {
   poster?: string;
@@ -25,7 +24,7 @@ function PosterAndIframe({
         <div
           className={styles.Poster}
           style={{
-            display: trailerKey || showMovie ? "" : "flex",
+            display: trailerKey || showMovie ? '' : 'flex',
           }}
         >
           <img
@@ -39,6 +38,7 @@ function PosterAndIframe({
           <iframe
             width="720"
             height="405"
+            sandbox="allow-scripts allow-same-origin allow-forms"
             src={
               showMovie
                 ? `${TWO_EMBED}/${id}`

@@ -1,21 +1,21 @@
 /* eslint-disable @next/next/no-img-element */
-import { MouseEventHandler, useEffect, useState } from "react";
-import styled from "@emotion/styled";
-import { FaAngleDown } from "react-icons/fa";
-import { useRouter } from "next/router";
-import StarRatings from "react-star-ratings";
+import { MouseEventHandler, useEffect, useState } from 'react';
+import styled from '@emotion/styled';
+import { FaAngleDown } from 'react-icons/fa';
+import { useRouter } from 'next/router';
+import StarRatings from 'react-star-ratings';
 
-import Spinner from "../UI/Spinner";
+import Spinner from '../UI/Spinner';
 
-import { fetchSimilar } from "../../helpers/tmdb";
-import { Magnet } from "../../types/apiResponses";
+import { fetchSimilar } from '../../helpers/tmdb';
+import { Magnet } from '../../types/apiResponses';
 import {
   VideoContainer,
   BackArrow,
   PLayerContainer,
   Title,
-} from "./Player-Styled";
-import { ImdbRating } from "../Details/DetailTypes";
+} from './Player-Styled';
+import { ImdbRating } from '../Details/DetailTypes';
 
 interface PlayerModalProps {
   title: string;
@@ -41,25 +41,25 @@ function PlayerModal({
   const router = useRouter();
   const [id, setId] = useState<string>();
   const [type, setType] = useState<string>();
-  const [qualityText, setQualityText] = useState("Select Quality");
+  const [qualityText, setQualityText] = useState('Select Quality');
   const [currManget, setMagnet] = useState(magnet);
   const [showQualityOpt, setShowQualityOpt] = useState(false);
   const [similar, setSimilar] = useState<any[]>([]);
 
   useEffect(() => {
-    const paramMag = router.query["m"] as string;
+    const paramMag = router.query.m as string;
     if (paramMag !== null) setMagnet(paramMag);
-    const quality = router.query["q"] as string;
+    const quality = router.query.q as string;
     if (quality !== null) setQualityText(quality);
-    const url = router.pathname.split("/");
+    const url = router.pathname.split('/');
     setId(url[2]);
     setType(url[1]);
   }, [router]);
 
   useEffect(() => {
-    const webtorScript = document.createElement("script");
+    const webtorScript = document.createElement('script');
     webtorScript.src =
-      "https://cdn.jsdelivr.net/npm/@webtor/embed-sdk-js/dist/index.min.js";
+      'https://cdn.jsdelivr.net/npm/@webtor/embed-sdk-js/dist/index.min.js';
     webtorScript.async = true;
     document.body.append(webtorScript);
     return () => {
@@ -117,12 +117,12 @@ function PlayerModal({
                   tabIndex={0}
                   onKeyDown={() => {
                     const win: Window = window;
-                    win.location = "https://github.com/";
+                    win.location = 'https://github.com/';
                     win.location = `${router.pathname}?m=${currMagnet.magnet}&q=${currMagnet.quality}#player`;
                   }}
                   onClick={() => {
                     const win: Window = window;
-                    win.location = "https://github.com/";
+                    win.location = 'https://github.com/';
                     win.location = `${router.pathname}?m=${currMagnet.magnet}&q=${currMagnet.quality}#player`;
                   }}
                 >
@@ -159,7 +159,7 @@ function PlayerModal({
               />
               <div key={movie.id}>
                 <h4>
-                  {movie.title} ({movie.release_date.split("-")[0]})
+                  {movie.title} ({movie.release_date.split('-')[0]})
                 </h4>
                 <h5>
                   Rating:
@@ -230,7 +230,7 @@ const Info = styled.div`
 
 const Options = styled.div<{ show: boolean; n: number }>`
   height: ${(props) => (props.show ? `${35 * props.n}px` : 0)};
-  transform: ${(props) => (props.show ? "scaleY(1)" : "scaleY(0)")};
+  transform: ${(props) => (props.show ? 'scaleY(1)' : 'scaleY(0)')};
   transition: all 0.2s ease;
   width: 150px;
 `;
@@ -247,7 +247,7 @@ const Select = styled.div`
 `;
 
 const AngleDownIcon = styled(FaAngleDown)<{ open: boolean }>`
-  transform: ${(props) => (props.open ? "rotate(180deg)" : "rotate(0deg)")};
+  transform: ${(props) => (props.open ? 'rotate(180deg)' : 'rotate(0deg)')};
   transition: all 200ms ease;
 `;
 

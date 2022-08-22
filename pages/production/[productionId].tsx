@@ -1,28 +1,27 @@
-import { useEffect, useState } from "react";
-import styled from "@emotion/styled";
-import { useDispatch, useSelector } from "../../redux";
+import { useEffect, useState } from 'react';
+import { useRouter } from 'next/router';
+import Image from 'next/image';
+import { useDispatch, useSelector } from '../../redux';
 
-import { fetchCompanies } from "../../helpers/tmdb/company";
+import { fetchCompanies } from '../../helpers/tmdb/company';
 import {
   fetchCompanyMovies,
   CompaniesTopImages,
-} from "../../helpers/tmdb/movies";
+} from '../../helpers/tmdb/movies';
 
 // import { Loading, Scroller } from '../components';
 
-import Loading from "../../components/UI/Loading";
-import Scroller from "../../components/UI/Scroller";
+import Loading from '../../components/UI/Loading';
+import Scroller from '../../components/UI/Scroller';
 
-import { setCurrentPage } from "../../redux/reducers/nav.reducer";
-import ProductionImageSlider from "../../components/Carousels/ProductionImageSlider";
+import { setCurrentPage } from '../../redux/reducers/nav.reducer';
+import ProductionImageSlider from '../../components/Carousels/ProductionImageSlider';
 import {
   setProductionMovies,
   setProductionTotal,
   resetMovies,
-} from "../../redux/reducers/movie.reducer";
-import { ProductionCompany } from "../../types/tmdb";
-import { useRouter } from "next/router";
-import Image from "next/image";
+} from '../../redux/reducers/movie.reducer';
+import { ProductionCompany } from '../../types/tmdb';
 
 export function Production() {
   const [isLoading, setIsLoading] = useState(true);
@@ -31,15 +30,15 @@ export function Production() {
 
   const router = useRouter();
 
-  const id = router.query["productionId"] as string;
+  const id = router.query.productionId as string;
 
   const dispatch = useDispatch();
   const total = useSelector((state) => state.movie.production.total);
   const storeMovies = useSelector((state) => state.movie.production.movies);
 
   useEffect(() => {
-    dispatch(setCurrentPage("production"));
-    document.title = "Production - Movielust";
+    dispatch(setCurrentPage('production'));
+    document.title = 'Production - Movielust';
   }, [dispatch]);
 
   const reset = () => dispatch(resetMovies());
@@ -77,10 +76,10 @@ export function Production() {
   ) : (
     <div
       style={{
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "center",
-        alignItems: "center",
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'center',
         gap: 10,
       }}
     >

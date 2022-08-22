@@ -1,7 +1,8 @@
-import Link from "next/link";
-import styled from "@emotion/styled";
-import { keyframes } from "@emotion/react";
-import { detailLink } from "../utils";
+import Link from 'next/link';
+import styled from '@emotion/styled';
+import Image from 'next/image';
+import { keyframes } from '@emotion/react';
+import { detailLink } from '../utils';
 
 interface WatchlistItemProps {
   id: number;
@@ -41,10 +42,10 @@ function WatchlistItem({
           </Plus>
         </Titlebar>
         <Overview>
-          {" "}
-          {overview === ""
-            ? ""
-            : `${overview!.split(" ").splice(0, 25).join(" ")} ..`}
+          {' '}
+          {overview === ''
+            ? ''
+            : `${overview!.split(' ').splice(0, 25).join(' ')} ..`}
         </Overview>
         <ViewButton href={detailLink(type, id, title)}>View</ViewButton>
       </Detail>
@@ -65,7 +66,7 @@ const Item = styled.li<any>`
   padding: 5px;
 `;
 
-const Thumbnail = styled.img`
+const Thumbnail = styled(Image)`
   border-radius: 8px;
   width: 80px;
   @media (max-width: 724px) {

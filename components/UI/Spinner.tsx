@@ -1,12 +1,18 @@
-import Image from "next/image";
-import { PlayerSpinner } from "../../assets";
+import { PlayerSpinner } from '../../assets';
 
-function Spinner({ width }: { width?: string | number }) {
-  return <Image src={PlayerSpinner} alt="loading" width={width} />;
+function Spinner({
+  width,
+  height,
+}: {
+  width?: string | number;
+  height?: string | number;
+}) {
+  return <PlayerSpinner width={width} height={height} />;
 }
 
 export default Spinner;
 
 Spinner.defaultProps = {
-  width: "auto",
+  width: 'auto',
+  height: 'auto',
 };

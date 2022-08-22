@@ -1,6 +1,7 @@
-import { useState, useEffect, useRef, MutableRefObject } from "react";
-import styled from "@emotion/styled";
-// @ts-ignore
+import Image from 'next/image';
+import { useRouter } from 'next/router';
+import { useState, useEffect, useRef } from 'react';
+import styled from '@emotion/styled';
 // import ColorThief from "../node_modules/colorthief/dist/color-thief.mjs";
 
 import {
@@ -10,37 +11,32 @@ import {
   fetchPersonTvCredits,
   fetchPeopleExternalIds,
   fetchPersonImage,
-} from "../../helpers/tmdb/person";
+} from '../../helpers/tmdb/person';
 
-// import { Loading, Movie as MovieCarousel, Cast, Social } from '../components';
+import Loading from '../../components/UI/Loading';
 
-import Loading from "../../components/UI/Loading";
+import MovieCarousel from '../../components/Carousels/MovieCarousel';
 
-import MovieCarousel from "../../components/Carousels/MovieCarousel";
+import CastCarousel from '../../components/Carousels/CastCarousel';
 
-import CastCarousel from "../../components/Carousels/CastCarousel";
+import Social from '../../components/Social';
 
-import Social from "../../components/Social";
+import { FULL_MONTHS } from '../../config';
 
-import { FULL_MONTHS } from "../../config";
+import PeopleMovieCarousel from '../../components/Carousels/PeopleMovieCarousel';
 
-import PeopleMovieCarousel from "../../components/Carousels/PeopleMovieCarousel";
+import ImageCrousel from '../../components/Carousels/ImageCrousel';
 
-import ImageCrousel from "../../components/Carousels/ImageCrousel";
-
-import { DefaultBackground } from "../../assets";
+import { DefaultBackground } from '../../assets';
 import {
   PersonExternalIdsResponse,
   Profile as ProfileType,
   TVCreditCast,
-} from "../../types/tmdb";
-import { useRouter } from "next/router";
-import Image from "next/image";
+} from '../../types/tmdb';
 
 // const colorThief = new ColorThief();
 
 function PeopleDeatail() {
-  const backgroundRef = useRef<HTMLImageElement>();
   const router = useRouter();
 
   const castid = router.query.personId as string;
@@ -59,11 +55,11 @@ function PeopleDeatail() {
   const [fullBio, toggleFullBio] = useState(true);
   const [popularPeople, setPopularPeople] = useState([]);
   const [tvCreditCast, setTvCreditCast] = useState<TVCreditCast>([]);
-  const [domColor, setDomColor] = useState([]);
+  const domColor: any[] = [];
 
   const setBirth = (birthday: string | null | undefined) => {
     if (!birthday) {
-      setBday("");
+      setBday('');
       return;
     }
     const bDate = new Date(birthday);
@@ -76,7 +72,7 @@ function PeopleDeatail() {
 
   const setdied = (dead: string | null | undefined) => {
     if (!dead) {
-      setDday("");
+      setDday('');
       return;
     }
     const diedOn = new Date(dead);
@@ -185,7 +181,7 @@ function PeopleDeatail() {
               <Information>
                 {bday && (
                   <h3>
-                    Born {bday} {bplace && `in ${bplace.split(",").join(", ")}`}
+                    Born {bday} {bplace && `in ${bplace.split(',').join(', ')}`}
                   </h3>
                 )}
                 <br />
@@ -193,7 +189,7 @@ function PeopleDeatail() {
               </Information>
               <Socials externalIds={externalIds} type="name/" name={name} />
               <Bio>
-                {fullBio ? bio : bio!.split(" ", 100).join(" ")}
+                {fullBio ? bio : bio!.split(' ', 100).join(' ')}
                 {!fullBio && (
                   <ShowFullBio onClick={() => toggleFullBio(true)}>
                     . . .read more
@@ -247,7 +243,7 @@ function PeopleDeatail() {
 export default PeopleDeatail;
 
 const Container = styled.div`
-  font-family: "bariolregular", sans-serif;
+  font-family: 'bariolregular', sans-serif;
   min-height: calc(100vh - 73px);
   overflow: hidden;
   position: relative;
@@ -393,7 +389,7 @@ const Info = styled.div<{ dom: any }>`
 
   @media (min-width: 724px) {
     background-color: ${({ dom }) =>
-      dom.length > 0 ? `rgba(${dom[0]}, ${dom[1]}, ${dom[2]}, 0.2)` : ""};
+      dom.length > 0 ? `rgba(${dom[0]}, ${dom[1]}, ${dom[2]}, 0.2)` : ''};
   }
 `;
 const Bio = styled.div`
@@ -426,7 +422,7 @@ const CastWorks = styled.div<{ dom: any }>`
 
   @media (min-width: 724px) {
     background-color: ${({ dom }) =>
-      dom.length > 0 ? `rgba(${dom[0]}, ${dom[1]}, ${dom[2]}, 0.2)` : ""};
+      dom.length > 0 ? `rgba(${dom[0]}, ${dom[1]}, ${dom[2]}, 0.2)` : ''};
   }
   @media (max-width: 724px) {
     padding: 0 5px 5px 5px;

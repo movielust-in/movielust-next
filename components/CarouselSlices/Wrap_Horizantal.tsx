@@ -1,10 +1,9 @@
-import { useState } from "react";
-import styled from "@emotion/styled";
-import NextImage from "next/image";
-import { WrapText, Loading } from "./Wrap-Styled";
-import Errored from "../../assets/images/placeholder-image-h.png";
-import { ColorSpinner } from "../../assets";
-import Shimmer from "../UI/Shimmer";
+import { useState } from 'react';
+import styled from '@emotion/styled';
+import NextImage from 'next/image';
+import { WrapText } from './Wrap-Styled';
+import Errored from '../../assets/images/placeholder-image-h.png';
+import Shimmer from '../UI/Shimmer';
 
 interface WrapPros {
   src: string;
@@ -38,7 +37,7 @@ function WrapH({ src, alt, hover, title, rating }: WrapPros) {
         width={400}
         height={210}
         src={imgSrc}
-        alt={alt || "no alt"}
+        alt={alt || 'no alt'}
         onLoad={onLoad}
         blurDataURL={Shimmer(400, 210)}
         placeholder="blur"
@@ -73,7 +72,7 @@ const Information = styled.div<{ extend: number }>`
   @media (max-width: 724px) {
     white-space: wrap;
     h3 {
-      font-size: ${(props) => (props.extend > 20 ? "0.5rem" : "0.7rem")};
+      font-size: ${(props) => (props.extend > 20 ? '0.5rem' : '0.7rem')};
     }
   }
 `;
@@ -84,7 +83,7 @@ export const Image = styled.img<{ opaque: boolean }>`
   border-radius: 6px;
   opacity: ${(props) => (props.opaque ? 1 : 1)};
   pointer-events: none !important;
-  transform: ${(props) => (props.opaque ? "scale(1)" : "scale(1))")};
+  transform: ${(props) => (props.opaque ? 'scale(1)' : 'scale(1))')};
   transition: all 500ms ease;
 `;
 
@@ -110,7 +109,7 @@ const Wrapper = styled.div<{ hover?: boolean; loading: string }>`
     border-color: rgba(249, 249, 249, 0.8);
     box-shadow: rgb(0, 0, 0, 0.29) 0px 20px 20px -20px,
       rgb(0, 0, 0, 0.73) 0px 16px 10px -10px;
-    transform: ${(props) => (props.hover ? "scale(1.2)" : "none")};
+    transform: ${(props) => (props.hover ? 'scale(1.2)' : 'none')};
     z-index: 2;
   }
 

@@ -1,18 +1,18 @@
-import React, { useState, useEffect, useRef, useMemo, memo } from "react";
+import React, { useState, useEffect, useRef, useMemo, memo } from 'react';
 
-import Image from "next/image";
-import dynamic from "next/dynamic";
+import Image from 'next/image';
+import dynamic from 'next/dynamic';
 
-import { useSelector } from "../../redux";
-import MovieCarousel from "../Carousels/MovieCarousel";
-import ShowAllButton from "../CarouselSlices/ShowAllButton";
+import { useSelector } from '../../redux';
+import MovieCarousel from '../Carousels/MovieCarousel';
+import ShowAllButton from '../CarouselSlices/ShowAllButton';
 
-import { LoadingGhost } from "../../assets";
-import { HomeMovies } from "../../types/apiResponses";
+import { LoadingGhost } from '../../assets';
+import { HomeMovies } from '../../types/apiResponses';
 
-import styles from "./HomeMovies.module.scss";
+import styles from './HomeMovies.module.scss';
 
-const RecentCarousel = dynamic(() => import("../Carousels/RecentCarousel"));
+const RecentCarousel = dynamic(() => import('../Carousels/RecentCarousel'));
 
 const TOTAL_NO_CAROUSELS = 9;
 
@@ -27,7 +27,7 @@ function Movies({ movies }: MoviesProps) {
 
   const [page, setPage] = useState(2);
 
-  const options = { root: null, rootMargin: "20px", threshold: 1.0 };
+  const options = { root: null, rootMargin: '20px', threshold: 1.0 };
 
   const handleObserver = (entities: any[]) => {
     const target = entities[0];
@@ -142,7 +142,12 @@ function Movies({ movies }: MoviesProps) {
       {all.slice(0, page).map((carousel) => carousel)}
 
       {TOTAL_NO_CAROUSELS > page && (
-        <button className={styles.Trigger} ref={ref} onClick={loadMore}>
+        <button
+          type="button"
+          className={styles.Trigger}
+          ref={ref}
+          onClick={loadMore}
+        >
           Loading...
         </button>
       )}

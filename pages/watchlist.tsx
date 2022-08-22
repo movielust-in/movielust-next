@@ -1,22 +1,22 @@
 /* eslint-disable no-nested-ternary */
-import { useEffect, useState } from "react";
-import Helmet from "next/head";
-import styled from "@emotion/styled";
+import { useEffect, useState } from 'react';
+import Helmet from 'next/head';
+import styled from '@emotion/styled';
 
-import { useDispatch, useSelector } from "../redux";
+import { useDispatch, useSelector } from '../redux';
 
-import { fetchWatchlist, removeFromWL } from "../helpers/user/watchlist";
+import { fetchWatchlist, removeFromWL } from '../helpers/user/watchlist';
 
 import {
   setWatchlist,
   setWatchlistView,
   removeFromWatchlist,
-} from "../redux/reducers/watchlist.reducer";
+} from '../redux/reducers/watchlist.reducer';
 
-import LoginRedirect from "../components/UI/LoginRedirect";
-import Loading from "../components/UI/Loading";
+import LoginRedirect from '../components/UI/LoginRedirect';
+import Loading from '../components/UI/Loading';
 
-import ContetnCard from "../components/ContentItem";
+import ContetnCard from '../components/ContentItem';
 
 function Watchlist() {
   const dispatch = useDispatch();
@@ -32,7 +32,9 @@ function Watchlist() {
       if (res === true) {
         dispatch(removeFromWatchlist({ id, view }));
       }
-    } catch {}
+    } catch {
+      //
+    }
   };
 
   useEffect(() => {
@@ -59,21 +61,21 @@ function Watchlist() {
         <Container>
           <SwitchBox>
             <Switch
-              onClick={() => dispatch(setWatchlistView("movie"))}
+              onClick={() => dispatch(setWatchlistView('movie'))}
               style={{
-                fontWeight: view === "movie" ? 800 : 600,
+                fontWeight: view === 'movie' ? 800 : 600,
                 // border: view === 'movie' ? '2px solid silver' : '1px solid silver',
-                opacity: view === "movie" ? 1 : 0.8,
+                opacity: view === 'movie' ? 1 : 0.8,
               }}
             >
               Movies
             </Switch>
             <Switch
-              onClick={() => dispatch(setWatchlistView("tv"))}
+              onClick={() => dispatch(setWatchlistView('tv'))}
               style={{
-                fontWeight: view === "tv" ? 800 : 600,
+                fontWeight: view === 'tv' ? 800 : 600,
                 // border: view === 'tv' ? '2px solid silver' : '1px solid silver',
-                opacity: view === "tv" ? 1 : 0.8,
+                opacity: view === 'tv' ? 1 : 0.8,
               }}
             >
               Series
@@ -84,8 +86,8 @@ function Watchlist() {
             <Loading />
           ) : (
             <List>
-              {watchlist[view === "movie" ? "movies" : "series"].length ? (
-                watchlist[view === "movie" ? "movies" : "series"].map(
+              {watchlist[view === 'movie' ? 'movies' : 'series'].length ? (
+                watchlist[view === 'movie' ? 'movies' : 'series'].map(
                   (movie) => (
                     <ContetnCard
                       key={movie.id}
@@ -105,7 +107,7 @@ function Watchlist() {
           )}
         </Container>
       ) : (
-        <LoginRedirect afterLoginRedirectTo={"/watchlist"} />
+        <LoginRedirect afterLoginRedirectTo="/watchlist" />
       )}
     </>
   );

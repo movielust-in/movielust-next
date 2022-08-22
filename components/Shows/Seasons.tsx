@@ -1,31 +1,31 @@
 /* eslint-disable no-nested-ternary */
-import { useState, useEffect, useRef, BaseSyntheticEvent, memo } from "react";
-import styled from "@emotion/styled";
-import { keyframes } from "@emotion/react";
+import { useState, useEffect, useRef, BaseSyntheticEvent, memo } from 'react';
+import styled from '@emotion/styled';
+import { keyframes } from '@emotion/react';
 import {
   FaAngleDown,
   FaAngleUp,
   FaDownload,
   FaPlay,
   FaStop,
-} from "react-icons/fa";
+} from 'react-icons/fa';
 
-import { useRouter } from "next/router";
+import Image from 'next/image';
+import { useRouter } from 'next/router';
 // import ReactGA from "react-ga";
 
-import { useDispatch, useSelector } from "../../redux";
-import Spinner from "../UI/Spinner";
-import { image } from "../../helpers/Urls";
-import { addWatched } from "../../helpers/user";
-import { fetchSeason } from "../../helpers/tmdb/series";
-import { fetchShowMagnets } from "../../helpers/torrent";
+import { useDispatch, useSelector } from '../../redux';
+import Spinner from '../UI/Spinner';
+import { image } from '../../helpers/Urls';
+import { addWatched } from '../../helpers/user';
+import { fetchSeason } from '../../helpers/tmdb/series';
+import { fetchShowMagnets } from '../../helpers/torrent';
 
-import { FULL_MONTHS, TWO_EMBED } from "../../config";
-import { LoadingGhost } from "../../assets";
+import { FULL_MONTHS, TWO_EMBED } from '../../config';
+import { LoadingGhost } from '../../assets';
 
-import { markRecentStale } from "../../redux/reducers/recent.reducer";
-import { TvSeasonResponse } from "../../types/tmdb";
-import Image from "next/image";
+import { markRecentStale } from '../../redux/reducers/recent.reducer';
+import { TvSeasonResponse } from '../../types/tmdb';
 
 export interface SeasonsProps {
   id: string;
@@ -57,8 +57,8 @@ function Seasons({ id, title, totalSeasons, setSeasonMagnets }: SeasonsProps) {
 
   const episodeRef = useRef();
 
-  const s = router.query["s"] as string;
-  const e = router.query["e"] as string;
+  const s = router.query.s as string;
+  const e = router.query.e as string;
 
   if (
     s &&
@@ -77,14 +77,14 @@ function Seasons({ id, title, totalSeasons, setSeasonMagnets }: SeasonsProps) {
     const Releasedse = `${
       FULL_MONTHS[bDate.getMonth()]
     }, ${bDate.getDate()} ${bDate.getFullYear()}`;
-    return (new Date() < bDate ? "Air date: " : "Aired: ") + Releasedse;
+    return (new Date() < bDate ? 'Air date: ' : 'Aired: ') + Releasedse;
   };
 
   const toggle = (index: any) => {
     router.push(
       `/tv/${id}/${title
-        .split(" ")
-        .join("-")
+        .split(' ')
+        .join('-')
         .toLowerCase()}?s=${season}&e=${index}`,
       undefined,
       { shallow: true }
@@ -149,7 +149,7 @@ function Seasons({ id, title, totalSeasons, setSeasonMagnets }: SeasonsProps) {
   const changeSeason = (episodeChangeEvent: BaseSyntheticEvent) => {
     const seasonNumber = parseInt(episodeChangeEvent.target.value, 10);
     router.push(
-      `/tv/${id}/${title.split(" ").join("-").toLowerCase()}?s=${
+      `/tv/${id}/${title.split(' ').join('-').toLowerCase()}?s=${
         seasonNumber + 1
       }&e=0`,
       undefined,
@@ -173,7 +173,7 @@ function Seasons({ id, title, totalSeasons, setSeasonMagnets }: SeasonsProps) {
       currEpisodeMag
     );
     router.push(
-      `${location.pathname}?m=${episode.magnet || episode.torrent}&q=${
+      `${window.location.pathname}?m=${episode.magnet || episode.torrent}&q=${
         episode.quality
       }#player`,
       undefined,
@@ -193,7 +193,7 @@ function Seasons({ id, title, totalSeasons, setSeasonMagnets }: SeasonsProps) {
         if (isAuthenticated) {
           addWatched({
             content_id: id,
-            type: "tv",
+            type: 'tv',
             timeStamp: new Date(),
             season,
             episode: episode.episode_number,
@@ -267,8 +267,8 @@ function Seasons({ id, title, totalSeasons, setSeasonMagnets }: SeasonsProps) {
                       )}
                     </div>
                     Episode :{` ${episode.episode_number}`}
-                    {" - "}
-                    {` ${episode.name}`}{" "}
+                    {' - '}
+                    {` ${episode.name}`}{' '}
                   </EpisodeTitle>
                 </Episode>
 
@@ -303,7 +303,7 @@ function Seasons({ id, title, totalSeasons, setSeasonMagnets }: SeasonsProps) {
                         window.scrollTo({
                           top: scrolloffset,
                           // @ts-ignore
-                          behaviour: "smooth",
+                          behaviour: 'smooth',
                         });
                       }
                     }}
@@ -356,7 +356,7 @@ function Seasons({ id, title, totalSeasons, setSeasonMagnets }: SeasonsProps) {
                               <PlayMovie
                                 role="presentation"
                                 onClick={() =>
-                                  playEmbed(episode, location.pathname)
+                                  playEmbed(episode, window.location.pathname)
                                 }
                                 loading={iframeLoading && playEpisode}
                               >
@@ -425,7 +425,7 @@ function Seasons({ id, title, totalSeasons, setSeasonMagnets }: SeasonsProps) {
 export default memo(Seasons);
 
 const Container = styled.div`
-  font-family: "bariolregular", sans-serif;
+  font-family: 'bariolregular', sans-serif;
 `;
 
 const Header = styled.div`
@@ -525,7 +525,7 @@ const PlayMovie = styled.span<{ loading: boolean }>`
   padding: 5px 8px;
   transition: all 200ms ease;
   white-space: nowrap;
-  width: ${(props) => (props.loading ? "75px" : "40px")};
+  width: ${(props) => (props.loading ? '75px' : '40px')};
   img {
     vertical-align: middle;
     width: 30px;
@@ -562,8 +562,8 @@ const YouTube = styled.div`
 const SeasonTab = styled.button<{ active: boolean }>`
   align-items: center;
   background: ${(props) =>
-    props.active ? "rgba(1, 1, 1, 1)" : "rgba(1, 1, 1, 0.6)"};
-  border: ${(props) => (props.active ? "3px solid silver" : "none")};
+    props.active ? 'rgba(1, 1, 1, 1)' : 'rgba(1, 1, 1, 0.6)'};
+  border: ${(props) => (props.active ? '3px solid silver' : 'none')};
   border-radius: 8px;
   color: white;
   cursor: pointer;

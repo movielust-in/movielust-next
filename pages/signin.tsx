@@ -1,15 +1,15 @@
-import { useState } from "react";
-import * as Yup from "yup";
-import Head from "next/head";
+import { useState } from 'react';
+import * as Yup from 'yup';
+import Head from 'next/head';
 
-import { useRouter } from "next/router";
-import { toast } from "react-toastify";
+import { useRouter } from 'next/router';
+import { toast } from 'react-toastify';
 
-import { useDispatch } from "../redux";
-import Form from "../components/Form/Form";
-import Validate from "../components/Form/Validation";
-import { setUserLogin } from "../redux/reducers/user.reducer";
-import { login as loginUser } from "../helpers/user/auth";
+import { useDispatch } from '../redux';
+import Form from '../components/Form/Form';
+import Validate from '../components/Form/Validation';
+import { setUserLogin } from '../redux/reducers/user.reducer';
+import { login as loginUser } from '../helpers/user/auth';
 
 function Login() {
   const router = useRouter();
@@ -18,38 +18,38 @@ function Login() {
 
   const [submitting, setSubmitting] = useState(false);
 
-  let redirectTo = (router.query["redirectto"] || "/") as string;
+  let redirectTo = (router.query.redirectto || '/') as string;
 
   redirectTo =
-    redirectTo !== "/" &&
-    (redirectTo.includes("/signin") || redirectTo.includes("/signup"))
-      ? "/"
+    redirectTo !== '/' &&
+    (redirectTo.includes('/signin') || redirectTo.includes('/signup'))
+      ? '/'
       : redirectTo;
 
   const login = () => {};
 
   const fields = {
-    name: "Login",
+    name: 'Login',
     inputs: [
       {
-        name: "email",
-        type: "email",
-        field: "input",
-        placeholder: "Email",
+        name: 'email',
+        type: 'email',
+        field: 'input',
+        placeholder: 'Email',
       },
       {
-        name: "password",
-        type: "password",
-        field: "password",
-        placeholder: "Password",
-        autocomplete: "on",
+        name: 'password',
+        type: 'password',
+        field: 'password',
+        placeholder: 'Password',
+        autocomplete: 'on',
       },
     ],
     links: [
-      { text: "Forgot Password?", href: "/forgotpassword" },
-      { text: "Create a new account", href: "/signup" },
+      { text: 'Forgot Password?', href: '/forgotpassword' },
+      { text: 'Create a new account', href: '/signup' },
     ],
-    submitValue: "Login",
+    submitValue: 'Login',
   };
 
   const loginSchema = Yup.object().shape({
@@ -76,8 +76,8 @@ function Login() {
           token: user.token,
         };
         dispatch(setUserLogin(userObj));
-        localStorage.setItem("movielust_user", user.token);
-        localStorage.setItem("user", JSON.stringify(userObj));
+        localStorage.setItem('movielust_user', user.token);
+        localStorage.setItem('user', JSON.stringify(userObj));
         router.push(redirectTo);
       }
     } catch (err: any) {
@@ -88,7 +88,7 @@ function Login() {
   };
 
   const formik = {
-    initialValues: { email: "", password: "" },
+    initialValues: { email: '', password: '' },
     validationSchema: loginSchema,
     onSubmit,
   };

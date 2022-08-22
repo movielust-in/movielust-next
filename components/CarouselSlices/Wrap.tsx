@@ -1,12 +1,12 @@
-import Image from "next/image";
-import { MouseEventHandler, useState } from "react";
-import { image } from "../../helpers/Urls";
+import Image from 'next/image';
+import { MouseEventHandler, useState } from 'react';
+import { image } from '../../helpers/Urls';
 
-import ErroredImage from "../../assets/images/placeholder-image.png";
-import { Genre } from "../../types/tmdb";
+import ErroredImage from '../../assets/images/placeholder-image.png';
+import { Genre } from '../../types/tmdb';
 
-import styles from "../../styles/Wrap.module.scss";
-import Shimmer from "../UI/Shimmer";
+import styles from '../../styles/Wrap.module.scss';
+import Shimmer from '../UI/Shimmer';
 
 interface WrapPros {
   src: string;
@@ -27,10 +27,10 @@ Wrap.defaultProps = {
 };
 
 enum Directions {
-  LEFT = "LEFT",
-  RIGHT = "RIGHT",
-  UP = "UP",
-  DOWN = "DOWN",
+  LEFT = 'LEFT',
+  RIGHT = 'RIGHT',
+  UP = 'UP',
+  DOWN = 'DOWN',
 }
 
 function Wrap({
@@ -53,8 +53,6 @@ function Wrap({
     h: Directions.UP,
   });
 
-  const [cardRef, setCardRef] = useState<any>(null);
-
   const handleMouseOver: MouseEventHandler<HTMLDivElement> = (e) => {
     if (!showCard) return;
 
@@ -62,9 +60,7 @@ function Wrap({
 
     const wrapDimnes = (e.target as any).getBoundingClientRect();
 
-    if (id.startsWith("card")) return;
-
-    const cardDimens: DOMRect = cardRef.getBoundingClientRect();
+    if (id.startsWith('card')) return;
 
     if (wrapDimnes.x + wrapDimnes.width + 300 + 50 <= window.innerWidth) {
       setDirection((current) => ({ ...current, x: Directions.RIGHT }));
@@ -83,10 +79,10 @@ function Wrap({
     // }
   };
 
-  const toBase64 = (str: string) =>
-    typeof window === "undefined"
-      ? Buffer.from(str).toString("base64")
-      : window.btoa(str);
+  // const toBase64 = (str: string) =>
+  //   typeof window === 'undefined'
+  //     ? Buffer.from(str).toString('base64')
+  //     : window.btoa(str);
 
   return src ? (
     <div
@@ -99,7 +95,7 @@ function Wrap({
         className={styles.image}
         placeholder="blur"
         src={imgSrc}
-        alt={alt || "no alt"}
+        alt={alt || 'no alt'}
         onError={onError}
         loading="lazy"
         blurDataURL={Shimmer(150, 220)}
@@ -109,6 +105,7 @@ function Wrap({
       {/* Hover Card */}
       {showCard ? (
         <div
+          role="presentation"
           style={
             backdrop ? { backgroundImage: `url(${image(200, backdrop)})` } : {}
           }
@@ -119,7 +116,7 @@ function Wrap({
           } ${
             direction.h === Directions.UP ? styles.card_top : styles.card_bottom
           }`}
-          ref={setCardRef}
+          // ref={setCardRef}
           onClick={(e) => {
             e.stopPropagation();
             e.preventDefault();

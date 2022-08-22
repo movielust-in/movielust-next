@@ -1,10 +1,10 @@
-import { useState } from "react";
-import styled from "@emotion/styled";
-import { useEventListener } from "../../hooks";
-import scrollToTop from "../../utils/scrollToTop";
+import { useState } from 'react';
+import Image from 'next/image';
+import styled from '@emotion/styled';
+import { useEventListener } from '../../hooks';
+import scrollToTop from '../../utils/scrollToTop';
 
-import { ScrollTopIcon } from "../../assets";
-import Image from "next/image";
+import { ScrollTopIcon } from '../../assets';
 
 export default function ScrollTop() {
   const [isVisible, setIsVisible] = useState(false);
@@ -17,13 +17,13 @@ export default function ScrollTop() {
     }
   };
 
-  useEventListener("scroll", toggleVisibility);
+  useEventListener('scroll', toggleVisibility);
 
   return (
     <ScrollTopContainer isVisible={isVisible}>
       <Image
         role="presentation"
-        style={{ transform: isVisible ? "translateY(0)" : "translateY(150px)" }}
+        style={{ transform: isVisible ? 'translateY(0)' : 'translateY(150px)' }}
         onClick={scrollToTop}
         width="50px"
         src={ScrollTopIcon}

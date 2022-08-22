@@ -1,5 +1,5 @@
 declare global {
-    interface Window {
-        __WB_MANIFEST: string;
-    }
+  interface Window {
+    webtor: any;
+  }
 }

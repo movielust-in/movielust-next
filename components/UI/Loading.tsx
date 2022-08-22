@@ -1,9 +1,9 @@
 /* eslint-disable @next/next/no-img-element */
-import { useState, useEffect } from "react";
-import styled from "@emotion/styled";
+import { useState, useEffect } from 'react';
 
-import { LoadingGhost } from "../../assets";
-import Image from "next/image";
+import { LoadingGhost } from '../../assets';
+
+import styles from '../../styles/loading.module.scss';
 
 interface LoadingProps {
   delay?: number;
@@ -14,7 +14,7 @@ Loading.defaultProps = {
 };
 
 function Loading({ delay }: LoadingProps) {
-  const [message, setMessage] = useState("Coming Up...");
+  const [message, setMessage] = useState('Coming Up...');
 
   const [show, setShow] = useState(false);
 
@@ -26,7 +26,7 @@ function Loading({ delay }: LoadingProps) {
       count += 1;
       switch (count) {
         case 5:
-          setMessage("Almost there......");
+          setMessage('Almost there......');
           break;
         case 10:
           setMessage("It's taking time please wait...");
@@ -58,33 +58,11 @@ function Loading({ delay }: LoadingProps) {
   }, [delay]);
 
   return show ? (
-    <Container>
-      <img src={LoadingGhost.src} alt="loading" />
+    <div className={styles.container}>
+      <img src={LoadingGhost.src} alt="loading" width="100px" height="100px" />
       <p>{message}</p>
-    </Container>
+    </div>
   ) : null;
 }
 
 export default Loading;
-
-const Container = styled.div`
-  align-items: center;
-  display: flex;
-  flex-direction: column;
-  font-family: "bariolregular", sans-serif;
-  height: 100vh;
-  width: 100vw;
-  background-color: rgba(9, 12, 20, 0.4);
-  justify-content: center;
-  left: 0;
-  opacity: 1;
-  position: fixed;
-  overflow: hidden;
-  top: 0;
-  user-select: none;
-  z-index: 100000000;
-
-  img {
-    filter: drop-shadow(0 0 50px #bbdefb);
-  }
-`;

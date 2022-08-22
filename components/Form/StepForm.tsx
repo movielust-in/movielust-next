@@ -1,22 +1,23 @@
 /* eslint-disable react/jsx-key */
 /* eslint-disable @next/next/no-img-element */
 /* eslint-disable react/jsx-props-no-spreading */
-import React, { useEffect, useState, useCallback } from "react";
-import Link from "next/link";
-import styled from "@emotion/styled";
-import { css, keyframes } from "@emotion/react";
-import { Formik, FormikProps, FormikValues } from "formik";
-import { FaEdit, FaEye, FaEyeSlash } from "react-icons/fa";
-import Modal from "react-modal";
-import OtpInput from "../OtpInput/otpInput";
+import React, { useEffect, useState, useCallback } from 'react';
+import Link from 'next/link';
+import styled from '@emotion/styled';
+import { css, keyframes } from '@emotion/react';
+import { Formik, FormikProps, FormikValues } from 'formik';
+import { FaEdit, FaEye, FaEyeSlash } from 'react-icons/fa';
+import Modal from 'react-modal';
+import OtpInput from '../OtpInput/otpInput';
 
-import FormContainer from "./FormContainer";
-import { fetchAvatars } from "../../helpers/user";
+import FormContainer from './FormContainer';
+import { fetchAvatars } from '../../helpers/user';
 
-import { ForgotPassImage, LoginImage, PhoneImage } from "../../assets";
+import { ForgotPassImage, LoginImage, PhoneImage } from '../../assets';
 
-import "../../styles/avatar_modal.css";
-import { Avatar } from "../../types/avatar";
+// import '../../styles/avatar_modal.css';
+
+import { Avatar } from '../../types/avatar';
 
 interface FormProps {
   formik: any;
@@ -41,10 +42,10 @@ function Form({ formik, steps, fields, isSubmitting, login }: FormProps) {
   const [modalIsOpen, setIsOpen] = useState(false);
   const [avatars, setAvatars] = useState<Avatar[]>([]);
   const [showHidePassword, changeShowHidePassword] = useState(false);
-  const [otp, setOtp] = useState<string | number>("");
+  const [otp, setOtp] = useState<string | number>('');
 
   const [profile, setProfile] = useState(
-    "https://image.freepik.com/free-vector/mysterious-mafia-man-smoking-cigarette_52683-34828.jpg"
+    'https://image.freepik.com/free-vector/mysterious-mafia-man-smoking-cigarette_52683-34828.jpg'
   );
 
   const openModal = useCallback(() => {
@@ -57,8 +58,8 @@ function Form({ formik, steps, fields, isSubmitting, login }: FormProps) {
 
   const customStyles: Modal.Styles = {
     overlay: {
-      backgroundColor: "rgba(1,1,1,0.6)",
-      position: "fixed",
+      backgroundColor: 'rgba(1,1,1,0.6)',
+      position: 'fixed',
       top: 0,
       left: 0,
       right: 0,
@@ -85,14 +86,14 @@ function Form({ formik, steps, fields, isSubmitting, login }: FormProps) {
             <Forem onSubmit={formikProps.handleSubmit} id="form1">
               <Title>{fields.name}</Title>
 
-              {fields.name === "Login" ? (
+              {fields.name === 'Login' ? (
                 <Logo
                   submitting={isSubmitting}
                   src={LoginImage.src}
                   alt="personlogin"
                 />
               ) : null}
-              {fields.name === "Contact Us" ? (
+              {fields.name === 'Contact Us' ? (
                 <Logo
                   submitting={isSubmitting}
                   src={PhoneImage.src}
@@ -100,7 +101,7 @@ function Form({ formik, steps, fields, isSubmitting, login }: FormProps) {
                 />
               ) : null}
 
-              {fields.name === "Reset Password" ? (
+              {fields.name === 'Reset Password' ? (
                 <Logo
                   submitting={isSubmitting}
                   src={ForgotPassImage.src}
@@ -111,7 +112,7 @@ function Form({ formik, steps, fields, isSubmitting, login }: FormProps) {
               <List>
                 {fields.inputs.map((field) => {
                   switch (field.field) {
-                    case "input":
+                    case 'input':
                       return (
                         <Item key={field.name}>
                           <Input
@@ -130,13 +131,13 @@ function Form({ formik, steps, fields, isSubmitting, login }: FormProps) {
                           ) : null}
                         </Item>
                       );
-                    case "password":
+                    case 'password':
                       return (
                         <Item key={field.name}>
                           <Password>
                             <PassInput
                               name={field.name}
-                              type={showHidePassword ? "text" : "password"}
+                              type={showHidePassword ? 'text' : 'password'}
                               placeholder={field.placeholder}
                               autoComplete={field.autoComplete}
                               value={formikProps.values[field.name]}
@@ -165,7 +166,7 @@ function Form({ formik, steps, fields, isSubmitting, login }: FormProps) {
                           </Password>
                         </Item>
                       );
-                    case "profile":
+                    case 'profile':
                       return (
                         <>
                           <ProfilePicture src={profile}>
@@ -193,7 +194,7 @@ function Form({ formik, steps, fields, isSubmitting, login }: FormProps) {
                                 onError={({ currentTarget }) => {
                                   currentTarget.onerror = null; // prevents looping
                                   currentTarget.src =
-                                    "https://occ-0-2482-2186.1.nflxso.net/dnm/api/v6/K6hjPJd6cR6FpVELC5Pd6ovHRSk/AAAAFAx0vpY-2wMoKq6NB86jynopBLEWBi4jkOR6n3A1-bSFo7edA95Qkn5-LVZad5km8LWJ_xqMz67rHxY1SVKXxf17Ng.png";
+                                    'https://occ-0-2482-2186.1.nflxso.net/dnm/api/v6/K6hjPJd6cR6FpVELC5Pd6ovHRSk/AAAAFAx0vpY-2wMoKq6NB86jynopBLEWBi4jkOR6n3A1-bSFo7edA95Qkn5-LVZad5km8LWJ_xqMz67rHxY1SVKXxf17Ng.png';
                                 }}
                               />
                             ))}
@@ -208,7 +209,7 @@ function Form({ formik, steps, fields, isSubmitting, login }: FormProps) {
                         </>
                       );
 
-                    case "OTP":
+                    case 'OTP':
                       return (
                         <Item key={field.name}>
                           <OtpInput
@@ -220,20 +221,20 @@ function Form({ formik, steps, fields, isSubmitting, login }: FormProps) {
                             separator={<span>--</span>}
                             onChange={(value: string | number) => setOtp(value)}
                             containerStyle={{
-                              marginBottom: "20px",
+                              marginBottom: '20px',
                             }}
                             inputStyle={{
-                              width: "30px",
-                              height: "40px",
-                              fontSize: "1rem",
+                              width: '30px',
+                              height: '40px',
+                              fontSize: '1rem',
                               fontWeight: 800,
-                              borderRadius: "8px",
+                              borderRadius: '8px',
                             }}
                           />
                         </Item>
                       );
 
-                    case "message":
+                    case 'message':
                       return (
                         <Item key={field.name}>
                           <MessageInput
@@ -261,7 +262,7 @@ function Form({ formik, steps, fields, isSubmitting, login }: FormProps) {
                     type="submit"
                     onClick={login instanceof Function ? login(profile) : null}
                   >
-                    {fields.submitValue || "Submit"}
+                    {fields.submitValue || 'Submit'}
                   </Submit>
                 </Item>
                 {fields.links &&

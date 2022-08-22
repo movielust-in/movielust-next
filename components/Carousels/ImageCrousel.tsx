@@ -1,13 +1,17 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable no-nested-ternary */
-import { memo, useState } from "react";
-import styled from "@emotion/styled";
-import { SwiperSlide } from "swiper/react";
-import Carousel from "./Carousel";
+import { memo, useState } from 'react';
+import Nimage from 'next/image';
+import styled from '@emotion/styled';
+import { SwiperSlide } from 'swiper/react';
+import Carousel from './Carousel';
 
-import ImageModal from "../Modal/ImageModal";
-import PeopleModal from "../Modal/PeopleModal";
+import ImageModal from '../Modal/ImageModal';
+import PeopleModal from '../Modal/PeopleModal';
 
-import styles from "../../styles/carousel.module.scss";
+import styles from '../../styles/carousel.module.scss';
+import Shimmer from '../UI/Shimmer';
+
 interface ImageCrouselProps {
   images: any;
   type: string;
@@ -48,7 +52,11 @@ function ImageCrousel({ images, type, title, dom }: ImageCrouselProps) {
                         setOpen(true);
                       }}
                     >
-                      <Photo
+                      <Nimage
+                        width={200}
+                        height={120}
+                        blurDataURL={Shimmer(200, 120)}
+                        placeholder="blur"
                         src={`https://image.tmdb.org/t/p/w200/${movie.file_path}`}
                         alt={movie.id}
                       />
@@ -59,7 +67,7 @@ function ImageCrousel({ images, type, title, dom }: ImageCrouselProps) {
         </Container>
       ) : null}
 
-      {open && images && (type === "movie" || type === "tv") ? (
+      {open && images && (type === 'movie' || type === 'tv') ? (
         <ImageModal
           at={modalIndex}
           onClose={closeModal}
@@ -94,26 +102,26 @@ const Container = styled.div`
   user-select: none;
 `;
 
-const Photo = styled.img`
-  object-fit: contain;
-  pointer-events: none !important;
-  transition: all 200ms ease;
-  width: 100%;
-  min-height: 120px;
+// const Photo = styled.img`
+//   object-fit: contain;
+//   pointer-events: none !important;
+//   transition: all 200ms ease;
+//   width: 100%;
+//   min-height: 120px;
 
-  @media (max-width: 1200px) {
-    min-height: 70px;
-  }
-  @media (max-width: 1200px) {
-    min-height: 70px;
-  }
-  @media (max-width: 836px) {
-    min-height: 50px;
-  }
-  @media (max-width: 500px) {
-    min-height: 30px;
-  }
-`;
+//   @media (max-width: 1200px) {
+//     min-height: 70px;
+//   }
+//   @media (max-width: 1200px) {
+//     min-height: 70px;
+//   }
+//   @media (max-width: 836px) {
+//     min-height: 50px;
+//   }
+//   @media (max-width: 500px) {
+//     min-height: 30px;
+//   }
+// `;
 
 const Wrapper = styled.div`
   align-items: center;

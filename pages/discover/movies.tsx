@@ -1,18 +1,18 @@
-import { useEffect, useState, useRef } from "react";
-import Link from "next/link";
-import { FaTimes } from "react-icons/fa";
+import { useEffect, useState, useRef } from 'react';
+import Link from 'next/link';
+import { FaTimes } from 'react-icons/fa';
 
-import { discoverMovie } from "../../helpers/tmdb/movies";
-import { image } from "../../helpers/Urls";
+import { discoverMovie } from '../../helpers/tmdb/movies';
+import { image } from '../../helpers/Urls';
 
-import SortBy from "../../components/Filters/SortBy";
-import GenreFilter from "../../components/Filters/GenreFilter";
-import Wrap from "../../components/CarouselSlices/Wrap";
+import SortBy from '../../components/Filters/SortBy';
+import GenreFilter from '../../components/Filters/GenreFilter';
+import Wrap from '../../components/CarouselSlices/Wrap';
 
-import { useDispatch, useSelector } from "../../redux/store";
-import { MovieResult } from "../../types/tmdb";
+import { useDispatch, useSelector } from '../../redux/store';
+import { MovieResult } from '../../types/tmdb';
 
-import { MOVIE_GENRES } from "../../config";
+import { MOVIE_GENRES } from '../../config';
 
 import {
   addMovies,
@@ -20,13 +20,13 @@ import {
   resetMovies,
   setTotalPages as setTotalPagesStore,
   toggleMovieGenreId,
-} from "../../redux/reducers/movie.reducer";
-import { detailLink } from "../../utils";
-import getGenreName from "../../utils/getGenreName";
+} from '../../redux/reducers/movie.reducer';
+import { detailLink } from '../../utils';
+import getGenreName from '../../utils/getGenreName';
 
-import styles from "../../styles/scroller.module.scss";
+import styles from '../../styles/scroller.module.scss';
 
-const options = { root: null, rootMargin: "20px", threshold: 1.0 };
+const options = { root: null, rootMargin: '20px', threshold: 1.0 };
 
 function Movie() {
   const [trigger, setTrigger] = useState<any>(null);
@@ -56,6 +56,7 @@ function Movie() {
 
   // observer
 
+  // eslint-disable-next-line no-undef
   const handleObserver: IntersectionObserverCallback = (entities) => {
     const target = entities[0];
     if (target.isIntersecting) incrementCurrentPage();
@@ -108,12 +109,12 @@ function Movie() {
           <div
             className={styles.GenreBubble}
             style={{
-              border: "1px solid silver",
-              padding: "5px",
-              borderRadius: "10px",
-              margin: "2px",
-              fontWeight: "500",
-              backgroundColor: "#0E2F44",
+              border: '1px solid silver',
+              padding: '5px',
+              borderRadius: '10px',
+              margin: '2px',
+              fontWeight: '500',
+              backgroundColor: '#0E2F44',
             }}
           >
             <span>{MOVIE_GENRES.find((genre) => id === genre.id)!.name}</span>
@@ -126,10 +127,10 @@ function Movie() {
           results.map((movie) => (
             <Link
               key={movie.id}
-              href={detailLink("movie", movie.id!, movie.title!)}
+              href={detailLink('movie', movie.id!, movie.title!)}
             >
               <a>
-                <div className={styles.Card} style={{ width: "150px" }}>
+                <div className={styles.Card} style={{ width: '150px' }}>
                   <Wrap
                     src={image(200, movie.poster_path!)}
                     showCard
@@ -138,7 +139,7 @@ function Movie() {
                     backdrop={movie.backdrop_path!}
                     description={movie.overview!}
                     genres={
-                      movie.genre_ids?.map((id) => getGenreName(id, "movie")) ||
+                      movie.genre_ids?.map((id) => getGenreName(id, 'movie')) ||
                       []
                     }
                   />
@@ -149,8 +150,13 @@ function Movie() {
         )}
       </div>
       {totalPages > page && (
-        <button className={styles.Trigger} ref={setTrigger} onClick={loadMore}>
-          <p style={{ textAlign: "center" }}>
+        <button
+          type="button"
+          className={styles.Trigger}
+          ref={setTrigger}
+          onClick={loadMore}
+        >
+          <p style={{ textAlign: 'center' }}>
             <b>Loading...</b>
           </p>
         </button>

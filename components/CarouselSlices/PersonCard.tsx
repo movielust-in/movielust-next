@@ -1,9 +1,11 @@
-import { useState } from "react";
-import styled from "@emotion/styled";
-import { ColorSpinner } from "../../assets";
+import { useState } from 'react';
+import Image from 'next/image';
+import styled from '@emotion/styled';
 
-import MovielustLogo from "../../assets/images/placeholder-image.png";
-import Image from "next/image";
+import { ColorSpinner } from '../../assets';
+
+import MovielustLogo from '../../assets/images/placeholder-image.png';
+import Shimmer from '../UI/Shimmer';
 
 interface WrapPros {
   src: string;
@@ -36,8 +38,10 @@ function PersonCard({ title, src, alt }: WrapPros) {
       <Photo
         width={200}
         height={300}
+        blurDataURL={Shimmer(200, 300)}
+        placeholder="blur"
         src={imgSrc}
-        alt={alt || "no alt"}
+        alt={alt || 'no alt'}
         onLoad={onLoad}
         opaque={opacity}
         onError={onError}
@@ -84,7 +88,7 @@ const Information = styled.div<{ extend: number }>`
     white-space: wrap;
     max-width: 70%;
     h3 {
-      font-size: ${(props) => (props.extend > 20 ? "0.5rem" : "0.7rem")};
+      font-size: ${(props) => (props.extend > 20 ? '0.5rem' : '0.7rem')};
     }
   }
 `;
@@ -149,7 +153,7 @@ const Photo = styled(Image)<PhotoProps>`
   object-fit: contain;
   opacity: ${(props) => (props.opaque ? 1 : 0)};
   pointer-events: none !important;
-  transform: ${(props) => (props.opaque ? "scale(1)" : "scale(0.8)")};
+  transform: ${(props) => (props.opaque ? 'scale(1)' : 'scale(0.8)')};
   transition: all 400ms ease;
   border-radius: 8px;
   width: 100%;

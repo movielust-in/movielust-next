@@ -1,16 +1,16 @@
-import { useState, useCallback, useRef } from "react";
-import ReactModal from "react-modal";
-import { default as NextImage } from "next/image";
-import styled from "@emotion/styled";
-import { FaAngleLeft, FaAngleRight, FaExpand, FaTimes } from "react-icons/fa";
+import { useState, useCallback, useRef } from 'react';
+import ReactModal from 'react-modal';
+import NextImage from 'next/image';
+import styled from '@emotion/styled';
+import { FaAngleLeft, FaAngleRight, FaExpand, FaTimes } from 'react-icons/fa';
 
-import { useEventListener, useSwipeEvent } from "../../hooks";
-import { PlayerSpinner } from "../../assets";
+import { useEventListener, useSwipeEvent } from '../../hooks';
+import { PlayerSpinner } from '../../assets';
 
 const customStyles: ReactModal.Styles = {
   overlay: {
-    backgroundColor: "rgba(1,1,1,0.6)",
-    position: "fixed",
+    backgroundColor: 'rgba(1,1,1,0.6)',
+    position: 'fixed',
     top: 0,
     left: 0,
     right: 0,
@@ -18,14 +18,14 @@ const customStyles: ReactModal.Styles = {
     zIndex: 999999999999,
   },
   content: {
-    top: "50%",
-    left: "50%",
-    right: "auto",
-    bottom: "auto",
-    transform: "translate(-50%, -50%)",
+    top: '50%',
+    left: '50%',
+    right: 'auto',
+    bottom: 'auto',
+    transform: 'translate(-50%, -50%)',
     zIndex: 999999999999,
     padding: 0,
-    overflow: "hidden",
+    overflow: 'hidden',
   },
 };
 
@@ -37,7 +37,7 @@ interface ModalProps {
 
 Modal.defaultProps = {
   imagess: [
-    "https://image.tmdb.org/t/p/original/1953j0QEbtN17WFFTnJHIm6bn6I.jpg",
+    'https://image.tmdb.org/t/p/original/1953j0QEbtN17WFFTnJHIm6bn6I.jpg',
   ],
   at: 0,
 };
@@ -51,7 +51,7 @@ function Modal({ imagess, onClose, at }: ModalProps) {
   const imgRef = useRef();
 
   const images = imagess || [
-    "https://image.tmdb.org/t/p/original/1953j0QEbtN17WFFTnJHIm6bn6I.jpg",
+    'https://image.tmdb.org/t/p/original/1953j0QEbtN17WFFTnJHIm6bn6I.jpg',
   ];
 
   const nextSlide = useCallback(() => {
@@ -82,18 +82,18 @@ function Modal({ imagess, onClose, at }: ModalProps) {
 
   const keyBoardNavigation = useCallback(
     (e: KeyboardEvent) => {
-      if (e.key === "ArrowRight") {
+      if (e.key === 'ArrowRight') {
         nextSlide();
-      } else if (e.key === "ArrowLeft") {
+      } else if (e.key === 'ArrowLeft') {
         prevSlide();
-      } else if (e.key === "Escape") {
+      } else if (e.key === 'Escape') {
         onClose();
       }
     },
     [nextSlide, prevSlide, onClose]
   );
 
-  useEventListener("keydown", keyBoardNavigation);
+  useEventListener('keydown', keyBoardNavigation);
 
   const loaded = () => {
     setLoading(false);
@@ -149,7 +149,7 @@ function Modal({ imagess, onClose, at }: ModalProps) {
 export default Modal;
 
 const Image = styled.img<{ extends: number }>`
-  height: ${(props) => (props.extends === 90 ? "35%" : "25%")};
+  height: ${(props) => (props.extends === 90 ? '35%' : '25%')};
   object-fit: contain;
   position: relative;
   user-select: none;

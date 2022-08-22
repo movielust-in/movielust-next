@@ -1,15 +1,16 @@
-import React from "react";
-import StarRatings from "react-star-ratings";
-import Link from "next/link";
-import { Navigation, Autoplay } from "swiper";
-import { Swiper, SwiperSlide } from "swiper/react";
+/* eslint-disable no-nested-ternary */
+import React from 'react';
+import StarRatings from 'react-star-ratings';
+import Link from 'next/link';
+import { Navigation, Autoplay } from 'swiper';
+import { Swiper, SwiperSlide } from 'swiper/react';
 
-import { image } from "../../helpers/Urls";
-import { detailLink } from "../../utils";
+import { image } from '../../helpers/Urls';
+import { detailLink } from '../../utils';
 
-import { MovieResult } from "../../types/tmdb";
+import { MovieResult } from '../../types/tmdb';
 
-import styles from "../../styles/HomeCarousel.module.scss";
+import styles from '../../styles/HomeCarousel.module.scss';
 
 function ImgSlider({
   movies,
@@ -74,7 +75,7 @@ function ImgSlider({
     >
       {movies.map((movie: any) => (
         <SwiperSlide key={movie.id}>
-          <Link href={detailLink("movie", movie.id, movie.title)}>
+          <Link href={detailLink('movie', movie.id, movie.title)}>
             <a>
               <div className={styles.Wrap}>
                 <div>

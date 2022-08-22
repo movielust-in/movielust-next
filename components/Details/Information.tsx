@@ -1,27 +1,27 @@
 /* eslint-disable @next/next/no-img-element */
 /* eslint-disable no-nested-ternary */
-import { useState } from "react";
-import { MdPlaylistAdd } from "react-icons/md";
-import { FaDownload, FaPlay, FaStar, FaStop, FaShareAlt } from "react-icons/fa";
+import { useState } from 'react';
+import { MdPlaylistAdd } from 'react-icons/md';
+import { FaDownload, FaPlay, FaStar, FaStop, FaShareAlt } from 'react-icons/fa';
+import Image from 'next/image';
 
 // import { ShareOptions, Social } from '../../components';
 
-import ShareOptions from "../../components/ShareOptions";
-import Social from "../../components/Social";
+import ShareOptions from '../ShareOptions';
+import Social from '../Social';
 
-import { CommonData, ImdbRating } from "./DetailTypes";
-import { Magnet } from "../../types/apiResponses";
-import { MovieExternalIdsResponse } from "../../types/tmdb";
-import Spinner from "../../components/UI/Spinner";
+import { CommonData, ImdbRating } from './DetailTypes';
+import { Magnet } from '../../types/apiResponses';
+import { MovieExternalIdsResponse } from '../../types/tmdb';
+import Spinner from '../UI/Spinner';
 
-import styles from "./Detail.module.scss";
-import { image } from "../../helpers/Urls";
-import { PlayerSpinner } from "../../assets";
-import Image from "next/image";
+import styles from './Detail.module.scss';
+import { image } from '../../helpers/Urls';
+import { PlayerSpinner } from '../../assets';
 
 const openImdbRatingCharts = (movieImdbId: string) => {
   const IMDB = `https://www.imdb.com/title/${movieImdbId}/ratings`;
-  window.open(IMDB, "_blank");
+  window.open(IMDB, '_blank');
 };
 
 interface InformationComponentProps {
@@ -44,9 +44,10 @@ interface InformationComponentProps {
 }
 
 const playButtonMsg = (isMovieShown: boolean) =>
-  isMovieShown ? "Play Trailer" : "Play Movie";
+  isMovieShown ? 'Play Trailer' : 'Play Movie';
 
 export default function InformationComponent({
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   domColor,
   type,
   commonData,
@@ -86,7 +87,7 @@ export default function InformationComponent({
           files: [
             new File(
               [imageBlob],
-              `${commonData?.title.split(" ").join("-")}.png`,
+              `${commonData?.title.split(' ').join('-')}.png`,
               {
                 type: imageBlob.type,
               }
@@ -105,20 +106,24 @@ export default function InformationComponent({
       className={styles.Information}
     >
       <div className={styles.Controls}>
-        {type === "movie" &&
+        {type === 'movie' &&
           releaseDate &&
           new Date() > new Date(releaseDate) &&
           commonData && (
             <span
               role="presentation"
               style={{
-                width: loadingMovieIframe ? "80px" : "120px",
+                width: loadingMovieIframe ? '80px' : '120px',
               }}
               className={styles.PlayMovie}
               onClick={() => playMovie(commonData.title, location.pathname)}
             >
               {!showMovie ? <FaPlay /> : <FaStop />}
-              {!loadingMovieIframe ? playButtonMsg(showMovie) : <Spinner />}
+              {!loadingMovieIframe ? (
+                playButtonMsg(showMovie)
+              ) : (
+                <Spinner width={20} height={20} />
+              )}
             </span>
           )}
         <button
@@ -173,13 +178,13 @@ export default function InformationComponent({
               width="30px"
               src="https://m.media-amazon.com/images/G/01/IMDb/BG_rectangle._CB1509060989_SY230_SX307_AL_.png"
               alt="TMDB"
-            />{" "}
+            />{' '}
           </span>
         ) : commonData?.tmdbRating ? (
           <span>
-            {commonData.tmdbRating} ({commonData.voteCount?.toLocaleString()}{" "}
+            {commonData.tmdbRating} ({commonData.voteCount?.toLocaleString()}{' '}
             votes)
-            {"   "}
+            {'   '}
             <img
               width="30px"
               src="https://www.themoviedb.org/assets/2/v4/logos/v2/blue_short-8e7b30f73a4020692ccca9c88bafe5dcb6f8a62a4c6bc55cd9ba82bb2cd95f6c.svg"
@@ -189,15 +194,15 @@ export default function InformationComponent({
         ) : null}
       </div>
       <div className={styles.SubTitle}>
-        {runtime !== "0 hrs 0 mins" ? runtime : null}
+        {runtime !== '0 hrs 0 mins' ? runtime : null}
         <br /> {commonData?.genreString}
-        {type === "movie" && (
+        {type === 'movie' && (
           <div className={styles.SubTitle}>
-            {released ? "Released: " : "Releasing: "} {releaseDate}
+            {released ? 'Released: ' : 'Releasing: '} {releaseDate}
           </div>
         )}
       </div>
-      {type === "movie" && magnets!.length > 0 && (
+      {type === 'movie' && magnets!.length > 0 && (
         <>
           <div className={styles.ContentOptions}>
             <FaPlay />

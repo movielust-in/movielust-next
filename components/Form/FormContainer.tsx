@@ -1,10 +1,10 @@
-import React from "react";
-import styled from "@emotion/styled";
+import React from 'react';
+import Image from 'next/image';
+import styled from '@emotion/styled';
 
-import { MovielustLogo } from "../../assets";
+import { MovielustLogo } from '../../assets';
 
-import { useWindowSize } from "../../hooks";
-import Image from "next/image";
+import { useWindowSize } from '../../hooks';
 
 interface FormerProps {
   children: React.ReactNode;
@@ -19,7 +19,7 @@ function Former({ children }: FormerProps) {
       <Contact size={width}>
         <SEO>
           Movielust is the exclusive home for your favourite movies and TV
-          series online or stream right to your device{" "}
+          series online or stream right to your device{' '}
         </SEO>
         <Info>
           <h2>Welcome to Movielust</h2>
@@ -37,12 +37,12 @@ const Container = styled.div`
   overflow: hidden;
 
   &:before {
-    background-image: url("images/login-background.webp");
+    background-image: url('images/login-background.webp');
     background-position: top;
     background-repeat: no-repeat;
     background-size: cover;
     bottom: 0;
-    content: "";
+    content: '';
     left: 0;
     opacity: 0.3;
     position: absolute;

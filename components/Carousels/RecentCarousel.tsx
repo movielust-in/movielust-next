@@ -1,18 +1,17 @@
-import { useEffect, useRef } from "react";
-import styled from "@emotion/styled";
-import { SwiperSlide } from "swiper/react";
-import Link from "next/link";
+import { useEffect, useRef } from 'react';
+import { SwiperSlide } from 'swiper/react';
+import Link from 'next/link';
 
-import { useDispatch, useSelector } from "../../redux";
+import { useDispatch, useSelector } from '../../redux';
 
-import { fetchWatched } from "../../helpers/user";
-import Carousel from "./Carousel";
-import WrapH from "../CarouselSlices/Wrap_Horizantal";
-import { setRecents } from "../../redux/reducers/recent.reducer";
-import { detailLink } from "../../utils";
-import { detailLinkWithEpisode } from "../../utils/dashedTitle";
+import { fetchWatched } from '../../helpers/user';
+import Carousel from './Carousel';
+import WrapH from '../CarouselSlices/Wrap_Horizantal';
+import { setRecents } from '../../redux/reducers/recent.reducer';
+import { detailLink } from '../../utils';
+import { detailLinkWithEpisode } from '../../utils/dashedTitle';
 
-import styles from "../../styles/recent_carousel.module.scss";
+import styles from '../../styles/recent_carousel.module.scss';
 
 const breakPoints = {
   1024: {
@@ -57,7 +56,7 @@ function RecentCarousel() {
           >
             <Link
               href={
-                content.media_type === "movie"
+                content.media_type === 'movie'
                   ? detailLink(content.media_type, content.id, content.title)
                   : detailLinkWithEpisode(
                       content.media_type,
@@ -71,7 +70,7 @@ function RecentCarousel() {
               <a>
                 <WrapH
                   src={`https://image.tmdb.org/t/p/w300/${content.backdrop_path}`}
-                  alt={content.title || content.name || ""}
+                  alt={content.title || content.name || ''}
                   title={
                     content.title ||
                     `${content.name} S${content.season_number} E${content.episode_number}`

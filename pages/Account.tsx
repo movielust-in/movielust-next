@@ -1,23 +1,24 @@
-import React, { useEffect, useState, useCallback } from "react";
-import styled from "@emotion/styled";
-import { keyframes } from "@emotion/react";
-import { useRouter } from "next/router";
+import React, { useEffect, useState, useCallback } from 'react';
+import styled from '@emotion/styled';
+import { keyframes } from '@emotion/react';
+import { useRouter } from 'next/router';
+import dynamic from 'next/dynamic';
 
-import { FaEdit } from "react-icons/fa";
-import Modal from "react-modal";
+import { FaEdit } from 'react-icons/fa';
 
-import { useSelector, useDispatch } from "../redux";
-import Spinner from "../components/UI/Spinner";
-import { setSignOut, setUserLogin } from "../redux/reducers/user.reducer";
-import { fetchAvatars, updateAvatar, deleteUser } from "../helpers/user";
+import { useSelector, useDispatch } from '../redux';
+import Spinner from '../components/UI/Spinner';
+import { setSignOut, setUserLogin } from '../redux/reducers/user.reducer';
+import { fetchAvatars, updateAvatar, deleteUser } from '../helpers/user';
 
-import { useLockBodyScroll } from "../hooks";
+import { useLockBodyScroll } from '../hooks';
 
-import styles from "../styles/avatar_modal.module.scss";
+import styles from '../styles/avatar_modal.module.scss';
 
-import { LoginImage, SadImage } from "../assets";
-import { Avatar } from "../types/avatar";
-import Image from "next/image";
+import { LoginImage, SadImage } from '../assets';
+import { Avatar } from '../types/avatar';
+
+const Modal = dynamic(() => import('react-modal'));
 
 function Account() {
   const dispatch = useDispatch();
@@ -40,13 +41,13 @@ function Account() {
 
   useEffect(() => {
     if (!user.isLoggedIn) {
-      router.push("/signin");
+      router.push('/signin');
     }
   }, [router, user]);
 
   const customStyles = {
     overlay: {
-      backgroundColor: "rgba(1,1,1,0.6)",
+      backgroundColor: 'rgba(1,1,1,0.6)',
     },
   };
 
@@ -67,7 +68,7 @@ function Account() {
           token: user.token,
         };
         dispatch(setUserLogin(userObj));
-        localStorage.setItem("user", JSON.stringify(userObj));
+        localStorage.setItem('user', JSON.stringify(userObj));
         setUpdating(false);
       });
     }
@@ -92,8 +93,8 @@ function Account() {
           token: null,
         })
       );
-      localStorage.removeItem("movielust_user");
-      router.push("/");
+      localStorage.removeItem('movielust_user');
+      router.push('/');
     }
   };
 
@@ -105,7 +106,7 @@ function Account() {
             <IndexItem>Details</IndexItem>
           </li>
           <li>
-            <IndexItem style={{ color: "gray", cursor: "not-allowed" }}>
+            <IndexItem style={{ color: 'gray', cursor: 'not-allowed' }}>
               Settings
             </IndexItem>
           </li>
@@ -182,7 +183,7 @@ function Account() {
                 onError={({ currentTarget }) => {
                   currentTarget.onerror = null; // prevents looping
                   currentTarget.src =
-                    "https://occ-0-2482-2186.1.nflxso.net/dnm/api/v6/K6hjPJd6cR6FpVELC5Pd6ovHRSk/AAAAFAx0vpY-2wMoKq6NB86jynopBLEWBi4jkOR6n3A1-bSFo7edA95Qkn5-LVZad5km8LWJ_xqMz67rHxY1SVKXxf17Ng.png";
+                    'https://occ-0-2482-2186.1.nflxso.net/dnm/api/v6/K6hjPJd6cR6FpVELC5Pd6ovHRSk/AAAAFAx0vpY-2wMoKq6NB86jynopBLEWBi4jkOR6n3A1-bSFo7edA95Qkn5-LVZad5km8LWJ_xqMz67rHxY1SVKXxf17Ng.png';
                 }}
               />
             ))}

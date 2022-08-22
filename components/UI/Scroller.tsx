@@ -1,16 +1,16 @@
-import { useRef, useState, useEffect } from "react";
-import Link from "next/link";
+import { useRef, useState, useEffect } from 'react';
+import Image from 'next/image';
+import Link from 'next/link';
 
-import styles from "../../styles/scroller.module.scss";
+import styles from '../../styles/scroller.module.scss';
 
-import Wrap from "../CarouselSlices/Wrap";
+import Wrap from '../CarouselSlices/Wrap';
 
-import PersonCard from "../CarouselSlices/PersonCard";
+import PersonCard from '../CarouselSlices/PersonCard';
 
-import { LoadingGhost } from "../../assets";
-import { detailLink } from "../../utils";
-import getGenreName from "../../utils/getGenreName";
-import Image from "next/image";
+import { LoadingGhost } from '../../assets';
+import { detailLink } from '../../utils';
+import getGenreName from '../../utils/getGenreName';
 
 interface ScrollerProps {
   movies: any[];
@@ -19,12 +19,12 @@ interface ScrollerProps {
 }
 
 function Scroller({ movies, total, type }: ScrollerProps) {
-  const ref = useRef(null);
   const [page, setPage] = useState(1);
   const [loadingMore, setLoadingMore] = useState(false);
 
-  const options = { root: null, rootMargin: "20px", threshold: 1.0 };
+  const options = { root: null, rootMargin: '20px', threshold: 1.0 };
 
+  // eslint-disable-next-line no-undef
   const handleObserver: IntersectionObserverCallback = (entities) => {
     const target = entities[0];
     if (target.isIntersecting) setPage((currPage) => currPage + 1);
@@ -63,7 +63,7 @@ function Scroller({ movies, total, type }: ScrollerProps) {
         {total.results > 0 &&
           movies.slice(0, page * 20 - 1).map((movie) => (
             <div className={styles.Card} key={movie.id}>
-              {type === "cast" ? (
+              {type === 'cast' ? (
                 <Link href={`/person/${movie.id}`}>
                   <a>
                     <PersonCard
@@ -91,7 +91,7 @@ function Scroller({ movies, total, type }: ScrollerProps) {
                       showCard
                       genres={
                         movie.genre_ids?.map((id: number) =>
-                          getGenreName(id, "movie")
+                          getGenreName(id, 'movie')
                         ) || []
                       }
                     />
@@ -107,7 +107,12 @@ function Scroller({ movies, total, type }: ScrollerProps) {
         </div>
       )}
       {total.pages > page && (
-        <button className={styles.Trigger} ref={setTrigger} onClick={loadMore}>
+        <button
+          type="button"
+          className={styles.Trigger}
+          ref={setTrigger}
+          onClick={loadMore}
+        >
           Loading more results...
         </button>
       )}

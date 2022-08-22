@@ -1,5 +1,4 @@
-import styled from "@emotion/styled";
-import Image from "next/image";
+import styled from '@emotion/styled';
 
 import {
   InstagramIcon,
@@ -7,8 +6,8 @@ import {
   FaceBookIcon,
   IMDBIcon,
   WikiPediaIcon,
-} from "../assets";
-import { MovieExternalIdsResponse, TvExternalIdsResponse } from "../types/tmdb";
+} from '../assets';
+import { MovieExternalIdsResponse, TvExternalIdsResponse } from '../types/tmdb';
 
 interface SocialProps {
   externalIds: MovieExternalIdsResponse | TvExternalIdsResponse;
@@ -33,10 +32,10 @@ function Social({ externalIds, type, name, title }: SocialProps) {
   let Wikipedia;
 
   if (name)
-    Wikipedia = `https://en.wikipedia.org/wiki/${name.replace(" ", "_")}`;
+    Wikipedia = `https://en.wikipedia.org/wiki/${name.replace(' ', '_')}`;
 
   if (title)
-    Wikipedia = `https://en.wikipedia.org/wiki/${title.replace(" ", "_")}`;
+    Wikipedia = `https://en.wikipedia.org/wiki/${title.replace(' ', '_')}`;
 
   return (
     <Socials>
@@ -49,7 +48,7 @@ function Social({ externalIds, type, name, title }: SocialProps) {
       )}
       {externalIds.twitter_id && (
         <Logo>
-          {" "}
+          {' '}
           <a href={Twitter} target="_blank" rel="noreferrer">
             <TwitterIcon width="25px" height="25px" />
           </a>

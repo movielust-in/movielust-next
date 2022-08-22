@@ -1,14 +1,15 @@
-import styled from "@emotion/styled";
+import styled from '@emotion/styled';
 // import {useRef} from 'react';
 
-import { SwiperSlide } from "swiper/react";
-import { useRouter } from "next/router";
+import { SwiperSlide } from 'swiper/react';
+import { useRouter } from 'next/router';
 // import ColorThief from 'colorthief';
 
-import Carousel from "./Carousel";
-import ProductionWrap from "../CarouselSlices/ProductionWrap";
+import Carousel from './Carousel';
+import ProductionWrap from '../CarouselSlices/ProductionWrap';
 
-import styles from "../../styles/carousel.module.scss";
+import styles from '../../styles/carousel.module.scss';
+
 interface ProductionCompaniesPros {
   data: any[];
   title: string;

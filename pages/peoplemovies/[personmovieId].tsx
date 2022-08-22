@@ -1,26 +1,26 @@
-import { useEffect, useState } from "react";
-import styled from "@emotion/styled";
+import { useEffect, useState } from 'react';
+import styled from '@emotion/styled';
+import { useRouter } from 'next/router';
 
-import { useDispatch, useSelector } from "../../redux";
+import { useDispatch, useSelector } from '../../redux';
 
-import Loading from "../../components/UI/Loading";
-import Scroller from "../../components/UI/Scroller";
+import Loading from '../../components/UI/Loading';
+import Scroller from '../../components/UI/Scroller';
 
-import { setCurrentPage } from "../../redux/reducers/nav.reducer";
-import { fetchPerson } from "../../helpers/tmdb/person";
-import { fetchCastMovies } from "../../helpers/tmdb/movies";
+import { setCurrentPage } from '../../redux/reducers/nav.reducer';
+import { fetchPerson } from '../../helpers/tmdb/person';
+import { fetchCastMovies } from '../../helpers/tmdb/movies';
 import {
   setCastMovies,
   setCastMoviesTotal,
   resetMovies,
-} from "../../redux/reducers/movie.reducer";
-import { useRouter } from "next/router";
+} from '../../redux/reducers/movie.reducer';
 
 function PeopleMovies() {
   const router = useRouter();
   const dispatch = useDispatch();
 
-  const id = router.query["personmovieId"] as string;
+  const id = router.query.personmovieId as string;
 
   const [isLoading, setIsLoading] = useState(true);
 
@@ -31,7 +31,7 @@ function PeopleMovies() {
   const storeMovies = useSelector((state) => state.movie.castmovies.movies);
 
   useEffect(() => {
-    dispatch(setCurrentPage("peoplemovies"));
+    dispatch(setCurrentPage('peoplemovies'));
   }, [dispatch]);
 
   useEffect(() => {
@@ -87,7 +87,7 @@ const Container = styled.div`
 `;
 
 const Title = styled.div`
-  font-family: "bariolregular", sans-serif;
+  font-family: 'bariolregular', sans-serif;
   font-size: 30px;
   font-weight: 600;
   margin: 40px;

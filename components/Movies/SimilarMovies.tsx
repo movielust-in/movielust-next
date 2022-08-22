@@ -1,10 +1,9 @@
-import React, { useState, useEffect, memo } from "react";
-import styled from "@emotion/styled";
-import { css } from "@emotion/react";
+import React, { useState, useEffect, memo } from 'react';
+import styled from '@emotion/styled';
 
-import { fetchSimilar } from "../../helpers/tmdb";
-import { Content } from "../../types/tmdb";
-import MovieCarousel from "../Carousels/MovieCarousel";
+import { fetchSimilar } from '../../helpers/tmdb';
+import { Content } from '../../types/tmdb';
+import MovieCarousel from '../Carousels/MovieCarousel';
 
 interface SimilarMoviesProps {
   id: string;
@@ -25,7 +24,7 @@ function SimilarMovies({
 
   useEffect(() => {
     fetchSimilar(id, type, genres).then((response) => {
-      if (type === "movie" && toBeFiltered?.length) {
+      if (type === 'movie' && toBeFiltered?.length) {
         setSimilar(
           response!
             .filter(

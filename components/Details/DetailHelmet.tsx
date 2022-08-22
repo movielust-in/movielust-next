@@ -10,8 +10,12 @@ interface DetailHelmetProps {
 function DetailHelmet({ commonData, link }: DetailHelmetProps) {
   return (
     <Helmet>
-      <title>{commonData?.title} - Movielust</title>
-      <meta name="description" content={commonData?.overview} />
+      <title>{`${commonData?.title} - Movielust`}</title>
+      <meta
+        name="description"
+        content={commonData?.overview}
+        key="description"
+      />
       <meta
         property="og:title"
         name="og:title"

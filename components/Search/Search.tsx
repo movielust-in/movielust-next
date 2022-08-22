@@ -7,42 +7,42 @@ import {
   BaseSyntheticEvent,
   MutableRefObject,
   useMemo,
-} from "react";
+} from 'react';
 
-import Image from "next/image";
-import { useRouter } from "next/router";
+import Image from 'next/image';
+import { useRouter } from 'next/router';
 
-import { image } from "../../helpers/Urls";
+import { image } from '../../helpers/Urls';
 
-import search from "../../helpers/tmdb/search";
+import search from '../../helpers/tmdb/search';
 
-import { useLockBodyScroll } from "../../hooks";
+import { useLockBodyScroll } from '../../hooks';
 
-import { Content } from "../../types/tmdb";
+import { Content } from '../../types/tmdb';
 
-import { detailLink } from "../../utils";
-import { LoadingGhost } from "../../assets";
+import { detailLink } from '../../utils';
+import { LoadingGhost } from '../../assets';
 
-import styles from "./search.module.scss";
+import styles from './search.module.scss';
 
 const Titles = {
-  movie: "Movies",
-  tv: "TV Shows and Series",
-  person: "People",
+  movie: 'Movies',
+  tv: 'TV Shows and Series',
+  person: 'People',
 };
 
 let clearSearch: Function | null = null;
 
 function SaveDataToLocalStorage(data: any, cb: Function) {
   let a = [];
-  a = JSON.parse(localStorage.getItem("Search") as string) || [];
+  a = JSON.parse(localStorage.getItem('Search') as string) || [];
   if (a.includes(data)) {
-    localStorage.setItem("Search", JSON.stringify(a));
+    localStorage.setItem('Search', JSON.stringify(a));
   } else {
     a = [data, ...a];
     if (a.length > 5) a.length = 5;
     cb(a);
-    localStorage.setItem("Search", JSON.stringify(a));
+    localStorage.setItem('Search', JSON.stringify(a));
   }
 }
 
@@ -52,7 +52,7 @@ function Search({ show }: { show: boolean }) {
   const cLocation = useRef<string>();
 
   const [loading, setLoading] = useState(false);
-  const [searchQuery, setSearch] = useState("");
+  const [searchQuery, setSearch] = useState('');
   const [movies, setMovies] = useState<Content[]>();
   const [shows, setShows] = useState<Content[]>();
   const [people, setPeople] = useState<Content[]>();
@@ -65,7 +65,7 @@ function Search({ show }: { show: boolean }) {
   const parentRef = useRef<HTMLDivElement>();
 
   const [recentsearch, setRecent] = useState(
-    JSON.parse(localStorage.getItem("Search") || "[]")
+    JSON.parse(localStorage.getItem('Search') || '[]')
   );
 
   const setRecentSearch = (recents: any) => setRecent(recents);
@@ -87,21 +87,21 @@ function Search({ show }: { show: boolean }) {
   };
 
   const clearsearch = () => {
-    window.localStorage.removeItem("Search");
+    window.localStorage.removeItem('Search');
     setRecent(undefined);
   };
 
   const escape = useCallback(
     (e: KeyboardEvent) => {
       if (e.keyCode === 27) {
-        if (searchQuery === "") {
-          window.removeEventListener("keydown", escape);
+        if (searchQuery === '') {
+          window.removeEventListener('keydown', escape);
           router.push(
             cLocation.current as string
             // { replace: true }
           );
         } else {
-          setSearch("");
+          setSearch('');
         }
       }
     },
@@ -109,7 +109,7 @@ function Search({ show }: { show: boolean }) {
   );
 
   const hide = () => {
-    window.removeEventListener("keydown", escape);
+    window.removeEventListener('keydown', escape);
     router.push(
       cLocation.current as string
       // { replace: true }
@@ -117,7 +117,7 @@ function Search({ show }: { show: boolean }) {
   };
 
   clearSearch = () => {
-    setSearch("");
+    setSearch('');
   };
 
   useLockBodyScroll(show);
@@ -127,14 +127,14 @@ function Search({ show }: { show: boolean }) {
   }, [show]);
 
   useEffect(() => {
-    window.addEventListener("keydown", escape);
+    window.addEventListener('keydown', escape);
     return () => {
-      window.removeEventListener("keydown", escape);
+      window.removeEventListener('keydown', escape);
     };
   }, [escape]);
 
   useEffect(() => {
-    if (searchQuery === "") {
+    if (searchQuery === '') {
       setMovies(undefined);
       setShows(undefined);
       setPeople(undefined);
@@ -161,22 +161,22 @@ function Search({ show }: { show: boolean }) {
         setShows(
           results.filter(
             (result) =>
-              result.media_type === "tv" && result.poster_path !== null
+              result.media_type === 'tv' && result.poster_path !== null
           )
         );
         setPeople(
           results.filter(
             (result) =>
-              result.media_type === "person" && result.profile_path !== null
+              result.media_type === 'person' && result.profile_path !== null
           )
         );
         setMovies(
           results.filter(
             (result) =>
-              result.media_type === "movie" &&
+              result.media_type === 'movie' &&
               result.poster_path !== null &&
               result.release_date &&
-              result.release_date.slice(0, 4) <= "2023"
+              result.release_date.slice(0, 4) <= '2023'
           )
         );
       } else {
@@ -234,7 +234,7 @@ function Search({ show }: { show: boolean }) {
       <div className={styles.SearchBarContainer}>
         <div className={styles.SearchInputContainer}>
           <div className={styles.CancelContainer}>
-            <div className={styles.Cancel} onClick={hide} />
+            <div className={styles.Cancel} onClick={hide} role="presentation" />
           </div>
           <input
             className={styles.Input}
@@ -262,7 +262,7 @@ function Search({ show }: { show: boolean }) {
           {!isEmpty && (
             <>
               <div className={styles.RecentSearchHeader}>
-                <h3 className={styles.Header}>Recent Search</h3>{" "}
+                <h3 className={styles.Header}>Recent Search</h3>{' '}
                 <p
                   className={styles.Clear}
                   role="presentation"
@@ -365,25 +365,25 @@ function ResultSection({ data, type, weight, cb }: CardProps) {
               role="presentation"
               key={content.id}
               onClick={() => {
-                if (typeof clearSearch === "function") clearSearch();
+                if (typeof clearSearch === 'function') clearSearch();
                 router.push(
-                  type === "movie"
+                  type === 'movie'
                     ? detailLink(
-                        "movie",
+                        'movie',
                         parseInt(content.id, 10),
                         content.title!
                       )
-                    : type === "tv"
-                    ? detailLink("tv", parseInt(content.id, 10), content.name!)
+                    : type === 'tv'
+                    ? detailLink('tv', parseInt(content.id, 10), content.name!)
                     : `/person/${content.id}`
                   // { replace: true }
                 );
 
-                if (type === "movie") SaveDataToLocalStorage(content.title, cb);
+                if (type === 'movie') SaveDataToLocalStorage(content.title, cb);
                 else SaveDataToLocalStorage(content.name, cb);
               }}
             >
-              {(type === "person"
+              {(type === 'person'
                 ? content.profile_path
                 : content.poster_path) && (
                 <Image
@@ -392,18 +392,18 @@ function ResultSection({ data, type, weight, cb }: CardProps) {
                   height="100px"
                   src={image(
                     92,
-                    type === "person"
-                      ? content.profile_path || ""
-                      : content.poster_path || ""
+                    type === 'person'
+                      ? content.profile_path || ''
+                      : content.poster_path || ''
                   )}
                 />
               )}
               <div className={styles.Text}>
-                <div>{type === "movie" ? content.title : content.name}</div>
+                <div>{type === 'movie' ? content.title : content.name}</div>
 
-                {type === "movie" ? (
+                {type === 'movie' ? (
                   <div className={styles.Release}>
-                    {content.release_date.split("-")[0]}
+                    {content.release_date.split('-')[0]}
                   </div>
                 ) : null}
               </div>

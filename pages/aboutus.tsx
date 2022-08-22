@@ -1,13 +1,13 @@
-import { useEffect } from "react";
-import styled from "@emotion/styled";
+import { useEffect } from 'react';
+import styled from '@emotion/styled';
+import Image from 'next/image';
 
-import TMDB_LOGO from "../assets/images/svgs/tmdb_attr.svg";
-import YTS_LOGO from "../assets/images/yts_logo.png";
-import Image from "next/image";
+import TMDB_LOGO from '../assets/images/svgs/tmdb_attr.svg';
+import YTS_LOGO from '../assets/images/yts_logo.png';
 
 function Aboutus() {
   useEffect(() => {
-    document.title = "About us - Movielust";
+    document.title = 'About us - Movielust';
   }, []);
   return (
     <Container>
@@ -22,7 +22,7 @@ function Aboutus() {
           </p>
         </li>
         <li>
-          <div style={{ display: "flex", justifyContent: "space-between" }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between' }}>
             <a href="https://www.themoviedb.org/">
               <TMDB_LOGO width="100" alt="TMDB Logo" />
             </a>
@@ -57,7 +57,7 @@ const Container = styled.div`
   border-radius: 10px;
   color: #bbc3c8;
   display: inline-block;
-  font-family: "bariolregular", serif;
+  font-family: 'bariolregular', serif;
   font-style: italic;
   margin: 90px 20px 20px 18px;
   padding: 10px 12px 8px;
@@ -95,7 +95,7 @@ const Notice = styled.ul`
     border: 1px solid #252727;
     border-radius: 10px;
     display: inline-block;
-    font-family: "bariolregular", sans-serif;
+    font-family: 'bariolregular', sans-serif;
     margin: 20px;
     max-width: 90%;
     min-width: 200px;
@@ -120,7 +120,7 @@ const Notice = styled.ul`
     background: #fff;
     border-radius: 10px;
     bottom: 8px;
-    content: "";
+    content: '';
     left: -3px;
     position: absolute;
     right: -3px;
@@ -130,7 +130,7 @@ const Notice = styled.ul`
   }
   li:after {
     background: rgba(255, 255, 255, 0.02);
-    content: "";
+    content: '';
     height: 100%;
     left: 0;
     position: absolute;
@@ -143,7 +143,7 @@ const Notice = styled.ul`
   }
   @media (max-width: 724px) {
     li:before {
-      content: "";
+      content: '';
       position: absolute;
       top: -2px;
       left: -3px;

@@ -1,10 +1,9 @@
-import Head from "next/head";
-import { GetStaticPropsContext } from "next";
+import Head from 'next/head';
 
-import Movies from "../components/Movies/HomeMovies";
-import TrendingCarousel from "../components/Carousels/HomeCarousel";
+import Movies from '../components/Movies/HomeMovies';
+import TrendingCarousel from '../components/Carousels/HomeCarousel';
 
-import { fetchTrending, fetchTrendingToday } from "../helpers/tmdb/trending";
+import { fetchTrending, fetchTrendingToday } from '../helpers/tmdb/trending';
 
 import {
   fetchBollywood,
@@ -13,21 +12,21 @@ import {
   fetchSouth,
   fetchTRM,
   fetchUpcomingMovies,
-} from "../helpers/tmdb/movies";
+} from '../helpers/tmdb/movies';
 
-import { fetchIMDBRatings } from "../helpers/imdb";
+import { fetchIMDBRatings } from '../helpers/imdb';
 
-import { MovieResult } from "../types/tmdb";
+import { MovieResult } from '../types/tmdb';
 
 import {
   fetchLatestSeries,
   fetchPopularSeries,
   fetchTopRatedAnimes,
-} from "../helpers/tmdb/series";
+} from '../helpers/tmdb/series';
 
-import { HomeMovies } from "../types/apiResponses";
+import { HomeMovies } from '../types/apiResponses';
 
-import styles from "../styles/index.module.scss";
+import styles from '../styles/index.module.scss';
 
 interface HomeProps {
   trendingMovies: (MovieResult & { imdb_rating?: number })[];
@@ -51,17 +50,17 @@ function Home({ trendingMovies, homeMovies }: HomeProps) {
 export default Home;
 
 // SSR LOGIC
-export const getStaticProps = async (context: GetStaticPropsContext) => {
+export const getStaticProps = async () => {
   const movies = await fetchTrending();
 
-  if (!(movies && movies.results)) return;
+  if (!(movies && movies.results)) return {};
 
   const externalIdsRes = await Promise.all(
-    movies.results.map((movie) => fetchExternalIds(movie.id!, "movie"))
+    movies.results.map((movie) => fetchExternalIds(movie.id!, 'movie'))
   );
 
   const imdbIds = externalIdsRes.map(
-    (external_id) => external_id.imdb_id as string
+    (externalId) => externalId.imdb_id as string
   );
 
   const ratingsRes = await fetchIMDBRatings(imdbIds);

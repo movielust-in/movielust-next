@@ -1,37 +1,37 @@
-import { useEffect, useState } from "react";
-import styled from "@emotion/styled";
+import { useEffect, useState } from 'react';
+import { useRouter } from 'next/router';
+import styled from '@emotion/styled';
 
-import Scroller from "../../../components/UI/Scroller";
-import Loading from "../../../components/UI/Loading";
+import Scroller from '../../../components/UI/Scroller';
+import Loading from '../../../components/UI/Loading';
 
 import {
   fetchallBollywood,
   fetchallTRM,
   fetchallSouth,
   fetchallGujarati,
-} from "../../../helpers/tmdb/movies";
+} from '../../../helpers/tmdb/movies';
 
 import {
   fetchAllAnimes,
   fetchAllPopularSeries,
-} from "../../../helpers/tmdb/series";
-import { AllResponse } from "../../../types/tmdb";
-import { useRouter } from "next/router";
+} from '../../../helpers/tmdb/series';
+import { AllResponse } from '../../../types/tmdb';
 
 enum Categories {
-  TopRated = "TopRated",
-  SouthIndian = "SouthIndian",
-  PopularSeries = "PopularSeries",
-  Bollywood = "Bollywood",
-  Gujarati = "Gujarati",
-  Anime = "anime",
+  TopRated = 'TopRated',
+  SouthIndian = 'SouthIndian',
+  PopularSeries = 'PopularSeries',
+  Bollywood = 'Bollywood',
+  Gujarati = 'Gujarati',
+  Anime = 'anime',
 }
 
 function Showall() {
   const router = useRouter();
-  const type = router.query["type"] as string;
-  const category = router.query["category"] as string;
-  const [title, setTitle] = useState("");
+  const type = router.query.type as string;
+  const category = router.query.category as string;
+  const [title, setTitle] = useState('');
 
   const [movies, setMovies] = useState<AllResponse>();
 
@@ -42,7 +42,7 @@ function Showall() {
 
     switch (category) {
       case Categories.Bollywood:
-        setTitle("Bollywood Movies");
+        setTitle('Bollywood Movies');
         fetchallBollywood().then((data: any) => {
           setMovies(data);
           setIsLoading(false);
@@ -50,14 +50,14 @@ function Showall() {
         document.title = `Bollywood - Movielust`;
         break;
       case Categories.TopRated:
-        setTitle("Top Rated Movies");
+        setTitle('Top Rated Movies');
         fetchallTRM().then((data: any) => {
           setMovies(data);
           setIsLoading(false);
         });
         break;
       case Categories.SouthIndian:
-        setTitle("South Indian Movies");
+        setTitle('South Indian Movies');
         fetchallSouth().then((data: any) => {
           setMovies(data);
           setIsLoading(false);
@@ -65,7 +65,7 @@ function Showall() {
         document.title = `South Indian Movies - Movielust`;
         break;
       case Categories.PopularSeries:
-        setTitle("Popular Shows");
+        setTitle('Popular Shows');
         fetchAllPopularSeries().then((data: any) => {
           setMovies(data);
           setIsLoading(false);
@@ -73,7 +73,7 @@ function Showall() {
         document.title = `Popular Shows - Movielust`;
         break;
       case Categories.Gujarati:
-        setTitle("Gujarati Movies");
+        setTitle('Gujarati Movies');
         fetchallGujarati().then((data: any) => {
           setMovies(data);
           setIsLoading(false);
@@ -81,7 +81,7 @@ function Showall() {
         document.title = `Gujarati Movies - Movielust`;
         break;
       case Categories.Anime:
-        setTitle("Anime");
+        setTitle('Anime');
         fetchAllAnimes().then((data: any) => {
           setMovies(data);
           setIsLoading(false);
@@ -139,7 +139,7 @@ const Title = styled.div`
   -webkit-text-fill-color: transparent;
   background: linear-gradient(to right, #c0c0c0 50%, #50595b 100%);
   background-clip: text;
-  font-family: "bariolregular", sans-serif;
+  font-family: 'bariolregular', sans-serif;
   font-size: 6rem;
   font-weight: bold;
   letter-spacing: 10px;
