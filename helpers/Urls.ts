@@ -1,4 +1,4 @@
-import { SERVER_URI } from "../config";
+import { SERVER_URI } from '../config';
 
 const newDate = new Date();
 let date: number | string = newDate.getDate();
@@ -96,11 +96,11 @@ const VIDEO = (id: string | number, type: string, lang: string | number) =>
 const DISCOVER = (page: string | number, type: string, genre: number[]) => {
   let baseUrl = `discover/${type}?&language=en-US&sort_by=vote_count.desc&page=${page}`;
   if (genre.length < 0) return baseUrl;
-  baseUrl += `&with_genres=${genre.join(",")}`;
+  baseUrl += `&with_genres=${genre.join(',')}`;
   return baseUrl;
 };
 
-export const DISCOVER_MOVIES = "discover/movie?&language=en-US";
+export const DISCOVER_MOVIES = 'discover/movie?&language=en-US';
 
 const GETCAST = (id: string | number, type: string) => `${type}/${id}/credits`;
 
@@ -157,6 +157,9 @@ const SHOW_MAGNETS = (
 
 const AllAvatars = `${SERVER_URI}/avatar/getall`;
 
+export const YTS_API_TORRENTS = (tmdb_id: string | number, imdb_id: string) =>
+  `${SERVER_URI}/torrent/movie/yts/${imdb_id}/${tmdb_id}`;
+
 const RESET_PASS = `${SERVER_URI}/auth/resetpass`;
 
 const VERIFY_OTP = (
@@ -169,11 +172,11 @@ const UPDATE_AVATAR = (avatarId: string | number) =>
   `${SERVER_URI}/user/update/avatar/${avatarId}`;
 
 const GET_IMDB_RATING = (title: string, releaseYear: string | number) => {
-  title = title.replace(/[&/\\#,+()$~%.'":*?<>{}]/g, "");
+  title = title.replace(/[&/\\#,+()$~%.'":*?<>{}]/g, '');
   const url = `${SERVER_URI}/movie/imdb-rating/${title
     .toLowerCase()
-    .split(" ")
-    .join("-")}-${releaseYear}`;
+    .split(' ')
+    .join('-')}-${releaseYear}`;
   return url;
 };
 
@@ -183,13 +186,13 @@ const HINDI_TORRRENT = (
   releaseYear: string | number
 ) => {
   title = title
-    .replace("-", "")
-    .replace("  ", " ")
-    .replace(/[&/\\#,+()$~%.'":*?<>{}]/g, "");
+    .replace('-', '')
+    .replace('  ', ' ')
+    .replace(/[&/\\#,+()$~%.'":*?<>{}]/g, '');
   const url = `${SERVER_URI}/torrent/movie/hindi/${id}/${title
     .toLowerCase()
-    .split(" ")
-    .join("-")}-${releaseYear}`;
+    .split(' ')
+    .join('-')}-${releaseYear}`;
   return url;
 };
 
@@ -197,7 +200,7 @@ const IMDB_RATING = (imdb_id: string) =>
   `${SERVER_URI}/movie/imdb-rating/${imdb_id}`;
 
 const IMDB_RATINGS = (ids: string[]) =>
-  `${SERVER_URI}/movie/imdb-ratings/${ids.join(",")}`;
+  `${SERVER_URI}/movie/imdb-ratings/${ids.join(',')}`;
 
 const DELETE_USER = (id: string | number) => `${SERVER_URI}/user/delete/${id}`;
 
@@ -214,11 +217,11 @@ const MAGNET = (
   title: string,
   releaseYear: string | number
 ) => {
-  title = title.replace(/[&/\\#,+()$~%.'":*?<>{}]/g, "");
+  title = title.replace(/[&/\\#,+()$~%.'":*?<>{}]/g, '');
   const url = `${SERVER_URI}/torrent/movie/${id}/${title
     .toLowerCase()
-    .split(" ")
-    .join("-")}-${releaseYear}`;
+    .split(' ')
+    .join('-')}-${releaseYear}`;
 
   return url;
 };

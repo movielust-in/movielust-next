@@ -141,7 +141,7 @@ $arrow-border: 10px;
   right: auto;
   transform: translateX(calc(($card-width * -1) - $arrow-border));
   &::after {
-    content: "";
+    content: '';
     position: absolute;
     right: -20px;
     border-width: $arrow-border;
@@ -169,7 +169,7 @@ $arrow-border: 10px;
   left: auto;
   transform: translateX(calc($card-width + $arrow-border));
   &::after {
-    content: "";
+    content: '';
     position: absolute;
     left: -20px;
     border-width: $arrow-border;

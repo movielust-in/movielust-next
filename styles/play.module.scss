@@ -1,15 +1,43 @@
 .container {
-  padding-top: 50px;
-  height: 90vh;
+  min-height: 90vh;
+  padding: 50px 0;
   @media (max-width: 724px) {
     padding-top: 0;
   }
 }
 
 .player_container {
+  position: relative;
   width: 100%;
-  height: 500px;
+  height: 450px;
   @media (max-width: 724px) {
-    height: 800px;
+    height: 300px;
   }
+
+  &:hover {
+    .quality_dropdown {
+      opacity: 1;
+      visibility: visible;
+    }
+  }
+}
+
+.quality_dropdown {
+  border: 1px solid rgb(72, 103, 120);
+  background-color: rgb(29, 43, 57);
+  color: rgb(139, 133, 119);
+  padding: 8px;
+  margin: 10px;
+  border-radius: 6px;
+  position: absolute;
+  bottom: 30px;
+  right: 15px;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 200ms ease 500ms;
+  cursor: pointer;
+}
+
+.rest_container {
+  padding: 0 20px;
 }

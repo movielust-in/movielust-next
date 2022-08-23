@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { MdPlaylistAdd } from 'react-icons/md';
 import { FaDownload, FaPlay, FaStar, FaStop, FaShareAlt } from 'react-icons/fa';
 import Image from 'next/image';
+import { NextRouter } from 'next/router';
 
 // import { ShareOptions, Social } from '../../components';
 
@@ -35,12 +36,11 @@ interface InformationComponentProps {
   IMDBRating?: ImdbRating;
   magnets: Magnet[] | undefined;
   runtime: string | undefined;
-  externalIds: MovieExternalIdsResponse | undefined;
+  externalIds?: MovieExternalIdsResponse | undefined;
   released: boolean;
-  addToWatchlsit: () => any;
+  addToWatchlsit?: () => any;
   releaseYear: string | undefined;
-  playWebtor: (magnet: Magnet) => void;
-  location: any;
+  location: NextRouter;
 }
 
 const playButtonMsg = (isMovieShown: boolean) =>
@@ -62,7 +62,6 @@ export default function InformationComponent({
   released,
   addToWatchlsit,
   releaseYear,
-  playWebtor,
   location,
 }: InformationComponentProps) {
   const [showShareOptions, setShowShareOptions] = useState(false);
@@ -126,16 +125,18 @@ export default function InformationComponent({
               )}
             </span>
           )}
-        <button
-          type="button"
-          className={styles.AddButton}
-          onClick={addToWatchlsit}
-        >
-          <span>
-            <MdPlaylistAdd />
-          </span>
-          <div className={styles.HoverMessage}>Add to Watchlist</div>
-        </button>
+        {addToWatchlsit ? (
+          <button
+            type="button"
+            className={styles.AddButton}
+            onClick={addToWatchlsit}
+          >
+            <span>
+              <MdPlaylistAdd />
+            </span>
+            <div className={styles.HoverMessage}>Add to Watchlist</div>
+          </button>
+        ) : null}
 
         {/* ShareButton for Whatsapp,FB */}
 
@@ -161,60 +162,79 @@ export default function InformationComponent({
       <div className={styles.Title}>
         <h2>{commonData!.title}</h2> {releaseYear && <h4>({releaseYear})</h4>}
       </div>
-      <div className={styles.Rating}>
-        {IMDBRating?.rating || commonData?.tmdbRating ? (
-          <FaStar size="20px" color="rgba(255,255,0,0.8)" />
-        ) : // <img width={20} src={FaStar} alt="star" />
-        null}
-        {IMDBRating && IMDBRating.rating > 0 ? (
-          <span
-            role="presentation"
-            className={styles.IMDBRatings}
-            onClick={() => openImdbRatingCharts(externalIds!.imdb_id!)}
-          >
-            {IMDBRating.rating} ({IMDBRating.votes.toLocaleString()} votes)
-            &nbsp;&nbsp;
-            <img
-              width="30px"
-              src="https://m.media-amazon.com/images/G/01/IMDb/BG_rectangle._CB1509060989_SY230_SX307_AL_.png"
-              alt="TMDB"
-            />{' '}
-          </span>
-        ) : commonData?.tmdbRating ? (
-          <span>
-            {commonData.tmdbRating} ({commonData.voteCount?.toLocaleString()}{' '}
-            votes)
-            {'   '}
-            <img
-              width="30px"
-              src="https://www.themoviedb.org/assets/2/v4/logos/v2/blue_short-8e7b30f73a4020692ccca9c88bafe5dcb6f8a62a4c6bc55cd9ba82bb2cd95f6c.svg"
-              alt="TMDB"
-            />
-          </span>
-        ) : null}
-      </div>
+
+      {/* Ratings */}
+      {IMDBRating || commonData?.tmdbRating ? (
+        <div className={styles.Rating}>
+          {IMDBRating?.rating || commonData?.tmdbRating ? (
+            <FaStar size="20px" color="rgba(255,255,0,0.8)" />
+          ) : // <img width={20} src={FaStar} alt="star" />
+          null}
+          {IMDBRating && IMDBRating.rating > 0 ? (
+            <span
+              role="presentation"
+              className={styles.IMDBRatings}
+              onClick={() =>
+                externalIds && openImdbRatingCharts(externalIds.imdb_id!)
+              }
+            >
+              {IMDBRating.rating} ({IMDBRating.votes.toLocaleString()} votes)
+              &nbsp;&nbsp;
+              <img
+                width="30px"
+                src="https://m.media-amazon.com/images/G/01/IMDb/BG_rectangle._CB1509060989_SY230_SX307_AL_.png"
+                alt="TMDB"
+              />{' '}
+            </span>
+          ) : commonData?.tmdbRating ? (
+            <span>
+              {commonData.tmdbRating} ({commonData.voteCount?.toLocaleString()}{' '}
+              votes)
+              {'   '}
+              <img
+                width="30px"
+                src="https://www.themoviedb.org/assets/2/v4/logos/v2/blue_short-8e7b30f73a4020692ccca9c88bafe5dcb6f8a62a4c6bc55cd9ba82bb2cd95f6c.svg"
+                alt="TMDB"
+              />
+            </span>
+          ) : null}
+        </div>
+      ) : null}
+      {/* Ratings end */}
+
+      {/* Genres and Release Date */}
       <div className={styles.SubTitle}>
         {runtime !== '0 hrs 0 mins' ? runtime : null}
         <br /> {commonData?.genreString}
-        {type === 'movie' && (
-          <div className={styles.SubTitle}>
-            {released ? 'Released: ' : 'Releasing: '} {releaseDate}
-          </div>
-        )}
+        {type === 'movie' &&
+          (releaseDate ? (
+            <div className={styles.SubTitle}>
+              {released ? 'Released: ' : 'Releasing: '} {releaseDate}
+            </div>
+          ) : null)}
       </div>
+
       {type === 'movie' && magnets!.length > 0 && (
         <>
           <div className={styles.ContentOptions}>
             <FaPlay />
-            {magnets!.map((magnet) => (
+            {magnets!.map(({ magnet, quality }) => (
               <div
                 role="button"
                 tabIndex={0}
-                key={magnet.magnet}
-                onClick={() => playWebtor(magnet)}
-                onKeyDown={() => playWebtor(magnet)}
+                key={magnet}
+                onClick={() =>
+                  location.push(
+                    `/play/${commonData?.id}?m=${magnet}&q=${quality}`
+                  )
+                }
+                onKeyDown={() =>
+                  location.push(
+                    `/play/${commonData?.id}?m=${magnet}&q=${quality}`
+                  )
+                }
               >
-                {magnet.quality}
+                {quality}
               </div>
             ))}
           </div>
@@ -233,11 +253,13 @@ export default function InformationComponent({
         </>
       )}
 
-      <Social
-        externalIds={externalIds as MovieExternalIdsResponse}
-        type="title"
-        title={commonData?.title}
-      />
+      {externalIds ? (
+        <Social
+          externalIds={externalIds as MovieExternalIdsResponse}
+          type="title"
+          title={commonData?.title}
+        />
+      ) : null}
 
       {commonData && commonData.overview ? (
         <div className={styles.Description}>{commonData.overview}</div>

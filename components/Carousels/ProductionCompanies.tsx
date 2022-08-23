@@ -6,7 +6,7 @@ import ProductionWrap from '../CarouselSlices/ProductionWrap';
 
 import styles from '../../styles/carousel.module.scss';
 
-import prodCompaniesStyles from '../../styles/production_companies.modules.scss';
+import prodCompaniesStyles from '../../styles/production_companies.module.scss';
 
 interface ProductionCompaniesPros {
   data: any[];
@@ -62,7 +62,7 @@ ProductionCompaniesPros) {
                 }}
               >
                 <ProductionWrap
-                  src="https://media.istockphoto.com/vectors/print-vector-id1207316492?k=20&m=1207316492&s=612x612&w=0&h=vIiNQ2cvtKY2XlHPt2GoqoXAQDHyvug-EsUsCJ4L6Fg="
+                  src="https://ik.imagekit.io/movielust/cinema_RTLQPVDM8.jpg"
                   alt={detail.name}
                 />
 

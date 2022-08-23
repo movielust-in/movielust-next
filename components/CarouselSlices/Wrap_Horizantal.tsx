@@ -36,6 +36,7 @@ function WrapH({ src, alt, title, rating }: WrapPros) {
         height={210}
         src={imgSrc}
         alt={alt || 'no alt'}
+        className={styles.Image}
         onLoad={onLoad}
         blurDataURL={Shimmer(400, 210)}
         placeholder="blur"

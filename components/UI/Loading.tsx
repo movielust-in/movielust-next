@@ -59,7 +59,7 @@ function Loading({ delay }: LoadingProps) {
 
   return show ? (
     <div className={styles.container}>
-      <img src={LoadingGhost.src} alt="loading" width="100px" height="100px" />
+      <img src={LoadingGhost.src} alt="loading" width="60px" height="60px" />
       <p>{message}</p>
     </div>
   ) : null;

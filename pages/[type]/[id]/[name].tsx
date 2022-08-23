@@ -1,5 +1,5 @@
 import { toast } from 'react-toastify';
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { GetServerSideProps, NextPage } from 'next';
 import { useRouter } from 'next/router';
 import dynamic from 'next/dynamic';
@@ -33,6 +33,7 @@ import {
   addShowToWatchlist,
 } from '../../../redux/reducers/watchlist.reducer';
 import { addToWatchlist } from '../../../helpers/user/watchlist';
+import { fetchMagnetsfromYTSapi } from '../../../helpers/torrent';
 
 const Seasons = dynamic(() => import('../../../components/Shows/Seasons'));
 interface DetailProps {
@@ -45,7 +46,15 @@ const Detail: NextPage<DetailProps> = ({ contentData }: DetailProps) => {
   const id = router.query.id as string;
   const type = router.query.type as string;
 
+  const [magnets, setMagnets] = useState([]);
+
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    fetchMagnetsfromYTSapi(contentData.imdb_id!, id).then((res) => {
+      setMagnets(res.data.results);
+    });
+  }, []);
 
   const isAuthenticated = useSelector((state) => state.user.isLoggedIn);
 
@@ -140,12 +149,11 @@ const Detail: NextPage<DetailProps> = ({ contentData }: DetailProps) => {
         loadingMovieIframe={loadingMovieIframe}
         showMovie={showMovie}
         IMDBRating={contentData.imdbRating}
-        magnets={[]}
+        magnets={magnets}
         runtime={contentData.runtime}
         externalIds={contentData.externalIds}
         released={contentData.released!}
         addToWatchlsit={toWatchlist}
-        playWebtor={() => {}}
         location={router}
       />
 
