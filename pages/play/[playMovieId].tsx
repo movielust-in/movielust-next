@@ -87,8 +87,6 @@ const Play = () => {
     }
   }, [info, tmdbId]);
 
-  console.log(info);
-
   useEffect(() => {
     if ((mags.magnets && mags.magnets.length) || !info.imdbId || !tmdbId)
       return;
