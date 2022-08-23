@@ -1594,21 +1594,13 @@ export interface EpisodeGroupResponse extends Response {
 
 export interface DetailResponse extends MovieResponse, TvResult {
   released?: boolean;
-  collection?: {
-    name: string;
-    parts: CollectionPart;
-  };
   runtime?: string;
   trailerKey?: string;
   number_of_seasons?: number;
-  images: MovieImagesResponse['backdrops'];
-  similar: Content[];
-  externalIds: MovieExternalIdsResponse;
   videos?: VideosResponse;
   credits: CreditsResponse;
   production_companies: ProductionCompany[];
   belongs_to_collection?: { id: string };
-  imdbRating?: { rating: number; votes: number };
 }
 
 export interface AllResponse<T = any> {

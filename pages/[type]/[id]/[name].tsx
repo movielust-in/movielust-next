@@ -13,7 +13,14 @@ import {
   fetchExternalIds,
 } from '../../../helpers/tmdb/movies';
 import { fetchTvImages as fetchImages } from '../../../helpers/tmdb/series';
-import { DetailResponse, Genre, ShowResponse } from '../../../types/tmdb';
+import {
+  CollectionInfoResponse,
+  DetailResponse,
+  Genre,
+  MovieExternalIdsResponse,
+  MovieImagesResponse,
+  ShowResponse,
+} from '../../../types/tmdb';
 import tmdbClient from '../../../helpers/tmdbClient';
 import { VIDEO } from '../../../helpers/Urls';
 import PosterAndIframe from '../../../components/Details/PosterAndIframe';
@@ -34,6 +41,7 @@ import {
 } from '../../../redux/reducers/watchlist.reducer';
 import { addToWatchlist } from '../../../helpers/user/watchlist';
 import { fetchMagnetsfromYTSapi } from '../../../helpers/torrent';
+import { IMDBRating } from '../../../types/apiResponses';
 
 const Seasons = dynamic(() => import('../../../components/Shows/Seasons'));
 interface DetailProps {
@@ -43,18 +51,45 @@ interface DetailProps {
 const Detail: NextPage<DetailProps> = ({ contentData }: DetailProps) => {
   const router = useRouter();
 
-  const id = router.query.id as string;
-  const type = router.query.type as string;
+  const id = router.query.id as string | undefined;
+  const type = router.query.type as string | undefined;
 
   const [magnets, setMagnets] = useState([]);
+
+  const [externalIds, setExternalIds] = useState<MovieExternalIdsResponse>();
+
+  const [collection, setCollection] = useState<CollectionInfoResponse>();
+
+  const [imdbRating, setImdbRating] = useState<IMDBRating>();
+
+  const [images, setImages] = useState<MovieImagesResponse['backdrops']>();
 
   const dispatch = useDispatch();
 
   useEffect(() => {
-    fetchMagnetsfromYTSapi(contentData.imdb_id!, id).then((res) => {
+    if (contentData.belongs_to_collection) {
+      fetchCollection(contentData.belongs_to_collection.id).then((res) =>
+        setCollection(res)
+      );
+    }
+
+    if (contentData.imdb_id) {
+      fetchIMDBRating(contentData.imdb_id).then((res) => setImdbRating(res));
+    }
+  }, [contentData]);
+
+  useEffect(() => {
+    if (!contentData.imdb_id || !id) return;
+    fetchMagnetsfromYTSapi(contentData.imdb_id, id).then((res) => {
       setMagnets(res.data.results);
     });
-  }, []);
+  }, [contentData.imdb_id, id]);
+
+  useEffect(() => {
+    if (!id || !type) return;
+    fetchExternalIds(id, type).then((res) => setExternalIds(res));
+    fetchImages(id, type).then((res) => setImages(res.backdrops));
+  }, [id, type]);
 
   const isAuthenticated = useSelector((state) => state.user.isLoggedIn);
 
@@ -109,7 +144,7 @@ const Detail: NextPage<DetailProps> = ({ contentData }: DetailProps) => {
   };
 
   const commonData = {
-    id,
+    id: id as string,
     title: contentData.title || contentData.name || '',
     backdrop: contentData.backdrop_path,
     poster: contentData.poster_path,
@@ -132,7 +167,7 @@ const Detail: NextPage<DetailProps> = ({ contentData }: DetailProps) => {
       <BackgroundImage backdrop={contentData.backdrop_path} />
 
       <PosterAndIframe
-        id={id}
+        id={id!}
         poster={contentData.poster_path}
         showMovie={showMovie}
         trailerKey={contentData.trailerKey}
@@ -141,17 +176,17 @@ const Detail: NextPage<DetailProps> = ({ contentData }: DetailProps) => {
 
       <InformationComponent
         // domColor={domColor}
-        type={type}
+        type={type!}
         commonData={commonData}
         releaseDate={contentData.release_date}
         releaseYear={contentData?.release_date?.split(' ')[-1] || ''}
         playMovie={toggleMovie}
         loadingMovieIframe={loadingMovieIframe}
         showMovie={showMovie}
-        IMDBRating={contentData.imdbRating}
+        IMDBRating={imdbRating}
         magnets={magnets}
         runtime={contentData.runtime}
-        externalIds={contentData.externalIds}
+        externalIds={externalIds}
         released={contentData.released!}
         addToWatchlsit={toWatchlist}
         location={router}
@@ -162,7 +197,7 @@ const Detail: NextPage<DetailProps> = ({ contentData }: DetailProps) => {
         contentData.name &&
         contentData.number_of_seasons && (
           <Seasons
-            id={id}
+            id={id!}
             title={contentData.name}
             totalSeasons={contentData.number_of_seasons}
             setSeasonMagnets={() => {}}
@@ -181,12 +216,11 @@ const Detail: NextPage<DetailProps> = ({ contentData }: DetailProps) => {
           />
         )}
 
-      {contentData &&
-      contentData.collection &&
-      contentData.collection.parts &&
-      contentData.collection.parts.filter(
-        (movie: any) => movie.poster_path !== null
-      ).length > 1 ? (
+      {collection &&
+      collection.parts &&
+      collection.parts?.length > 0 &&
+      collection.parts.filter((movie: any) => movie.poster_path !== null)
+        .length > 1 ? (
         <div
           // style={{
           //   backgroundColor: `rgba(${domColor[0]}, ${domColor[1]}, ${domColor[2]}, 0.3)`,
@@ -195,16 +229,16 @@ const Detail: NextPage<DetailProps> = ({ contentData }: DetailProps) => {
         >
           <MovieCarousel
             type={type!}
-            movies={contentData.collection.parts}
-            title={contentData.collection.name}
+            movies={collection.parts as any}
+            title={collection.name}
             showCard={false}
           />
         </div>
       ) : null}
 
       {/* IMAGES */}
-      {contentData.images && contentData.images.length >= 0 ? (
-        <ImageCrousel images={contentData.images} type={type} title="Images" />
+      {images && images.length >= 0 ? (
+        <ImageCrousel images={images} type={type!} title="Images" />
       ) : null}
 
       {contentData?.production_companies &&
@@ -225,7 +259,7 @@ const Detail: NextPage<DetailProps> = ({ contentData }: DetailProps) => {
             type === 'movie' ? 'Movies you may like' : 'Shows you may like'
           }
           genres={contentData?.genres}
-          toBeFiltered={contentData?.collection?.parts || []}
+          toBeFiltered={collection?.parts || []}
           // dom={domColor}
         />
       )}
@@ -257,8 +291,6 @@ export const getServerSideProps: GetServerSideProps = async ({
     ...data,
     credits: {
       cast: data.credits.cast?.slice(0, 20),
-
-      crew: data.credits.crew?.filter((member) => member.job === 'Director'),
     },
   };
 
@@ -283,19 +315,6 @@ export const getServerSideProps: GetServerSideProps = async ({
         )} mins`,
       };
     }
-
-    // collections
-    if (data.belongs_to_collection) {
-      const collectionRes = await fetchCollection(
-        data.belongs_to_collection.id
-      );
-
-      if (collectionRes.name && collectionRes.parts)
-        data = {
-          ...data,
-          collection: { name: collectionRes.name, parts: collectionRes.parts },
-        };
-    }
   } else if (type === TYPE.tv) {
     const showData = data as ShowResponse;
 
@@ -313,14 +332,6 @@ export const getServerSideProps: GetServerSideProps = async ({
     if (firstYear === lastYear) data = { ...data, release_date: lastYear };
     else data = { ...data, release_date: `${firstYear}-${lastYear}` };
   }
-
-  const externalIds = await fetchExternalIds(id, type);
-
-  data = { ...data, externalIds };
-
-  const images = await fetchImages(id, type);
-
-  data = { ...data, images: images.backdrops?.slice(0, 20) };
 
   let vids = data.videos?.results || [];
   if (vids?.length <= 0) {
@@ -353,18 +364,7 @@ export const getServerSideProps: GetServerSideProps = async ({
     };
   }
 
-  if (type === TYPE.movie && data.imdb_id) {
-    try {
-      const imdbRating = await fetchIMDBRating(data.imdb_id);
-
-      data = { ...data, imdbRating };
-    } catch (error) {
-      //
-    }
-  }
-
-  delete data.videos;
-  delete data.production_countries;
+  data = { ...data, videos: { results: [] }, production_countries: [] };
 
   return {
     props: {
