@@ -11,10 +11,11 @@ import { LoadingGhost } from '../../assets';
 import { HomeMovies } from '../../types/apiResponses';
 
 import styles from './HomeMovies.module.scss';
+import LoadingCarousel from '../Carousels/LoadingCarousel';
 
 const RecentCarousel = dynamic(() => import('../Carousels/RecentCarousel'));
 
-const TOTAL_NO_CAROUSELS = 9;
+const TOTAL_NO_CAROUSELS = 5;
 
 interface MoviesProps {
   movies: HomeMovies;
@@ -27,19 +28,15 @@ function Movies({ movies }: MoviesProps) {
 
   const [page, setPage] = useState(2);
 
-  const options = { root: null, rootMargin: '20px', threshold: 1.0 };
+  const options = { root: null, rootMargin: '20px', threshold: 0.25 };
 
   const handleObserver = (entities: any[]) => {
     const target = entities[0];
     if (target.isIntersecting) {
       if (TOTAL_NO_CAROUSELS > page) {
-        setPage((currPage) => currPage + 6);
+        setPage((currPage) => currPage + 1);
       }
     }
-  };
-
-  const loadMore = () => {
-    setPage((currPage) => currPage + 6);
   };
 
   useEffect(() => {
@@ -142,14 +139,9 @@ function Movies({ movies }: MoviesProps) {
       {all.slice(0, page).map((carousel) => carousel)}
 
       {TOTAL_NO_CAROUSELS > page && (
-        <button
-          type="button"
-          className={styles.Trigger}
-          ref={ref}
-          onClick={loadMore}
-        >
-          Loading...
-        </button>
+        <div className={styles.CarouselContainer} ref={ref}>
+          <LoadingCarousel />
+        </div>
       )}
     </div>
   );

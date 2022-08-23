@@ -3,7 +3,7 @@ import { useRouter } from 'next/router';
 import { SwiperSlide } from 'swiper/react';
 
 import Carousel from './Carousel';
-import PCard from '../CarouselSlices/PersonCard';
+import PersonCard from '../CarouselSlices/PersonCard';
 import ShowAllButton from '../CarouselSlices/ShowAllButton';
 
 import { dashedTitle } from '../../utils';
@@ -39,23 +39,15 @@ function CastCarousel({
       className={styles.big_container}
       // dom={dom}
     >
-      {type === 'tv'
-        ? cast.length > 0 && (
-            <div className={styles.Title}>
-              <h2>{title}</h2>
-              {id && contentTitle && (
-                <ShowAllButton
-                  link={`/cast/${type}/${id}/${dashedTitle(contentTitle)}`}
-                  label="See all cast"
-                />
-              )}
-            </div>
-          )
-        : cast.length > 0 && (
-            <div className={styles.Title}>
-              <h2>{title}</h2>
-            </div>
-          )}
+      <div className={styles.Title}>
+        <h2>{title}</h2>
+        {id && contentTitle ? (
+          <ShowAllButton
+            link={`/cast/${type}/${id}/${dashedTitle(contentTitle)}`}
+            label="See all cast"
+          />
+        ) : null}
+      </div>
 
       <Carousel carosel_id="cast_slider">
         {casts
@@ -69,17 +61,17 @@ function CastCarousel({
               }}
             >
               {type === 'tv' ? (
-                <PCard
+                <PersonCard
                   src={`https://image.tmdb.org/t/p/w780/${member.profile_path}`}
-                  alt={member.name!}
+                  alt={member.name}
                   title={`${member.name} ${
-                    member.roles[0].character
+                    member.roles && member.roles[0].character
                       ? ` as ${member.roles[0].character}`
                       : ''
                   }`}
                 />
               ) : (
-                <PCard
+                <PersonCard
                   src={`https://image.tmdb.org/t/p/w780/${member.profile_path}`}
                   alt={member.name}
                   title={`${member.name} ${

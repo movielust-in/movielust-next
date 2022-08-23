@@ -55,6 +55,7 @@ function RecentCarousel() {
             }
           >
             <Link
+              prefetch={false}
               href={
                 content.media_type === 'movie'
                   ? detailLink(content.media_type, content.id, content.title)

@@ -175,7 +175,6 @@ const Detail: NextPage<DetailProps> = ({ contentData }: DetailProps) => {
       />
 
       <InformationComponent
-        // domColor={domColor}
         type={type!}
         commonData={commonData}
         releaseDate={contentData.release_date}
@@ -205,16 +204,15 @@ const Detail: NextPage<DetailProps> = ({ contentData }: DetailProps) => {
         )}
 
       {/* Cast */}
-      {type === 'movie' &&
-        contentData?.credits?.cast &&
-        contentData?.credits?.cast.length !== 0 && (
-          <CastCarousel
-            cast={contentData.credits.cast}
-            title="Featured Cast"
-            type="movie"
-            // dom={domColor}
-          />
-        )}
+      {contentData?.credits?.cast && contentData?.credits?.cast.length > 0 ? (
+        <CastCarousel
+          cast={contentData.credits.cast}
+          title="Featured Cast"
+          type={type}
+          id={id}
+          contentTitle={contentData.name}
+        />
+      ) : null}
 
       {collection &&
       collection.parts &&
@@ -251,7 +249,7 @@ const Detail: NextPage<DetailProps> = ({ contentData }: DetailProps) => {
         )}
 
       {/* TODO: move similar movie fetching logic to supabase functions */}
-      {type === 'movie' && contentData?.genres?.length !== 0 && (
+      {contentData?.genres?.length !== 0 && (
         <SimilarMovies
           id={id!}
           type={type!}

@@ -1,13 +1,13 @@
-import Link from "next/link";
-import { SwiperSlide } from "swiper/react";
+import Link from 'next/link';
+import { SwiperSlide } from 'swiper/react';
 
-import Carousel from "./Carousel";
-import Wrap from "../CarouselSlices/Wrap";
-import ShowAllButton from "../CarouselSlices/ShowAllButton";
-import { detailLink } from "../../utils";
-import getGenreName from "../../utils/getGenreName";
+import Carousel from './Carousel';
+import Wrap from '../CarouselSlices/Wrap';
+import ShowAllButton from '../CarouselSlices/ShowAllButton';
+import { detailLink } from '../../utils';
+import getGenreName from '../../utils/getGenreName';
 
-import styles from "../../styles/carousel.module.scss";
+import styles from '../../styles/carousel.module.scss';
 
 interface MovieCarouselInterface {
   movies: any[];
@@ -49,8 +49,9 @@ function MovieCarousel({
                 .map((movie) => (
                   <SwiperSlide key={movie.id}>
                     <Link
+                      prefetch={false}
                       href={detailLink(
-                        type === "combined" ? movie.media_type : type,
+                        type === 'combined' ? movie.media_type : type,
                         movie.id,
                         movie.title || movie.name
                       )}
@@ -58,19 +59,19 @@ function MovieCarousel({
                       <a>
                         <Wrap
                           src={`https://image.tmdb.org/t/p/w200/${movie.poster_path}`}
-                          alt={movie.title || movie.name || ""}
+                          alt={movie.title || movie.name || ''}
                           title={movie.title || movie.name}
                           description={`${movie?.overview
-                            ?.split(".")
+                            ?.split('.')
                             .slice(0, 3)
-                            .join(".")}.`}
+                            .join('.')}.`}
                           backdrop={movie.backdrop_path}
                           showCard={showCard}
                           genres={
                             movie.genre_ids
                               ? movie.genre_ids
                                   .map((genre: number) =>
-                                    type === "combined"
+                                    type === 'combined'
                                       ? getGenreName(genre, movie.media_type)
                                       : getGenreName(genre, type)
                                   )

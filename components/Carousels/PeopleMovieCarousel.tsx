@@ -50,6 +50,7 @@ function PeopleMovieCarousel({
                 .map((movie) => (
                   <SwiperSlide key={`${movie.id}-${movie.character}`}>
                     <Link
+                      prefetch={false}
                       href={detailLink(
                         type === 'combined' ? movie.media_type : type,
                         movie.id,

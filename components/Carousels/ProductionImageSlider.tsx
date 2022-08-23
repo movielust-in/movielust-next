@@ -54,7 +54,10 @@ function ProductionImageSlider({ data }: ProductionImageSliderPros) {
               movie: MovieResult & { imdb_rating: number; file_path: string }
             ) => (
               <SwiperSlide key={movie.file_path!}>
-                <Link href={detailLink('movie', movie.id!, movie.title!)}>
+                <Link
+                  href={detailLink('movie', movie.id!, movie.title!)}
+                  prefetch={false}
+                >
                   <a>
                     <div className={styles.Wrap}>
                       <div>

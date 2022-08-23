@@ -17,48 +17,6 @@ function ImgSlider({
 }: {
   movies: (MovieResult & { imdb_rating?: number })[];
 }) {
-  // const dispatch = useDispatch();
-
-  // const trendingMovies = useSelector((state) => state.movie.trending);
-
-  // const called = useRef(false);
-
-  // useEffect(() => {
-  //   if (trendingMovies.length || called.current) return;
-
-  //   const fetchData = async () => {
-  //     called.current = true;
-
-  //     const movies = await fetchTrending();
-
-  //     dispatch(setTrending(movies.results));
-
-  //     if (!(movies && movies.results)) return;
-
-  //     const externalIdsRes = await Promise.all(
-  //       movies.results.map((movie) => fetchExternalIds(movie.id!, "movie"))
-  //     );
-
-  //     const imdbIds = externalIdsRes.map(
-  //       (external_id) => external_id.imdb_id as string
-  //     );
-
-  //     const ratingsRes = await fetchIMDBRatings(imdbIds);
-
-  //     const ratings = ratingsRes.data.results;
-
-  //     const moviesWithImdbRating = movies.results!.map((movie, index) => ({
-  //       ...movie,
-  //       imdb_rating: ratings[index].rating,
-  //     }));
-
-  //     dispatch(setTrending(moviesWithImdbRating));
-  //   };
-
-  //   fetchData();
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, []);
-
   return (
     <Swiper
       className={styles.Swiper}
@@ -75,7 +33,10 @@ function ImgSlider({
     >
       {movies.map((movie: any) => (
         <SwiperSlide key={movie.id}>
-          <Link href={detailLink('movie', movie.id, movie.title)}>
+          <Link
+            href={detailLink('movie', movie.id, movie.title)}
+            prefetch={false}
+          >
             <a>
               <div className={styles.Wrap}>
                 <div>
