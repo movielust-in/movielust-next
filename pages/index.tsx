@@ -1,5 +1,3 @@
-import Head from 'next/head';
-
 import Movies from '../components/Movies/HomeMovies';
 import TrendingCarousel from '../components/Carousels/HomeCarousel';
 
@@ -20,6 +18,7 @@ import { fetchLatestSeries, fetchPopularSeries } from '../helpers/tmdb/series';
 import { HomeMovies } from '../types/apiResponses';
 
 import styles from '../styles/index.module.scss';
+import Meta from '../components/Meta';
 
 interface HomeProps {
   trendingMovies: (MovieResult & { imdb_rating?: number })[];
@@ -29,9 +28,12 @@ interface HomeProps {
 function Home({ trendingMovies, homeMovies }: HomeProps) {
   return (
     <>
-      <Head>
-        <title>Home - Movielust</title>
-      </Head>
+      <Meta
+        title="Home"
+        description="Movielust is India's largest free streaming platform that offers a wide variety of premium TV shows, movies, anime, documentaries and even more"
+        url="https://movielust.in"
+        image="/favicon/android-icon-192x192.png"
+      />
       <div className={styles.container}>
         <TrendingCarousel movies={trendingMovies} />
         <Movies movies={homeMovies} />

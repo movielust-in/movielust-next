@@ -33,6 +33,7 @@ import {
   Profile as ProfileType,
   TVCreditCast,
 } from '../../types/tmdb';
+import Meta from '../../components/Meta';
 
 // const colorThief = new ColorThief();
 
@@ -140,6 +141,15 @@ function PeopleDeatail() {
         <Loading />
       ) : (
         <>
+          {name && bio && profile ? (
+            <Meta
+              title={name}
+              description={bio}
+              url={window.location.href}
+              image={`https://image.tmdb.org/t/p/w200/${profile}`}
+              lgImage={`https://image.tmdb.org/t/p/w500/${profile}`}
+            />
+          ) : null}
           <Background>
             <Image
               alt="movieposter"

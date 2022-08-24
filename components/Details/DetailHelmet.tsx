@@ -1,6 +1,6 @@
-import Helmet from "next/head";
-import { CommonData } from "./DetailTypes";
-import { image } from "../../helpers/Urls";
+import Helmet from 'next/head';
+import { CommonData } from './DetailTypes';
+import { image } from '../../helpers/Urls';
 
 interface DetailHelmetProps {
   commonData: CommonData | undefined;
@@ -26,16 +26,16 @@ function DetailHelmet({ commonData, link }: DetailHelmetProps) {
       <meta property="og:url" content={`https://movielust.in/${link}`} />
       <meta
         property="og:image"
-        content={image(200, commonData?.poster || "")}
+        content={image(200, commonData?.poster || '')}
       />
       <meta name="twitter:title" content={`${commonData?.title} - Movielust`} />
       <meta name="twitter:description" content={commonData?.overview} />
-      <meta name="twitter:card" content="player" />
+      <meta name="twitter:card" content="summary_large_image" />
       <meta name="twitter:site" content="@movielust_in" />
       <meta name="twitter:url" content="https://www.movielust.in" />
       <meta
         name="twitter:image"
-        content={image(200, commonData?.poster || "")}
+        content={image(780, commonData?.backdrop || commonData?.poster || '')}
       />
     </Helmet>
   );
