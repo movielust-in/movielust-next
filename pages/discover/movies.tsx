@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from 'react';
+import { useEffect } from 'react';
 import Link from 'next/link';
 import { FaTimes } from 'react-icons/fa';
 
@@ -25,12 +25,9 @@ import { detailLink } from '../../utils';
 import getGenreName from '../../utils/getGenreName';
 
 import styles from '../../styles/scroller.module.scss';
-
-const options = { root: null, rootMargin: '20px', threshold: 1.0 };
+import useObserver from '../../hooks/useObserver';
 
 function Movie() {
-  const [trigger, setTrigger] = useState<any>(null);
-
   const dispatch = useDispatch();
 
   // actions
@@ -44,8 +41,6 @@ function Movie() {
   const setData = (movies: { page: number; results: MovieResult[] }) =>
     dispatch(addMovies(movies));
 
-  // selectors
-
   const page = useSelector((state) => state.movie.page);
 
   const filters = useSelector((state) => state.movie.filters);
@@ -54,31 +49,9 @@ function Movie() {
 
   const totalPages = useSelector((state) => state.movie.totalPages);
 
-  // observer
-
-  // eslint-disable-next-line no-undef
-  const handleObserver: IntersectionObserverCallback = (entities) => {
-    const target = entities[0];
-    if (target.isIntersecting) incrementCurrentPage();
-  };
-
-  const observer = useRef<IntersectionObserver>();
-
-  useEffect(() => {
-    if (!observer.current)
-      observer.current = new IntersectionObserver(handleObserver, options);
-
-    const currentObserver = observer.current;
-
-    if (trigger) currentObserver.observe(trigger);
-
-    return () => {
-      if (trigger) currentObserver.unobserve(trigger);
-    };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [trigger]);
-
-  // data fetching logic
+  const observerRef = useObserver(() => {
+    incrementCurrentPage();
+  });
 
   useEffect(() => {
     if (Object.prototype.hasOwnProperty.call(data, page)) return;
@@ -153,7 +126,7 @@ function Movie() {
         <button
           type="button"
           className={styles.Trigger}
-          ref={setTrigger}
+          ref={observerRef}
           onClick={loadMore}
         >
           <p style={{ textAlign: 'center' }}>

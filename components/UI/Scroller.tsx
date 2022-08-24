@@ -1,4 +1,4 @@
-import { useRef, useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 
@@ -11,6 +11,7 @@ import PersonCard from '../CarouselSlices/PersonCard';
 import { LoadingGhost } from '../../assets';
 import { detailLink } from '../../utils';
 import getGenreName from '../../utils/getGenreName';
+import useObserver from '../../hooks/useObserver';
 
 interface ScrollerProps {
   movies: any[];
@@ -22,36 +23,12 @@ function Scroller({ movies, total, type }: ScrollerProps) {
   const [page, setPage] = useState(1);
   const [loadingMore, setLoadingMore] = useState(false);
 
-  const options = { root: null, rootMargin: '20px', threshold: 1.0 };
-
-  // eslint-disable-next-line no-undef
-  const handleObserver: IntersectionObserverCallback = (entities) => {
-    const target = entities[0];
-    if (target.isIntersecting) setPage((currPage) => currPage + 1);
-  };
-
-  const observer = useRef<IntersectionObserver>();
+  const setTrigger = useObserver(() => setPage((currPage) => currPage + 1));
 
   const loadMore = () => {
     setLoadingMore(true);
     setPage((currPage) => currPage + 1);
   };
-
-  const [trigger, setTrigger] = useState<any>(null);
-
-  useEffect(() => {
-    if (!observer.current)
-      observer.current = new IntersectionObserver(handleObserver, options);
-
-    const currentObserver = observer.current;
-
-    if (trigger) currentObserver.observe(trigger);
-
-    return () => {
-      if (trigger) currentObserver.unobserve(trigger);
-    };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [trigger]);
 
   useEffect(() => {
     setPage(1);

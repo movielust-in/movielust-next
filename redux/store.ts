@@ -1,19 +1,20 @@
-import { configureStore } from "@reduxjs/toolkit";
+import { configureStore } from '@reduxjs/toolkit';
 
 import {
   TypedUseSelectorHook,
   useSelector as defaultUseSelector,
   useDispatch as defaultUseDispatch,
-} from "react-redux";
-import { createWrapper } from "next-redux-wrapper";
+} from 'react-redux';
+import { createWrapper } from 'next-redux-wrapper';
 
-import movieReducer from "./reducers/movie.reducer";
-import userReducer from "./reducers/user.reducer";
-import navReducer from "./reducers/nav.reducer";
-import seriesReducer from "./reducers/series.reducer";
-import watchlistReducer from "./reducers/watchlist.reducer";
-import modalReducer from "./reducers/modal.reducer";
-import recentReducer from "./reducers/recent.reducer";
+import movieReducer from './reducers/movie.reducer';
+import userReducer from './reducers/user.reducer';
+import navReducer from './reducers/nav.reducer';
+import seriesReducer from './reducers/series.reducer';
+import watchlistReducer from './reducers/watchlist.reducer';
+import modalReducer from './reducers/modal.reducer';
+import recentReducer from './reducers/recent.reducer';
+import infiniteHomeReducer from './reducers/infiniteHome.reducer';
 
 const store = configureStore({
   reducer: {
@@ -24,8 +25,9 @@ const store = configureStore({
     watchlist: watchlistReducer,
     modal: modalReducer,
     recents: recentReducer,
+    home: infiniteHomeReducer,
   },
-  devTools: process.env.NODE_ENV !== "production",
+  devTools: process.env.NODE_ENV !== 'production',
 });
 
 export default store;
