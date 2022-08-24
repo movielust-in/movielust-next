@@ -84,6 +84,11 @@ export default function Document() {
 
         <link rel="canonical" href="https://movielust.in" />
 
+        <meta name="mobile-web-app-capable" content="yes" />
+        <meta name="application-name" content="Movielust" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+        <meta name="apple-mobile-web-app-title" content="PWA App" />
         <meta name="msapplication-config" content="/browserconfig.xml" />
       </Head>
       <body>
