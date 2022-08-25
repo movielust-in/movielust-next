@@ -38,7 +38,7 @@ function PosterAndIframe({
           <iframe
             width="720"
             height="405"
-            sandbox="allow-scripts allow-same-origin allow-forms"
+            // sandbox="allow-scripts allow-same-origin allow-forms"
             src={
               showMovie
                 ? `${TWO_EMBED}/${id}`

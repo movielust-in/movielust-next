@@ -58,6 +58,14 @@ function Movies({ movies }: MoviesProps) {
         <MovieCarousel movies={movies.TRM} type="movie" />
       </div>
 
+      <div className={styles.CarouselContainer} key="popularShows">
+        <div className={styles.Title}>
+          <p className={styles.Header}>Popular Shows</p>
+          <ShowAllButton link="/showall/movie/PopularSeries" label="See all" />
+        </div>
+        <MovieCarousel movies={movies.popularSeries} type="tv" />
+      </div>
+
       {showInfinite ? <InfiniteMovies /> : <div ref={observer} />}
     </div>
   );

@@ -2,15 +2,16 @@
 import { useRouter } from 'next/router';
 import Script from 'next/script';
 import React, { useEffect, useRef, useState } from 'react';
-import BackgroundComp from '../../components/Details/BackgroundImage';
-import InformationComponent from '../../components/Details/Information';
-import tmdbClient from '../../helpers/tmdbClient';
-import { fetchMagnetsfromYTSapi } from '../../helpers/torrent';
-import { image, SHALLOW_DETAIL } from '../../helpers/Urls';
+import BackgroundComp from '../../../components/Details/BackgroundImage';
+import InformationComponent from '../../../components/Details/Information';
+import { WebtorFeatures } from '../../../components/MagnetPlayerConfig';
+import tmdbClient from '../../../helpers/tmdbClient';
+import { fetchMagnetsfromYTSapi } from '../../../helpers/torrent';
+import { image, SHALLOW_DETAIL } from '../../../helpers/Urls';
 
-import styles from '../../styles/play.module.scss';
-import { Magnet } from '../../types/apiResponses';
-import { Genre, MovieResponse } from '../../types/tmdb';
+import styles from '../../../styles/play.module.scss';
+import { Magnet } from '../../../types/apiResponses';
+import { Genre, MovieResponse } from '../../../types/tmdb';
 
 // interface WebtorEvent {
 //   name: string;
@@ -113,36 +114,16 @@ const Play = () => {
     ).webtor.constructor();
     (window as windowWithWebtor).webtor.push({
       id: 'player',
+      title: info.title,
+      imdbId: info.imdbId,
       width: '100%',
       height: window.matchMedia('(max-width: 724px)').matches
         ? '300px'
         : '450px',
       magnet: magSrc,
-      // on(e: WebtorEvent) {
-      //   if (!dumbledore) dumbledore = e.player;
-      //   setPlayerEvents(e.player);
-      // },
       poster: image(1280, info.backdrop!),
-      title: info.title,
-      imdbId: info.imdbId,
       lang: 'en',
-      features: {
-        title: false, //	Displays movie title
-        p2pProgress: true, //	Displays p2p progress
-        subtitles: true, // Enables subtitles control
-        captions: true, //	Enables showing captions for subtitles
-        settings: false, //	Enables settings control (cog)
-        fullscreen: true, //	Enables fullscreen control
-        playpause: true, //	Enables plays/pause control
-        currentTime: true, //	Displays current time
-        timeline: true, //	Enables timeline control
-        duration: true, //	Displays total duration
-        volume: true, // Enables volume control
-        chromecast: true, //	Enables chromecast support
-        browse: true, // Enables file browser menu
-        download: false, // Enables download button
-        embed: false, // Enables embed button
-      },
+      features: WebtorFeatures,
     });
   }, [info, loaded, magSrc]);
 

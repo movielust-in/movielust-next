@@ -225,12 +225,12 @@ export default function InformationComponent({
                 key={magnet}
                 onClick={() =>
                   location.push(
-                    `/play/${commonData?.id}?m=${magnet}&q=${quality}`
+                    `/play/movie/${commonData?.id}?m=${magnet}&q=${quality}`
                   )
                 }
                 onKeyDown={() =>
                   location.push(
-                    `/play/${commonData?.id}?m=${magnet}&q=${quality}`
+                    `/play/movie/${commonData?.id}?m=${magnet}&q=${quality}`
                   )
                 }
               >

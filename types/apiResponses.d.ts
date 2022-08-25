@@ -34,6 +34,10 @@ export interface Magnet {
   size?: string;
 }
 
+export interface ShowMagnet extends Magnet {
+  episode: number;
+}
+
 export interface MagnetResponse {
   results: Magnet[];
 }

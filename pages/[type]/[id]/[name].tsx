@@ -199,7 +199,6 @@ const Detail: NextPage<DetailProps> = ({ contentData }: DetailProps) => {
             id={id!}
             title={contentData.name}
             totalSeasons={contentData.number_of_seasons}
-            setSeasonMagnets={() => {}}
           />
         )}
 

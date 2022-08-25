@@ -26,15 +26,15 @@ import { LoadingGhost } from '../../assets';
 
 import { markRecentStale } from '../../redux/reducers/recent.reducer';
 import { TvSeasonResponse } from '../../types/tmdb';
+import { ShowMagnet } from '../../types/apiResponses';
 
 export interface SeasonsProps {
   id: string;
   title: string;
   totalSeasons: number;
-  setSeasonMagnets: Function;
 }
 
-function Seasons({ id, title, totalSeasons, setSeasonMagnets }: SeasonsProps) {
+function Seasons({ id, title, totalSeasons }: SeasonsProps) {
   const router = useRouter();
   const [show, setShow] = useState(false);
   const [season, setSeason] = useState(0);
@@ -50,8 +50,6 @@ function Seasons({ id, title, totalSeasons, setSeasonMagnets }: SeasonsProps) {
   const [playEpisode, tooglePlay] = useState(false);
   const [iframeLoading, setFrameLoading] = useState(false);
   const isAuthenticated = useSelector((state) => state.user.isLoggedIn);
-
-  const [currEpisodeMag, setCurrEpisode] = useState([]);
 
   const dispatch = useDispatch();
 
@@ -123,16 +121,26 @@ function Seasons({ id, title, totalSeasons, setSeasonMagnets }: SeasonsProps) {
 
           setGettingTorrents(true);
 
-          const downloads = await fetchShowMagnets(
+          const seasonMagnets = (await fetchShowMagnets(
             id,
             title,
             season,
             data.episodes!.length
-          );
+          )) as (ShowMagnet & { type: string })[][];
 
           setMagnets((state: any) => {
             const obj = { ...state, empty: false };
-            obj[data.season_number!] = downloads;
+            obj[data.season_number!] = seasonMagnets.map((episodeMags) =>
+              episodeMags.filter(
+                (magnet) =>
+                  magnet.type === 'magnet' ||
+                  !episodeMags.find(
+                    (mag) =>
+                      mag.quality === magnet.quality && mag.type === 'magnet'
+                  )
+              )
+            );
+
             return obj;
           });
 
@@ -164,20 +172,13 @@ function Seasons({ id, title, totalSeasons, setSeasonMagnets }: SeasonsProps) {
     else if (!show) setShow(true);
   };
 
-  const onEpisodePlay = (episode: any) => {
-    setSeasonMagnets(
-      episode.magnet || episode.torrent,
-      magnets,
-      episode.episode,
-      season,
-      currEpisodeMag
-    );
+  const onEpisodePlay = (episode: any, episodeNum: string | number) => {
+    // play/show/title/season/episode/totalEpisode/showId?m=magent&q=quality
+    console.log(magnets, season, magnets[season].length);
     router.push(
-      `${window.location.pathname}?m=${episode.magnet || episode.torrent}&q=${
-        episode.quality
-      }#player`,
-      undefined,
-      { shallow: true }
+      `/play/show/${title}/${season}/${episodeNum}/${
+        magnets[season].length
+      }/${id}?m=${episode.magnet || episode.torrent}&q=${episode.quality}`
     );
   };
 
@@ -209,6 +210,36 @@ function Seasons({ id, title, totalSeasons, setSeasonMagnets }: SeasonsProps) {
     // });
   };
 
+  const onEpisodeLoad = () => {
+    // if (
+    //   magnets &&
+    //   magnets[season] &&
+    //   magnets[season][episode.episode_number! - 1]
+    // )
+    //   setCurrEpisode(magnets[season][episode.episode_number! - 1]);
+    const rect =
+      (episodeRef.current as unknown as HTMLElement)!.getBoundingClientRect();
+    if (
+      !(
+        rect.top >= 0 &&
+        rect.left >= 0 &&
+        rect.bottom <=
+          (window.innerHeight || document.documentElement.clientHeight) &&
+        rect.right <=
+          (window.innerWidth || document.documentElement.clientWidth)
+      )
+    ) {
+      const offset = 120;
+      const bodyRect = document.body.getBoundingClientRect().top;
+      const elementPos = rect.top - bodyRect;
+      const scrolloffset = elementPos - offset;
+      window.scrollTo({
+        top: scrolloffset,
+        behavior: 'smooth',
+      });
+    }
+  };
+
   return (
     <Container>
       <Header>
@@ -230,7 +261,7 @@ function Seasons({ id, title, totalSeasons, setSeasonMagnets }: SeasonsProps) {
 
       {gettingEpisodes && (
         <GettingSeries>
-          <Spinner />
+          <Spinner width={30} height={30} />
         </GettingSeries>
       )}
       {/* Open season to view all episode */}
@@ -277,36 +308,7 @@ function Seasons({ id, title, totalSeasons, setSeasonMagnets }: SeasonsProps) {
                     // animate={{ maxHeight: [0, 500] }}
                     // transition={{ duration: 0.4 }}
                     ref={episodeRef as any}
-                    onLoad={() => {
-                      setCurrEpisode(
-                        magnets[season][episode.episode_number! - 1]
-                      );
-                      const rect =
-                        (episodeRef.current as unknown as HTMLElement)!.getBoundingClientRect();
-                      if (
-                        !(
-                          rect.top >= 0 &&
-                          rect.left >= 0 &&
-                          rect.bottom <=
-                            (window.innerHeight ||
-                              document.documentElement.clientHeight) &&
-                          rect.right <=
-                            (window.innerWidth ||
-                              document.documentElement.clientWidth)
-                        )
-                      ) {
-                        const offset = 120;
-                        const bodyRect =
-                          document.body.getBoundingClientRect().top;
-                        const elementPos = rect.top - bodyRect;
-                        const scrolloffset = elementPos - offset;
-                        window.scrollTo({
-                          top: scrolloffset,
-                          // @ts-ignore
-                          behaviour: 'smooth',
-                        });
-                      }
-                    }}
+                    onLoad={onEpisodeLoad}
                   >
                     <Section>
                       {!playEpisode ? (
@@ -351,7 +353,7 @@ function Seasons({ id, title, totalSeasons, setSeasonMagnets }: SeasonsProps) {
                         )}
                         {showEpisode === episode.episode_number && (
                           <ContentOptions>
-                            {new Date() >=
+                            {new Date() >
                             new Date(episode.air_date as string) ? (
                               // Button for 2embed
                               <PlayMovie
@@ -363,7 +365,7 @@ function Seasons({ id, title, totalSeasons, setSeasonMagnets }: SeasonsProps) {
                               >
                                 {!playEpisode ? <FaPlay /> : <FaStop />}
                                 {iframeLoading && playEpisode ? (
-                                  <Spinner />
+                                  <Spinner width={30} height={30} />
                                 ) : null}
                               </PlayMovie>
                             ) : null}
@@ -396,15 +398,20 @@ function Seasons({ id, title, totalSeasons, setSeasonMagnets }: SeasonsProps) {
                                     magnets[season][
                                       episode.episode_number! - 1
                                     ].map((currEpi: any) => (
-                                      <Play
+                                      <Download
                                         key={currEpi.magnet || currEpi.torrent}
-                                        onClick={() => onEpisodePlay(currEpi)}
+                                        onClick={() =>
+                                          onEpisodePlay(
+                                            currEpi,
+                                            episode.episode_number!
+                                          )
+                                        }
                                       >
                                         <FaPlay />
                                         <span>
                                           {`${currEpi.quality} ${currEpi.type}`}
                                         </span>
-                                      </Play>
+                                      </Download>
                                     ))}
                                 </TorrentPlay>
                               </TorLinks>
@@ -489,18 +496,6 @@ const TorLinks = styled.div`
   @media (max-width: 724px) {
     width: 85vw;
   }
-`;
-const Play = styled.button`
-  align-items: center;
-  background-color: rgba(200, 200, 200, 0.4);
-  border: none;
-  border-radius: 5px;
-  color: white;
-  cursor: pointer;
-  display: flex;
-  gap: 5px;
-  margin: 0 2px 0 0;
-  padding: 5px;
 `;
 
 const Download = styled.a`

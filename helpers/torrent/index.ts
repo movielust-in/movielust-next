@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { MagnetResponse } from '../../types/apiResponses';
+import { MagnetResponse, ShowMagnet } from '../../types/apiResponses';
 import { get } from '../Get';
 
 import { SHOW_MAGNETS, MAGNET, YTS_API_TORRENTS } from '../Urls';
@@ -10,7 +10,7 @@ export const fetchShowMagnets = (
   season: string | number,
   total_episodes: number
 ) =>
-  new Promise((resolve, reject) => {
+  new Promise<ShowMagnet[][]>((resolve, reject) => {
     (async () => {
       try {
         const res = await get(

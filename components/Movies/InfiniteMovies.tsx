@@ -4,7 +4,6 @@ import {
   BOLLYWOOD,
   GUJARATI,
   movieWithGenre,
-  POPULRAR_SERIES,
   seriesWithGenre,
   SOUTH,
   TR_ANIME,
@@ -46,14 +45,6 @@ const FixCarousels: Carousel[] = [
     url: GUJARATI,
     title: 'Gujarati Movies',
     showAll: 'movie/Gujarati',
-  },
-
-  {
-    id: 'popular_shows',
-    type: 'tv',
-    url: POPULRAR_SERIES(1),
-    title: 'Popular Shows',
-    showAll: 'tv/PopularSeries',
   },
 ];
 
