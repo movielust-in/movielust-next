@@ -12,6 +12,8 @@ import {
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 
+import { FaArrowLeft } from 'react-icons/fa';
+
 import { image } from '../../helpers/Urls';
 
 import search from '../../helpers/tmdb/search';
@@ -234,7 +236,11 @@ function Search({ show }: { show: boolean }) {
       <div className={styles.SearchBarContainer}>
         <div className={styles.SearchInputContainer}>
           <div className={styles.CancelContainer}>
-            <div className={styles.Cancel} onClick={hide} role="presentation" />
+            <FaArrowLeft
+              className={styles.Cancel}
+              onClick={hide}
+              role="presentation"
+            />
           </div>
           <input
             className={styles.Input}

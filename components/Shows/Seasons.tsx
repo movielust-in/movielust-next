@@ -326,6 +326,7 @@ function Seasons({ id, title, totalSeasons, setSeasonMagnets }: SeasonsProps) {
                             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                             title={`Season ${season} Episode ${episode.episode_number}`}
                             src={`${TWO_EMBED}/${episode.id}`}
+                            sandbox="allow-scripts allow-same-origin allow-forms"
                           />
                         </YouTube>
                       )}

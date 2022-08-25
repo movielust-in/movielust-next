@@ -111,7 +111,7 @@
   &:after {
     background: white;
     bottom: -6px;
-    content: "";
+    content: '';
     height: 2px;
     left: 0;
     position: absolute;
@@ -172,7 +172,11 @@
 }
 
 .Back {
+  display: none;
   cursor: pointer;
   margin-right: 8px;
   transform: scale(1.6);
+  @media all and (display-mode: standalone) {
+    display: block;
+  }
 }

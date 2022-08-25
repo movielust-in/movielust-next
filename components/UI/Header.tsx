@@ -38,6 +38,12 @@ interface HeaderProps {
 function Header({ isOnline }: HeaderProps) {
   const router = useRouter();
 
+  // const [pwa, setPwa] = useState(false);
+
+  // useEffect(() => {
+  //  if(windown)
+  // },[])
+
   const hash = router.asPath.split('#')[1];
 
   const [searchView, setSearchView] = useState(false);
@@ -107,9 +113,7 @@ function Header({ isOnline }: HeaderProps) {
             : styles.gradient
         }`}
       >
-        {true || window.matchMedia('(display-mode: standalone)').matches ? (
-          <LeftArrow className={styles.Back} onClick={() => router.back()} />
-        ) : null}
+        <LeftArrow className={styles.Back} onClick={() => router.back()} />
 
         <Link href="/" className="header_logo">
           <a>
