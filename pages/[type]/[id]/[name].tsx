@@ -84,7 +84,7 @@ const Detail: NextPage<DetailProps> = ({ contentData }: DetailProps) => {
     fetchMagnetsfromYTSapi(contentData.imdb_id, id).then((res) => {
       setMagnets(res.data.results);
     });
-  }, [contentData.imdb_id, id]);
+  }, [contentData.imdb_id, id, type]);
 
   useEffect(() => {
     if (!id || !type) return;

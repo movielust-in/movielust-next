@@ -1,7 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
+import Image from 'next/image';
 import { useState, useEffect } from 'react';
-
-import { LoadingGhost } from '../../assets';
 
 import styles from '../../styles/loading.module.scss';
 
@@ -59,7 +58,12 @@ function Loading({ delay }: LoadingProps) {
 
   return show ? (
     <div className={styles.container}>
-      <img src={LoadingGhost.src} alt="loading" width="60px" height="60px" />
+      <Image
+        src="https://ik.imagekit.io/movielust/ghost_1-kuGMRZo.webp"
+        alt="loading"
+        width="60px"
+        height="60px"
+      />
       <p>{message}</p>
     </div>
   ) : null;
