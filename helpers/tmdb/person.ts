@@ -1,4 +1,4 @@
-import axios from "../tmdbClient";
+import axios from '../tmdbClient';
 
 import {
   Person,
@@ -7,7 +7,7 @@ import {
   PersonMovieCreditsResponse,
   PersonPopularResponse,
   PersonTvCreditsResponse,
-} from "../../types/tmdb";
+} from '../../types/tmdb';
 
 import {
   PERSON,
@@ -17,10 +17,14 @@ import {
   PERSON_IMAGES,
   CASTTV,
   TAGGED_IMG,
-} from "../Urls";
+} from '../Urls';
 
 export const fetchPerson = (id: string | number) =>
-  axios.get<Person>(PERSON(id));
+  axios.get<
+    Person & { images: PersonImagesResponse } & {
+      external_ids: PersonExternalIdsResponse;
+    }
+  >(PERSON(id));
 
 export const fetchPersonMovies = (id: string | number) =>
   new Promise((resolve, reject) => {
@@ -34,11 +38,11 @@ export const fetchPersonMovies = (id: string | number) =>
               (movie) =>
                 !!(
                   movie.character &&
-                  movie.character !== "Self" &&
-                  movie.character !== "Himself" &&
-                  !movie.character.includes("(archive footage)") &&
-                  !movie.character.includes("(uncredited)") &&
-                  !movie.character.includes("(voice)")
+                  movie.character !== 'Self' &&
+                  movie.character !== 'Himself' &&
+                  !movie.character.includes('(archive footage)') &&
+                  !movie.character.includes('(uncredited)') &&
+                  !movie.character.includes('(voice)')
                 )
             )
             .sort((a: any, b: any) => b.popularity - a.popularity);

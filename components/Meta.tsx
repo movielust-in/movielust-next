@@ -1,10 +1,10 @@
 import Head from 'next/head';
 
 interface MetaProps {
-  title: string;
-  description: string;
+  title?: string;
+  description?: string;
   url: string;
-  image: string;
+  image?: string;
   lgImage?: string;
 }
 
@@ -13,39 +13,49 @@ const Meta = ({ title, description, url, image, lgImage }: MetaProps) => (
     {/* ================= */}
     {/* Primary Meta tags */}
     {/* ================= */}
-    <title key="title">{title}</title>
-    <meta name="description" content={description} key="description" />
+    {title ? <title key="title">{title}</title> : null}
+    {description ? (
+      <meta name="description" content={description} key="description" />
+    ) : null}
 
     {/* ======================== */}
     {/* Open Graph/Facebook tags */}
     {/* ======================== */}
-    <meta
-      property="og:title"
-      name="og:title"
-      content={`${title} - Movielust`}
-    />
-    <meta
-      property="og:description"
-      content={description}
-      key="og_description"
-    />
+    {title ? (
+      <meta
+        property="og:title"
+        name="og:title"
+        content={`${title} - Movielust`}
+      />
+    ) : null}
+    {description ? (
+      <meta
+        property="og:description"
+        content={description}
+        key="og_description"
+      />
+    ) : null}
     <meta property="og:site_name" content="Movielust" key="og_site_name" />
     <meta property="og:url" content={url} key="og_url" />
-    <meta property="og:image" content={image} key="og_image" />
+    {image ? <meta property="og:image" content={image} key="og_image" /> : null}
 
     {/* ============ */}
     {/* Twitter tags */}
     {/* ============ */}
-    <meta
-      name="twitter:title"
-      content={`${title} - Movielust`}
-      key="twitter_title"
-    />
-    <meta
-      name="twitter:description"
-      content={description}
-      key="twitter_title"
-    />
+    {title ? (
+      <meta
+        name="twitter:title"
+        content={`${title} - Movielust`}
+        key="twitter_title"
+      />
+    ) : null}
+    {description ? (
+      <meta
+        name="twitter:description"
+        content={description}
+        key="twitter_title"
+      />
+    ) : null}
     <meta
       name="twitter:card"
       content="summary_large_image"
@@ -57,7 +67,13 @@ const Meta = ({ title, description, url, image, lgImage }: MetaProps) => (
       content="https://www.movielust.in"
       key="twitter_url"
     />
-    <meta name="twitter:image" content={lgImage || image} key="twitter_image" />
+    {lgImage || image ? (
+      <meta
+        name="twitter:image"
+        content={lgImage || image}
+        key="twitter_image"
+      />
+    ) : null}
   </Head>
 );
 

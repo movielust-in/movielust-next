@@ -57,7 +57,7 @@ function ImageCrousel({ images, type, title, dom }: ImageCrouselProps) {
                     >
                       <Nimage
                         width={200}
-                        height={120}
+                        height={300}
                         blurDataURL={Shimmer(200, 120)}
                         placeholder="blur"
                         src={`https://image.tmdb.org/t/p/w200/${movie.file_path}`}

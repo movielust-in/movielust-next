@@ -1,19 +1,15 @@
 import Image from 'next/image';
 import { useRouter } from 'next/router';
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 import styled from '@emotion/styled';
-// import ColorThief from "../node_modules/colorthief/dist/color-thief.mjs";
+import { GetServerSideProps } from 'next';
 
 import {
   fetchPerson,
   fetchPersonMovies,
   fetchPopular,
   fetchPersonTvCredits,
-  fetchPeopleExternalIds,
-  fetchPersonImage,
 } from '../../helpers/tmdb/person';
-
-import Loading from '../../components/UI/Loading';
 
 import MovieCarousel from '../../components/Carousels/MovieCarousel';
 
@@ -28,227 +24,214 @@ import PeopleMovieCarousel from '../../components/Carousels/PeopleMovieCarousel'
 import ImageCrousel from '../../components/Carousels/ImageCrousel';
 
 import {
+  Person,
   PersonExternalIdsResponse,
-  Profile as ProfileType,
+  PersonImagesResponse,
   TVCreditCast,
 } from '../../types/tmdb';
 import Meta from '../../components/Meta';
 
-function PeopleDeatail() {
+interface PeopleDeatail {
+  person: Person & {
+    images: PersonImagesResponse;
+    external_ids: PersonExternalIdsResponse;
+  };
+}
+
+function PeopleDetail({ person }: PeopleDeatail) {
   const router = useRouter();
 
   const castid = router.query.personId as string;
 
-  const [bday, setBday] = useState<string>();
-  const [personImages, setImages] = useState<ProfileType[]>();
-  const [profile, setProfile] = useState<string | null>();
-  const [isLoading, setLoading] = useState<boolean>(false);
-  const [name, setName] = useState<string>();
-  const [bio, setBio] = useState<string>();
-  const [dday, setDday] = useState<string>();
-  const [id, setId] = useState<number>();
-  const [bplace, setBplace] = useState<string | null>();
+  // const [isLoading, setLoading] = useState<boolean>(false);
   const [castMovies, setCastMovies] = useState<any>(null);
-  const [externalIds, setExternalids] = useState<PersonExternalIdsResponse>();
-  const [fullBio, toggleFullBio] = useState(true);
+  const [fullBio, toggleFullBio] = useState(
+    person.biography?.length && person.biography?.length < 100
+  );
   const [popularPeople, setPopularPeople] = useState([]);
   const [tvCreditCast, setTvCreditCast] = useState<TVCreditCast>([]);
   const domColor: any[] = [];
 
-  const setBirth = (birthday: string | null | undefined) => {
-    if (!birthday) {
-      setBday('');
-      return;
-    }
-    const bDate = new Date(birthday);
-    setBday(
-      `${
-        FULL_MONTHS[bDate.getMonth()]
-      }, ${bDate.getDate()} ${bDate.getFullYear()}`
-    );
-  };
-
-  const setdied = (dead: string | null | undefined) => {
-    if (!dead) {
-      setDday('');
-      return;
-    }
-    const diedOn = new Date(dead);
-    setDday(
-      `${
-        FULL_MONTHS[diedOn.getMonth()]
-      }, ${diedOn.getDate()} ${diedOn.getFullYear()}`
-    );
-  };
-
-  const mounted = useRef(false);
-
   useEffect(() => {
-    mounted.current = true;
-    setLoading(true);
+    fetchPersonMovies(castid).then((movies: any) => {
+      if (!movies) {
+        setCastMovies(null);
+        return;
+      }
+      setCastMovies(movies);
+    });
 
-    if (mounted.current) {
-      fetchPerson(castid).then((details) => {
-        const detail = details.data;
-        document.title = `${detail.name} - Movielust`;
-        setId(detail.id);
-        setName(detail.name);
-        setProfile(detail.profile_path);
-        setBio(detail.biography);
-        if (detail && detail.biography && detail.biography.length > 100)
-          toggleFullBio(false);
-        setBirth(detail.birthday);
-        setdied(detail.deathday);
-        setBplace(detail.place_of_birth);
-      });
+    fetchPersonTvCredits(castid).then((show) => {
+      if (show && show.cast) setTvCreditCast(show.cast);
+    });
 
-      fetchPersonMovies(castid).then((movies: any) => {
-        if (!movies) {
-          setCastMovies(null);
-          return;
-        }
-        setCastMovies(movies);
-      });
-      fetchPersonImage(castid).then((images) => {
-        setImages(images.profiles);
-      });
-
-      fetchPersonTvCredits(castid).then((show) => {
-        if (show && show.cast) setTvCreditCast(show.cast);
-      });
-
-      fetchPeopleExternalIds(castid).then((ids) => {
-        setExternalids(ids);
-      });
-
-      fetchPersonImage(castid).then((images) => {
-        setImages(images.profiles);
-      });
-
-      fetchPopular().then((popular: any) => {
-        setPopularPeople(popular.results);
-      });
-    }
-    setLoading(false);
+    fetchPopular().then((popular: any) => {
+      setPopularPeople(popular.results);
+    });
   }, [castid]);
 
   return (
     <Container>
-      {isLoading ? (
-        <Loading />
-      ) : (
-        <>
-          {name && bio && profile ? (
-            <Meta
-              title={name}
-              description={bio}
-              url={window.location.href}
-              image={`https://image.tmdb.org/t/p/w200/${profile}`}
-              lgImage={`https://image.tmdb.org/t/p/w500/${profile}`}
+      <Meta
+        title={`${person.name} - Movielust`}
+        description={person.biography}
+        url={`https://movielust.in/person/${person.id}`}
+        image={`https://image.tmdb.org/t/p/w200/${person.profile_path}`}
+        lgImage={`https://image.tmdb.org/t/p/w500/${person.profile_path}`}
+      />
+      <Background>
+        <Image
+          alt="movieposter"
+          crossOrigin="anonymous"
+          layout="fill"
+          src="/images/default_background.webp"
+        />
+      </Background>
+      <UpperContainer>
+        {/* Profile Poster */}
+        <Profile>
+          <Image
+            // ref={backgroundRef as MutableRefObject<HTMLImageElement>}
+            onLoad={() => {
+              // setDomColor(colorThief.getColor(backgroundRef.current));
+            }}
+            width={300}
+            height={500}
+            crossOrigin="anonymous"
+            alt={person.name}
+            src={`https://image.tmdb.org/t/p/w500/${person.profile_path}`}
+          />
+        </Profile>
+        {/* Images for PC View */}
+        {person.images &&
+        person.images.profiles &&
+        person.images.profiles.length ? (
+          <Images>
+            <ImageCrousel
+              images={person.images.profiles}
+              type="cast"
+              dom={domColor}
             />
-          ) : null}
-          <Background>
-            <Image
-              alt="movieposter"
-              crossOrigin="anonymous"
-              layout="fill"
-              src="/images/default_background.webp"
-            />
-          </Background>
-          <UpperContainer>
-            {/* Profile Poster */}
-            <Profile>
-              <Image
-                // ref={backgroundRef as MutableRefObject<HTMLImageElement>}
-                onLoad={() => {
-                  // setDomColor(colorThief.getColor(backgroundRef.current));
-                }}
-                width={300}
-                height={500}
-                crossOrigin="anonymous"
-                alt={name}
-                src={`https://image.tmdb.org/t/p/w500/${profile}`}
-              />
-            </Profile>
-            {/* Images for PC View */}
-            {personImages && (
-              <Images>
-                <ImageCrousel
-                  images={personImages}
-                  type="cast"
-                  dom={domColor}
-                />
-              </Images>
+          </Images>
+        ) : null}
+      </UpperContainer>
+      <LowerContainer>
+        <Info dom={domColor}>
+          <Name>
+            <h2>{person.name}</h2>
+          </Name>
+          <Information>
+            {person.birthday && (
+              <h3>
+                Born {person.birthday}{' '}
+                {person.place_of_birth && `in ${person.place_of_birth}`}
+              </h3>
             )}
-          </UpperContainer>
-          <LowerContainer>
-            <Info dom={domColor}>
-              <Name>
-                <h2>{name}</h2>
-              </Name>
-              <Information>
-                {bday && (
-                  <h3>
-                    Born {bday} {bplace && `in ${bplace.split(',').join(', ')}`}
-                  </h3>
-                )}
-                <br />
-                {dday && <h3>Died :{dday}</h3>}
-              </Information>
-              <Socials externalIds={externalIds} type="name/" name={name} />
-              <Bio>
-                {fullBio ? bio : bio!.split(' ', 100).join(' ')}
-                {!fullBio && (
-                  <ShowFullBio onClick={() => toggleFullBio(true)}>
-                    . . .read more
-                  </ShowFullBio>
-                )}
-              </Bio>
-            </Info>
-
-            {castMovies && castMovies.length > 0 ? (
-              <CastWorks dom={domColor}>
-                <MovieCarousel
-                  movies={castMovies}
-                  type="movie"
-                  title="Movies"
-                  watchall={id}
-                />
-              </CastWorks>
-            ) : null}
-
-            {tvCreditCast.length > 0 ? (
-              <CastWorks dom={domColor}>
-                <PeopleMovieCarousel
-                  movies={tvCreditCast}
-                  type="tv"
-                  title="TV Series"
-                />
-              </CastWorks>
-            ) : null}
-
-            <MobileImages>
-              {personImages && (
-                <ImageCrousel
-                  images={personImages}
-                  type="cast"
-                  title="Images"
-                  dom={domColor}
-                />
+            <br />
+            {person.deathday && <h3>Died :{person.deathday}</h3>}
+          </Information>
+          <Socials
+            externalIds={person.external_ids}
+            type="name"
+            name={person.name}
+          />
+          {person.biography ? (
+            <Bio>
+              {fullBio
+                ? person.biography
+                : person.biography!.split(' ', 100).join(' ')}
+              {!fullBio && (
+                <ShowFullBio onClick={() => toggleFullBio(true)}>
+                  . . .read more
+                </ShowFullBio>
               )}
-            </MobileImages>
+            </Bio>
+          ) : null}
+        </Info>
 
-            {popularPeople && (
-              <CastCarousel cast={popularPeople} title="Popular" />
-            )}
-          </LowerContainer>
-        </>
-      )}
+        {castMovies && castMovies.length > 0 ? (
+          <CastWorks dom={domColor}>
+            <MovieCarousel
+              movies={castMovies}
+              type="movie"
+              title="Movies"
+              watchall={person.id}
+            />
+          </CastWorks>
+        ) : null}
+
+        {tvCreditCast.length > 0 ? (
+          <CastWorks dom={domColor}>
+            <PeopleMovieCarousel
+              movies={tvCreditCast}
+              type="tv"
+              title="TV Series"
+            />
+          </CastWorks>
+        ) : null}
+
+        {person.images &&
+        person.images.profiles &&
+        person.images.profiles.length ? (
+          <MobileImages>
+            <ImageCrousel
+              images={person.images.profiles}
+              type="cast"
+              title="Images"
+              dom={domColor}
+            />
+          </MobileImages>
+        ) : null}
+
+        {popularPeople && popularPeople.length ? (
+          <CastCarousel cast={popularPeople} title="Popular" />
+        ) : null}
+      </LowerContainer>
     </Container>
   );
 }
 
-export default PeopleDeatail;
+export default PeopleDetail;
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  context.res.setHeader(
+    'Cache-Control',
+    'public, s-maxage=604800, stale-while-revalidate=86400'
+  );
+
+  const { personId } = context.query as { personId: string };
+
+  let { data } = await fetchPerson(personId);
+
+  if (data.birthday) {
+    const bDate = new Date(data.birthday);
+    data = {
+      ...data,
+      birthday: `${
+        FULL_MONTHS[bDate.getMonth()]
+      }, ${bDate.getDate()} ${bDate.getFullYear()}`,
+    };
+  }
+
+  if (data.deathday) {
+    const dDate = new Date(data.deathday);
+    data = {
+      ...data,
+      deathday: `${
+        FULL_MONTHS[dDate.getMonth()]
+      }, ${dDate.getDate()} ${dDate.getFullYear()}`,
+    };
+  }
+
+  if (data.place_of_birth) {
+    data = {
+      ...data,
+      place_of_birth: data.place_of_birth.split(',').join(', '),
+    };
+  }
+
+  return { props: { person: data } };
+};
 
 const Container = styled.div`
   font-family: 'bariolregular', sans-serif;

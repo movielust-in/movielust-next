@@ -77,9 +77,12 @@ const seriesWithGenre = (genreId: string | number) =>
   `discover/tv?&with_genres=${genreId}`;
 
 const SIMILAR = (id: string | number, type: string, page: string | number) =>
-  `${type}/${id}/similar?&language=en-US&page=${page}&append_to_response=videos,credits`;
+  `${type}/${id}/similar?&language=en-US&page=${page}`;
 
-const PERSON = (id: string | number) => `person/${id}?&language=en-US`;
+const PERSON = (
+  id: string | number
+) => `person/${id}?&language=en-US&append_to_response=images,external_ids
+`;
 
 const PERSONMOVIES = (id: string | number) =>
   `person/${id}/movie_credits?&language=en-US`;

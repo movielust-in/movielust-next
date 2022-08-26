@@ -94,8 +94,8 @@ function Wrap({
           onError={onError}
           loading="lazy"
           blurDataURL="/images/placeholder-image.png"
-          width={150}
-          height={220}
+          // width={150}
+          // height={220}
           layout="fill"
           style={{ borderRadius: '6px' }}
         />
