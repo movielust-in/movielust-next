@@ -1,11 +1,11 @@
 import { ReactNode } from 'react';
-// import { useSetUser } from '../hooks';
+import { useSetUser } from '../hooks';
 import FooterTabs from './UI/FooterTabs';
 import Header from './UI/Header';
 import Footer from './UI/Footer';
 
 export default function Layout({ children }: { children: ReactNode }) {
-  // useSetUser();
+  useSetUser();
 
   return (
     <>
