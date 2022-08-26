@@ -19,13 +19,24 @@ interface ImageCrouselProps {
   type: string;
   title?: string;
   dom?: any;
+  width?: number;
+  height?: number;
 }
 
 ImageCrousel.defaultProps = {
   title: null,
+  width: 200,
+  height: 120,
 };
 
-function ImageCrousel({ images, type, title, dom }: ImageCrouselProps) {
+function ImageCrousel({
+  images,
+  type,
+  title,
+  dom,
+  width,
+  height,
+}: ImageCrouselProps) {
   const [open, setOpen] = useState(false);
 
   const closeModal = () => setOpen(false);
@@ -56,9 +67,9 @@ function ImageCrousel({ images, type, title, dom }: ImageCrouselProps) {
                       }}
                     >
                       <Nimage
-                        width={200}
-                        height={300}
-                        blurDataURL={Shimmer(200, 120)}
+                        width={width}
+                        height={height}
+                        blurDataURL={Shimmer(width!, height!)}
                         placeholder="blur"
                         src={`https://image.tmdb.org/t/p/w200/${movie.file_path}`}
                         alt={movie.id}

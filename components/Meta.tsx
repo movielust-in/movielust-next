@@ -13,7 +13,7 @@ const Meta = ({ title, description, url, image, lgImage }: MetaProps) => (
     {/* ================= */}
     {/* Primary Meta tags */}
     {/* ================= */}
-    {title ? <title key="title">{title}</title> : null}
+    {title ? <title key="title">{`${title} - Movielust`}</title> : 'Movielust'}
     {description ? (
       <meta name="description" content={description} key="description" />
     ) : null}

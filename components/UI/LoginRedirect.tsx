@@ -17,7 +17,10 @@ function LoginRedirect({ afterLoginRedirectTo = '/' }: LoginRedirectProps) {
     <LoginContainer>
       <Content>
         <LoginContain>
-          <CTALogoOne src="/images/ghost.png" alt="Logo" />
+          <CTALogoOne
+            src="https://ik.imagekit.io/movielust/logo_uIeABdFs3.webp"
+            alt="Logo"
+          />
           <Login onClick={toLogin}>LOGIN</Login>
           <Description>
             Download free movies and TV Shows with Movielust which brings you to

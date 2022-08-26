@@ -43,7 +43,6 @@ function PeopleDetail({ person }: PeopleDeatail) {
 
   const castid = router.query.personId as string;
 
-  // const [isLoading, setLoading] = useState<boolean>(false);
   const [castMovies, setCastMovies] = useState<any>(null);
   const [fullBio, toggleFullBio] = useState(
     person.biography?.length && person.biography?.length < 100
@@ -73,11 +72,11 @@ function PeopleDetail({ person }: PeopleDeatail) {
   return (
     <Container>
       <Meta
-        title={`${person.name} - Movielust`}
-        description={person.biography}
+        title={`${person.name}`}
+        description={person.biography?.split(' ').slice(0, 160).join(' ')}
         url={`https://movielust.in/person/${person.id}`}
-        image={`https://image.tmdb.org/t/p/w200/${person.profile_path}`}
-        lgImage={`https://image.tmdb.org/t/p/w500/${person.profile_path}`}
+        image={`https://image.tmdb.org/t/p/w200${person.profile_path}`}
+        lgImage={`https://image.tmdb.org/t/p/w500${person.profile_path}`}
       />
       <Background>
         <Image
@@ -111,6 +110,7 @@ function PeopleDetail({ person }: PeopleDeatail) {
               images={person.images.profiles}
               type="cast"
               dom={domColor}
+              height={300}
             />
           </Images>
         ) : null}
@@ -179,6 +179,7 @@ function PeopleDetail({ person }: PeopleDeatail) {
               type="cast"
               title="Images"
               dom={domColor}
+              height={300}
             />
           </MobileImages>
         ) : null}
