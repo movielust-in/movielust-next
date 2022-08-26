@@ -18,8 +18,8 @@ function FormContainer({ children }: FormerProps) {
         <div className={styles.Info}>
           <h2>Welcome to Movielust</h2>
           <Image
-            width={120}
-            height={120}
+            width={110}
+            height={80}
             src="https://ik.imagekit.io/movielust/logo_uIeABdFs3.webp"
             alt="logo"
           />

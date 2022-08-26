@@ -16,11 +16,10 @@ function Loading({ delay }: LoadingProps) {
 
   const [show, setShow] = useState(false);
 
-  let interval: any;
-
-  const timer = () => {
+  useEffect(() => {
     let count = 1;
-    interval = setInterval(() => {
+
+    const interval = setInterval(() => {
       count += 1;
       switch (count) {
         case 5:
@@ -29,30 +28,20 @@ function Loading({ delay }: LoadingProps) {
         case 10:
           setMessage("It's taking time please wait...");
           break;
-        case 30:
+        case 50:
           setMessage("Sometimes it's better to let go... :(");
           break;
         default:
           break;
       }
     }, 1000);
-  };
 
-  useEffect(() => {
-    timer();
-    return () => {
-      clearInterval(interval);
-    };
-    // eslint-disable-next-line
+    return () => clearInterval(interval);
   }, []);
 
   useEffect(() => {
-    const timeout = setTimeout(() => {
-      setShow(true);
-    }, delay);
-    return () => {
-      clearTimeout(timeout);
-    };
+    const timeout = setTimeout(() => setShow(true), delay);
+    return () => clearTimeout(timeout);
   }, [delay]);
 
   return show ? (

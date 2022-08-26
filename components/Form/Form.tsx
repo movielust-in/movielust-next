@@ -12,7 +12,7 @@ import FormContainer from './FormContainer';
 
 import { fetchAvatars } from '../../helpers/user';
 
-import styles from '../../styles/avatar_modal.module.scss';
+import styles from './form.module.scss';
 
 const Spinner = dynamic(() => import('../UI/Spinner'));
 const Modal = dynamic(() => import('react-modal'));
