@@ -4,8 +4,6 @@ import styled from '@emotion/styled';
 import { useEventListener } from '../../hooks';
 import scrollToTop from '../../utils/scrollToTop';
 
-import { ScrollTopIcon } from '../../assets';
-
 export default function ScrollTop() {
   const [isVisible, setIsVisible] = useState(false);
 
@@ -25,8 +23,9 @@ export default function ScrollTop() {
         role="presentation"
         style={{ transform: isVisible ? 'translateY(0)' : 'translateY(150px)' }}
         onClick={scrollToTop}
-        width="50px"
-        src={ScrollTopIcon}
+        width={50}
+        height={50}
+        src="/images/up.png"
         alt="Go to top"
       />
     </ScrollTopContainer>

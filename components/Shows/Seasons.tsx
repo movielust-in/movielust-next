@@ -22,7 +22,6 @@ import { fetchSeason } from '../../helpers/tmdb/series';
 import { fetchShowMagnets } from '../../helpers/torrent';
 
 import { FULL_MONTHS, TWO_EMBED } from '../../config';
-import { LoadingGhost } from '../../assets';
 
 import { markRecentStale } from '../../redux/reducers/recent.reducer';
 import { TvSeasonResponse } from '../../types/tmdb';
@@ -345,9 +344,10 @@ function Seasons({ id, title, totalSeasons }: SeasonsProps) {
                           <TorrentDownload>
                             <FaDownload />
                             <Image
-                              src={LoadingGhost}
+                              src="/images/ghost.png"
                               alt="loading"
-                              width="30"
+                              width={20}
+                              height={20}
                             />
                           </TorrentDownload>
                         )}

@@ -1,6 +1,6 @@
 /* eslint-disable no-nested-ternary */
 import { useEffect, useState } from 'react';
-import Helmet from 'next/head';
+import Head from 'next/head';
 import styled from '@emotion/styled';
 
 import { useDispatch, useSelector } from '../redux';
@@ -16,7 +16,7 @@ import {
 import LoginRedirect from '../components/UI/LoginRedirect';
 import Loading from '../components/UI/Loading';
 
-import ContetnCard from '../components/ContentItem/ContentItem';
+import WatchlistItems from '../components/ContentItem/ContentItem';
 
 function Watchlist() {
   const dispatch = useDispatch();
@@ -50,13 +50,13 @@ function Watchlist() {
 
   return (
     <>
-      <Helmet>
+      <Head>
         <title>Watchlist - Movielust</title>
         <meta
           name="description"
           content="Add you favourite movies and shows to watchlist."
         />
-      </Helmet>
+      </Head>
       {isAuthenticated ? (
         <Container>
           <SwitchBox>
@@ -89,7 +89,7 @@ function Watchlist() {
               {watchlist[view === 'movie' ? 'movies' : 'series'].length ? (
                 watchlist[view === 'movie' ? 'movies' : 'series'].map(
                   (movie) => (
-                    <ContetnCard
+                    <WatchlistItems
                       key={movie.id}
                       id={movie.id!}
                       title={(movie.title || movie.name)!}

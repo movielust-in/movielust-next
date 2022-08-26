@@ -1,0 +1,191 @@
+.Edit {
+  background-color: rgba(1, 1, 1, 0.3);
+  border-radius: 100%;
+  height: 100%;
+  padding: 60px;
+  width: 100%;
+}
+
+.Logo {
+  border-radius: 100%;
+  cursor: pointer;
+  width: 20%;
+
+  @media (max-width: 724px) {
+    width: 30%;
+  }
+  &:hover {
+    #editProfilePicture {
+      display: flex;
+    }
+  }
+}
+
+.submitting {
+  animation: zoomInOut 1.5s ease 100ms infinite alternate;
+}
+
+.Item {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: 0 3px;
+}
+.ShowPassword {
+  margin: 3px;
+  vertical-align: middle;
+}
+.HidePassword {
+  margin: 3px;
+  vertical-align: middle;
+}
+
+.Password {
+  background-color: rgba(20, 40, 40, 0.8);
+  border: 1px solid rgba(10, 180, 180, 1);
+  border-left: none;
+  border-radius: 8px;
+  border-right: none;
+  border-top: none;
+  color: white;
+  cursor: pointer;
+  display: inline;
+  margin: 8px 0;
+  outline: none;
+
+  svg {
+    margin: 0 5px;
+  }
+}
+
+.PassInput {
+  background: rgba(20, 40, 40, 0.8);
+  border: none;
+  border-radius: 8px 0 0 8px;
+  color: white;
+  font-size: 15px;
+  outline: none;
+  padding: 10px;
+  width: 230px;
+  &:-webkit-autofill,
+  &:-webkit-autofill:hover,
+  &:-webkit-autofill:focus,
+  &:-webkit-autofill:active {
+    -webkit-text-fill-color: white !important;
+    box-shadow: 0 0 0 30px rgba(20, 40, 40, 0.8) inset !important;
+  }
+  @media (max-width: 724px) {
+    font-size: 1rem;
+    width: 76vw;
+  }
+}
+.Input {
+  background: rgba(20, 40, 40, 0.8);
+  border: 1px solid rgba(10, 180, 180, 1);
+  border-left: none;
+  border-radius: 8px;
+  border-right: none;
+  border-top: none;
+  color: white;
+  font-size: 15px;
+  margin: 15px 0;
+  outline: none;
+  padding: 10px;
+  width: 250px;
+
+  &:-webkit-autofill,
+  &:-webkit-autofill:hover,
+  &:-webkit-autofill:focus,
+  &:-webkit-autofill:active {
+    -webkit-text-fill-color: white !important;
+    box-shadow: 0 0 0 30px rgba(20, 40, 40, 0.8) inset !important;
+  }
+
+  @media (max-width: 724px) {
+    margin: 8px 0;
+    font-size: 1rem;
+    width: 80vw;
+  }
+}
+
+.MessageInput {
+  background: rgba(20, 40, 40, 0.8);
+  border: 1px solid rgba(10, 180, 180, 1);
+  border-left: none;
+  border-radius: 8px;
+  border-right: none;
+  border-top: none;
+  color: white;
+  font-size: 15px;
+  height: 100px;
+  margin: 15px 0;
+  outline: none;
+  padding: 10px;
+  resize: none;
+  width: 250px;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
+  @media (max-width: 724px) {
+    margin: 15px 0;
+    font-size: 1rem;
+    height: 70px;
+    width: 80vw;
+  }
+}
+
+.Submit {
+  align-items: center;
+  background: rgba(20, 20, 20, 0.6);
+  border: 1px solid rgba(10, 180, 180, 1);
+  border-radius: 8px;
+  color: white;
+  cursor: pointer;
+  display: flex;
+  font-size: 15px;
+  height: 40px;
+  justify-content: center;
+  margin-top: 10px;
+  transition: 0.4s;
+  width: 120px;
+
+  &:hover {
+    background: rgba(20, 20, 20, 0.8);
+    width: 150px;
+  }
+
+  @media (max-width: 724px) {
+    margin-top: 10px;
+    font-size: 1rem;
+    padding: 8px 60px;
+    &:hover {
+      padding: 8px 40px;
+    }
+    transition: all 200ms ease;
+  }
+}
+
+.Error {
+  color: rgba(255, 0, 0, 0.4);
+  font-size: 14px;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+}
+
+.ProfilePicture {
+  align-items: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  border-radius: 100%;
+  cursor: pointer;
+  display: flex;
+  height: 150px;
+  justify-content: center;
+  margin: auto;
+  transition: all 200ms ease;
+  width: 150px;
+}

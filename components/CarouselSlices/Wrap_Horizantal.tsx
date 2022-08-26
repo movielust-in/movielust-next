@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import NextImage from 'next/image';
-import Errored from '../../assets/images/placeholder-image-h.png';
 import Shimmer from '../UI/Shimmer';
 
 import styles from '../../styles/hWrap.module.scss';
@@ -26,7 +25,7 @@ function WrapH({ src, alt, title, rating }: WrapPros) {
 
   const onError = () => {
     setLoading(false);
-    setImgSrc(Errored.src);
+    setImgSrc("/images/placeholder-image-h.png'");
   };
 
   return src ? (

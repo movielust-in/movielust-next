@@ -1,13 +1,8 @@
-import styled from '@emotion/styled';
-
-import {
-  InstagramIcon,
-  TwitterIcon,
-  FaceBookIcon,
-  IMDBIcon,
-  WikiPediaIcon,
-} from '../assets';
+import Image from 'next/image';
+import { InstagramIcon, TwitterIcon, FaceBookIcon, IMDBIcon } from '../assets';
 import { MovieExternalIdsResponse, TvExternalIdsResponse } from '../types/tmdb';
+
+import styles from './Details/Detail.module.scss';
 
 interface SocialProps {
   externalIds: MovieExternalIdsResponse | TvExternalIdsResponse;
@@ -38,88 +33,48 @@ function Social({ externalIds, type, name, title }: SocialProps) {
     Wikipedia = `https://en.wikipedia.org/wiki/${title.replace(' ', '_')}`;
 
   return (
-    <Socials>
+    <div className={styles.Socials}>
       {externalIds.instagram_id && (
-        <Logo>
+        <div className={styles.SocialIcon}>
           <a href={Instagram} target="_blank" rel="noreferrer">
             <InstagramIcon width="25px" height="25px" />
           </a>
-        </Logo>
+        </div>
       )}
       {externalIds.twitter_id && (
-        <Logo>
+        <div className={styles.SocialIcon}>
           {' '}
           <a href={Twitter} target="_blank" rel="noreferrer">
             <TwitterIcon width="25px" height="25px" />
           </a>
-        </Logo>
+        </div>
       )}
       {externalIds.facebook_id && (
-        <Logo>
+        <div className={styles.SocialIcon}>
           <a href={Facebook} target="_blank" rel="noreferrer">
             <FaceBookIcon width="25px" height="25px" />
           </a>
-        </Logo>
+        </div>
       )}
       {externalIds.imdb_id && (
-        <Logo>
+        <div className={styles.SocialIcon}>
           <a href={IMDB} target="_blank" rel="noreferrer">
             <IMDBIcon width="25px" height="25px" />
           </a>
-        </Logo>
+        </div>
       )}
 
-      <Wiki>
+      <div className={styles.WikiIcon}>
         <a href={Wikipedia} target="_blank" rel="noreferrer">
-          <WikiPediaIcon width="25px" height="25px" />
+          <Image
+            src="/images/svgs/wikipedia-logo.svg"
+            width="25px"
+            height="25px"
+          />
         </a>
-      </Wiki>
-    </Socials>
+      </div>
+    </div>
   );
 }
 
 export default Social;
-
-const Socials = styled.div`
-  display: flex;
-  flex-direction: row;
-  margin-top: 0px;
-  width: 280px;
-
-  div:first-of-type {
-    margin-left: 0;
-    padding-left: 0;
-  }
-
-  img {
-    width: 30px;
-  }
-  @media (orientation: landscape) and (min-width: 600px) and (max-width: 896px) {
-    width: 250px;
-    img {
-      width: 25px;
-    }
-  }
-  @media (max-width: 724px) {
-    justify-content: space-between;
-    width: 100%;
-    margin-left: auto;
-    margin-right: auto;
-    img {
-      width: 25px;
-    }
-  }
-`;
-
-const Wiki = styled.div`
-  transform: rotate(0deg);
-  &:hover {
-    transform: rotate(360deg);
-    transition: all 2000ms;
-  }
-  transition: all 1000ms;
-`;
-
-const Logo = styled.div`
-  padding: 0 15px;
-`;

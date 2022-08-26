@@ -1,6 +1,6 @@
-import Image from "next/image";
+import Image from 'next/image';
 
-import styles from "./Detail.module.scss";
+import styles from './Detail.module.scss';
 
 interface DetailBackgroundProps {
   // setDomColor: any;
@@ -15,8 +15,8 @@ function BackgroundComp({ backdrop }: DetailBackgroundProps) {
         alt="movieposter"
         src={
           backdrop
-            ? `https://image.tmdb.org/t/p/w1280${backdrop}?no-cache`
-            : "/images/25559.webp"
+            ? `https://image.tmdb.org/t/p/w1280${backdrop}`
+            : '/images/25559.webp'
         }
       />
     </div>

@@ -1,18 +1,18 @@
-import { useState, useEffect, useRef } from "react";
-import * as Yup from "yup";
-import { toast } from "react-toastify";
-import { useRouter } from "next/router";
+import { useState, useEffect, useRef } from 'react';
+import * as Yup from 'yup';
+// import { toast } from "react-toastify";
+import { useRouter } from 'next/router';
 
 // import { Form, Validate } from '../components';
 
-import Form from "../components/Form/Form";
-import Validate from "../components/Form/Validation";
+import Form from '../components/Form/Form';
+import Validate from '../components/Form/Validation';
 
 import {
   sendEmailVerifyOtp,
   submitSingUp,
   verifyOtp,
-} from "../helpers/user/auth";
+} from '../helpers/user/auth';
 
 interface StepOneDataInterface {
   email: string;
@@ -23,18 +23,18 @@ interface StepOneDataInterface {
 function SignUp() {
   const router = useRouter();
   const otpRef = useRef<string>();
-  const OTP_HEADER = "Enter OTP";
+  const OTP_HEADER = 'Enter OTP';
 
   const stepOneData = useRef<StepOneDataInterface>();
 
   useEffect(() => {
-    document.title = "Signup - Movielust";
+    document.title = 'Signup - Movielust';
   }, []);
 
-  const [email, setEmail] = useState("");
+  const [email, setEmail] = useState('');
 
   const [ProfilePicture, setProfile] = useState(
-    "https://image.freepik.com/free-vector/mysterious-mafia-man-smoking-cigarette_52683-34828.jpg"
+    'https://image.freepik.com/free-vector/mysterious-mafia-man-smoking-cigarette_52683-34828.jpg'
   );
 
   const resetOneSchema = Yup.object().shape({
@@ -64,7 +64,7 @@ function SignUp() {
 
       setStep(stepTwo);
     } catch (err: any) {
-      toast(err.response.data.message || "Something went wrong!");
+      // toast(err.response.data.message || "Something went wrong!");
     } finally {
       setSubmitting(false);
     }
@@ -74,7 +74,7 @@ function SignUp() {
     try {
       otpRef.current = otp;
       if (otp.length !== 6) {
-        toast("Invalid OTP!");
+        // toast("Invalid OTP!");
         return;
       }
 
@@ -88,22 +88,22 @@ function SignUp() {
         verifyOtpRes.data.success === true
       ) {
         if (stepOneData.current) {
-          const registerRes = await submitSingUp({
+          await submitSingUp({
             name: stepOneData.current.name,
             email: stepOneData.current.email,
             profile: ProfilePicture,
             password: stepOneData.current.password,
           });
 
-          toast(registerRes.data.message);
+          // toast(registerRes.data.message);
 
-          router.push("/signin");
+          router.push('/signin');
         }
       } else {
-        toast(verifyOtpRes.data.message);
+        // toast(verifyOtpRes.data.message);
       }
     } catch (err: any) {
-      toast(err.response.data.message || "Something went wrong!");
+      // toast(err.response.data.message || "Something went wrong!");
     } finally {
       setSubmitting(false);
     }
@@ -111,39 +111,39 @@ function SignUp() {
 
   const stepOne = {
     fields: {
-      name: "Sign Up",
-      submitValue: "Sign Up",
+      name: 'Sign Up',
+      submitValue: 'Sign Up',
       inputs: [
-        { field: "profile" },
+        { field: 'profile' },
         {
-          name: "name",
-          type: "text",
-          field: "input",
-          placeholder: "Name",
+          name: 'name',
+          type: 'text',
+          field: 'input',
+          placeholder: 'Name',
         },
         {
-          name: "email",
-          type: "email",
-          field: "input",
-          placeholder: "Email",
+          name: 'email',
+          type: 'email',
+          field: 'input',
+          placeholder: 'Email',
         },
         {
-          name: "password",
-          type: "password",
-          field: "password",
-          placeholder: "Password",
-          autocomplete: "on",
+          name: 'password',
+          type: 'password',
+          field: 'password',
+          placeholder: 'Password',
+          autocomplete: 'on',
         },
       ],
-      links: [{ text: "Already have an account? Login", href: "/signin" }],
+      links: [{ text: 'Already have an account? Login', href: '/signin' }],
     },
 
     formik: {
       initialValues: {
-        name: "",
-        email: "",
-        password: "",
-        profile: "",
+        name: '',
+        email: '',
+        password: '',
+        profile: '',
       },
 
       validationSchema: signUpSchema,
@@ -155,28 +155,28 @@ function SignUp() {
 
   const stepTwo = {
     fields: {
-      submitValue: "Submit",
+      submitValue: 'Submit',
       name: OTP_HEADER,
       inputs: [
         {
-          name: "OTP",
-          type: "text",
-          field: "OTP",
+          name: 'OTP',
+          type: 'text',
+          field: 'OTP',
         },
       ],
       links: [
         {
-          text: "Enter the OTP recieved on your email. OTP is valid for 10 minutes.",
-          href: "/forgotpassword",
+          text: 'Enter the OTP recieved on your email. OTP is valid for 10 minutes.',
+          href: '/forgotpassword',
         },
         {
-          text: "*Do not refresh the page.",
-          href: "/forgotpassword",
+          text: '*Do not refresh the page.',
+          href: '/forgotpassword',
         },
       ],
     },
     formik: {
-      initialValues: { OTP: "" },
+      initialValues: { OTP: '' },
       validationSchema: resetOneSchema,
       onSubmit: submitTwo,
     },
@@ -191,7 +191,7 @@ function SignUp() {
       fields={step.fields}
       isSubmitting={submitting}
       extraData={
-        step.fields.name === "Sign Up"
+        step.fields.name === 'Sign Up'
           ? (pic: string) => setProfile(pic)
           : (otp: string) => handleOtp(otp)
       }

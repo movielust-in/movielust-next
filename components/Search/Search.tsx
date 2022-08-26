@@ -24,7 +24,6 @@ import { useLockBodyScroll } from '../../hooks';
 import { Content } from '../../types/tmdb';
 
 import { detailLink } from '../../utils';
-import { LoadingGhost } from '../../assets';
 
 import styles from './search.module.scss';
 
@@ -306,7 +305,7 @@ function Search({ show }: { show: boolean }) {
 
       {loading ? (
         <div className={styles.Loading}>
-          <Image src={LoadingGhost} alt="loading" />
+          <Image src="/images/ghost.png" width={60} height={60} alt="loading" />
           Getting results...
         </div>
       ) : (

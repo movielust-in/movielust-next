@@ -3,7 +3,6 @@ import Image from 'next/image';
 
 import styles from '../../styles/personCard.module.scss';
 
-import MovielustLogo from '../../assets/images/placeholder-image.png';
 import Shimmer from '../UI/Shimmer';
 
 interface WrapPros {
@@ -24,7 +23,7 @@ function PersonCard({ title, src, alt }: WrapPros) {
 
   const onError = () => {
     setLoading(false);
-    setImgSrc(MovielustLogo.src);
+    setImgSrc('/images/placeholder-image.png');
   };
 
   return src ? (

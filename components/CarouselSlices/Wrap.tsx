@@ -2,7 +2,6 @@ import Image from 'next/image';
 import { MouseEventHandler, useState } from 'react';
 import { image } from '../../helpers/Urls';
 
-import ErroredImage from '../../assets/images/placeholder-image.png';
 import { Genre } from '../../types/tmdb';
 
 import styles from '../../styles/Wrap.module.scss';
@@ -45,7 +44,7 @@ function Wrap({
   const [imgSrc, setImgSrc] = useState(src);
 
   const onError = () => {
-    setImgSrc(ErroredImage.src);
+    setImgSrc('/images/placeholder-image.png');
   };
 
   const [direction, setDirection] = useState({

@@ -1,5 +1,5 @@
+/* eslint-disable @next/next/no-img-element */
 import { useState, useEffect } from 'react';
-import Image from 'next/image';
 import Link from 'next/link';
 
 import styles from '../../styles/scroller.module.scss';
@@ -8,7 +8,6 @@ import Wrap from '../CarouselSlices/Wrap';
 
 import PersonCard from '../CarouselSlices/PersonCard';
 
-import { LoadingGhost } from '../../assets';
 import { detailLink } from '../../utils';
 import getGenreName from '../../utils/getGenreName';
 import useObserver from '../../hooks/useObserver';
@@ -80,7 +79,12 @@ function Scroller({ movies, total, type }: ScrollerProps) {
       </div>
       {total.pages > page && loadingMore && (
         <div>
-          <Image src={LoadingGhost} alt="loading" />
+          <img
+            src="https://ik.imagekit.io/movielust/ghost_1-kuGMRZo.webp"
+            alt="loading"
+            width="60px"
+            height="60px"
+          />
         </div>
       )}
       {total.pages > page && (

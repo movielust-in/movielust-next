@@ -2,9 +2,6 @@ import { useEffect } from 'react';
 import styled from '@emotion/styled';
 import Image from 'next/image';
 
-import TMDB_LOGO from '../assets/images/svgs/tmdb_attr.svg';
-import YTS_LOGO from '../assets/images/yts_logo.png';
-
 function Aboutus() {
   useEffect(() => {
     document.title = 'About us - Movielust';
@@ -24,10 +21,20 @@ function Aboutus() {
         <li>
           <div style={{ display: 'flex', justifyContent: 'space-between' }}>
             <a href="https://www.themoviedb.org/">
-              <TMDB_LOGO width="100" alt="TMDB Logo" />
+              <Image
+                width={40}
+                height={20}
+                src="/images/svgs/tmdb_attr.svg"
+                alt="YTS logo"
+              />
             </a>
             <a href="https://en.wikipedia.org/wiki/YIFY">
-              <Image width={40} height={20} src={YTS_LOGO} alt="YTS logo" />
+              <Image
+                width={40}
+                height={20}
+                src="/images/yts_logo.png"
+                alt="YTS logo"
+              />
             </a>
           </div>
 

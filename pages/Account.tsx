@@ -1,4 +1,5 @@
-import React, { useEffect, useState, useCallback } from 'react';
+import { useEffect, useState, useCallback } from 'react';
+import Image from 'next/image';
 import styled from '@emotion/styled';
 import { keyframes } from '@emotion/react';
 import { useRouter } from 'next/router';
@@ -7,15 +8,11 @@ import dynamic from 'next/dynamic';
 import { FaEdit } from 'react-icons/fa';
 
 import { useSelector, useDispatch } from '../redux';
-import Spinner from '../components/UI/Spinner';
 import { setSignOut, setUserLogin } from '../redux/reducers/user.reducer';
 import { fetchAvatars, updateAvatar, deleteUser } from '../helpers/user';
 
-import { useLockBodyScroll } from '../hooks';
-
 import styles from '../styles/avatar_modal.module.scss';
 
-import { LoginImage, SadImage } from '../assets';
 import { Avatar } from '../types/avatar';
 
 const Modal = dynamic(() => import('react-modal'));
@@ -28,8 +25,6 @@ function Account() {
   const [avatars, setAvatars] = useState<Avatar[]>([]);
   const [isUpdating, setUpdating] = useState(false);
   const [deleteModal, setDeleteModal] = useState(false);
-
-  useLockBodyScroll(openAvatarModal);
 
   const openModal = useCallback(() => {
     setOpenAvatarModal((state) => !state);
@@ -127,15 +122,23 @@ function Account() {
         {user.avatar ? (
           <ProfilePicture src={user.avatar}>
             {isUpdating ? (
-              <Spinner width="70%" />
+              <Image
+                src="/images/player_loading.svg"
+                width={100}
+                height={100}
+              />
             ) : (
               <Edit id="accountProfileEdit" onClick={openModal} />
             )}
           </ProfilePicture>
         ) : (
-          <ProfilePicture src={LoginImage.src}>
+          <ProfilePicture src="/images/login.png">
             {isUpdating ? (
-              <Spinner width="70%" />
+              <Image
+                src="/images/player_loading.svg"
+                width={100}
+                height={100}
+              />
             ) : (
               <Edit onClick={openModal} />
             )}
@@ -196,7 +199,7 @@ function Account() {
           contentLabel="profile"
           ariaHideApp={false}
         >
-          <Sadimg src={SadImage.src} alt="Sad" />
+          <Sadimg src="/images/sad.png" alt="Sad" />
           <DeletePrompt>Are you sure?</DeletePrompt>
           <div>
             <No onClick={confirmDelete}>No</No>

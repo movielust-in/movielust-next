@@ -13,6 +13,7 @@ import imageCarouselStyles from '../../styles/imageCarousel.module.scss';
 
 const ImageModal = dynamic(() => import('../Modal/ImageModal'));
 const PeopleModal = dynamic(() => import('../Modal/PeopleModal'));
+
 interface ImageCrouselProps {
   images: any;
   type: string;

@@ -27,15 +27,12 @@ import PeopleMovieCarousel from '../../components/Carousels/PeopleMovieCarousel'
 
 import ImageCrousel from '../../components/Carousels/ImageCrousel';
 
-import { DefaultBackground } from '../../assets';
 import {
   PersonExternalIdsResponse,
   Profile as ProfileType,
   TVCreditCast,
 } from '../../types/tmdb';
 import Meta from '../../components/Meta';
-
-// const colorThief = new ColorThief();
 
 function PeopleDeatail() {
   const router = useRouter();
@@ -154,7 +151,8 @@ function PeopleDeatail() {
             <Image
               alt="movieposter"
               crossOrigin="anonymous"
-              src={DefaultBackground}
+              layout="fill"
+              src="/images/default_background.webp"
             />
           </Background>
           <UpperContainer>

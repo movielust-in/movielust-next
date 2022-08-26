@@ -1,26 +1,25 @@
-import { useEffect, useState } from "react";
-import styled from "@emotion/styled";
-import { FaTimes } from "react-icons/fa";
-import { useDispatch, useSelector } from "../../redux";
+import { useEffect, useState } from 'react';
+import styled from '@emotion/styled';
+import { FaTimes } from 'react-icons/fa';
+import { useDispatch, useSelector } from '../../redux';
 
-import { discover } from "../../helpers/tmdb/series";
-import { setCurrentPage } from "../../redux/reducers/nav.reducer";
+import { discover } from '../../helpers/tmdb/series';
+import { setCurrentPage } from '../../redux/reducers/nav.reducer';
 import {
   addSeries,
   setTotal,
   resetSeries,
   toggleSeriesGenreId,
-} from "../../redux/reducers/series.reducer";
+} from '../../redux/reducers/series.reducer';
 // import { GenreFilter, Scroller, Loading } from '../components';
 
-import GenreFilter from "../../components/Filters/GenreFilter";
-import Loading from "../../components/UI/Loading";
-import Scroller from "../../components/UI/Scroller";
+import GenreFilter from '../../components/Filters/GenreFilter';
+import Scroller from '../../components/UI/Scroller';
 
-import { TV_GENRES as genres } from "../../config";
+import { TV_GENRES as genres } from '../../config';
 
 function Series() {
-  const type = "tv";
+  const type = 'tv';
   const [isLoading, setIsLoading] = useState(true);
 
   const dispatch = useDispatch();
@@ -46,8 +45,8 @@ function Series() {
 
   useEffect(() => {
     setIsLoading(true);
-    dispatch(setCurrentPage("series"));
-    document.title = "Series - Watch and Download latest series";
+    dispatch(setCurrentPage('series'));
+    document.title = 'Series - Watch and Download latest series';
     if (storeMovies.length === 0) {
       fetchSeries();
     }
@@ -55,11 +54,9 @@ function Series() {
     // eslint-disable-next-line
   }, [filters]);
 
-  return isLoading ? (
-    <Loading />
-  ) : (
+  return isLoading ? null : (
     <Container>
-      <div style={{ display: "flex", justifyContent: "center" }}>
+      <div style={{ display: 'flex', justifyContent: 'center' }}>
         <GenreFilter type={type} />
       </div>
       <div>
@@ -67,12 +64,12 @@ function Series() {
           <GenreBubble
             key={id}
             style={{
-              border: "1px solid silver",
-              padding: "5px",
-              borderRadius: "10px",
-              margin: "2px",
-              fontWeight: "500",
-              backgroundColor: "#0E2F44",
+              border: '1px solid silver',
+              padding: '5px',
+              borderRadius: '10px',
+              margin: '2px',
+              fontWeight: '500',
+              backgroundColor: '#0E2F44',
             }}
           >
             <span>{genres.find((genre) => id === genre.id)!.name}</span>

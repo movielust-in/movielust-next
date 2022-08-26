@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:news="http://www.google.com/schemas/sitemap-news/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:mobile="http://www.google.com/schemas/sitemap-mobile/1.0" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1" xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">
-<url><loc>https://movielust.in</loc><lastmod>2022-08-26T10:06:49.914Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
-<url><loc>https://movielust.in/aboutus</loc><lastmod>2022-08-26T10:06:49.914Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
-<url><loc>https://movielust.in/account</loc><lastmod>2022-08-26T10:06:49.914Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
-<url><loc>https://movielust.in/contactus</loc><lastmod>2022-08-26T10:06:49.914Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
-<url><loc>https://movielust.in/disclaimer</loc><lastmod>2022-08-26T10:06:49.914Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
-<url><loc>https://movielust.in/discover/movies</loc><lastmod>2022-08-26T10:06:49.914Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
-<url><loc>https://movielust.in/discover/shows</loc><lastmod>2022-08-26T10:06:49.914Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
-<url><loc>https://movielust.in/forgotpassword</loc><lastmod>2022-08-26T10:06:49.914Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
-<url><loc>https://movielust.in/signin</loc><lastmod>2022-08-26T10:06:49.914Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
-<url><loc>https://movielust.in/signup</loc><lastmod>2022-08-26T10:06:49.914Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
-<url><loc>https://movielust.in/watchlist</loc><lastmod>2022-08-26T10:06:49.915Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://movielust.in</loc><lastmod>2022-08-26T13:12:41.932Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://movielust.in/aboutus</loc><lastmod>2022-08-26T13:12:41.932Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://movielust.in/account</loc><lastmod>2022-08-26T13:12:41.932Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://movielust.in/contactus</loc><lastmod>2022-08-26T13:12:41.932Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://movielust.in/disclaimer</loc><lastmod>2022-08-26T13:12:41.932Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://movielust.in/discover/movies</loc><lastmod>2022-08-26T13:12:41.932Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://movielust.in/discover/shows</loc><lastmod>2022-08-26T13:12:41.932Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://movielust.in/forgotpassword</loc><lastmod>2022-08-26T13:12:41.932Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://movielust.in/signin</loc><lastmod>2022-08-26T13:12:41.932Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://movielust.in/signup</loc><lastmod>2022-08-26T13:12:41.932Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://movielust.in/watchlist</loc><lastmod>2022-08-26T13:12:41.932Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
 </urlset>

@@ -1,14 +1,13 @@
-import styled from "@emotion/styled";
-import { useRouter } from "next/router";
+import styled from '@emotion/styled';
+import { useRouter } from 'next/router';
 
-import { useLockBodyScroll } from "../../hooks";
-import { MovielustLogo } from "../../assets";
+import { useLockBodyScroll } from '../../hooks';
 
 interface LoginRedirectProps {
   afterLoginRedirectTo: string;
 }
 
-function LoginRedirect({ afterLoginRedirectTo = "/" }: LoginRedirectProps) {
+function LoginRedirect({ afterLoginRedirectTo = '/' }: LoginRedirectProps) {
   const router = useRouter();
   useLockBodyScroll();
   const toLogin = () =>
@@ -18,7 +17,7 @@ function LoginRedirect({ afterLoginRedirectTo = "/" }: LoginRedirectProps) {
     <LoginContainer>
       <Content>
         <LoginContain>
-          <CTALogoOne src={MovielustLogo.src} alt="Logo" />
+          <CTALogoOne src="/images/ghost.png" alt="Logo" />
           <Login onClick={toLogin}>LOGIN</Login>
           <Description>
             Download free movies and TV Shows with Movielust which brings you to
@@ -65,7 +64,7 @@ const LoginContain = styled.div`
 `;
 
 const BgImage = styled.div`
-  background-image: url("/images/login-background.webp");
+  background-image: url('/images/login-background.webp');
   background-position: top;
   background-repeat: no-repeat;
   background-size: fill;

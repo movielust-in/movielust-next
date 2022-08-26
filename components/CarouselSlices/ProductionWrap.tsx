@@ -4,8 +4,6 @@ import Image from 'next/image';
 
 // import Spinner from '../UI/Spinner';
 
-import { MovielustLogo } from '../../assets';
-
 // const colorThief = new ColorThief();
 
 import styles from '../../styles/productionWrap.module.scss';
@@ -32,8 +30,7 @@ function ProductionWrap({ src, alt }: ProductionWrapProps) {
   // console.log(domColor)
 
   const onError = () => {
-    // setLoading(false);
-    setImgSrc(MovielustLogo.src);
+    setImgSrc('https://ik.imagekit.io/movielust/logo_uIeABdFs3.webp');
   };
 
   return src ? (

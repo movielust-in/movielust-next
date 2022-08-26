@@ -3,7 +3,7 @@ import * as Yup from 'yup';
 import Head from 'next/head';
 
 import { useRouter } from 'next/router';
-import { toast } from 'react-toastify';
+// import { toast } from 'react-toastify';
 
 import { useDispatch } from '../redux';
 import Form from '../components/Form/Form';
@@ -81,7 +81,7 @@ function Login() {
         router.push(redirectTo);
       }
     } catch (err: any) {
-      toast(err.response.data.message);
+      // toast(err.response.data.message);
     } finally {
       setSubmitting(false);
     }

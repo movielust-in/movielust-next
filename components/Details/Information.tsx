@@ -14,8 +14,6 @@ import Social from '../Social';
 
 import { image } from '../../helpers/Urls';
 
-// import { PlayerSpinner } from '../../assets';
-
 import { CommonData, ImdbRating } from './DetailTypes';
 import { Magnet } from '../../types/apiResponses';
 import { MovieExternalIdsResponse } from '../../types/tmdb';

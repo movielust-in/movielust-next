@@ -15,10 +15,6 @@ interface PeopleMovieCarouselProps {
   watchall?: boolean;
 }
 
-PeopleMovieCarousel.defaultProps = {
-  watchall: null,
-};
-
 function PeopleMovieCarousel({
   movies,
   title,
@@ -30,9 +26,9 @@ function PeopleMovieCarousel({
       {title && (
         <div className={styles.Title}>
           <h2>{title}</h2>
-          {watchall && (
+          {watchall ? (
             <ShowAllButton link={`/peoplemovies/${watchall}`} label="See all" />
-          )}
+          ) : null}
         </div>
       )}
       {movies && movies.length > 0 && (

@@ -1,4 +1,4 @@
-import { PlayerSpinner } from '../../assets';
+import Image from 'next/image';
 
 function Spinner({
   width,
@@ -7,12 +7,14 @@ function Spinner({
   width?: string | number;
   height?: string | number;
 }) {
-  return <PlayerSpinner width={width} height={height} />;
+  return (
+    <Image src="/images/player_loading.svg" width={width} height={height} />
+  );
 }
 
 export default Spinner;
 
 Spinner.defaultProps = {
-  width: 'auto',
-  height: 'auto',
+  width: 30,
+  height: 30,
 };

@@ -5,7 +5,6 @@ import styled from '@emotion/styled';
 import { FaAngleLeft, FaAngleRight, FaExpand, FaTimes } from 'react-icons/fa';
 
 import { useEventListener, useSwipeEvent } from '../../hooks';
-import { PlayerSpinner } from '../../assets';
 
 const customStyles: ReactModal.Styles = {
   overlay: {
@@ -121,7 +120,12 @@ function Modal({ imagess, onClose, at }: ModalProps) {
       <Container ref={imgRef as any}>
         {loading && (
           <Loader>
-            <NextImage src={PlayerSpinner} alt="loading" />
+            <NextImage
+              src="/images/svgs/player_loading.svg"
+              width={40}
+              height={40}
+              alt="loading"
+            />
           </Loader>
         )}
         <Image
