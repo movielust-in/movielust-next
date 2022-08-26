@@ -84,17 +84,22 @@ function Wrap({
       onFocus={handleMouseOver as any}
     >
       {/* Poster */}
-      <Image
-        className={styles.image}
-        placeholder="blur"
-        src={imgSrc}
-        alt={alt || 'no alt'}
-        onError={onError}
-        loading="lazy"
-        blurDataURL="/images/placeholder-image.png"
-        width={150}
-        height={220}
-      />
+
+      <div className={styles.imageContainer}>
+        <Image
+          className={styles.image}
+          placeholder="blur"
+          src={imgSrc}
+          alt={alt || 'no alt'}
+          onError={onError}
+          loading="lazy"
+          blurDataURL="/images/placeholder-image.png"
+          width={150}
+          height={220}
+          layout="fill"
+          style={{ borderRadius: '6px' }}
+        />
+      </div>
       {/* Hover Card */}
       {showCard ? (
         <div
