@@ -5,7 +5,6 @@ import { image } from '../../helpers/Urls';
 import { Genre } from '../../types/tmdb';
 
 import styles from '../../styles/Wrap.module.scss';
-import Shimmer from '../UI/Shimmer';
 
 interface WrapPros {
   src: string;
@@ -78,11 +77,6 @@ function Wrap({
     // }
   };
 
-  // const toBase64 = (str: string) =>
-  //   typeof window === 'undefined'
-  //     ? Buffer.from(str).toString('base64')
-  //     : window.btoa(str);
-
   return src ? (
     <div
       className={styles.wrapper}
@@ -97,7 +91,7 @@ function Wrap({
         alt={alt || 'no alt'}
         onError={onError}
         loading="lazy"
-        blurDataURL={Shimmer(150, 220)}
+        blurDataURL="/images/placeholder-image.png"
         width={150}
         height={220}
       />
