@@ -11,7 +11,7 @@
 }
 
 .Container {
-  font-family: "bariolregular", sans-serif;
+  font-family: 'bariolregular', sans-serif;
   min-height: calc(100vh - 50px);
   overflow: hidden;
   padding: calc(3.5vw + 5px);
@@ -319,7 +319,7 @@
 }
 
 .Title {
-  font-family: "bariolregular", sans-serif;
+  font-family: 'bariolregular', sans-serif;
   letter-spacing: 0.8px;
   margin: 10px 0 10px 0;
   h2 {
@@ -385,7 +385,7 @@
 .Description {
   // .div`
   display: flex;
-  font-family: "bariolregular", sans-serif;
+  font-family: 'bariolregular', sans-serif;
   font-size: 22px;
   letter-spacing: 1.2px;
   line-height: 1.5;
@@ -444,5 +444,19 @@
   @media (max-width: 724px) {
     padding: 5px;
     margin: 5px 0 5px 0;
+  }
+}
+
+.similarContainer {
+  border-radius: 15px;
+  box-shadow: 5px 3px 30px black;
+  margin-top: 10px;
+  padding: 10px;
+  position: relative;
+  overflow: hidden;
+  @media (max-width: 724px) {
+    overflow: hidden;
+    padding: 5px;
+    margin: 5px 0 15px 0;
   }
 }

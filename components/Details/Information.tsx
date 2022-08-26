@@ -1,24 +1,28 @@
 /* eslint-disable @next/next/no-img-element */
 /* eslint-disable no-nested-ternary */
 import { useState } from 'react';
-import { MdPlaylistAdd } from 'react-icons/md';
-import { FaDownload, FaPlay, FaStar, FaStop, FaShareAlt } from 'react-icons/fa';
+
 import Image from 'next/image';
+import dynamic from 'next/dynamic';
 import { NextRouter } from 'next/router';
 
-// import { ShareOptions, Social } from '../../components';
+import { MdPlaylistAdd } from 'react-icons/md';
+import { FaDownload, FaPlay, FaStar, FaStop, FaShareAlt } from 'react-icons/fa';
 
-import ShareOptions from '../ShareOptions';
 import Social from '../Social';
+// import ShareOptions from '../ShareOptions';
+
+import { image } from '../../helpers/Urls';
+
+// import { PlayerSpinner } from '../../assets';
 
 import { CommonData, ImdbRating } from './DetailTypes';
 import { Magnet } from '../../types/apiResponses';
 import { MovieExternalIdsResponse } from '../../types/tmdb';
-import Spinner from '../UI/Spinner';
 
 import styles from './Detail.module.scss';
-import { image } from '../../helpers/Urls';
-import { PlayerSpinner } from '../../assets';
+
+const Spinner = dynamic(() => import('../UI/Spinner'));
 
 const openImdbRatingCharts = (movieImdbId: string) => {
   const IMDB = `https://www.imdb.com/title/${movieImdbId}/ratings`;
@@ -64,7 +68,7 @@ export default function InformationComponent({
   releaseYear,
   location,
 }: InformationComponentProps) {
-  const [showShareOptions, setShowShareOptions] = useState(false);
+  // const [showShareOptions, setShowShareOptions] = useState(false);
 
   const [loadingShareImg, setLoadingShareImg] = useState(false);
 
@@ -94,7 +98,8 @@ export default function InformationComponent({
           ],
         })
         .catch(() => {});
-    } else setShowShareOptions((state) => !state);
+    }
+    // else setShowShareOptions((state) => !state);
   };
 
   return (
@@ -142,7 +147,7 @@ export default function InformationComponent({
 
         {loadingShareImg ? (
           <Image
-            src={PlayerSpinner}
+            src="PlayerSpinner"
             alt="loading"
             className={styles.ShareButton}
           />
@@ -152,11 +157,11 @@ export default function InformationComponent({
           </FaShareAlt>
         )}
 
-        <ShareOptions
+        {/* <ShareOptions
           title={commonData!.title}
           type={type!}
           show={showShareOptions}
-        />
+        /> */}
       </div>
 
       <div className={styles.Title}>

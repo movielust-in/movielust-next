@@ -1,4 +1,4 @@
-import tmdbClient from "../tmdbClient";
+import tmdbClient from '../tmdbClient';
 
 import {
   AllResponse,
@@ -6,9 +6,9 @@ import {
   DiscoverMovieResponse,
   MovieExternalIdsResponse,
   MovieResult,
-} from "../../types/tmdb";
+} from '../../types/tmdb';
 
-import { getAll } from "../Get";
+import { getAll } from '../Get';
 
 import {
   COLLECTION,
@@ -26,29 +26,29 @@ import {
   COMPANYMOVIESTOP,
   CASTMOVIES,
   DISCOVER_MOVIES,
-} from "../Urls";
+} from '../Urls';
 
-import fetchAllPages from "./fetchAllPages";
+import fetchAllPages from './fetchAllPages';
 
-import { Filters } from "../../types/requestData";
+import { Filters } from '../../types/requestData';
 
 export const discoverMovie = (filters: Filters, page: number) => {
   let params: {} = {
     page,
-    with_genres: filters.genres.join(","),
+    with_genres: filters.genres.join(','),
     sort_by: filters.sortBy,
   };
 
-  if (filters.sortBy === "vote_average.desc")
+  if (filters.sortBy === 'vote_average.desc')
     params = {
       ...params,
-      "vote_count.gte": filters.genres.length ? 1500 : 1500,
+      'vote_count.gte': filters.genres.length ? 1500 : 1500,
     };
-  else if (filters.sortBy === "release_date.desc")
+  else if (filters.sortBy === 'release_date.desc')
     params = {
       ...params,
-      "release_date.lte": new Date(),
-      "vote_count.gte": 50,
+      'release_date.lte': new Date(),
+      'vote_count.gte': 50,
     };
 
   return tmdbClient.get<DiscoverMovieResponse>(DISCOVER_MOVIES, { params });
@@ -119,6 +119,7 @@ export const fetchTRM = () =>
           results
             .sort((a, b) => b.popularity - a.popularity)
             .filter((movie) => movie.vote_count > 8000)
+            .slice(0, 20)
         );
       }
     );

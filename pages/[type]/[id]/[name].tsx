@@ -1,13 +1,39 @@
-import { toast } from 'react-toastify';
+/* eslint-disable no-alert */
 import React, { useCallback, useEffect, useState } from 'react';
 import { GetServerSideProps, NextPage } from 'next';
-import { useRouter } from 'next/router';
+
 import dynamic from 'next/dynamic';
+import { useRouter } from 'next/router';
 
 import BackgroundImage from '../../../components/Details/BackgroundImage';
 import InformationComponent from '../../../components/Details/Information';
+import DetailHelmet from '../../../components/Details/DetailHelmet';
+import PosterAndIframe from '../../../components/Details/PosterAndIframe';
+import MovieCarousel from '../../../components/Carousels/MovieCarousel';
+import CastCarousel from '../../../components/Carousels/CastCarousel';
+import ImageCrousel from '../../../components/Carousels/ImageCrousel';
+import ProductionCompanies from '../../../components/Carousels/ProductionCompanies';
+import SimilarMovies from '../../../components/Details/SimilarMovies';
 
+// FOR SSR
+import { FULL_MONTHS } from '../../../config';
+import { VIDEO } from '../../../helpers/Urls';
+import tmdbClient from '../../../helpers/tmdbClient';
 import { fetchDetails } from '../../../helpers/tmdb';
+
+// Magnets
+import { fetchMagnetsfromYTSapi } from '../../../helpers/torrent';
+
+// Redux Hooks
+import { useDispatch, useSelector } from '../../../redux/store';
+
+// Redux Actions
+import {
+  addMovieToWatchlist,
+  addShowToWatchlist,
+} from '../../../redux/reducers/watchlist.reducer';
+
+// Types
 import {
   CollectionInfoResponse,
   DetailResponse,
@@ -16,29 +42,13 @@ import {
   MovieImagesResponse,
   ShowResponse,
 } from '../../../types/tmdb';
-import tmdbClient from '../../../helpers/tmdbClient';
-import { VIDEO } from '../../../helpers/Urls';
-import PosterAndIframe from '../../../components/Details/PosterAndIframe';
 
-import styles from '../../../components/Details/Detail.module.scss';
-import { FULL_MONTHS } from '../../../config';
-
-import MovieCarousel from '../../../components/Carousels/MovieCarousel';
-import CastCarousel from '../../../components/Carousels/CastCarousel';
-import ImageCrousel from '../../../components/Carousels/ImageCrousel';
-import ProductionCompanies from '../../../components/Carousels/ProductionCompanies';
-import SimilarMovies from '../../../components/Movies/SimilarMovies';
-import DetailHelmet from '../../../components/Details/DetailHelmet';
-
-import { useDispatch, useSelector } from '../../../redux/store';
-import {
-  addMovieToWatchlist,
-  addShowToWatchlist,
-} from '../../../redux/reducers/watchlist.reducer';
-import { fetchMagnetsfromYTSapi } from '../../../helpers/torrent';
 import { IMDBRating } from '../../../types/apiResponses';
 
+import styles from '../../../components/Details/Detail.module.scss';
+
 const Seasons = dynamic(() => import('../../../components/Shows/Seasons'));
+
 interface DetailProps {
   contentData: DetailResponse;
 }
@@ -70,13 +80,14 @@ const Detail: NextPage<DetailProps> = ({ contentData }: DetailProps) => {
       );
     }
 
-    if (contentData.imdb_id) {
+    if (contentData.imdb_id && type === 'movie') {
       import('../../../helpers/imdb').then((imdb) =>
         imdb
           .fetchIMDBRating(contentData.imdb_id!)
           .then((res) => setImdbRating(res))
       );
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [contentData]);
 
   useEffect(() => {
@@ -104,7 +115,7 @@ const Detail: NextPage<DetailProps> = ({ contentData }: DetailProps) => {
 
   const toWatchlist = useCallback(async () => {
     if (!isAuthenticated) {
-      toast('Login to access watchlist!');
+      alert('Login to access watchlist!');
       return;
     }
     try {
@@ -128,10 +139,10 @@ const Detail: NextPage<DetailProps> = ({ contentData }: DetailProps) => {
       // toast('Added to Watchlist');
     } catch (err: any) {
       if (err && err.response && err.response.statusText) {
-        toast('Already in Watchlist!');
+        alert('Already in Watchlist!');
         return;
       }
-      toast('Something went wrong!');
+      alert('Something went wrong!');
     }
   }, [
     contentData?.overview,
@@ -247,7 +258,7 @@ const Detail: NextPage<DetailProps> = ({ contentData }: DetailProps) => {
       ) : null}
 
       {/* IMAGES */}
-      {images && images.length >= 0 ? (
+      {images && images.length > 0 ? (
         <ImageCrousel images={images} type={type!} title="Images" />
       ) : null}
 
@@ -261,7 +272,7 @@ const Detail: NextPage<DetailProps> = ({ contentData }: DetailProps) => {
         )}
 
       {/* TODO: move similar movie fetching logic to supabase functions */}
-      {contentData?.genres?.length !== 0 && (
+      {contentData?.genres && contentData?.genres?.length > 0 ? (
         <SimilarMovies
           id={id!}
           type={type!}
@@ -272,7 +283,7 @@ const Detail: NextPage<DetailProps> = ({ contentData }: DetailProps) => {
           toBeFiltered={collection?.parts || []}
           // dom={domColor}
         />
-      )}
+      ) : null}
     </div>
   );
 };

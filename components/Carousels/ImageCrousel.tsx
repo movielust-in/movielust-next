@@ -1,17 +1,18 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable no-nested-ternary */
 import { memo, useState } from 'react';
+import dynamic from 'next/dynamic';
 import Nimage from 'next/image';
-import styled from '@emotion/styled';
 import { SwiperSlide } from 'swiper/react';
+
 import Carousel from './Carousel';
-
-import ImageModal from '../Modal/ImageModal';
-import PeopleModal from '../Modal/PeopleModal';
-
-import styles from '../../styles/carousel.module.scss';
 import Shimmer from '../UI/Shimmer';
 
+import carouselStyles from '../../styles/carousel.module.scss';
+import imageCarouselStyles from '../../styles/imageCarousel.module.scss';
+
+const ImageModal = dynamic(() => import('../Modal/ImageModal'));
+const PeopleModal = dynamic(() => import('../Modal/PeopleModal'));
 interface ImageCrouselProps {
   images: any;
   type: string;
@@ -33,9 +34,9 @@ function ImageCrousel({ images, type, title, dom }: ImageCrouselProps) {
   return (
     <>
       {images !== undefined && images.length > 0 ? (
-        <Container>
+        <div className={imageCarouselStyles.Container}>
           {title && (
-            <div className={styles.Title}>
+            <div className={carouselStyles.Title}>
               <h2>{title}</h2>
             </div>
           )}
@@ -45,7 +46,8 @@ function ImageCrousel({ images, type, title, dom }: ImageCrouselProps) {
                 .filter((movie: any) => movie !== null)
                 .map((movie: any, index: number) => (
                   <SwiperSlide key={movie.file_path}>
-                    <Wrapper
+                    <div
+                      className={imageCarouselStyles.Wrapper}
                       role="presentation"
                       onClick={() => {
                         setIndex(index);
@@ -60,11 +62,11 @@ function ImageCrousel({ images, type, title, dom }: ImageCrouselProps) {
                         src={`https://image.tmdb.org/t/p/w200/${movie.file_path}`}
                         alt={movie.id}
                       />
-                    </Wrapper>
+                    </div>
                   </SwiperSlide>
                 ))}
           </Carousel>
-        </Container>
+        </div>
       ) : null}
 
       {open && images && (type === 'movie' || type === 'tv') ? (
@@ -91,55 +93,3 @@ function ImageCrousel({ images, type, title, dom }: ImageCrouselProps) {
 }
 
 export default memo(ImageCrousel);
-
-const Container = styled.div`
-  border-radius: 15px;
-  box-shadow: 5px 3px 30px black;
-  margin-top: 10px;
-  overflow: hidden;
-  padding: 10px;
-  position: relative;
-  user-select: none;
-`;
-
-// const Photo = styled.img`
-//   object-fit: contain;
-//   pointer-events: none !important;
-//   transition: all 200ms ease;
-//   width: 100%;
-//   min-height: 120px;
-
-//   @media (max-width: 1200px) {
-//     min-height: 70px;
-//   }
-//   @media (max-width: 1200px) {
-//     min-height: 70px;
-//   }
-//   @media (max-width: 836px) {
-//     min-height: 50px;
-//   }
-//   @media (max-width: 500px) {
-//     min-height: 30px;
-//   }
-// `;
-
-const Wrapper = styled.div`
-  align-items: center;
-  border-radius: 5px;
-  cursor: pointer;
-  display: flex;
-  flex: 1;
-  justify-content: center;
-  overflow: hidden;
-  transition: all 250ms cubic-bezier(0.25, 0.46, 0.45, 0.94) 0s;
-  width: 100%;
-  &:active {
-    transform: scale(0.95);
-  }
-
-  @media (max-width: 724px) {
-    &:hover {
-      transform: none;
-    }
-  }
-`;

@@ -1,9 +1,10 @@
 import React, { useState, useEffect, memo } from 'react';
-import styled from '@emotion/styled';
 
 import { fetchSimilar } from '../../helpers/tmdb';
 import { Content } from '../../types/tmdb';
 import MovieCarousel from '../Carousels/MovieCarousel';
+
+import styles from './Detail.module.scss';
 
 interface SimilarMoviesProps {
   id: string;
@@ -44,7 +45,7 @@ function SimilarMovies({
   }, [genres, id, toBeFiltered, type]);
 
   return (
-    <Container>
+    <div className={styles.similarContainer}>
       {similar && similar.length > 0 ? (
         <MovieCarousel
           title={title}
@@ -53,7 +54,7 @@ function SimilarMovies({
           showCard={false}
         />
       ) : null}
-    </Container>
+    </div>
   );
 }
 
@@ -61,17 +62,3 @@ export default memo(
   SimilarMovies,
   (prev, curr) => prev.id === curr.id && prev.type === curr.type
 );
-
-const Container = styled.div`
-  border-radius: 15px;
-  box-shadow: 5px 3px 30px black;
-  margin-top: 10px;
-  padding: 10px;
-  position: relative;
-  overflow: hidden;
-  @media (max-width: 724px) {
-    overflow: hidden;
-    padding: 5px;
-    margin: 5px 0 15px 0;
-  }
-`;

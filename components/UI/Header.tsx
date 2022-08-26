@@ -102,7 +102,7 @@ function Header({ isOnline }: HeaderProps) {
             <Image
               width={50}
               height={50}
-              src="MovielustLogo.src"
+              src="https://ik.imagekit.io/movielust/logo_uIeABdFs3.webp"
               alt="Movielust Logo"
               className={`${styles.Logo} header_logo`}
             />
