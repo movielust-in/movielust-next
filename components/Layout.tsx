@@ -1,12 +1,11 @@
-import React from "react";
-import { useSetUser } from "../hooks";
-import Footer from "./UI/Footer";
-import FooterTabs from "./UI/FooterTabs";
-import Header from "./UI/Header";
-import Toast from "./UI/Toast/Toast";
+import { ReactNode } from 'react';
+// import { useSetUser } from '../hooks';
+import FooterTabs from './UI/FooterTabs';
+import Header from './UI/Header';
+import Footer from './UI/Footer';
 
-export default function Layout({ children }: { children: React.ReactNode }) {
-  useSetUser();
+export default function Layout({ children }: { children: ReactNode }) {
+  // useSetUser();
 
   return (
     <>
@@ -14,7 +13,6 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       <main className="layout__main">{children}</main>
       <Footer />
       <FooterTabs />
-      <Toast />
     </>
   );
 }

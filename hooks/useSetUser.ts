@@ -1,38 +1,32 @@
-import { useEffect, useRef } from "react";
+import { useEffect } from 'react';
 
-import { useDispatch } from "../redux";
-
-import { getProfile } from "../helpers/user/auth";
-
-import { setUserLogin } from "../redux/reducers/user.reducer";
+import { useDispatch } from '../redux';
 
 export default function useSetUser() {
   const dispatch = useDispatch();
 
-  // const called = useRef(false);
-
   useEffect(() => {
-    // if (called.current) return;
-
-    // called.current = true;
-
     const getUserProfile = async () => {
       try {
-        const token = localStorage.getItem("movielust_user");
+        const token = localStorage.getItem('movielust_user');
 
         if (!token) return;
 
-        const userStr = localStorage.getItem("user");
+        const userStr = localStorage.getItem('user');
 
         if (!userStr) return;
 
         const userObj = JSON.parse(userStr);
 
+        const { setUserLogin } = await import('../redux/reducers/user.reducer');
+
         dispatch(setUserLogin(userObj));
+
+        const { getProfile } = await import('../helpers/user/auth');
 
         const user = await getProfile(token);
 
-        if (userObj.avatar !== user.data.profile)
+        if (userObj.avatar !== user.data.profile) {
           dispatch(
             setUserLogin({
               name: user.data.name,
@@ -41,6 +35,7 @@ export default function useSetUser() {
               token,
             })
           );
+        }
       } catch {
         localStorage.clear();
       }

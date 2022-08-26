@@ -2,10 +2,9 @@
 /* eslint-disable @next/next/no-img-element */
 import { useState, useEffect, KeyboardEvent } from 'react';
 
-import dynamic from 'next/dynamic';
-import Image from 'next/image';
 import Link from 'next/link';
-
+import Image from 'next/image';
+import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
 
 import {
@@ -13,36 +12,24 @@ import {
   MdLocalMovies as MoviesIcon,
   MdKeyboardArrowLeft as LeftArrow,
 } from 'react-icons/md';
-
 import { FaHome as HomeIcon } from 'react-icons/fa';
-
 import { AiFillPlaySquare as SeriesIcon } from 'react-icons/ai';
-
 import { BiSearchAlt as SearchIcon } from 'react-icons/bi';
 
 import { useSelector } from '../../redux';
 
 import { useEventListener, useScroll } from '../../hooks';
 
-import { LoginImage, MovielustLogo } from '../../assets';
-
-import Spinner from './Spinner';
-
 import styles from '../../styles/header.module.scss';
 
 const Search = dynamic(() => import('../Search/Search'));
+
 interface HeaderProps {
   isOnline: boolean;
 }
 
 function Header({ isOnline }: HeaderProps) {
   const router = useRouter();
-
-  // const [pwa, setPwa] = useState(false);
-
-  // useEffect(() => {
-  //  if(windown)
-  // },[])
 
   const hash = router.asPath.split('#')[1];
 
@@ -76,15 +63,10 @@ function Header({ isOnline }: HeaderProps) {
       }
     }, 100);
 
-    const reactGATimeout = setTimeout(() => {
-      // ReactGA.pageview(router.pathname + location.search + hash);
-    }, 1000);
-
     return () => {
       clearInterval(interval);
-      clearTimeout(reactGATimeout);
     };
-  }, [hash, router]);
+  }, [hash]);
 
   const showSearch = () => {
     if (hash && hash.includes('search')) {
@@ -120,7 +102,7 @@ function Header({ isOnline }: HeaderProps) {
             <Image
               width={50}
               height={50}
-              src={MovielustLogo.src}
+              src="MovielustLogo.src"
               alt="Movielust Logo"
               className={`${styles.Logo} header_logo`}
             />
@@ -196,10 +178,10 @@ function Header({ isOnline }: HeaderProps) {
               }}
               onError={({ currentTarget }) => {
                 currentTarget.onerror = null; // prevents looping
-                currentTarget.src = LoginImage.src;
+                currentTarget.src = 'LoginImage.src';
               }}
             />
-          ) : !user.isLoggingIn ? (
+          ) : (
             <button
               type="button"
               className={styles.LoginPrompt}
@@ -209,8 +191,6 @@ function Header({ isOnline }: HeaderProps) {
             >
               LOGIN
             </button>
-          ) : (
-            <Spinner width={30} />
           )}
         </div>
       </nav>

@@ -9,11 +9,6 @@ import InformationComponent from '../../../components/Details/Information';
 
 import { fetchDetails } from '../../../helpers/tmdb';
 import {
-  fetchCollection,
-  fetchExternalIds,
-} from '../../../helpers/tmdb/movies';
-import { fetchTvImages as fetchImages } from '../../../helpers/tmdb/series';
-import {
   CollectionInfoResponse,
   DetailResponse,
   Genre,
@@ -27,19 +22,19 @@ import PosterAndIframe from '../../../components/Details/PosterAndIframe';
 
 import styles from '../../../components/Details/Detail.module.scss';
 import { FULL_MONTHS } from '../../../config';
+
 import MovieCarousel from '../../../components/Carousels/MovieCarousel';
 import CastCarousel from '../../../components/Carousels/CastCarousel';
 import ImageCrousel from '../../../components/Carousels/ImageCrousel';
 import ProductionCompanies from '../../../components/Carousels/ProductionCompanies';
 import SimilarMovies from '../../../components/Movies/SimilarMovies';
 import DetailHelmet from '../../../components/Details/DetailHelmet';
-import { fetchIMDBRating } from '../../../helpers/imdb';
+
 import { useDispatch, useSelector } from '../../../redux/store';
 import {
   addMovieToWatchlist,
   addShowToWatchlist,
 } from '../../../redux/reducers/watchlist.reducer';
-import { addToWatchlist } from '../../../helpers/user/watchlist';
 import { fetchMagnetsfromYTSapi } from '../../../helpers/torrent';
 import { IMDBRating } from '../../../types/apiResponses';
 
@@ -68,18 +63,24 @@ const Detail: NextPage<DetailProps> = ({ contentData }: DetailProps) => {
 
   useEffect(() => {
     if (contentData.belongs_to_collection) {
-      fetchCollection(contentData.belongs_to_collection.id).then((res) =>
-        setCollection(res)
+      import('../../../helpers/tmdb/movies').then((r) =>
+        r
+          .fetchCollection(contentData.belongs_to_collection!.id)
+          .then((res) => setCollection(res))
       );
     }
 
     if (contentData.imdb_id) {
-      fetchIMDBRating(contentData.imdb_id).then((res) => setImdbRating(res));
+      import('../../../helpers/imdb').then((imdb) =>
+        imdb
+          .fetchIMDBRating(contentData.imdb_id!)
+          .then((res) => setImdbRating(res))
+      );
     }
   }, [contentData]);
 
   useEffect(() => {
-    if (!contentData.imdb_id || !id) return;
+    if (type !== 'movie' || !contentData.imdb_id || !id) return;
     fetchMagnetsfromYTSapi(contentData.imdb_id, id).then((res) => {
       setMagnets(res.data.results);
     });
@@ -87,8 +88,16 @@ const Detail: NextPage<DetailProps> = ({ contentData }: DetailProps) => {
 
   useEffect(() => {
     if (!id || !type) return;
-    fetchExternalIds(id, type).then((res) => setExternalIds(res));
-    fetchImages(id, type).then((res) => setImages(res.backdrops));
+
+    import('../../../helpers/tmdb/movies').then((r) =>
+      r.fetchExternalIds(id, type).then((res) => setExternalIds(res))
+    );
+
+    import('../../../helpers/tmdb/series').then((r) =>
+      r
+        .fetchTvImages(id, type)
+        .then((imageRes) => setImages(imageRes.backdrops))
+    );
   }, [id, type]);
 
   const isAuthenticated = useSelector((state) => state.user.isLoggedIn);
@@ -99,6 +108,10 @@ const Detail: NextPage<DetailProps> = ({ contentData }: DetailProps) => {
       return;
     }
     try {
+      const { addToWatchlist } = await import(
+        '../../../helpers/user/watchlist'
+      );
+
       await addToWatchlist(parseInt(id!, 10), type!);
 
       const data = {

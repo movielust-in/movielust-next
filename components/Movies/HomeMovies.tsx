@@ -6,10 +6,11 @@ import { useSelector } from '../../redux';
 import MovieCarousel from '../Carousels/MovieCarousel';
 import ShowAllButton from '../CarouselSlices/ShowAllButton';
 
+import useObserver from '../../hooks/useObserver';
+
 import { HomeMovies } from '../../types/apiResponses';
 
 import styles from './HomeMovies.module.scss';
-import useObserver from '../../hooks/useObserver';
 
 const RecentCarousel = dynamic(() => import('../Carousels/RecentCarousel'));
 const InfiniteMovies = dynamic(() => import('./InfiniteMovies'));
