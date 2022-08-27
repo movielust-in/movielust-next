@@ -1,13 +1,13 @@
-import { useEffect } from 'react';
 import styled from '@emotion/styled';
+import Head from 'next/head';
 import Image from 'next/image';
 
 function Aboutus() {
-  useEffect(() => {
-    document.title = 'About us - Movielust';
-  }, []);
   return (
     <Container>
+      <Head>
+        <title>About Us - Movielust</title>
+      </Head>
       <h3>About Us</h3>
       <Notice>
         <li>

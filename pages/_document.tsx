@@ -109,6 +109,34 @@ export default function Document() {
             }),
           }}
         />
+
+        <script
+          type="application/ld+json"
+          // eslint-disable-next-line react/no-danger
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              '@context': 'https://schema.org',
+              '@type': 'WebSite',
+              url: 'https://www.movielust.in/',
+              '@id': 'https://movielust.in/',
+              name: 'Movielust',
+              description:
+                "Movielust is India's largest free streaming platform that offers a wide variety of premium TV shows, movies, anime, documentaries and even more",
+              publisher: { '@id': 'https://movielust.in/aboutus' },
+              potentialAction: [
+                {
+                  '@type': 'SearchAction',
+                  target: {
+                    '@type': 'EntryPoint',
+                    urlTemplate:
+                      'https://www.movielust.in/#search?q={search_term_string}',
+                  },
+                  'query-input': 'required name=search_term_string',
+                },
+              ],
+            }),
+          }}
+        />
       </Head>
       <body>
         <Main />
