@@ -19,6 +19,7 @@ import { fetchLatestSeries, fetchPopularSeries } from '../helpers/tmdb/series';
 import { HomeMovies } from '../types/apiResponses';
 
 import styles from '../styles/index.module.scss';
+
 import Meta from '../components/Meta';
 import { dashedTitle } from '../utils';
 

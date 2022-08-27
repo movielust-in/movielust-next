@@ -7,4 +7,9 @@
   @media (max-width: 724px) {
     padding: 10px calc(3.5vw + 5px);
   }
+
+  @media (max-width: 724px) and (display-mode: standalone),
+    (max-width: 870px) and (display-mode: standalone) {
+    padding-top: 60px;
+  }
 }

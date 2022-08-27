@@ -2,7 +2,7 @@ name: Vercel Test Preview
 on:
   push:
     branches:
-      - testing
+      - test
 jobs:
   deploy:
     runs-on: ubuntu-latest
