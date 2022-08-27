@@ -61,6 +61,12 @@
   }
 }
 
+.LogoContainer {
+  @media (max-width: 724px) and (display-mode: standalone) {
+    display: none;
+  }
+}
+
 .Logo {
   cursor: pointer;
   object-fit: contain;
@@ -68,10 +74,6 @@
   width: 65px;
   @media (max-width: 724px) {
     width: 60px;
-  }
-
-  @media (max-width: 724px) and (display-mode: standalone) {
-    display: none;
   }
 }
 

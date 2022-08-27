@@ -98,7 +98,7 @@ function Header({ isOnline }: HeaderProps) {
         <LeftArrow className={styles.Back} onClick={() => router.back()} />
 
         <Link href="/">
-          <a>
+          <a className={styles.LogoContainer}>
             <Image
               width={50}
               height={50}
