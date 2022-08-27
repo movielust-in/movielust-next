@@ -11,7 +11,7 @@ jobs:
       #  your build commands
       # - run: |
       #    ng build --prod
-      - uses: amondnet/vercel-action@v20 #deploy
+      - uses: amondnet/vercel-action@v25 #deploy
         with:
           vercel-token: ${{ secrets.VERCEL_TOKEN }} # Required
           github-token: ${{ secrets.GH_TOKEN }} #Optional
