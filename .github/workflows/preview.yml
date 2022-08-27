@@ -1,4 +1,4 @@
-name: Vercel Preview
+name: Preview
 on:
   pull_request:
     branches:
