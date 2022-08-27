@@ -94,7 +94,7 @@ function Account() {
   };
 
   return (
-    <Container>
+    <Container className="header_padding">
       <Index>
         <List>
           <li>
