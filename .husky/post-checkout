@@ -3,6 +3,6 @@
 
 echo -e "Running post-checkout: npm install"
 
-npm install
+yarn install
 
 echo -e "\n"
