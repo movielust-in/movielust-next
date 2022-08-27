@@ -1,5 +1,6 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import { useEffect, useRef, useState } from 'react';
+import Script from 'next/script';
 import Router from 'next/router';
 import type { AppProps } from 'next/app';
 import { Provider } from 'react-redux';
@@ -17,7 +18,6 @@ import '../styles/globals.css';
 import '../styles/font.css';
 
 import 'react-toastify/dist/ReactToastify.min.css';
-import Script from 'next/script';
 
 function MyApp({ Component, pageProps }: AppProps) {
   const [loading, setLoading] = useState(false);

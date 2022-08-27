@@ -173,7 +173,7 @@ function Seasons({ id, title, totalSeasons }: SeasonsProps) {
 
   const onEpisodePlay = (episode: any, episodeNum: string | number) => {
     // play/show/title/season/episode/totalEpisode/showId?m=magent&q=quality
-    console.log(magnets, season, magnets[season].length);
+    // console.log(magnets, season, magnets[season].length);
     router.push(
       `/play/show/${title}/${season}/${episodeNum}/${
         magnets[season].length
