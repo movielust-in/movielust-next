@@ -1,3 +1,4 @@
+@use './headerPadding';
 .container {
   position: relative;
   min-height: calc(100vh - 65px);
@@ -8,5 +9,5 @@
     padding: 10px calc(3.5vw + 5px);
   }
 
-  @include header_padding;
+  @include headerPadding.headerPadding;
 }
