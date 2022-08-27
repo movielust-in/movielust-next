@@ -139,7 +139,7 @@ const Title = styled.div`
   -webkit-text-fill-color: transparent;
   background: linear-gradient(to right, #c0c0c0 50%, #50595b 100%);
   background-clip: text;
-  font-family: 'bariolregular', sans-serif;
+  font-family: 'Bariol', sans-serif;
   font-size: 6rem;
   font-weight: bold;
   letter-spacing: 10px;

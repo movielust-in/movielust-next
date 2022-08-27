@@ -1,5 +1,7 @@
 /* stylelint-disable at-rule-no-unknown */
 
+@use '../../styles/headerPadding';
+
 @mixin animate($animation, $duration, $method, $times) {
   animation: $animation $duration $method $times;
 }
@@ -11,7 +13,7 @@
 }
 
 .Container {
-  font-family: 'bariolregular', sans-serif;
+  font-family: 'Bariol', sans-serif;
   min-height: calc(100vh - 50px);
   overflow: hidden;
   padding: calc(3.5vw + 5px);
@@ -20,6 +22,8 @@
   @media (max-width: 724px) {
     padding-bottom: 80px;
   }
+
+  @include headerPadding.headerPadding;
 }
 
 // .fadeIn {
@@ -319,7 +323,7 @@
 }
 
 .Title {
-  font-family: 'bariolregular', sans-serif;
+  font-family: 'Bariol', sans-serif;
   letter-spacing: 0.8px;
   margin: 10px 0 10px 0;
   h2 {
@@ -382,7 +386,7 @@
 .Description {
   // .div`
   display: flex;
-  font-family: 'bariolregular', sans-serif;
+  font-family: 'Bariol', sans-serif;
   font-size: 22px;
   letter-spacing: 1.2px;
   line-height: 1.5;

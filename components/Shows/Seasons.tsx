@@ -433,7 +433,7 @@ function Seasons({ id, title, totalSeasons }: SeasonsProps) {
 export default memo(Seasons);
 
 const Container = styled.div`
-  font-family: 'bariolregular', sans-serif;
+  font-family: 'Bariol', sans-serif;
 `;
 
 const Header = styled.div`

@@ -1,6 +1,6 @@
-import styled from "@emotion/styled";
-import Link from "next/link";
-import Helmet from "next/head";
+import styled from '@emotion/styled';
+import Link from 'next/link';
+import Helmet from 'next/head';
 
 function PageNotFound() {
   return (
@@ -184,7 +184,7 @@ const Heading = styled.h1`
   }
 `;
 const Subheading = styled.div`
-  font-family: "bariolregular", sans-serif;
+  font-family: 'Bariol', sans-serif;
   font-size: 1.2em;
   letter-spacing: 0.7px;
   line-height: 2rem;
@@ -240,7 +240,7 @@ const Rightsection = styled.div`
 
 const Walk = styled.div`
   animation: walkanim 1s infinite steps(7);
-  background-image: url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/4273/walk-sequence.svg");
+  background-image: url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/4273/walk-sequence.svg');
   background-repeat: no-repeat;
   background-size: 800%;
   display: inline-block;

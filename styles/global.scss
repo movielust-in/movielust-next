@@ -1,0 +1,164 @@
+:root {
+  --toastify-toast-min-height: 50px;
+  --toastify-toast-max-height: 50px;
+  --toastify-icon-color-error: rgba(255, 0, 0, 0.6);
+
+  --header-height: 50px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.app_container {
+  @media (max-width: 724px) {
+    margin-bottom: 50px;
+  }
+  @media (max-width: 724px) and (display-mode: standalone),
+    (max-width: 870px) and (display-mode: standalone) {
+    padding-top: 55px;
+  }
+}
+
+body {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  color: white;
+  overflow-y: scroll;
+  background-color: #090c14;
+  font-family: 'Bariol', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto',
+    'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+*::-webkit-scrollbar {
+  width: 8px;
+}
+
+*::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 6px rgba(255, 255, 255, 0.1);
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: darkgrey;
+  outline: 1px solid slategrey;
+  border-radius: 8px;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background-color: grey;
+  outline: 1px solid darkgrey;
+}
+
+*::-webkit-scrollbar-thumb:active {
+  background-color: grey;
+  outline: 2px solid darkgrey;
+}
+
+a {
+  text-decoration: none;
+}
+
+.react-multi-carousel-list {
+  overflow: visible !important;
+}
+
+.fill {
+  object-fit: fill;
+}
+
+.force-no-hover-transform > div:hover {
+  transform: none !important;
+}
+
+.genre-filter-active {
+  background: rgb(148, 148, 148);
+  color: rgb(0, 0, 0);
+}
+
+.swiper-button-prev,
+.swiper-button-next {
+  display: none !important;
+  margin: 0;
+}
+
+.swiper-button-prev::after,
+.swiper-button-next::after {
+  border-radius: 8px;
+  color: rgba(255, 255, 255, 0.6);
+  background: rgba(1, 1, 1, 0.4);
+  padding: 70%;
+  border: 1px solid silver;
+  position: absolute !important;
+}
+
+.swiper-button-prev::after {
+  margin-left: 15px;
+}
+
+.swiper-button-next::after {
+  margin-right: 40px;
+}
+
+.mejs__logo-button {
+  display: none !important;
+}
+
+.type-icon fa-icon {
+  display: none !important;
+}
+
+.ReactModal__Overlay {
+  opacity: 0;
+  transition: opacity 400ms ease-in-out;
+}
+
+.ReactModal__Overlay--after-open {
+  opacity: 1;
+}
+
+.ReactModal__Overlay--before-close {
+  opacity: 0;
+}
+
+.swiper_carousel {
+  overflow: visible;
+}
+
+@keyframes zoomInOut {
+  0% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  100% {
+    opacity: 0.2;
+    transform: scale(0.8);
+  }
+}
+
+.layout__main {
+  min-height: 100vh;
+}
+
+@media (max-width: 724px) and (display-mode: standalone),
+  (max-width: 870px) and (display-mode: standalone) {
+  .header_padding {
+    padding-top: 60px;
+  }
+}

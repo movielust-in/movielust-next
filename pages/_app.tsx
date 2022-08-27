@@ -14,7 +14,7 @@ import Loading from '../components/UI/Loading';
 import 'swiper/css';
 // eslint-disable-next-line import/no-unresolved
 import 'swiper/css/navigation';
-import '../styles/globals.css';
+import '../styles/global.scss';
 import '../styles/font.css';
 
 import 'react-toastify/dist/ReactToastify.min.css';

@@ -1,9 +1,7 @@
 @font-face {
-  font-family: "bariolregular";
-  src: url("bariol_regular-webfont.eot");
-  src: url("bariol_regular-webfont.woff2") format("woff2"),
-    url("bariol_regular-webfont.woff") format("woff"),
-    url("bariol_regular-webfont.svg#bariolregular") format("svg");
+  font-family: 'Bariol';
+  src: url('bariol_regular-webfont.woff2') format('woff2'),
+    url('bariol_regular-webfont.woff') format('woff');
   font-weight: normal;
   font-style: normal;
 }

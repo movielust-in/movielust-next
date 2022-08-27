@@ -90,7 +90,7 @@ function PeopleDetail({ person }: PeopleDeatail) {
   };
 
   return (
-    <Container>
+    <Container className="header_padding">
       <Script
         id="person_structered_data"
         strategy="afterInteractive"
@@ -261,7 +261,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 };
 
 const Container = styled.div`
-  font-family: 'bariolregular', sans-serif;
+  font-family: 'Bariol', sans-serif;
   min-height: calc(100vh - 73px);
   overflow: hidden;
   position: relative;

@@ -97,14 +97,14 @@ function Header({ isOnline }: HeaderProps) {
       >
         <LeftArrow className={styles.Back} onClick={() => router.back()} />
 
-        <Link href="/" className="header_logo">
+        <Link href="/">
           <a>
             <Image
               width={50}
               height={50}
               src="https://ik.imagekit.io/movielust/logo_uIeABdFs3.webp"
               alt="Movielust Logo"
-              className={`${styles.Logo} header_logo`}
+              className={styles.Logo}
             />
           </a>
         </Link>

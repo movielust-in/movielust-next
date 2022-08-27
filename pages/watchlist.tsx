@@ -24,6 +24,7 @@ function Watchlist() {
   const view = useSelector((state) => state.watchlist.current);
 
   const [isLoading, setIsLoading] = useState(false);
+
   const isAuthenticated = useSelector((state) => state.user.isLoggedIn);
 
   const remove = async (id: number) => {
@@ -58,7 +59,7 @@ function Watchlist() {
         />
       </Head>
       {isAuthenticated ? (
-        <Container>
+        <Container className="header_padding">
           <SwitchBox>
             <Switch
               onClick={() => dispatch(setWatchlistView('movie'))}

@@ -69,6 +69,10 @@
   @media (max-width: 724px) {
     width: 60px;
   }
+
+  @media (max-width: 724px) and (display-mode: standalone) {
+    display: none;
+  }
 }
 
 .NavMenu {

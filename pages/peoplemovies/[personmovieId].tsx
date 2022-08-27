@@ -87,7 +87,7 @@ const Container = styled.div`
 `;
 
 const Title = styled.div`
-  font-family: 'bariolregular', sans-serif;
+  font-family: 'Bariol', sans-serif;
   font-size: 30px;
   font-weight: 600;
   margin: 40px;

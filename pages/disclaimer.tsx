@@ -3,7 +3,7 @@ import Head from 'next/head';
 
 function Disclaimer() {
   return (
-    <Container>
+    <Container className="header_padding">
       <Head>
         <title>Disclaimer - Movielust</title>
       </Head>
@@ -79,7 +79,7 @@ const Container = styled.div`
   border-radius: 10px;
   color: #bbc3c8;
   display: inline-block;
-  font-family: 'bariolregular', serif;
+  font-family: 'Bariol', serif;
   font-size: 18px;
   font-style: italic;
   margin: 90px 20px 20px 18px;
@@ -118,7 +118,7 @@ const Notice = styled.ul`
     border: 1px solid #252727;
     border-radius: 10px;
     display: inline-block;
-    font-family: 'bariolregular', sans-serif;
+    font-family: 'Bariol', sans-serif;
     margin: 20px;
     max-width: 90%;
     min-width: 200px;

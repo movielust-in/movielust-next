@@ -70,7 +70,7 @@ function Home({ trendingMovies, homeMovies }: HomeProps) {
         id="structered-json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structeredData) }}
       />
-      <div className={styles.container}>
+      <div className={`${styles.container} header_padding`}>
         <TrendingCarousel movies={trendingMovies} />
         <Movies movies={homeMovies} />
       </div>

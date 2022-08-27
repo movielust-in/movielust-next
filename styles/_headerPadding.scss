@@ -1,0 +1,6 @@
+@mixin headerPadding {
+  @media (max-width: 724px) and (display-mode: standalone),
+    (max-width: 870px) and (display-mode: standalone) {
+    padding-top: 60px;
+  }
+}

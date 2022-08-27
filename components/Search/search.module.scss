@@ -1,4 +1,4 @@
-@use "../../styles/animation";
+@use '../../styles/animation';
 
 @include animation.keyframes(fadeIn) {
   0% {
@@ -89,7 +89,7 @@
   border: none;
   border-radius: 0 8px 8px 0;
   color: rgba(255, 255, 255, 0.8);
-  font-family: "Roboto", sans-serif;
+  font-family: 'Roboto', sans-serif;
   letter-spacing: 0.4px;
   font-size: 1.3rem;
   height: 57px;
@@ -112,7 +112,7 @@
   @media (max-width: 724px) {
     width: 85%;
     padding: 20px;
-    /* margin: 5px 0; */
+    text-align: left;
     border: none;
     font-size: 1rem;
     background-color: #031d30;
