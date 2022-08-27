@@ -17,6 +17,7 @@ import '../styles/globals.css';
 import '../styles/font.css';
 
 import 'react-toastify/dist/ReactToastify.min.css';
+import Script from 'next/script';
 
 function MyApp({ Component, pageProps }: AppProps) {
   const [loading, setLoading] = useState(false);
@@ -45,9 +46,26 @@ function MyApp({ Component, pageProps }: AppProps) {
   }, []);
 
   return (
-    <Provider store={store}>
-      <Layout>{loading ? <Loading /> : <Component {...pageProps} />}</Layout>
-    </Provider>
+    <>
+      {/* <!-- Google tag (gtag.js) --> */}
+
+      <Script
+        src="https://www.googletagmanager.com/gtag/js?id=G-2ZW05V0RYV"
+        strategy="afterInteractive"
+      />
+      <Script id="google-analytics" strategy="afterInteractive">
+        {`
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){window.dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'G-2ZW05V0RYV');
+        `}
+      </Script>
+
+      <Provider store={store}>
+        <Layout>{loading ? <Loading /> : <Component {...pageProps} />}</Layout>
+      </Provider>
+    </>
   );
 }
 
