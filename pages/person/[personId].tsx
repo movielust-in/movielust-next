@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import Script from 'next/script';
 import { useRouter } from 'next/router';
 import { useState, useEffect } from 'react';
 import styled from '@emotion/styled';
@@ -69,8 +70,33 @@ function PeopleDetail({ person }: PeopleDeatail) {
     });
   }, [castid]);
 
+  const structeredData = {
+    '@context': 'https://schema.org',
+    '@type': 'Person',
+    name: person.name,
+    url: `https://movielust.in/person/${person.id}`,
+    image: person.profile_path
+      ? `https://image.tmdb.org/t/p/w200${person.profile_path}`
+      : undefined,
+    description: person.biography
+      ? person.biography.split(' ').slice(0, 100).join(' ')
+      : undefined,
+    birthDate: person.birthday
+      ? new Date(person.birthday).toISOString()
+      : undefined,
+    deathDate: person.deathday
+      ? new Date(person.deathday).toISOString()
+      : undefined,
+  };
+
   return (
     <Container>
+      <Script
+        id="person_structered_data"
+        strategy="afterInteractive"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(structeredData) }}
+      />
       <Meta
         title={`${person.name}`}
         description={person.biography?.split(' ').slice(0, 160).join(' ')}

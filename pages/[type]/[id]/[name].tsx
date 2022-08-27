@@ -2,6 +2,7 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { GetServerSideProps, NextPage } from 'next';
 
+import Script from 'next/script';
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
 
@@ -46,6 +47,7 @@ import {
 import { IMDBRating } from '../../../types/apiResponses';
 
 import styles from '../../../components/Details/Detail.module.scss';
+import MinutesToDuration from '../../../utils/minutesToDuration';
 
 const Seasons = dynamic(() => import('../../../components/Shows/Seasons'));
 
@@ -58,6 +60,7 @@ const Detail: NextPage<DetailProps> = ({ contentData }: DetailProps) => {
 
   const id = router.query.id as string | undefined;
   const type = router.query.type as string | undefined;
+  const title = router.query.name as string;
 
   const [magnets, setMagnets] = useState([]);
 
@@ -184,8 +187,42 @@ const Detail: NextPage<DetailProps> = ({ contentData }: DetailProps) => {
     imdbId: contentData.imdb_id,
   };
 
+  const structuredData = {
+    '@context': 'https://schema.org',
+    '@type': type === 'movie' ? 'Movie' : 'TVSeries',
+    url: `https://movielust.in/${type}/${id}/${title}`,
+    name: commonData.title,
+    image: contentData.poster_path
+      ? `https://image.tmdb.org/t/p/w200${contentData.poster_path}`
+      : undefined,
+    dateCreated: contentData.release_date || undefined,
+    duration:
+      type === 'movie' && contentData.runtime
+        ? MinutesToDuration(contentData.runtime)
+        : undefined,
+    actor:
+      contentData?.credits?.cast
+        ?.slice(0, 5)
+        .map((person) => ({ '@type': 'Person', name: person.name })) ||
+      undefined,
+    description:
+      contentData.overview?.split(' ').slice(0, 100).join(' ') || undefined,
+    potentialAction: {
+      '@type': 'WatchAction',
+      target: `https://movielust.in/${type}/${id}/${title}`,
+    },
+    sameAs: contentData.imdb_id
+      ? `www.imdb.com/title/${contentData.imdb_id}/`
+      : undefined,
+  };
+
   return (
     <div className={styles.Container}>
+      <Script
+        type="application/ld+json"
+        id="movie_tv_structed_data"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+      />
       <DetailHelmet link={router.asPath} commonData={commonData} />
 
       <BackgroundImage backdrop={contentData.backdrop_path} />

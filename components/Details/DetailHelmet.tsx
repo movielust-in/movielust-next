@@ -1,4 +1,4 @@
-import Helmet from 'next/head';
+import Head from 'next/head';
 import { image } from '../../helpers/Urls';
 
 import { CommonData } from './DetailTypes';
@@ -10,7 +10,7 @@ interface DetailHelmetProps {
 
 function DetailHelmet({ commonData, link }: DetailHelmetProps) {
   return (
-    <Helmet>
+    <Head>
       <title>{`${commonData?.title} - Movielust`}</title>
       <meta
         name="description"
@@ -38,7 +38,7 @@ function DetailHelmet({ commonData, link }: DetailHelmetProps) {
         name="twitter:image"
         content={image(780, commonData?.backdrop || commonData?.poster || '')}
       />
-    </Helmet>
+    </Head>
   );
 }
 

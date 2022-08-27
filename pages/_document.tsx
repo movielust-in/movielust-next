@@ -90,6 +90,25 @@ export default function Document() {
         <meta name="apple-mobile-web-app-status-bar-style" content="default" />
         <meta name="apple-mobile-web-app-title" content="Movielust" />
         <meta name="msapplication-config" content="/browserconfig.xml" />
+
+        <script
+          type="application/ld+json"
+          // eslint-disable-next-line react/no-danger
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              '@context': 'https://schema.org',
+              '@type': 'Organization',
+              name: 'Movielust',
+              email: 'support@movielust.in',
+              url: 'http://www.movielust.in',
+              logo: 'http://next.movielust.in/favicons/android-icon-144x144.png',
+              location: {
+                '@type': 'VirtualLocation',
+                url: 'https://movielust.in',
+              },
+            }),
+          }}
+        />
       </Head>
       <body>
         <Main />
