@@ -1,0 +1,8 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+echo -e "Running pre-push: git pull\n"
+
+git pull
+
+echo -e "\n"

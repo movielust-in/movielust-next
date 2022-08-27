@@ -1,0 +1,8 @@
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+
+echo -e "Running post-merge: npm install"
+
+npm install 
+
+echo -e "\n"
