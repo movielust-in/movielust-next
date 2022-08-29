@@ -240,8 +240,7 @@ const Container = styled.div`
 
   @media (max-width: 724px) and (display-mode: standalone),
     (max-width: 870px) and (display-mode: standalone) {
-    padding-right: 30px;
-    padding-left: 30px;
+    padding: 60px 30px auto 30px;
   }
 `;
 
