@@ -1,9 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
+import Head from 'next/head';
 import * as Yup from 'yup';
-// import { toast } from "react-toastify";
 import { useRouter } from 'next/router';
-
-// import { Form, Validate } from '../components';
 
 import Form from '../components/Form/Form';
 import Validate from '../components/Form/Validation';
@@ -13,6 +11,7 @@ import {
   submitSingUp,
   verifyOtp,
 } from '../helpers/user/auth';
+import { useSelector } from '../redux/store';
 
 interface StepOneDataInterface {
   email: string;
@@ -27,9 +26,11 @@ function SignUp() {
 
   const stepOneData = useRef<StepOneDataInterface>();
 
+  const isLoggedIn = useSelector((state) => state.user.isLoggedIn);
+
   useEffect(() => {
-    document.title = 'Signup - Movielust';
-  }, []);
+    if (isLoggedIn) router.replace('/');
+  }, [isLoggedIn, router]);
 
   const [email, setEmail] = useState('');
 
@@ -186,16 +187,21 @@ function SignUp() {
   const [submitting, setSubmitting] = useState(false);
 
   return (
-    <Form
-      formik={step.formik}
-      fields={step.fields}
-      isSubmitting={submitting}
-      extraData={
-        step.fields.name === 'Sign Up'
-          ? (pic: string) => setProfile(pic)
-          : (otp: string) => handleOtp(otp)
-      }
-    />
+    <>
+      <Head>
+        <title>Sign up - Movielust</title>
+      </Head>
+      <Form
+        formik={step.formik}
+        fields={step.fields}
+        isSubmitting={submitting}
+        extraData={
+          step.fields.name === 'Sign Up'
+            ? (pic: string) => setProfile(pic)
+            : (otp: string) => handleOtp(otp)
+        }
+      />
+    </>
   );
 }
 

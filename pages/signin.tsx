@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import * as Yup from 'yup';
 import Head from 'next/head';
 
@@ -10,9 +10,16 @@ import Form from '../components/Form/Form';
 import Validate from '../components/Form/Validation';
 import { setUserLogin } from '../redux/reducers/user.reducer';
 import { login as loginUser } from '../helpers/user/auth';
+import { useSelector } from '../redux/store';
 
 function Login() {
   const router = useRouter();
+
+  const isLoggedIn = useSelector((state) => state.user.isLoggedIn);
+
+  useEffect(() => {
+    if (isLoggedIn) router.replace('/');
+  }, [isLoggedIn, router]);
 
   const dispatch = useDispatch();
 
