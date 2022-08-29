@@ -1,0 +1,24 @@
+.ScrollTopContainer {
+  bottom: 0.7rem;
+  cursor: pointer;
+  position: fixed;
+  right: 2rem;
+  z-index: 2000;
+  transition: all 500ms ease;
+
+  border: none;
+  outline: none;
+  background: transparent;
+  padding: 0;
+  margin: 0;
+
+  transform: translate(0px, 150px);
+
+  @media (max-width: 724px) {
+    margin-bottom: 44px;
+  }
+}
+
+.visible {
+  transform: translate(0, 0);
+}

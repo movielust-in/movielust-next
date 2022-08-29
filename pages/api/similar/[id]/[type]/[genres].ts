@@ -70,5 +70,9 @@ export default function SimilarMovies(
           ],
         });
       } else res.send({ results: filtered });
+    })
+    .catch(() => {
+      res.status(500);
+      res.send({ error: true });
     });
 }

@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef } from 'react';
 
 export default function useEventListener(
   eventName: string,
@@ -18,7 +18,9 @@ export default function useEventListener(
     if (!isSupported) return () => {};
 
     const eventListener = (event: any) => handlerInstance.current(event);
-    (element || window).addEventListener(eventName, eventListener);
+    (element || window).addEventListener(eventName, eventListener, {
+      passive: true,
+    });
 
     return () => {
       (element || window).removeEventListener(eventName, eventListener);
