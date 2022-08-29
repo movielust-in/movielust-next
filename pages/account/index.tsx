@@ -1,4 +1,5 @@
 import { useEffect, useState, useCallback } from 'react';
+import Head from 'next/head';
 import Image from 'next/image';
 import styled from '@emotion/styled';
 import { keyframes } from '@emotion/react';
@@ -95,6 +96,9 @@ function Account() {
 
   return (
     <Container className="header_padding">
+      <Head>
+        <title>Account - Movielust</title>
+      </Head>
       <Index>
         <List>
           <li>
