@@ -17,6 +17,7 @@ import GenreFilter from '../../components/Filters/GenreFilter';
 import Scroller from '../../components/UI/Scroller';
 
 import { TV_GENRES as genres } from '../../config';
+import Meta from '../../components/Meta';
 
 function Series() {
   const type = 'tv';
@@ -46,7 +47,6 @@ function Series() {
   useEffect(() => {
     setIsLoading(true);
     dispatch(setCurrentPage('series'));
-    document.title = 'Series - Watch and Download latest series';
     if (storeMovies.length === 0) {
       fetchSeries();
     }
@@ -56,6 +56,11 @@ function Series() {
 
   return isLoading ? null : (
     <Container>
+      <Meta
+        title="Shows"
+        description="Discover latest collection of Shows on Movielust."
+        url="https://movielust.in/discover/shows"
+      />
       <div style={{ display: 'flex', justifyContent: 'center' }}>
         <GenreFilter type={type} />
       </div>

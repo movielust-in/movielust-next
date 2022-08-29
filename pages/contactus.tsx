@@ -1,4 +1,3 @@
-import Head from 'next/head';
 import { useState } from 'react';
 import * as Yup from 'yup';
 // import { toast } from 'react-toastify';
@@ -7,6 +6,7 @@ import * as Yup from 'yup';
 
 import Form from '../components/Form/Form';
 import Validate from '../components/Form/Validation';
+import Meta from '../components/Meta';
 
 import { submitContactForm } from '../helpers/user';
 import { ContactFormInterface } from '../types/requestData';
@@ -70,9 +70,11 @@ function Contactus() {
 
   return (
     <>
-      <Head>
-        <title>Contact us - Movielust</title>
-      </Head>
+      <Meta
+        title="Contact us"
+        description="Submit your queries."
+        url="https://movielust.in/contactus"
+      />
       <Form formik={formik} fields={fields} isSubmitting={submitting} />;
     </>
   );

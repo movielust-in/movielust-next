@@ -1,17 +1,17 @@
 import { useState, useEffect, useRef } from 'react';
-import Head from 'next/head';
 import * as Yup from 'yup';
 import { useRouter } from 'next/router';
 
-import Form from '../components/Form/Form';
-import Validate from '../components/Form/Validation';
+import Form from '../../components/Form/Form';
+import Validate from '../../components/Form/Validation';
 
 import {
   sendEmailVerifyOtp,
   submitSingUp,
   verifyOtp,
-} from '../helpers/user/auth';
-import { useSelector } from '../redux/store';
+} from '../../helpers/user/auth';
+import { useSelector } from '../../redux/store';
+import Meta from '../../components/Meta';
 
 interface StepOneDataInterface {
   email: string;
@@ -188,9 +188,11 @@ function SignUp() {
 
   return (
     <>
-      <Head>
-        <title>Sign up - Movielust</title>
-      </Head>
+      <Meta
+        title="Sign up"
+        description="Become an Movielust member."
+        url="https://movielust.in/signup"
+      />
       <Form
         formik={step.formik}
         fields={step.fields}

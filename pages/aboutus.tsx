@@ -1,13 +1,15 @@
 import styled from '@emotion/styled';
-import Head from 'next/head';
 import Image from 'next/image';
+import Meta from '../components/Meta';
 
 function Aboutus() {
   return (
     <Container className="header_padding">
-      <Head>
-        <title>About Us - Movielust</title>
-      </Head>
+      <Meta
+        title="About us"
+        description="See more about movielust here."
+        url="https://movielust.in/aboutus"
+      />
       <h3>About Us</h3>
       <Notice>
         <li>

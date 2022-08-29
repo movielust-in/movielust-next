@@ -26,6 +26,7 @@ import getGenreName from '../../utils/getGenreName';
 
 import styles from '../../styles/scroller.module.scss';
 import useObserver from '../../hooks/useObserver';
+import Meta from '../../components/Meta';
 
 function Movie() {
   const dispatch = useDispatch();
@@ -72,6 +73,11 @@ function Movie() {
 
   return (
     <div className={styles.Container}>
+      <Meta
+        title="Movies"
+        description="Discover a vast collection of Movies on Movielust."
+        url="https://movielust.in/discover/movies"
+      />
       <div className={styles.Filters}>
         <SortBy type="movie" />
         <GenreFilter type="movie" />
