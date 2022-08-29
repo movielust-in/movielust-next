@@ -225,10 +225,13 @@ const Container = styled.div`
   min-height: 100%;
   padding: 0 100px;
 
-  @media (max-width: 724px) and (display-mode: browser) {
+  @media (max-width: 724px) {
     flex-direction: column-reverse;
-    padding: 0 30px;
     margin-top: 30px;
+  }
+
+  @media (max-width: 724px) and (display-mode: browser) {
+    padding: 0 30px;
   }
 `;
 
