@@ -1,0 +1,4 @@
+http://localhost:3000/api/similar/361743/movie/28,18
+
+###
+https://api.themoviedb.org/3/movie/361743/similar?&language=en-US&page=6&api_key=2a7d4498c790ee971ae3369d0327d57c

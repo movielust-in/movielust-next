@@ -1,19 +1,19 @@
-import { useState, useEffect } from "react";
-import styled from "@emotion/styled";
-import { FaAngleDoubleDown } from "react-icons/fa";
+import { useState, useEffect } from 'react';
+import styled from '@emotion/styled';
+import { FaAngleDoubleDown } from 'react-icons/fa';
 
-import { useDispatch, useSelector } from "../../redux";
-import { MOVIE_GENRES, TV_GENRES } from "../../config";
+import { useDispatch, useSelector } from '../../redux';
+import { MOVIE_GENRES, TV_GENRES } from '../../config';
 import {
   resetMovies,
   toggleMovieGenreId,
   setMovieGenres,
-} from "../../redux/reducers/movie.reducer";
+} from '../../redux/reducers/movie.reducer';
 import {
   resetSeries,
   toggleSeriesGenreId,
   setSeriesGenres,
-} from "../../redux/reducers/series.reducer";
+} from '../../redux/reducers/series.reducer';
 
 interface GenreFilterProps {
   type: string;
@@ -23,17 +23,17 @@ function GenreFilter({ type }: GenreFilterProps) {
   const [genreDropDownOpen, setGenreDropDownOpen] = useState(false);
   const dispatch = useDispatch();
 
-  const genres = type === "movie" ? MOVIE_GENRES : TV_GENRES;
+  const genres = type === 'movie' ? MOVIE_GENRES : TV_GENRES;
 
   const filters = useSelector((state) =>
-    type === "movie" ? state.movie.filters : state.series.filters
+    type === 'movie' ? state.movie.filters : state.series.filters
   );
 
   const reset = () =>
-    dispatch(type === "movie" ? resetMovies() : resetSeries());
+    dispatch(type === 'movie' ? resetMovies() : resetSeries());
 
   const addOrRemoveGenreIdFromFilter = (id: number) => {
-    if (type === "movie") {
+    if (type === 'movie') {
       reset();
       dispatch(toggleMovieGenreId(id));
     } else {
@@ -43,11 +43,11 @@ function GenreFilter({ type }: GenreFilterProps) {
   };
 
   useEffect(() => {
-    const urlParams = new URLSearchParams(window.location.search).get("genre");
+    const urlParams = new URLSearchParams(window.location.search).get('genre');
 
     if (urlParams) {
       let urlGenres = urlParams
-        .split(",")
+        .split(',')
         .map((id) => parseInt(id, 10))
         .filter(
           (id) => !Number.isNaN(id) && genres.find((genre) => genre.id === id)
@@ -56,7 +56,7 @@ function GenreFilter({ type }: GenreFilterProps) {
       if (urlGenres.length) {
         urlGenres = Array.from(new Set(urlGenres));
         dispatch(
-          type === "movie"
+          type === 'movie'
             ? setMovieGenres(urlGenres)
             : setSeriesGenres(urlGenres)
         );
@@ -85,10 +85,10 @@ function GenreFilter({ type }: GenreFilterProps) {
             }}
             style={{
               backgroundColor: filters.genres.includes(genre.id!)
-                ? "silver"
-                : "",
-              borderRadius: filters.genres.includes(genre.id!) ? "5px" : "",
-              color: filters.genres.includes(genre.id!) ? "black" : "",
+                ? 'silver'
+                : '',
+              borderRadius: filters.genres.includes(genre.id!) ? '5px' : '',
+              color: filters.genres.includes(genre.id!) ? 'black' : '',
             }}
           >
             <div>{genre.name}</div>
@@ -148,25 +148,25 @@ const DropList = styled.ul<{ open: boolean }>`
   border-radius: 8px;
   display: none;
   list-style: none;
-  min-height: ${(props) => (props.open ? "150px" : 0)};
+  min-height: ${(props) => (props.open ? '150px' : 0)};
   min-width: 100px;
   opacity: ${(props) => (props.open ? 0.95 : 0)};
   overflow-y: scroll;
   position: absolute;
   text-align: left;
   transform: translatey(-15px) translateX(-53px);
-  transition: opacity 200ms;
+  transition: all 200ms ease 0s;
   max-height: 500px;
   z-index: 5;
   li {
-    display: ${(props) => (props.open ? "flex" : "none")};
+    display: ${(props) => (props.open ? 'flex' : 'none')};
   }
   &::-webkit-scrollbar {
     /* display: none; */
   }
 
   @media (max-width: 724px) {
-    display: ${(props) => (props.open ? "flex" : "none")};
+    display: ${(props) => (props.open ? 'flex' : 'none')};
     display: block;
     max-height: 350px;
     padding: 16px;
@@ -178,9 +178,8 @@ const Item = styled.li`
   cursor: pointer;
   margin: 10px 0;
   padding: 2px 31px;
-  transition: all 250ms;
   user-select: none;
-
+  transition: all 500ms ease 0s;
   &:hover {
     background-color: gray;
   }

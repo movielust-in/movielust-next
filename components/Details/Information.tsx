@@ -245,7 +245,7 @@ export default function InformationComponent({
             <FaDownload />
             {magnets!.map((magnet) => (
               <div key={magnet.magnet}>
-                <a href={magnet.magnet}>
+                <a href={magnet.magnet} download>
                   {magnet.quality}
                   &nbsp;(
                   {magnet.size})

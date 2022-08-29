@@ -1,7 +1,7 @@
+import axios from 'axios';
 import React, { useState, useEffect, memo } from 'react';
 
-import { fetchSimilar } from '../../helpers/tmdb';
-import { Content } from '../../types/tmdb';
+import { Content, Genre } from '../../types/tmdb';
 import MovieCarousel from '../Carousels/MovieCarousel';
 
 import styles from './Detail.module.scss';
@@ -11,7 +11,7 @@ interface SimilarMoviesProps {
   type: string;
   title: string;
   toBeFiltered: any[];
-  genres: any;
+  genres: Genre[];
 }
 
 function SimilarMovies({
@@ -24,25 +24,32 @@ function SimilarMovies({
   const [similar, setSimilar] = useState<Array<Content | undefined>>();
 
   useEffect(() => {
-    fetchSimilar(id, type, genres).then((response) => {
-      if (type === 'movie' && toBeFiltered?.length) {
-        setSimilar(
-          response!
-            .filter(
-              (movie) =>
-                !toBeFiltered.find((filtered) => filtered.id === movie!.id)!
-            )!
-            .slice(0, 21)!
-        );
-      } else {
-        setSimilar(response.slice(0, 21));
-      }
-    });
+    axios
+      .get<{ results: Content[] }>(
+        `/api/similar/${id}/${type}/${genres
+          .map((genre) => genre.id)
+          .join(',')}`
+      )
+      .then((response) => {
+        if (type === 'movie' && toBeFiltered?.length) {
+          setSimilar(
+            response.data.results
+              .filter(
+                (movie) =>
+                  !toBeFiltered.find((filtered) => filtered.id === movie!.id)!
+              )!
+              .slice(0, 21)!
+          );
+        } else {
+          setSimilar(response.data.results.slice(0, 21));
+        }
+      });
+
     return () => {
       setSimilar(undefined);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [genres, id, toBeFiltered, type]);
+  }, [genres, id, type]);
 
   return (
     <div className={styles.similarContainer}>
