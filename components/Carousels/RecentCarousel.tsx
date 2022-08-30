@@ -30,18 +30,20 @@ function RecentCarousel() {
 
   const isStale = useSelector((state) => state.recents.stale);
 
+  const isAuthenticated = useSelector((state) => state.user.isLoggedIn);
+
   const dispatch = useDispatch();
 
   const called = useRef(false);
 
   useEffect(() => {
-    if (isStale && !called.current) {
+    if (isStale && !called.current && isAuthenticated) {
       called.current = true;
       fetchWatched().then((res) => {
         dispatch(setRecents(res));
       });
     }
-  }, [dispatch, isStale]);
+  }, [dispatch, isStale, isAuthenticated]);
 
   return recents.length > 0 ? (
     <div className={styles.container}>
