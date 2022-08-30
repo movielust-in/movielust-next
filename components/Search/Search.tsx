@@ -60,7 +60,7 @@ function Search({ show }: { show: boolean }) {
   const [people, setPeople] = useState<Content[]>();
 
   useEffect(() => {
-    cLocation.current = router.pathname;
+    [cLocation.current] = router.asPath.split('#');
   }, [router]);
 
   /// ///////////////////////////////////////////////////////////////////  Recent Search   //////////////////////////////////////////////////////////////////////////////////////////

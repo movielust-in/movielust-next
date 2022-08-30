@@ -336,12 +336,18 @@ export const getServerSideProps: GetServerSideProps = async ({
     tv = 'tv',
   }
 
+  const { id, type } = query as { id: string; type: string };
+
+  if (!(type === 'movie' || type === 'tv') || !parseInt(id, 10)) {
+    return {
+      notFound: true,
+    };
+  }
+
   res.setHeader(
     'Cache-Control',
     'public, s-maxage=604800, stale-while-revalidate=86400'
   );
-
-  const { id, type } = query as { id: string; type: string };
 
   let { data } = await fetchDetails(id, type);
 

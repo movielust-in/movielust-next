@@ -1,0 +1,36 @@
+.container {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 25px;
+}
+
+.homeButton {
+  background: rgba(0, 0, 0, 0.3);
+  color: white;
+  border: 1px solid gray;
+  border-radius: 6px;
+  padding: 10px 20px;
+  cursor: pointer;
+  transition: all 500ms ease;
+  font-size: 14px;
+  letter-spacing: 0.7px;
+  &:hover {
+    border: 1px solid white;
+    box-shadow: 2px 2px 4px 0px #000;
+  }
+
+  @media screen and (max-width: 724px) {
+    top: 40%;
+  }
+}
+
+.message {
+  font-size: 20px;
+  transition: all 500ms ease;
+  letter-spacing: 0.5px;
+  font-weight: 200;
+}
