@@ -1512,7 +1512,7 @@
     localforage "^1.8.1"
     tslib "^1.9.3"
 
-"@sentry/nextjs@^7.11.1":
+"@sentry/nextjs@7.11.1":
   version "7.11.1"
   resolved "https://registry.yarnpkg.com/@sentry/nextjs/-/nextjs-7.11.1.tgz#c9314b1c10d8cc4ee7b4ea630731e9b24b573cdd"
   integrity sha512-/Xvllpaqho9YOWt2NrvlwdydAaRo+3Dz5SbvVNSUbQCyA1dg9NqWOI+5b6EzOBfyQVIGVYUIz5MT8fkF+0kzqg==
