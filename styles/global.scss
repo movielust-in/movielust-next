@@ -75,10 +75,6 @@ a {
   text-decoration: none;
 }
 
-.react-multi-carousel-list {
-  overflow: visible !important;
-}
-
 .fill {
   object-fit: fill;
 }
@@ -90,30 +86,6 @@ a {
 .genre-filter-active {
   background: rgb(148, 148, 148);
   color: rgb(0, 0, 0);
-}
-
-.swiper-button-prev,
-.swiper-button-next {
-  display: none !important;
-  margin: 0;
-}
-
-.swiper-button-prev::after,
-.swiper-button-next::after {
-  border-radius: 8px;
-  color: rgba(255, 255, 255, 0.6);
-  background: rgba(1, 1, 1, 0.4);
-  padding: 70%;
-  border: 1px solid silver;
-  position: absolute !important;
-}
-
-.swiper-button-prev::after {
-  margin-left: 15px;
-}
-
-.swiper-button-next::after {
-  margin-right: 40px;
 }
 
 .mejs__logo-button {
@@ -135,10 +107,6 @@ a {
 
 .ReactModal__Overlay--before-close {
   opacity: 0;
-}
-
-.swiper_carousel {
-  overflow: visible;
 }
 
 @keyframes zoomInOut {
