@@ -71,6 +71,7 @@ function ImageCrousel({
                         height={height}
                         blurDataURL={Shimmer(width!, height!)}
                         placeholder="blur"
+                        unoptimized
                         src={`https://image.tmdb.org/t/p/w200/${movie.file_path}`}
                         alt={movie.id}
                       />

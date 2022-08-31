@@ -347,6 +347,7 @@ function Seasons({ id, title, totalSeasons }: SeasonsProps) {
                               src="/images/ghost.png"
                               alt="loading"
                               width={20}
+                              unoptimized
                               height={20}
                             />
                           </TorrentDownload>

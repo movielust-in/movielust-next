@@ -26,7 +26,13 @@ export default function ScrollTop() {
         isVisible ? styles.visible : null
       }`}
     >
-      <Image width={50} height={50} src="/images/up.png" alt="Scroll to top" />
+      <Image
+        width={50}
+        height={50}
+        src="/images/up.png"
+        alt="Scroll to top"
+        unoptimized
+      />
     </button>
   );
 }

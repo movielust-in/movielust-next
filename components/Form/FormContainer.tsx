@@ -21,6 +21,7 @@ function FormContainer({ children }: FormerProps) {
             width={240}
             height={200}
             src="https://ik.imagekit.io/movielust/logo_uIeABdFs3.webp"
+            unoptimized
             alt="logo"
           />
           <p>A New Experience for your movie lust</p>

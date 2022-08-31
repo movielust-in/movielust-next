@@ -36,6 +36,7 @@ function WatchlistItem({
         key={id}
         src={`https://image.tmdb.org/t/p/w154/${posterPath}`}
         alt={title}
+        unoptimized
       />
       <div className={styles.Detail}>
         <div className={styles.Titlebar}>

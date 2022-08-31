@@ -8,7 +8,12 @@ function Spinner({
   height?: string | number;
 }) {
   return (
-    <Image src="/images/player_loading.svg" width={width} height={height} />
+    <Image
+      src="/images/player_loading.svg"
+      width={width}
+      height={height}
+      unoptimized
+    />
   );
 }
 

@@ -27,6 +27,7 @@ function Aboutus() {
                 width={40}
                 height={20}
                 src="/images/svgs/tmdb_attr.svg"
+                unoptimized
                 alt="YTS logo"
               />
             </a>
@@ -35,6 +36,7 @@ function Aboutus() {
                 width={40}
                 height={20}
                 src="/images/yts_logo.png"
+                unoptimized
                 alt="YTS logo"
               />
             </a>

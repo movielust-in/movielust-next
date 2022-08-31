@@ -12,6 +12,7 @@ function BackgroundComp({ backdrop }: DetailBackgroundProps) {
     <div className={styles.Background}>
       <Image
         layout="fill"
+        unoptimized
         alt="movieposter"
         src={
           backdrop
