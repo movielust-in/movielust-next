@@ -104,6 +104,7 @@ function Header({ isOnline }: HeaderProps) {
               height={50}
               src="https://ik.imagekit.io/movielust/logo_uIeABdFs3.webp"
               alt="Movielust Logo"
+              unoptimized
               className={styles.Logo}
             />
           </a>

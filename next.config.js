@@ -4,6 +4,7 @@ const nextConfig = {
   swcMinify: true,
   images: {
     domains: ['tmdb.org', 'themoviedb.org', 'image.tmdb.org', 'ik.imagekit.io'],
+    unoptimized: true,
   },
   compiler: {
     removeConsole:

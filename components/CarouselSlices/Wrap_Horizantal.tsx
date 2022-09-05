@@ -41,6 +41,7 @@ function WrapH({ src, alt, title, rating }: WrapPros) {
         placeholder="blur"
         onError={onError}
         loading="lazy"
+        unoptimized
       />
       {!loading && (rating || title) && (
         <div className={styles.Information}>

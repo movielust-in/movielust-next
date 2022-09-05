@@ -305,7 +305,13 @@ function Search({ show }: { show: boolean }) {
 
       {loading ? (
         <div className={styles.Loading}>
-          <Image src="/images/ghost.png" width={60} height={60} alt="loading" />
+          <Image
+            src="/images/ghost.png"
+            width={60}
+            height={60}
+            unoptimized
+            alt="loading"
+          />
           Getting results...
         </div>
       ) : (
@@ -396,6 +402,7 @@ function ResultSection({ data, type, weight, cb }: CardProps) {
                   alt="People"
                   width="65px"
                   height="100px"
+                  unoptimized
                   src={image(
                     92,
                     type === 'person'

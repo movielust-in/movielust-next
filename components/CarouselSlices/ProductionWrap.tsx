@@ -44,6 +44,7 @@ function ProductionWrap({ src, alt }: ProductionWrapProps) {
         className={styles.Photo}
         width={120}
         height={50}
+        unoptimized
         src={imgSrc}
         alt={alt || 'no alt'}
         // onLoad={() => {

@@ -89,6 +89,7 @@ export function Production() {
         <div>
           <Image
             width={200}
+            unoptimized
             height={70}
             src={`https://image.tmdb.org/t/p/w300/${production.logo_path}`}
             alt="Logo"

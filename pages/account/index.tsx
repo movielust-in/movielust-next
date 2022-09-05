@@ -129,6 +129,7 @@ function Account() {
               <Image
                 src="/images/player_loading.svg"
                 width={100}
+                unoptimized
                 height={100}
               />
             ) : (

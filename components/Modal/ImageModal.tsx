@@ -124,6 +124,7 @@ function Modal({ imagess, onClose, at }: ModalProps) {
               src="/images/svgs/player_loading.svg"
               width={40}
               height={40}
+              unoptimized
               alt="loading"
             />
           </Loader>

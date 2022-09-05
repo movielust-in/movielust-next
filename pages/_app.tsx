@@ -17,8 +17,6 @@ import 'swiper/css/navigation';
 import '../styles/global.scss';
 import '../styles/font.css';
 
-import 'react-toastify/dist/ReactToastify.min.css';
-
 function MyApp({ Component, pageProps }: AppProps) {
   const [loading, setLoading] = useState(false);
 

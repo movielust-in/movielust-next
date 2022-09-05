@@ -38,6 +38,7 @@ function PersonCard({ title, src, alt }: WrapPros) {
         width={200}
         height={300}
         blurDataURL={Shimmer(200, 300)}
+        unoptimized
         placeholder="blur"
         src={imgSrc}
         alt={alt || 'no alt'}
