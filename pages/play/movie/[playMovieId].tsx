@@ -166,6 +166,7 @@ const Play = () => {
 
       <div className={styles.rest_container}>
         <InformationComponent
+          purpose="player"
           type="movie"
           releaseDate=""
           loadingMovieIframe={false}
