@@ -37,7 +37,7 @@
     "yup": "0.32.11"
   },
   "devDependencies": {
-    "@next/bundle-analyzer": "12.2.5",
+    "@next/bundle-analyzer": "12.3.0",
     "@svgr/webpack": "6.3.1",
     "@types/node": "18.7.6",
     "@types/react": "18.0.18",
@@ -48,7 +48,7 @@
     "cross-env": "7.0.3",
     "eslint": "8.23.0",
     "eslint-config-airbnb": "19.0.4",
-    "eslint-config-next": "12.2.5",
+    "eslint-config-next": "12.3.0",
     "eslint-config-prettier": "8.5.0",
     "eslint-plugin-import": "2.26.0",
     "eslint-plugin-jsx-a11y": "6.6.1",
