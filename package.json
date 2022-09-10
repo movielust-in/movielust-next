@@ -40,7 +40,7 @@
     "@next/bundle-analyzer": "12.2.5",
     "@svgr/webpack": "6.3.1",
     "@types/node": "18.7.6",
-    "@types/react": "18.0.18",
+    "@types/react": "18.0.19",
     "@types/react-dom": "18.0.6",
     "@types/react-modal": "3.13.1",
     "@types/react-star-ratings": "2.3.0",
