@@ -29,7 +29,7 @@ const openImdbRatingCharts = (movieImdbId: string) => {
 
 interface InformationComponentProps {
   domColor?: any;
-  purpose: string;
+  purpose?: string;
   type: string;
   commonData: CommonData | undefined;
   releaseDate: string | undefined;
