@@ -1,4 +1,4 @@
-import Image from 'next/image';
+import Image from 'next/future/image';
 import { MouseEventHandler, useState } from 'react';
 import { image } from '../../helpers/Urls';
 
@@ -92,10 +92,9 @@ function Wrap({
           src={imgSrc}
           alt={alt || 'no alt'}
           onError={onError}
-          loading="lazy"
           blurDataURL="/images/placeholder-image.png"
           unoptimized
-          layout="fill"
+          fill
           style={{ borderRadius: '6px' }}
         />
       </div>
