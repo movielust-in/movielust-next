@@ -29,7 +29,7 @@ const openImdbRatingCharts = (movieImdbId: string) => {
 
 interface InformationComponentProps {
   domColor?: any;
-  purpose:string;
+  purpose?: string;
   type: string;
   commonData: CommonData | undefined;
   releaseDate: string | undefined;
@@ -50,8 +50,8 @@ const playButtonMsg = (isMovieShown: boolean) =>
   isMovieShown ? 'Play Trailer' : 'Play Movie';
 
 export default function InformationComponent({
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   purpose,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   domColor,
   type,
   commonData,
@@ -103,14 +103,13 @@ export default function InformationComponent({
   };
 
   return (
-    
     <div
       // style={{
       //   backgroundColor: `rgba(${domColor[0]}, ${domColor[1]}, ${domColor[2]}, 0.3)`,
       // }}
       className={styles.Information}
       style={{
-      maxWidth: purpose?'100vw':'78vw'
+        maxWidth: purpose ? '100vw' : '78vw',
       }}
     >
       <div className={styles.Controls}>
@@ -271,10 +270,14 @@ export default function InformationComponent({
       ) : null}
 
       {commonData && commonData.overview ? (
-        <div className={styles.Description}
-      style={{
-      maxWidth: purpose?'100vw':'77vw'
-      }}>{commonData.overview}</div>
+        <div
+          className={styles.Description}
+          style={{
+            maxWidth: purpose ? '100vw' : '77vw',
+          }}
+        >
+          {commonData.overview}
+        </div>
       ) : null}
     </div>
   );
