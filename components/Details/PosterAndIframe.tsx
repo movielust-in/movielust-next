@@ -38,14 +38,14 @@ function PosterAndIframe({
           <iframe
             width="720"
             height="405"
-            sandbox={
-              showMovie
-                ? 'allow-scripts allow-same-origin allow-forms'
-                : undefined
-            }
+            // sandbox={
+            //   showMovie
+            //     ? 'allow-scripts allow-same-origin allow-forms'
+            //     : undefined
+            // }
             src={
               showMovie
-                ? `${TWO_EMBED}/${id}`
+                ? `${TWO_EMBED}/tmdb/movie?id=${id}`
                 : `https://www.youtube.com/embed/${trailerKey}`
             }
             onLoad={iframeLoaded}

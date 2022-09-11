@@ -170,7 +170,7 @@ const Play = () => {
           type="movie"
           releaseDate=""
           loadingMovieIframe={false}
-          playMovie={() => {}}
+          playMovie={() => { }}
           showMovie={false}
           magnets={[]}
           runtime=""

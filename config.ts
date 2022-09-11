@@ -4,7 +4,7 @@ export const TMDB_KEY = '2a7d4498c790ee971ae3369d0327d57c';
 
 export const SERVER_URI = 'https://movielust.herokuapp.com/v1';
 
-export const TWO_EMBED = 'https://2embed.org/embed';
+export const TWO_EMBED = 'https://2embed.to/embed';
 
 export const WEBTOR_URL =
   'https://cdn.jsdelivr.net/npm/@webtor/embed-sdk-js/dist/index.min.js';
