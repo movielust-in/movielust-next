@@ -45,7 +45,7 @@ function PosterAndIframe({
             // }
             src={
               showMovie
-                ? `${TWO_EMBED}/tmdb/movie?id=${id}`
+                ? `${TWO_EMBED}/${id}`
                 : `https://www.youtube.com/embed/${trailerKey}`
             }
             onLoad={iframeLoaded}

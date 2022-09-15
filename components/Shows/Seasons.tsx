@@ -77,9 +77,7 @@ function Seasons({ id, title, totalSeasons }: SeasonsProps) {
     return (new Date() < bDate ? 'Air date: ' : 'Aired: ') + Releasedse;
   };
 
-  console.log("herre",season)
-  console.log("therre",Episode)
-
+  
   const toggle = (index: any) => {
     router.push(
       `/tv/${id}/${title
@@ -329,7 +327,7 @@ function Seasons({ id, title, totalSeasons }: SeasonsProps) {
                             onLoad={iframeLoaded}
                             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                             title={`Season ${season} Episode ${episode.episode_number}`}
-                            src={`${TWO_EMBED}/tmdb/tv?id=${id}&s=${season}&e=${episode.episode_number}`}
+                            src={`${TWO_EMBED}/${id}/${season}/${episode.episode_number}`}
                             // sandbox="allow-scripts allow-same-origin allow-forms"
                           />
                         </YouTube>
