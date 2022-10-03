@@ -3,7 +3,14 @@ const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
   images: {
-    domains: ['tmdb.org', 'themoviedb.org', 'image.tmdb.org', 'ik.imagekit.io'],
+    domains: [
+      'tmdb.org',
+      'themoviedb.org',
+      'image.tmdb.org',
+      'ik.imagekit.io',
+      ' image.freepik.com',
+      'occ-0-2482-2186.1.nflxso.net',
+    ],
     unoptimized: true,
   },
   compiler: {

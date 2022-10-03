@@ -44,4 +44,10 @@ export const fetchMagnets = (
 export const fetchMagnetsfromYTSapi = (
   imdb_id: string,
   tmdb_id: string | number
-) => axios.get(YTS_API_TORRENTS(tmdb_id, imdb_id));
+) => new Promise((resolve, reject) => { axios.get(YTS_API_TORRENTS(tmdb_id, imdb_id)).then((res)=>{
+  resolve(res.data);
+ 
+}).catch(() => {
+  reject();
+});
+});

@@ -151,6 +151,35 @@ const CASTMOVIES = (id: string | number, page: string | number) =>
 const CASTTV = (id: string | number) =>
   `person/${id}/tv_credits?&language=en-US`;
 
+
+// ------------------------------------- SERVER ------------------------------------------------------------------------ 
+
+const AllAvatars = `${SERVER_URI}/avatar/getall`;
+
+const RESET_PASS = `${SERVER_URI}/auth/resetpassword`;
+
+const VERIFY_OTP =`${SERVER_URI}/auth/verifyotp`;
+
+const RESET_OTP = `${SERVER_URI}/auth/sendotp`;
+
+const VERIFYEMAIL_OTP = `${SERVER_URI}/auth/sendotp`;
+
+const ALL_WATCHED = `${SERVER_URI}/v1/user/allwatched/fetch`;
+
+const UPDATE_AVATAR = `${SERVER_URI}/user/update/avatar`;
+
+const ADD_TO_WATCHED = `${SERVER_URI}/user/watched/add`;
+
+const FETCH_WATCHED = `${SERVER_URI}/user/watched`;
+
+const DELETE_USER = `${SERVER_URI}/user/delete`;
+
+const IMDB_RATING = (imdb_id: string) =>
+  `${SERVER_URI}/movie/imdb-rating/${imdb_id}`;
+
+const IMDB_RATINGS = (ids: string[]) =>
+  `${SERVER_URI}/movie/imdb-ratings/${ids.join(',')}`;
+
 const SHOW_MAGNETS = (
   id: string | number,
   showName: string,
@@ -158,21 +187,7 @@ const SHOW_MAGNETS = (
   totalEpisodes: number
 ) => `${SERVER_URI}/torrent/show/${id}/${showName}/${season}/${totalEpisodes}`;
 
-const AllAvatars = `${SERVER_URI}/avatar/getall`;
 
-export const YTS_API_TORRENTS = (tmdb_id: string | number, imdb_id: string) =>
-  `${SERVER_URI}/torrent/movie/yts/${imdb_id}/${tmdb_id}`;
-
-const RESET_PASS = `${SERVER_URI}/auth/resetpass`;
-
-const VERIFY_OTP = (
-  email: string,
-  otp: string | number,
-  otp_type: string | number
-) => `${SERVER_URI}/auth/verifyotp/${email}/${otp}/${otp_type}`;
-
-const UPDATE_AVATAR = (avatarId: string | number) =>
-  `${SERVER_URI}/user/update/avatar/${avatarId}`;
 
 const GET_IMDB_RATING = (title: string, releaseYear: string | number) => {
   title = title.replace(/[&/\\#,+()$~%.'":*?<>{}]/g, '');
@@ -199,21 +214,7 @@ const HINDI_TORRRENT = (
   return url;
 };
 
-const IMDB_RATING = (imdb_id: string) =>
-  `${SERVER_URI}/movie/imdb-rating/${imdb_id}`;
 
-const IMDB_RATINGS = (ids: string[]) =>
-  `${SERVER_URI}/movie/imdb-ratings/${ids.join(',')}`;
-
-const DELETE_USER = (id: string | number) => `${SERVER_URI}/user/delete/${id}`;
-
-const ADD_TO_WATCHED = `${SERVER_URI}/user/watched/add`;
-
-const FETCH_WATCHED = `${SERVER_URI}/user/watched/fetch`;
-
-const RESET_OTP = `${SERVER_URI}/auth/resetotp`;
-
-const VERIFYEMAIL_OTP = `${SERVER_URI}/auth/verifyemailotp`;
 
 const MAGNET = (
   id: string | number,
@@ -229,7 +230,8 @@ const MAGNET = (
   return url;
 };
 
-const ALL_WATCHED = `${SERVER_URI}/v1/user/allwatched/fetch`;
+export const YTS_API_TORRENTS = (tmdb_id: string | number, imdb_id: string) =>
+  `${SERVER_URI}/torrent/movie/yts/${imdb_id}/${tmdb_id}`;
 
 export {
   ANIME,

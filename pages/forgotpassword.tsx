@@ -1,9 +1,9 @@
 import { useState, useRef } from 'react';
 import * as Yup from 'yup';
-// import { toast } from "react-toastify";
+import { toast } from 'react-toastify';
 import { useRouter } from 'next/router';
-
 // import { Validate, Form } from '..';
+import 'react-toastify/dist/ReactToastify.css';
 
 import Form from '../components/Form/Form';
 import Validate from '../components/Form/Validation';
@@ -23,19 +23,36 @@ function ResetPass() {
   const handleOtp = (otp: string) => {
     otpRef.current = otp;
     if (otp.length !== 6) {
-      // toast("Invalid OTP!");
+      toast('Invalid OTP!', {
+        hideProgressBar: true,
+        autoClose: 2000,
+        type: 'success',
+      });
       return;
     }
-    verifyOtp(email, otp, 1)
+    verifyOtp(email, otp, 'resetpassword')
       .then((res: any) => {
-        if (res && res.data && res.data.success === true) {
+        if (res.data === true) {
+          toast('Verified', {
+            hideProgressBar: true,
+            autoClose: 2000,
+            type: 'success',
+          });
           setStep(stepThri);
         } else {
-          // toast(res.data.message || "Something went wrong!");
+          toast(res.data, {
+            hideProgressBar: true,
+            autoClose: 2000,
+            type: 'error',
+          });
         }
       })
       .catch(() => {
-        // toast("Something went wrong!");
+        toast('Something went wrong!', {
+          hideProgressBar: true,
+          autoClose: 2000,
+          type: 'error',
+        });
       });
   };
 
@@ -47,10 +64,10 @@ function ResetPass() {
     try {
       setSubmitting(true);
       setEmail(values.email);
-      await sendPassReOtp(values.email);
+      await sendPassReOtp(values.email, 'resetpassword');
       setStep(stepTwo);
     } catch (err: any) {
-      // toast(err.response.data.message || "Something went wrong");
+      toast(err.data.message || 'Something went wrong');
     } finally {
       setSubmitting(false);
     }
@@ -115,21 +132,21 @@ function ResetPass() {
 
   const submitThri = (values: any) => {
     if (values.password !== values.cnfPassword) {
-      // toast("Password does not match!");
+      toast('Password does not match!');
     } else {
       resetPassword(email, otpRef.current!, values.password)
         .then((res: any) => {
           const { data } = res;
-          if (data.success === true) {
-            // toast("Password Updated!");
+          if (data === true) {
+            toast('Password Updated!');
             router.push('/signin');
           } else {
-            // toast(data.message);
+            toast(data.message);
             router.push('/signin');
           }
         })
         .catch(() => {
-          // toast("Something Went Wrong!");
+          toast('Something Went Wrong!');
         });
     }
   };

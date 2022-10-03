@@ -69,8 +69,8 @@ function Form({ formik, steps, fields, isSubmitting, login }: FormProps) {
 
   useEffect(() => {
     if (avatars.length > 0) return;
-    fetchAvatars().then((data) => {
-      setAvatars(data);
+    fetchAvatars().then((res) => {
+      setAvatars(res.data);
     });
   }, [avatars]);
 
@@ -233,7 +233,7 @@ function Form({ formik, steps, fields, isSubmitting, login }: FormProps) {
                             placeholder="000000"
                             numInputs={6}
                             isInputNum
-                            shouldAutoFocus
+                            shouldautofocus
                             separator={<span>--</span>}
                             onChange={(value: string | number) => setOtp(value)}
                             containerStyle={{

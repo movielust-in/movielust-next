@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import { useState, useEffect } from 'react';
 import styled from '@emotion/styled';
 import { FaAngleDown } from 'react-icons/fa';
@@ -34,7 +33,6 @@ function ShowPlayer({
   magnets,
   episodemag,
 }: ShowPlayerProps) {
-  // console.log(episodemag)
   const [currMagnet, setMagnet] = useState(playerMag);
   const router = useRouter();
 

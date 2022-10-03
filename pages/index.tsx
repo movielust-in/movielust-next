@@ -1,25 +1,19 @@
 import Script from 'next/script';
 import Movies from '../components/Movies/HomeMovies';
 import TrendingCarousel from '../components/Carousels/HomeCarousel';
-
 import { fetchTrending, fetchTrendingToday } from '../helpers/tmdb/trending';
 
 import {
-  fetchExternalIds,
+  // fetchExternalIds,
   fetchTRM,
   fetchUpcomingMovies,
 } from '../helpers/tmdb/movies';
 
-import { fetchIMDBRatings } from '../helpers/imdb';
-
+// import { fetchIMDBRatings } from '../helpers/imdb';
 import { MovieResult } from '../types/tmdb';
-
 import { fetchLatestSeries, fetchPopularSeries } from '../helpers/tmdb/series';
-
 import { HomeMovies } from '../types/apiResponses';
-
 import styles from '../styles/index.module.scss';
-
 import Meta from '../components/Meta';
 import { dashedTitle } from '../utils';
 
@@ -86,21 +80,21 @@ export const getStaticProps = async () => {
 
   if (!(movies && movies.results)) return {};
 
-  const externalIdsRes = await Promise.all(
-    movies.results.map((movie) => fetchExternalIds(movie.id!, 'movie'))
-  );
+  // const externalIdsRes = await Promise.all(
+  //   movies.results.map((movie) => fetchExternalIds(movie.id!, 'movie'))
+  // );
 
-  const imdbIds = externalIdsRes.map(
-    (externalId) => externalId.imdb_id as string
-  );
+  // const imdbIds = externalIdsRes.map(
+  //   (externalId) => externalId.imdb_id as string
+  // );
 
-  const ratingsRes = await fetchIMDBRatings(imdbIds);
+  // const ratingsRes = await fetchIMDBRatings(imdbIds);
 
-  const ratings = ratingsRes.data.results;
+  // const ratings = await ratingsRes.data.results;
 
-  const trendingMovies = movies.results!.map((movie, index) => ({
+  const trendingMovies = movies.results!.map((movie) => ({
     ...movie,
-    imdb_rating: ratings[index].rating,
+    imdb_rating: 5,
   }));
 
   const homeMovies: HomeMovies = await Promise.all([

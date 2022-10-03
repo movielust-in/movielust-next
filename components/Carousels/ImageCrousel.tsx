@@ -38,9 +38,7 @@ function ImageCrousel({
   height,
 }: ImageCrouselProps) {
   const [open, setOpen] = useState(false);
-
   const closeModal = () => setOpen(false);
-
   const [modalIndex, setIndex] = useState(0);
 
   return (

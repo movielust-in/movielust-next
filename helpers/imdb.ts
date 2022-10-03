@@ -10,7 +10,7 @@ export const fetchIMDBRating = (imdb_id: string): Promise<IMDBRating> =>
         if (res.status !== 200) {
           reject();
         }
-        resolve(res.data);
+        resolve(res.data.movieRating);
       } catch (err) {
         reject();
       }

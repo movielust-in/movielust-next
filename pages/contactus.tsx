@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import * as Yup from 'yup';
-// import { toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 
 // import { Form, Validate } from '../../components';
 
@@ -50,9 +50,9 @@ function Contactus() {
     try {
       setSubmitting(true);
       await submitContactForm(values);
-      // toast(res.data.message);
+      toast('Submitted');
     } catch (err) {
-      // toast('Error');
+      toast('Error');
     } finally {
       setSubmitting(false);
     }

@@ -3,6 +3,8 @@ export interface Avatar {
   link: string;
 }
 
+
 export interface AvatarResponse {
-  avtars: Avatar[];
+  data: Avatar[];
 }
+

@@ -27,7 +27,6 @@ function ProductionWrap({ src, alt }: ProductionWrapProps) {
   // setOpacity(true);
   // setDomColor(colorThief.getColor(backgroundRef.current));
   // };
-  // console.log(domColor)
 
   const onError = () => {
     setImgSrc('https://ik.imagekit.io/movielust/logo_uIeABdFs3.webp');

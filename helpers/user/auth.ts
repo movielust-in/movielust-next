@@ -3,11 +3,11 @@ import { SERVER_URI } from '../../config';
 import { SingUpDataInterface } from '../../types/requestData';
 import { RESET_OTP, VERIFYEMAIL_OTP, VERIFY_OTP, RESET_PASS } from '../Urls';
 
-export const sendPassReOtp = (email: string) =>
+export const sendPassReOtp = (email: string,type:string) =>
     new Promise((resolve, reject) => {
         (async () => {
             try {
-                const res = await axios.post(RESET_OTP, { email });
+                const res = await axios.post(RESET_OTP, { email,type });
                 resolve(res);
             } catch (err) {
                 reject(err);
@@ -15,13 +15,14 @@ export const sendPassReOtp = (email: string) =>
         })();
     });
 
-export const sendEmailVerifyOtp = (email: string, name: string) =>
+export const sendEmailVerifyOtp = (email: string, name: string, type: string) =>
     new Promise((resolve, reject) => {
         (async () => {
             try {
                 const res = await axios.post(VERIFYEMAIL_OTP, {
                     email,
                     name,
+                    type,
                 });
                 if (res.status === 200) resolve(res);
                 else reject();
@@ -34,12 +35,16 @@ export const sendEmailVerifyOtp = (email: string, name: string) =>
 export const verifyOtp = (
     email: string,
     otp: string,
-    otp_type: number
-): Promise<AxiosResponse<any>> =>
+    otp_type: string
+) : Promise<AxiosResponse<any>>=>
     new Promise((resolve, reject) => {
         (async () => {
             try {
-                const res = await axios.get(VERIFY_OTP(email, otp, otp_type));
+                const res = await axios.post(VERIFY_OTP, {
+                    email,
+                    otp,
+                    otp_type,
+                });
                 resolve(res);
             } catch {
                 reject();
@@ -55,6 +60,7 @@ export const resetPassword = (email: string, otp: string, newPassword: string) =
                     email,
                     otp,
                     password: newPassword,
+                    type: "ResetPassword"
                 });
                 resolve(res);
             } catch {
@@ -75,4 +81,4 @@ export const getProfile = (token: string) =>
     });
 
 export const submitSingUp = (data: SingUpDataInterface) =>
-    axios.post(`${SERVER_URI}/auth/register`, data);
+    axios.post(`${SERVER_URI}/auth/signup`, data);

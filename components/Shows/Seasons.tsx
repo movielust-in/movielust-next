@@ -77,7 +77,6 @@ function Seasons({ id, title, totalSeasons }: SeasonsProps) {
     return (new Date() < bDate ? 'Air date: ' : 'Aired: ') + Releasedse;
   };
 
-  
   const toggle = (index: any) => {
     router.push(
       `/tv/${id}/${title
@@ -174,7 +173,6 @@ function Seasons({ id, title, totalSeasons }: SeasonsProps) {
 
   const onEpisodePlay = (episode: any, episodeNum: string | number) => {
     // play/show/title/season/episode/totalEpisode/showId?m=magent&q=quality
-    // console.log(magnets, season, magnets[season].length);
     router.push(
       `/play/show/${title}/${season}/${episodeNum}/${
         magnets[season].length

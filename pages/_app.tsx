@@ -1,5 +1,7 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import { useEffect, useRef, useState } from 'react';
+import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer } from 'react-toastify';
 import Script from 'next/script';
 import Router from 'next/router';
 import type { AppProps } from 'next/app';
@@ -63,6 +65,7 @@ function MyApp({ Component, pageProps }: AppProps) {
       <Provider store={store}>
         <Layout>{loading ? <Loading /> : <Component {...pageProps} />}</Layout>
       </Provider>
+      <ToastContainer />
     </>
   );
 }

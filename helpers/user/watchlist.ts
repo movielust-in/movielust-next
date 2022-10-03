@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { toast } from 'react-toastify';
 import { SERVER_URI } from '../../config';
 import { Content } from '../../types/tmdb';
 import { getAll } from '../Get';
@@ -14,7 +15,7 @@ const fetchWatchlistRaw = (): Promise<Array<Content & { type: string }>> =>
                     headers: { Authorization: `Bearer ${token}` },
                 })
                 .then((response) =>
-                    response.status === 200 ? resolve(response.data.results) : reject(response)
+                    response.status === 200 ? resolve(response.data) : reject(response)
                 )
                 .catch((err) => {
                     reject(err);
@@ -31,7 +32,7 @@ export const fetchWatchlist = async () =>
                 const movies: any = [];
                 const series: any = [];
                 const rawWatchlist = await fetchWatchlistRaw();
-                await rawWatchlist.forEach((result) =>
+                rawWatchlist.forEach((result) =>
                     result.type === 'movie' ? movies.push(result) : series.push(result)
                 );
 
@@ -108,6 +109,7 @@ export const removeFromWL = (id: string | number, type: string) =>
                 })
                 .then((response) => {
                     if (response.status === 200) {
+                        toast("Removed from Watchlist")
                         resolve(true);
                     } else {
                         reject();

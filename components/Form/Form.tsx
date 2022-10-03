@@ -39,6 +39,13 @@ function Form({ formik, fields, isSubmitting, extraData }: FormProps) {
     'https://image.freepik.com/free-vector/mysterious-mafia-man-smoking-cigarette_52683-34828.jpg'
   );
 
+  useEffect(() => {
+    if (avatars.length > 0) return;
+    fetchAvatars().then((res) => {
+      setAvatars(res.data);
+    });
+  }, [avatars]);
+
   const openModal = useCallback(() => {
     setIsModalOpen((state) => !state);
   }, []);
@@ -57,13 +64,6 @@ function Form({ formik, fields, isSubmitting, extraData }: FormProps) {
       bottom: 0,
     },
   };
-
-  useEffect(() => {
-    if (avatars.length > 0) return;
-    fetchAvatars().then((data) => {
-      setAvatars(data);
-    });
-  }, [avatars]);
 
   const changeProfile = (link: any) => {
     setProfile(link);
@@ -184,10 +184,9 @@ function Form({ formik, fields, isSubmitting, extraData }: FormProps) {
                     return (
                       <>
                         <div
-                          className={`${styles.ProfilePicture} ${
-                            isSubmitting ? styles.submitting : ''
-                          }`}
-                          style={{ backgroundImage: profile }}
+                          className={`${styles.ProfilePicture}
+                           ${isSubmitting ? styles.submitting : ''}`}
+                          style={{ backgroundImage: `url(${profile})` }}
                           // submitting={isSubmitting}
                         >
                           <FaEdit
@@ -209,7 +208,7 @@ function Form({ formik, fields, isSubmitting, extraData }: FormProps) {
                             <img
                               role="presentation"
                               onClick={() => {
-                                changeProfile(data.id);
+                                changeProfile(data.link);
                                 openModal();
                               }}
                               src={data.link}
@@ -240,7 +239,7 @@ function Form({ formik, fields, isSubmitting, extraData }: FormProps) {
                           placeholder="------"
                           numInputs={6}
                           isInputNum
-                          shouldAutoFocus
+                          shouldautofocus
                           separator={
                             <span
                               style={{

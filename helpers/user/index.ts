@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 import tmdbClient from '../tmdbClient';
-import { Avatar, AvatarResponse } from '../../types/avatar';
+import {  AvatarResponse } from '../../types/avatar';
 
 import {
     Get_AVATARS,
@@ -14,35 +14,27 @@ import {
 import { SERVER_URI } from '../../config';
 import { ContactFormInterface } from '../../types/requestData';
 
-export const fetchAvatars = (): Promise<Avatar[]> =>
-    new Promise((resolve) => {
-        (async () => {
-            try {
-                const res = await axios.get<AvatarResponse>(Get_AVATARS);
-                resolve(res.data.avtars);
-            } catch {
-                resolve([]);
-            }
-        })();
-    });
+export const fetchAvatars = () =>
+  axios.get<AvatarResponse>(Get_AVATARS);
+
 
 export const updateAvatar = (avatarId: string | number) =>
     new Promise((resolve, reject) => {
         (async () => {
             try {
                 const token = localStorage.movielust_user;
-
                 const res = await axios.put(
-                    UPDATE_AVATAR(avatarId),
-                    {},
-                    { headers: { Authorization: `Bearer ${token}` } }
+                    UPDATE_AVATAR,
+                    {avatar:avatarId},
+                    { headers:{ Authorization: `Bearer ${token}`}}
                 );
-                resolve(res);
+                
+                resolve(res.data);
             } catch {
                 reject();
             }
         })();
-    });
+    });    
 
 export const fetchWatched = () =>
     new Promise((resolve, reject) => {
@@ -50,16 +42,19 @@ export const fetchWatched = () =>
             const token = localStorage.movielust_user;
             if (token) {
                 const res = await axios.get(FETCH_WATCHED, {
-                    headers: { Authorization: `Bearer ${token}` },
+                    headers: { Authorization: `Bearer ${token}`},
                 });
 
-                const rawList = res.data.results;
-
+                const rawList = res.data;
+            
+ 
                 let watchedList = await Promise.all(
                     rawList.map((content: any) =>
                         tmdbClient.get(SHALLOW_DETAIL(content.content_id, content.type))
                     )
                 );
+
+
                 watchedList = watchedList.map((content, index) => {
                     const zip = { ...content.data, media_type: rawList[index].type };
                     if (rawList[index].type === 'tv') {
@@ -106,10 +101,14 @@ export const deleteUser = (id: string) =>
             try {
                 const token = localStorage.getItem('movielust_user');
                 if (token) {
-                    const res = await axios.delete(DELETE_USER(id), {
+                    const res = await axios.delete(DELETE_USER, {
+                        data: {
+                            user_id: id
+                          },
                         headers: {
                             Authorization: `Bearer ${token}`,
                         },
+                        
                     });
                     resolve(res);
                 } else {

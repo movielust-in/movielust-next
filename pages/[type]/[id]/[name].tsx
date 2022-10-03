@@ -1,6 +1,7 @@
 /* eslint-disable no-alert */
 import React, { useCallback, useEffect, useState } from 'react';
 import { GetServerSideProps, NextPage } from 'next';
+import { toast } from 'react-toastify';
 
 import Script from 'next/script';
 import dynamic from 'next/dynamic';
@@ -96,7 +97,7 @@ const Detail: NextPage<DetailProps> = ({ contentData }: DetailProps) => {
   useEffect(() => {
     if (type !== 'movie' || !contentData.imdb_id || !id) return;
     fetchMagnetsfromYTSapi(contentData.imdb_id, id).then((res) => {
-      setMagnets(res.data.results);
+      setMagnets(res);
     });
   }, [contentData.imdb_id, id, type]);
 
@@ -139,7 +140,7 @@ const Detail: NextPage<DetailProps> = ({ contentData }: DetailProps) => {
       if (type === 'movie') dispatch(addMovieToWatchlist(data));
       else dispatch(addShowToWatchlist(data));
 
-      // toast('Added to Watchlist');
+      toast('Added to Watchlist');
     } catch (err: any) {
       if (err && err.response && err.response.statusText) {
         alert('Already in Watchlist!');

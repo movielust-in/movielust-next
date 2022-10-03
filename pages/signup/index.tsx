@@ -1,5 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import * as Yup from 'yup';
+import { toast } from 'react-toastify';
+
 import { useRouter } from 'next/router';
 
 import Form from '../../components/Form/Form';
@@ -61,11 +63,18 @@ function SignUp() {
         password: values.password,
       };
 
-      await sendEmailVerifyOtp(values.email, values.name);
-
-      setStep(stepTwo);
+      const sendOTP: any = await sendEmailVerifyOtp(
+        values.email,
+        values.name,
+        'SIGNUP'
+      );
+      if (sendOTP.data === 'E-mail already exists') {
+        toast(sendOTP.data);
+      } else {
+        setStep(stepTwo);
+      }
     } catch (err: any) {
-      // toast(err.response.data.message || "Something went wrong!");
+      toast(err.response.data.message || 'Something went wrong!');
     } finally {
       setSubmitting(false);
     }
@@ -75,19 +84,15 @@ function SignUp() {
     try {
       otpRef.current = otp;
       if (otp.length !== 6) {
-        // toast("Invalid OTP!");
+        toast('Invalid OTP!');
         return;
       }
 
       setSubmitting(true);
 
-      const verifyOtpRes = await verifyOtp(email, otp, 0);
+      const verifyOtpRes = await verifyOtp(email, otp, 'SIGNUP');
 
-      if (
-        verifyOtpRes &&
-        verifyOtpRes.data &&
-        verifyOtpRes.data.success === true
-      ) {
+      if (verifyOtpRes) {
         if (stepOneData.current) {
           await submitSingUp({
             name: stepOneData.current.name,
@@ -96,15 +101,15 @@ function SignUp() {
             password: stepOneData.current.password,
           });
 
-          // toast(registerRes.data.message);
+          toast('Account Created');
 
           router.push('/signin');
         }
       } else {
-        // toast(verifyOtpRes.data.message);
+        toast('Error');
       }
     } catch (err: any) {
-      // toast(err.response.data.message || "Something went wrong!");
+      toast(err.response.data.message || 'Something went wrong!');
     } finally {
       setSubmitting(false);
     }
@@ -190,7 +195,7 @@ function SignUp() {
     <>
       <Meta
         title="Sign up"
-        description="Become an Movielust member."
+        description="Become a member of Movielust."
         url="https://movielust.in/signup"
       />
       <Form
