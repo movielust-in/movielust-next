@@ -5,15 +5,11 @@ import styled from '@emotion/styled';
 import { keyframes } from '@emotion/react';
 import { useRouter } from 'next/router';
 import dynamic from 'next/dynamic';
-
 import { FaEdit } from 'react-icons/fa';
-
 import { useSelector, useDispatch } from '../../redux';
 import { setSignOut, setUserLogin } from '../../redux/reducers/user.reducer';
 import { fetchAvatars, updateAvatar, deleteUser } from '../../helpers/user';
-
 import styles from '../../styles/avatar_modal.module.scss';
-
 import { AvatarResponse } from '../../types/apiResponses';
 
 const Modal = dynamic(() => import('react-modal'));

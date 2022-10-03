@@ -101,7 +101,7 @@ export default function InformationComponent({
     }
     // else setShowShareOptions((state) => !state);
   };
-  
+
   return (
     <div
       // style={{

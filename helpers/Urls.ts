@@ -1,4 +1,4 @@
-import { SERVER_URI } from '../config';
+import { SERVER_URI, SERVER_URI_PY } from '../config';
 
 const newDate = new Date();
 let date: number | string = newDate.getDate();
@@ -168,7 +168,7 @@ const ALL_WATCHED = `${SERVER_URI}/v1/user/allwatched/fetch`;
 
 const UPDATE_AVATAR = `${SERVER_URI}/user/update/avatar`;
 
-const ADD_TO_WATCHED = `${SERVER_URI}/user/watched/add`;
+const ADD_TO_WATCHED = `${SERVER_URI}/user/addWatched`;
 
 const FETCH_WATCHED = `${SERVER_URI}/user/watched`;
 
@@ -185,7 +185,7 @@ const SHOW_MAGNETS = (
   showName: string,
   season: string | number,
   totalEpisodes: number
-) => `${SERVER_URI}/torrent/show/${id}/${showName}/${season}/${totalEpisodes}`;
+) => `${SERVER_URI_PY}/torrent/show/${id}/${showName}/${season}/${totalEpisodes}`;
 
 
 
@@ -207,7 +207,7 @@ const HINDI_TORRRENT = (
     .replace('-', '')
     .replace('  ', ' ')
     .replace(/[&/\\#,+()$~%.'":*?<>{}]/g, '');
-  const url = `${SERVER_URI}/torrent/movie/hindi/${id}/${title
+  const url = `${SERVER_URI_PY}/torrent/movie/hindi/${id}/${title
     .toLowerCase()
     .split(' ')
     .join('-')}-${releaseYear}`;
@@ -222,7 +222,7 @@ const MAGNET = (
   releaseYear: string | number
 ) => {
   title = title.replace(/[&/\\#,+()$~%.'":*?<>{}]/g, '');
-  const url = `${SERVER_URI}/torrent/movie/${id}/${title
+  const url = `${SERVER_URI_PY}/torrent/movie/${id}/${title
     .toLowerCase()
     .split(' ')
     .join('-')}-${releaseYear}`;

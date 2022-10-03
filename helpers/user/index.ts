@@ -80,11 +80,13 @@ export const addWatched = (data: {
             try {
                 const token = localStorage.movielust_user;
                 if (token) {
-                    const res = await axios.post(ADD_TO_WATCHED, data, {
+                    const res = await axios.post(ADD_TO_WATCHED,data,{
+                        
                         headers: {
                             Authorization: `Bearer ${token}`,
                         },
                     });
+                   
                     if (res.status === 201) resolve('ok');
                     else reject();
                 }

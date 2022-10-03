@@ -74,7 +74,7 @@ function Seasons({ id, title, totalSeasons }: SeasonsProps) {
     const Releasedse = `${
       FULL_MONTHS[bDate.getMonth()]
     }, ${bDate.getDate()} ${bDate.getFullYear()}`;
-    return (new Date() < bDate ? 'Air date: ' : 'Aired: ') + Releasedse;
+    return (new Date() < bDate ? 'Air date: ' : 'Aired On: ') + Releasedse;
   };
 
   const toggle = (index: any) => {
@@ -326,7 +326,7 @@ function Seasons({ id, title, totalSeasons }: SeasonsProps) {
                             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                             title={`Season ${season} Episode ${episode.episode_number}`}
                             src={`${TWO_EMBED}/${id}/${season}/${episode.episode_number}`}
-                            sandbox="allow-scripts allow-same-origin allow-forms"
+                            // sandbox="allow-scripts allow-same-origin allow-forms"
                           />
                         </YouTube>
                       )}
