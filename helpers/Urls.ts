@@ -156,6 +156,8 @@ const CASTTV = (id: string | number) =>
 
 const AllAvatars = `${SERVER_URI}/avatar/getall`;
 
+const UPDATE_AVATAR = `${SERVER_URI}/user/update/avatar`;
+
 const RESET_PASS = `${SERVER_URI}/auth/resetpassword`;
 
 const VERIFY_OTP =`${SERVER_URI}/auth/verifyotp`;
@@ -166,8 +168,6 @@ const VERIFYEMAIL_OTP = `${SERVER_URI}/auth/sendotp`;
 
 const ALL_WATCHED = `${SERVER_URI}/v1/user/allwatched/fetch`;
 
-const UPDATE_AVATAR = `${SERVER_URI}/user/update/avatar`;
-
 const ADD_TO_WATCHED = `${SERVER_URI}/user/addWatched`;
 
 const FETCH_WATCHED = `${SERVER_URI}/user/watched`;
@@ -177,9 +177,19 @@ const DELETE_USER = `${SERVER_URI}/user/delete`;
 const IMDB_RATING = (imdb_id: string) =>
   `${SERVER_URI}/movie/imdb-rating/${imdb_id}`;
 
+  const GET_IMDB_RATING = (title: string, releaseYear: string | number) => {
+    title = title.replace(/[&/\\#,+()$~%.'":*?<>{}]/g, '');
+    const url = `${SERVER_URI}/movie/imdb-rating/${title
+      .toLowerCase()
+      .split(' ')
+      .join('-')}-${releaseYear}`;
+    return url;
+  };
+
 const IMDB_RATINGS = (ids: string[]) =>
   `${SERVER_URI}/movie/imdb-ratings/${ids.join(',')}`;
 
+// ------------------Get Magnets-----------
 const SHOW_MAGNETS = (
   id: string | number,
   showName: string,
@@ -188,15 +198,6 @@ const SHOW_MAGNETS = (
 ) => `${SERVER_URI_PY}/torrent/show/${id}/${showName}/${season}/${totalEpisodes}`;
 
 
-
-const GET_IMDB_RATING = (title: string, releaseYear: string | number) => {
-  title = title.replace(/[&/\\#,+()$~%.'":*?<>{}]/g, '');
-  const url = `${SERVER_URI}/movie/imdb-rating/${title
-    .toLowerCase()
-    .split(' ')
-    .join('-')}-${releaseYear}`;
-  return url;
-};
 
 const HINDI_TORRRENT = (
   id: string | number,
@@ -213,7 +214,6 @@ const HINDI_TORRRENT = (
     .join('-')}-${releaseYear}`;
   return url;
 };
-
 
 
 const MAGNET = (

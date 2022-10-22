@@ -47,7 +47,7 @@ export const fetchWatched = () =>
 
                 const rawList = res.data;
             
- 
+                if(rawList.length>0){
                 let watchedList = await Promise.all(
                     rawList.map((content: any) =>
                         tmdbClient.get(SHALLOW_DETAIL(content.content_id, content.type))
@@ -65,7 +65,8 @@ export const fetchWatched = () =>
                 });
                 resolve(watchedList);
             } else reject();
-        })();
+        }
+    })();
     });
 
 export const addWatched = (data: {
