@@ -207,6 +207,7 @@ function Form({ formik, fields, isSubmitting, extraData }: FormProps) {
                           {avatars.map((data: any) => (
                             <img
                               role="presentation"
+                              key={data.link}
                               onClick={() => {
                                 changeProfile(data.link);
                                 openModal();

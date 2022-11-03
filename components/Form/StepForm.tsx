@@ -41,6 +41,7 @@ interface FormProps {
 function Form({ formik, steps, fields, isSubmitting, login }: FormProps) {
   const [modalIsOpen, setIsOpen] = useState(false);
   const [avatars, setAvatars] = useState<Avatar[]>([]);
+
   const [showHidePassword, changeShowHidePassword] = useState(false);
   const [otp, setOtp] = useState<string | number>('');
 
@@ -70,7 +71,7 @@ function Form({ formik, steps, fields, isSubmitting, login }: FormProps) {
   useEffect(() => {
     if (avatars.length > 0) return;
     fetchAvatars().then((res) => {
-      setAvatars(res.data);
+      setAvatars(res.data as any);
     });
   }, [avatars]);
 
@@ -198,9 +199,9 @@ function Form({ formik, steps, fields, isSubmitting, login }: FormProps) {
                             ariaHideApp={false}
                           >
                             {avatars.map((data: Avatar) => (
-                              // eslint-disable-next-line react/jsx-key
                               <img
                                 role="presentation"
+                                key={data.id}
                                 onClick={() => {
                                   changeProfile(data.id, data.link);
                                   openModal();
