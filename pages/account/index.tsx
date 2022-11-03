@@ -1,4 +1,4 @@
-import { useEffect, useState, useCallback, Key } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import Head from 'next/head';
 import Image from 'next/image';
 import styled from '@emotion/styled';
@@ -10,7 +10,7 @@ import { useSelector, useDispatch } from '../../redux';
 import { setSignOut, setUserLogin } from '../../redux/reducers/user.reducer';
 import { fetchAvatars, updateAvatar, deleteUser } from '../../helpers/user';
 import styles from '../../styles/avatar_modal.module.scss';
-import { AvatarResponse } from '../../types/apiResponses';
+// import { AvatarResponse } from '../../types/apiResponses';
 
 const Modal = dynamic(() => import('react-modal'));
 
@@ -19,7 +19,7 @@ function Account() {
   const router = useRouter();
   const user = useSelector((state) => state.user);
   const [openAvatarModal, setOpenAvatarModal] = useState(false);
-  const [avatars, setAvatars] = useState<AvatarResponse>();
+  const [avatars, setAvatars] = useState<any>();
   const [isUpdating, setUpdating] = useState(false);
   const [deleteModal, setDeleteModal] = useState(false);
 
@@ -174,30 +174,25 @@ function Account() {
         >
           {avatars &&
             avatars.length > 0 &&
-            avatars.map(
-              (data: {
-                id: Key | null | undefined;
-                link: string | undefined;
-              }) => (
-                // eslint-disable-next-line @next/next/no-img-element
-                <img
-                  role="presentation"
-                  onClick={() => {
-                    changeProfile(data.id, data.link);
-                    openModal();
-                    setUpdating(true);
-                  }}
-                  key={data.id}
-                  src={data.link}
-                  alt="Profile"
-                  onError={({ currentTarget }) => {
-                    currentTarget.onerror = null; // prevents looping
-                    currentTarget.src =
-                      'https://occ-0-2482-2186.1.nflxso.net/dnm/api/v6/K6hjPJd6cR6FpVELC5Pd6ovHRSk/AAAAFAx0vpY-2wMoKq6NB86jynopBLEWBi4jkOR6n3A1-bSFo7edA95Qkn5-LVZad5km8LWJ_xqMz67rHxY1SVKXxf17Ng.png';
-                  }}
-                />
-              )
-            )}
+            avatars.map((data: { id: any; link: any }) => (
+              // eslint-disable-next-line @next/next/no-img-element
+              <img
+                role="presentation"
+                onClick={() => {
+                  changeProfile(data.id, data.link);
+                  openModal();
+                  setUpdating(true);
+                }}
+                key={data.id}
+                src={data.link}
+                alt="Profile"
+                onError={({ currentTarget }) => {
+                  currentTarget.onerror = null; // prevents looping
+                  currentTarget.src =
+                    'https://occ-0-2482-2186.1.nflxso.net/dnm/api/v6/K6hjPJd6cR6FpVELC5Pd6ovHRSk/AAAAFAx0vpY-2wMoKq6NB86jynopBLEWBi4jkOR6n3A1-bSFo7edA95Qkn5-LVZad5km8LWJ_xqMz67rHxY1SVKXxf17Ng.png';
+                }}
+              />
+            ))}
         </Modal>
         <Modal
           isOpen={deleteModal}

@@ -91,8 +91,8 @@ const Play = () => {
   useEffect(() => {
     if ((mags.magnets && mags.magnets.length) || !info.imdbId || !tmdbId)
       return;
-    fetchMagnetsfromYTSapi(info.imdbId, tmdbId).then((res) => {
-      setMags({ fetched: true, magnets: res.data.results });
+    fetchMagnetsfromYTSapi(info.imdbId, tmdbId).then((res: any) => {
+      setMags({ magnets: res.data.results, fetched: true });
     });
   }, [info.imdbId, mags, tmdbId]);
 
@@ -170,7 +170,7 @@ const Play = () => {
           type="movie"
           releaseDate=""
           loadingMovieIframe={false}
-          playMovie={() => { }}
+          playMovie={() => {}}
           showMovie={false}
           magnets={[]}
           runtime=""
