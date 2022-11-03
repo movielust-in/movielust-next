@@ -42,7 +42,7 @@ function Form({ formik, fields, isSubmitting, extraData }: FormProps) {
   useEffect(() => {
     if (avatars.length > 0) return;
     fetchAvatars().then((res) => {
-      setAvatars(res.data);
+      setAvatars(res.data as any);
     });
   }, [avatars]);
 
