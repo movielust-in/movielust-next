@@ -208,6 +208,7 @@ function Seasons({ id, title, totalSeasons }: SeasonsProps) {
     // });
   };
 
+
   const onEpisodeLoad = () => {
     // if (
     //   magnets &&
@@ -268,6 +269,7 @@ function Seasons({ id, title, totalSeasons }: SeasonsProps) {
           {show &&
             season in seasons &&
             (seasons[season] as TvSeasonResponse).episodes!.map((episode) => (
+              
               <EpisodeContainer
                 key={episode.id}
                 ref={
@@ -325,11 +327,12 @@ function Seasons({ id, title, totalSeasons }: SeasonsProps) {
                             onLoad={iframeLoaded}
                             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                             title={`Season ${season} Episode ${episode.episode_number}`}
-                            src={`${TWO_EMBED}/${id}/${season}/${episode.episode_number}`}
+                            src={`${TWO_EMBED}/${episode.id}`}
                             // sandbox="allow-scripts allow-same-origin allow-forms"
                           />
                         </YouTube>
-                      )}
+                      )
+                     }
 
                       <EpisodeOverview>
                         <EpisodeDescription>
