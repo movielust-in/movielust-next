@@ -68,6 +68,7 @@ function SignUp() {
         values.name,
         'SIGNUP'
       );
+    
       if (sendOTP.data === 'E-mail already exists') {
         toast(sendOTP.data);
       } else {
@@ -92,7 +93,7 @@ function SignUp() {
 
       const verifyOtpRes = await verifyOtp(email, otp, 'SIGNUP');
 
-      if (verifyOtpRes) {
+      if (verifyOtpRes.data === true) {
         if (stepOneData.current) {
           await submitSingUp({
             name: stepOneData.current.name,
@@ -105,8 +106,12 @@ function SignUp() {
 
           router.push('/signin');
         }
-      } else {
-        toast('Error');
+      }
+      else if(verifyOtpRes.data==="Wrong OTP")  {
+        toast("Wrong OTP")
+      }
+       else {
+        toast('Error! Please Signup again');
       }
     } catch (err: any) {
       toast(err.response.data.message || 'Something went wrong!');

@@ -164,7 +164,7 @@ const VERIFY_OTP =`${SERVER_URI}/auth/verifyotp`;
 
 const RESET_OTP = `${SERVER_URI}/auth/sendotp`;
 
-const VERIFYEMAIL_OTP = `${SERVER_URI}/auth/verifyOTP`;
+const VERIFYEMAIL_OTP = `${SERVER_URI}/auth/sendotp`;
 
 const ALL_WATCHED = `${SERVER_URI}/v1/user/allwatched/fetch`;
 
