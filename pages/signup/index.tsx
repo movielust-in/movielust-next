@@ -69,7 +69,6 @@ function SignUp() {
         values.name,
         'SIGNUP'
       );
-      console.log("index.tsx checking sendOTP function",sendOTP)
     
       if (sendOTP.data === 'E-mail already exists') {
         toast(sendOTP.data);
