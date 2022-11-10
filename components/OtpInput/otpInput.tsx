@@ -133,12 +133,10 @@ class SingleOtpInput extends PureComponent<SingOtpInputPros, any> {
       errorStyle,
       focusStyle,
       disabledStyle,
-      // shouldAutoFocus,
       isInputNum,
       index,
       value,
       className,
-      // isInputSecure,
       ...rest
     } = this.props;
 
