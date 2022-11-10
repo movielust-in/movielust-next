@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import { useState, useEffect, useRef } from 'react';
 import * as Yup from 'yup';
 import { toast } from 'react-toastify';
@@ -68,6 +69,7 @@ function SignUp() {
         values.name,
         'SIGNUP'
       );
+      console.log("index.tsx checking sendOTP function",sendOTP)
     
       if (sendOTP.data === 'E-mail already exists') {
         toast(sendOTP.data);

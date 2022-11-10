@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import axios, { AxiosResponse } from 'axios';
 import { SERVER_URI } from '../../config';
 import { SingUpDataInterface } from '../../types/requestData';
@@ -24,6 +25,8 @@ export const sendEmailVerifyOtp = (email: string, name: string, type: string) =>
                     name,
                     type,
                 });
+                console.log("Auth.ts checking res ",res)
+
                 if (res.status === 200) resolve(res);
                 else reject();
             } catch {

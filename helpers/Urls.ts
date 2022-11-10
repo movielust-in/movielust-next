@@ -154,9 +154,6 @@ const CASTTV = (id: string | number) =>
 
 // ------------------------------------- SERVER ------------------------------------------------------------------------ 
 
-const AllAvatars = `${SERVER_URI}/avatar/getall`;
-
-const UPDATE_AVATAR = `${SERVER_URI}/user/update/avatar`;
 
 const RESET_PASS = `${SERVER_URI}/auth/resetpassword`;
 
@@ -165,6 +162,10 @@ const VERIFY_OTP =`${SERVER_URI}/auth/verifyotp`;
 const RESET_OTP = `${SERVER_URI}/auth/sendotp`;
 
 const VERIFYEMAIL_OTP = `${SERVER_URI}/auth/sendotp`;
+
+const AllAvatars = `${SERVER_URI}/avatar/getall`;
+
+const UPDATE_AVATAR = `${SERVER_URI}/user/update/avatar`;
 
 const ALL_WATCHED = `${SERVER_URI}/v1/user/allwatched/fetch`;
 
