@@ -2,12 +2,9 @@
 import { useState, useEffect, useRef } from 'react';
 import * as Yup from 'yup';
 import { toast } from 'react-toastify';
-
 import { useRouter } from 'next/router';
-
 import Form from '../../components/Form/Form';
 import Validate from '../../components/Form/Validation';
-
 import {
   sendEmailVerifyOtp,
   submitSingUp,
