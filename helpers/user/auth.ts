@@ -20,14 +20,11 @@ export const sendEmailVerifyOtp = (email: string, name: string, type: string) =>
     new Promise((resolve, reject) => {
         (async () => {
             try {
-      console.log("auth.tsx checking sendOTP function",email,name,type)
-
                 const res = await axios.post(VERIFYEMAIL_OTP, {
                     email,
                     name,
                     type,
                 });
-                console.log("Auth.ts checking res ",res)
 
                 if (res.status === 200) resolve(res);
                 else reject();
