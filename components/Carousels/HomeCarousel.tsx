@@ -4,19 +4,12 @@ import StarRatings from 'react-star-ratings';
 import Link from 'next/link';
 import { Navigation, Autoplay } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
-
 import { image } from '../../helpers/Urls';
 import { detailLink } from '../../utils';
-
 import { MovieResult } from '../../types/tmdb';
-
 import styles from '../../styles/HomeCarousel.module.scss';
 
-function ImgSlider({
-  movies,
-}: {
-  movies: (MovieResult & { imdb_rating?: number })[];
-}) {
+function ImgSlider({movies}: {movies: (MovieResult & { imdb_rating?: number })[]}) {
   return (
     <Swiper
       className={styles.Swiper}
@@ -26,7 +19,7 @@ function ImgSlider({
       spaceBetween={0}
       slidesPerView={1}
       autoplay={{
-        delay: 3000,
+        delay: 2000,
       }}
       scrollbar={{ draggable: true }}
       modules={[Navigation, Autoplay]}

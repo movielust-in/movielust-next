@@ -188,7 +188,7 @@ const IMDB_RATING = (imdb_id: string) =>
   };
 
 const IMDB_RATINGS = (ids: string[]) =>
-  `${SERVER_URI}/movie/imdb-ratings/${ids.join(',')}`;
+  `${SERVER_URI_PY}/movie/imdb-ratings/${ids.join(',')}`;
 
 // ------------------Get Magnets-----------
 const SHOW_MAGNETS = (

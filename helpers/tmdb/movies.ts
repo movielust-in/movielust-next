@@ -106,7 +106,7 @@ export const fetchGujarati = () =>
 
 export const fetchTRM = () =>
   new Promise<MovieResult[]>((resolve) => {
-    getAll([TRM(1), TRM(2), TRM(3), TRM(4), TRM(5)], tmdbClient).then(
+     getAll([TRM(1), TRM(2), TRM(3), TRM(4), TRM(5)], tmdbClient).then(
       (response) => {
         const results = [
           ...response[0].data.results,
@@ -115,6 +115,7 @@ export const fetchTRM = () =>
           ...response[3].data.results,
           ...response[4].data.results,
         ];
+
         resolve(
           results
             .sort((a, b) => b.popularity - a.popularity)
@@ -168,22 +169,20 @@ export const fetchMoviesOfAllGenres = () =>
     });
   });
 
-export const fetchExternalIds = (
-  id: string | number,
-  type: string
+  export const fetchExternalIds = (
+    id: string | number,
+    type: string
 ): Promise<MovieExternalIdsResponse> =>
-  new Promise((resolve, reject) => {
-    (async () => {
-      try {
-        const res = await tmdbClient.get<MovieExternalIdsResponse>(
-          EXTERNAL_IDS(id, type)
-        );
-        resolve(res.data);
-      } catch (err) {
-        reject(err);
-      }
-    })();
-  });
+    new Promise((resolve, reject) => {
+        (async () => {
+            try {
+                const res = await tmdbClient.get<MovieExternalIdsResponse>(EXTERNAL_IDS(id, type));
+                resolve(res.data);
+            } catch (err) {
+                reject(err);
+            }
+        })();
+    });
 
 export const CompaniesTopImages = (
   id: string | number

@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import axios from 'axios';
 import { IMDBRating, ImdbRatingsRes } from '../types/apiResponses';
 import { IMDB_RATING, IMDB_RATINGS } from './Urls';
@@ -17,5 +18,4 @@ export const fetchIMDBRating = (imdb_id: string): Promise<IMDBRating> =>
     })();
   });
 
-export const fetchIMDBRatings = (ids: string[]) =>
-  axios.get<ImdbRatingsRes>(IMDB_RATINGS(ids));
+  export const fetchIMDBRatings = (ids: string[]) => axios.get<ImdbRatingsRes>(IMDB_RATINGS(ids));

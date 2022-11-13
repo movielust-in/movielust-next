@@ -4,6 +4,7 @@ import TrendingCarousel from '../components/Carousels/HomeCarousel';
 import { fetchTrending, fetchTrendingToday } from '../helpers/tmdb/trending';
 
 import {
+  fetchExternalIds,
   // fetchExternalIds,
   fetchTRM,
   fetchUpcomingMovies,
@@ -16,13 +17,15 @@ import { HomeMovies } from '../types/apiResponses';
 import styles from '../styles/index.module.scss';
 import Meta from '../components/Meta';
 import { dashedTitle } from '../utils';
+import { fetchIMDBRatings } from '../helpers/imdb';
 
 interface HomeProps {
   trendingMovies: (MovieResult & { imdb_rating?: number })[];
-  homeMovies: HomeMovies;
+  homeMovies: HomeMovies; 
 }
 
 function Home({ trendingMovies, homeMovies }: HomeProps) {
+
   const structeredData = {
     '@context': 'https://schema.org',
     '@type': 'ItemList',
@@ -49,6 +52,7 @@ function Home({ trendingMovies, homeMovies }: HomeProps) {
         },
       })),
   };
+  
 
   return (
     <>
@@ -65,6 +69,7 @@ function Home({ trendingMovies, homeMovies }: HomeProps) {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structeredData) }}
       />
       <div className={`${styles.container} header_padding`}>
+
         <TrendingCarousel movies={trendingMovies} />
         <Movies movies={homeMovies} />
       </div>
@@ -80,21 +85,21 @@ export const getStaticProps = async () => {
 
   if (!(movies && movies.results)) return {};
 
-  // const externalIdsRes = await Promise.all(
-  //   movies.results.map((movie) => fetchExternalIds(movie.id!, 'movie'))
-  // );
+  const externalIdsRes = await Promise.all(
+    movies.results.map((movie) => fetchExternalIds(movie.id!, 'movie'))
+  );
 
-  // const imdbIds = externalIdsRes.map(
-  //   (externalId) => externalId.imdb_id as string
-  // );
+  const imdbIds = externalIdsRes.map(
+    (externalId) => externalId.imdb_id as string
+  );
 
-  // const ratingsRes = await fetchIMDBRatings(imdbIds);
+  const  ratingsRes = await fetchIMDBRatings(imdbIds)
+  const ratings =  ratingsRes.data.results;
 
-  // const ratings = await ratingsRes.data.results;
-
-  const trendingMovies = movies.results!.map((movie) => ({
+  const trendingMovies = movies.results!.map((movie,index) => (
+    {
     ...movie,
-    imdb_rating: 5,
+    imdb_rating:ratings[index].rating,
   }));
 
   const homeMovies: HomeMovies = await Promise.all([

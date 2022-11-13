@@ -31,14 +31,13 @@ function CastCarousel({
   id,
   contentTitle,
 }: CastCarouselProps) {
+
   const router = useRouter();
+
   const casts = cast.slice(0, 20);
 
   return (
-    <div
-      className={styles.big_container}
-      // dom={dom}
-    >
+    <div className={styles.big_container}>
       <div className={styles.Title}>
         <h2>{title}</h2>
         {id && contentTitle ? (
