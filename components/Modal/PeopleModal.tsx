@@ -126,7 +126,7 @@ function PeopleModal({ imagess, onClose, at }: PeopleModalProps) {
       <Container ref={imgRef as MutableRefObject<HTMLDivElement>}>
         {loading && (
           <Loader>
-            <Spinner width="60px" />
+            <Spinner width={60} />
           </Loader>
         )}
         <Image

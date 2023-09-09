@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import Image from "next/legacy/image";
+import Image from "next/image";
 import Meta from '../components/Meta';
 
 function Aboutus() {
@@ -29,7 +29,10 @@ function Aboutus() {
                 src="/images/svgs/tmdb_attr.svg"
                 unoptimized
                 alt="YTS logo"
-              />
+                style={{
+                  maxWidth: "100%",
+                  height: "auto"
+                }} />
             </a>
             <a href="https://en.wikipedia.org/wiki/YIFY">
               <Image
@@ -38,7 +41,10 @@ function Aboutus() {
                 src="/images/yts_logo.png"
                 unoptimized
                 alt="YTS logo"
-              />
+                style={{
+                  maxWidth: "100%",
+                  height: "auto"
+                }} />
             </a>
           </div>
 

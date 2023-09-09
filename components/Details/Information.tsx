@@ -2,7 +2,7 @@
 /* eslint-disable no-nested-ternary */
 import { useState } from 'react';
 
-import Image from "next/legacy/image";
+import Image from "next/image";
 import dynamic from 'next/dynamic';
 import { NextRouter } from 'next/router';
 
@@ -153,7 +153,10 @@ export default function InformationComponent({
             src="PlayerSpinner"
             alt="loading"
             className={styles.ShareButton}
-          />
+            style={{
+              maxWidth: "100%",
+              height: "auto"
+            }} />
         ) : (
           <FaShareAlt className={styles.ShareButton} onClick={share}>
             <div className={styles.HoverMessage}>Share</div>

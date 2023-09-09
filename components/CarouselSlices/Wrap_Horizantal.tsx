@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import NextImage from "next/legacy/image";
+import NextImage from "next/image";
 import Shimmer from '../UI/Shimmer';
 
 import styles from '../../styles/hWrap.module.scss';
@@ -42,7 +42,10 @@ function WrapH({ src, alt, title, rating }: WrapPros) {
         onError={onError}
         loading="lazy"
         unoptimized
-      />
+        style={{
+          maxWidth: "100%",
+          height: "auto"
+        }} />
       {!loading && (rating || title) && (
         <div className={styles.Information}>
           {title && <h3 className={styles.WrapText}>{title}</h3>}

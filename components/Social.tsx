@@ -1,4 +1,4 @@
-import Image from "next/legacy/image";
+import Image from 'next/image';
 import { InstagramIcon, TwitterIcon, FaceBookIcon, IMDBIcon } from '../assets';
 import { MovieExternalIdsResponse, TvExternalIdsResponse } from '../types/tmdb';
 
@@ -67,9 +67,14 @@ function Social({ externalIds, type, name, title }: SocialProps) {
       <div className={styles.WikiIcon}>
         <a href={Wikipedia} target="_blank" rel="noreferrer">
           <Image
+            alt=""
             src="/images/svgs/wikipedia-logo.svg"
-            width="25px"
-            height="25px"
+            width={25}
+            height={25}
+            style={{
+              maxWidth: '100%',
+              height: 'auto',
+            }}
           />
         </a>
       </div>

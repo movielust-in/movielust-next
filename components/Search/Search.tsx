@@ -9,7 +9,7 @@ import {
   useMemo,
 } from 'react';
 
-import Image from "next/legacy/image";
+import Image from 'next/image';
 
 import { useRouter } from 'next/router';
 
@@ -311,6 +311,10 @@ function Search({ show }: { show: boolean }) {
             height={60}
             unoptimized
             alt="loading"
+            style={{
+              maxWidth: '100%',
+              height: 'auto',
+            }}
           />
           Getting results...
         </div>
@@ -400,8 +404,8 @@ function ResultSection({ data, type, weight, cb }: CardProps) {
                 : content.poster_path) && (
                 <Image
                   alt="People"
-                  width="65px"
-                  height="100px"
+                  width={65}
+                  height={100}
                   unoptimized
                   src={image(
                     92,
@@ -409,6 +413,10 @@ function ResultSection({ data, type, weight, cb }: CardProps) {
                       ? content.profile_path || ''
                       : content.poster_path || ''
                   )}
+                  style={{
+                    maxWidth: '100%',
+                    height: 'auto',
+                  }}
                 />
               )}
               <div className={styles.Text}>

@@ -1,4 +1,4 @@
-import Image from "next/legacy/image";
+import Image from 'next/image';
 import Script from 'next/script';
 import { useRouter } from 'next/router';
 import { useState, useEffect } from 'react';
@@ -108,8 +108,9 @@ function PeopleDetail({ person }: PeopleDeatail) {
         <Image
           alt="movieposter"
           crossOrigin="anonymous"
-          layout="fill"
           src="/images/default_background.webp"
+          fill
+          sizes="100vw"
         />
       </Background>
       <UpperContainer>
@@ -123,8 +124,12 @@ function PeopleDetail({ person }: PeopleDeatail) {
             width={300}
             height={500}
             crossOrigin="anonymous"
-            alt={person.name}
+            alt={person.name || ''}
             src={`https://image.tmdb.org/t/p/w500/${person.profile_path}`}
+            style={{
+              maxWidth: '100%',
+              height: 'auto',
+            }}
           />
         </Profile>
         {/* Images for PC View */}

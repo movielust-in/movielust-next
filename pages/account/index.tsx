@@ -1,6 +1,6 @@
 import { useEffect, useState, useCallback } from 'react';
 import Head from 'next/head';
-import Image from "next/legacy/image";
+import Image from 'next/image';
 import styled from '@emotion/styled';
 import { keyframes } from '@emotion/react';
 import { useRouter } from 'next/router';
@@ -125,10 +125,15 @@ function Account() {
           <ProfilePicture src={user.avatar}>
             {isUpdating ? (
               <Image
+                alt=""
                 src="/images/player_loading.svg"
                 width={100}
                 unoptimized
                 height={100}
+                style={{
+                  maxWidth: '100%',
+                  height: 'auto',
+                }}
               />
             ) : (
               <Edit id="accountProfileEdit" onClick={openModal} />
@@ -138,9 +143,14 @@ function Account() {
           <ProfilePicture src="/images/login.png">
             {isUpdating ? (
               <Image
+                alt=""
                 src="/images/player_loading.svg"
                 width={100}
                 height={100}
+                style={{
+                  maxWidth: '100%',
+                  height: 'auto',
+                }}
               />
             ) : (
               <Edit onClick={openModal} />

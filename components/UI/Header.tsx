@@ -3,7 +3,7 @@
 import { useState, useEffect, KeyboardEvent } from 'react';
 
 import Link from 'next/link';
-import Image from "next/legacy/image";
+import Image from "next/image";
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
 
@@ -105,7 +105,10 @@ function Header({ isOnline }: HeaderProps) {
           alt="Movielust Logo"
           unoptimized
           className={styles.Logo}
-        />
+          style={{
+            maxWidth: "100%",
+            height: "auto"
+          }} />
 
       </Link>
 

@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
-import Image from "next/legacy/image";
+import Image from "next/image";
 import { useDispatch, useSelector } from '../../redux';
 
 import { fetchCompanies } from '../../helpers/tmdb/company';
@@ -93,7 +93,10 @@ export function Production() {
             height={70}
             src={`https://image.tmdb.org/t/p/w300/${production.logo_path}`}
             alt="Logo"
-          />
+            style={{
+              maxWidth: "100%",
+              height: "auto"
+            }} />
         </div>
       )}
 

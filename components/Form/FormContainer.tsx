@@ -1,5 +1,5 @@
 import React from 'react';
-import Image from "next/legacy/image";
+import Image from "next/image";
 
 import styles from './formContainer.module.scss';
 
@@ -23,7 +23,10 @@ function FormContainer({ children }: FormerProps) {
             src="https://ik.imagekit.io/movielust/logo_uIeABdFs3.webp"
             unoptimized
             alt="logo"
-          />
+            style={{
+              maxWidth: "100%",
+              height: "auto"
+            }} />
           <p>A New Experience for your movie lust</p>
         </div>
         <div className={styles.FormContainer}>{children}</div>

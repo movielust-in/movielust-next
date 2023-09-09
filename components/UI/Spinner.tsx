@@ -1,18 +1,17 @@
-import Image from "next/legacy/image";
+import Image from 'next/image';
 
-function Spinner({
-  width,
-  height,
-}: {
-  width?: string | number;
-  height?: string | number;
-}) {
+function Spinner({ width, height }: { width?: number; height?: number }) {
   return (
     <Image
+      alt="spinner"
       src="/images/player_loading.svg"
       width={width}
       height={height}
       unoptimized
+      style={{
+        maxWidth: '100%',
+        height: 'auto',
+      }}
     />
   );
 }

@@ -1,5 +1,5 @@
 import { useMemo } from 'react';
-import Image from "next/legacy/image";
+import Image from 'next/image';
 import { SwiperSlide } from 'swiper/react';
 
 import Carousel from './Carousel';
@@ -19,31 +19,112 @@ function LoadingCarousel({ title }: { title?: string }) {
       ) : null}
       <Carousel carosel_id="movie_slider">
         <SwiperSlide>
-          <Image width={150} height={220} src={shimmer} />
+          <Image
+            alt=""
+            width={150}
+            height={220}
+            src={shimmer}
+            style={{
+              maxWidth: '100%',
+              height: 'auto',
+            }}
+          />
         </SwiperSlide>
         <SwiperSlide>
-          <Image width={150} height={220} src={shimmer} />
+          <Image
+            alt=""
+            width={150}
+            height={220}
+            src={shimmer}
+            style={{
+              maxWidth: '100%',
+              height: 'auto',
+            }}
+          />
         </SwiperSlide>
         <SwiperSlide>
-          <Image width={150} height={220} src={shimmer} />
+          <Image
+            alt=""
+            width={150}
+            height={220}
+            src={shimmer}
+            style={{
+              maxWidth: '100%',
+              height: 'auto',
+            }}
+          />
         </SwiperSlide>
         <SwiperSlide>
-          <Image width={150} height={220} src={shimmer} />
+          <Image
+            alt=""
+            width={150}
+            height={220}
+            src={shimmer}
+            style={{
+              maxWidth: '100%',
+              height: 'auto',
+            }}
+          />
         </SwiperSlide>
         <SwiperSlide>
-          <Image width={150} height={220} src={shimmer} />
+          <Image
+            alt=""
+            width={150}
+            height={220}
+            src={shimmer}
+            style={{
+              maxWidth: '100%',
+              height: 'auto',
+            }}
+          />
         </SwiperSlide>
         <SwiperSlide>
-          <Image width={150} height={220} src={shimmer} />
+          <Image
+            alt=""
+            width={150}
+            height={220}
+            src={shimmer}
+            style={{
+              maxWidth: '100%',
+              height: 'auto',
+            }}
+          />
         </SwiperSlide>
         <SwiperSlide>
-          <Image width={150} height={220} src={shimmer} />
+          <Image
+            alt=""
+            width={150}
+            height={220}
+            src={shimmer}
+            style={{
+              maxWidth: '100%',
+              height: 'auto',
+            }}
+          />
         </SwiperSlide>
         <SwiperSlide>
-          <Image width={150} height={220} src={shimmer} />
+          <Image
+            alt=""
+            width={150}
+            height={220}
+            src={shimmer}
+            style={{
+              maxWidth: '100%',
+              height: 'auto',
+            }}
+          />
         </SwiperSlide>
         <SwiperSlide>
-          <Image width={150} height={220} src={shimmer} />
+          <Image
+            alt=""
+            width={150}
+            height={220}
+            src={shimmer}
+            style={{
+              maxWidth: '100%',
+              height: 'auto',
+            }}
+          />
         </SwiperSlide>
       </Carousel>
     </div>

@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import Image from "next/legacy/image";
+import Image from 'next/image';
 import { detailLink } from '../../utils';
 
 import styles from './contentItem.module.scss';
@@ -31,12 +31,16 @@ function WatchlistItem({
     >
       <Image
         className={styles.Thumbnail}
-        width="100px"
-        height="150px"
+        width={100}
+        height={150}
         key={id}
         src={`https://image.tmdb.org/t/p/w154/${posterPath}`}
         alt={title}
         unoptimized
+        style={{
+          maxWidth: '100%',
+          height: 'auto',
+        }}
       />
       <div className={styles.Detail}>
         <div className={styles.Titlebar}>

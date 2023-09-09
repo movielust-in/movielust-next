@@ -10,7 +10,7 @@ import {
   FaStop,
 } from 'react-icons/fa';
 
-import Image from "next/legacy/image";
+import Image from "next/image";
 import { useRouter } from 'next/router';
 // import ReactGA from "react-ga";
 
@@ -351,7 +351,10 @@ function Seasons({ id, title, totalSeasons }: SeasonsProps) {
                               width={20}
                               unoptimized
                               height={20}
-                            />
+                              style={{
+                                maxWidth: "100%",
+                                height: "auto"
+                              }} />
                           </TorrentDownload>
                         )}
                         {showEpisode === episode.episode_number && (

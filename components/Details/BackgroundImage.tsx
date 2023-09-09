@@ -1,4 +1,4 @@
-import Image from "next/legacy/image";
+import Image from "next/image";
 
 import styles from './Detail.module.scss';
 
@@ -11,7 +11,6 @@ function BackgroundComp({ backdrop }: DetailBackgroundProps) {
   return (
     <div className={styles.Background}>
       <Image
-        layout="fill"
         unoptimized
         alt="movieposter"
         src={
@@ -19,7 +18,8 @@ function BackgroundComp({ backdrop }: DetailBackgroundProps) {
             ? `https://image.tmdb.org/t/p/w1280${backdrop}`
             : '/images/25559.webp'
         }
-      />
+        fill
+        sizes="100vw" />
     </div>
   );
 }

@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import Image from "next/legacy/image";
+import Image from "next/image";
 
 import styles from '../../styles/personCard.module.scss';
 
@@ -46,7 +46,10 @@ function PersonCard({ title, src, alt }: WrapPros) {
         // opaque={opacity}
         onError={onError}
         loading="lazy"
-      />
+        style={{
+          maxWidth: "100%",
+          height: "auto"
+        }} />
       {!loading && title && (
         <div className={styles.Information}>
           {title && <h3 className={styles.Title}>{title}</h3>}
