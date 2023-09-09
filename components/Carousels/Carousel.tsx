@@ -1,6 +1,6 @@
 import { ReactNode } from 'react';
 import { Swiper } from 'swiper/react';
-import { Navigation, FreeMode } from 'swiper/modules';
+import { Navigation, FreeMode } from 'swiper';
 import { FaAngleLeft, FaAngleRight } from 'react-icons/fa';
 
 import styles from '../../styles/carousel.module.scss';

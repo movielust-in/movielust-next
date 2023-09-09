@@ -2,7 +2,7 @@
 import React from 'react';
 import StarRatings from 'react-star-ratings';
 import Link from 'next/link';
-import { Navigation, Autoplay } from 'swiper/modules';
+import { Navigation, Autoplay } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { image } from '../../helpers/Urls';
 import { detailLink } from '../../utils';

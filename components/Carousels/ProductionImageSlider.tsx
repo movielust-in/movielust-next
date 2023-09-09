@@ -1,6 +1,6 @@
 /* eslint-disable no-nested-ternary */
 import { useEffect, useState } from 'react';
-import { Navigation, Autoplay } from 'swiper/modules';
+import { Navigation, Autoplay } from 'swiper';
 import Link from 'next/link';
 import StarRatings from 'react-star-ratings';
 import { Swiper, SwiperSlide } from 'swiper/react';
