@@ -1,4 +1,3 @@
-import * as Sentry from '@sentry/nextjs';
 import Head from 'next/head';
 import Link from 'next/link';
 import NextErrorComponent from 'next/error';
@@ -21,10 +20,7 @@ const CustomErrorComponent = ({ status }: { status: number }) => (
   </div>
 );
 
-CustomErrorComponent.getInitialProps = async (contextData: any) => {
-  await Sentry.captureUnderscoreErrorException(contextData);
-
-  return NextErrorComponent.getInitialProps(contextData);
-};
+CustomErrorComponent.getInitialProps = async (contextData: any) =>
+  NextErrorComponent.getInitialProps(contextData);
 
 export default CustomErrorComponent;
