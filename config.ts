@@ -3,25 +3,23 @@ import { Genre } from './types/tmdb';
 
 export const TMDB_KEY = '2a7d4498c790ee971ae3369d0327d57c';
 
-export const SERVER_URI_PY = 'https://movielust.herokuapp.com/v1';
-
 const env = process.env.NODE_ENV
-let SERVER_URI:string
 
-if(env === "development"){
-    SERVER_URI = 'http://localhost:3001';
+let SERVER_URI: string;
+let SERVER_URI_PY: string;
 
-}
-else if (env === "production"){
- 
-    SERVER_URI = 'https://movielust.up.railway.app';
+if (env === "development") {
+  SERVER_URI = 'http://localhost:3001';
+  SERVER_URI_PY = 'http://127.0.0.1:5000/v1';
 
 }
-export { SERVER_URI};
+else if (env === "production") {
+  SERVER_URI_PY = 'https://movielust.herokuapp.com/v1';
+  SERVER_URI = 'https://movielust.up.railway.app';
 
-// export const SERVER_URI = 'http://localhost:3001';
+}
 
-// export const SERVER_URI =  'https://movielust.up.railway.app';
+export { SERVER_URI, SERVER_URI_PY };
 
 export const TWO_EMBED = 'https://2embed.org/embed';
 

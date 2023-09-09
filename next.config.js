@@ -42,13 +42,4 @@ const withPWA = require('next-pwa')({
   disable: process.env.NODE_ENV === 'development',
 });
 
-const { withSentryConfig } = require('@sentry/nextjs');
-
-const sentryWebpackPluginOptions = {
-  silent: true, // Suppresses all logs
-};
-
-module.exports = withSentryConfig(
-  withBundleAnalyzer(withPWA(nextConfig)),
-  sentryWebpackPluginOptions
-);
+module.exports = withBundleAnalyzer(withPWA(nextConfig));
