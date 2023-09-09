@@ -8,15 +8,12 @@ const env = process.env.NODE_ENV
 let SERVER_URI: string;
 let SERVER_URI_PY: string;
 
-if (env === "development") {
+if (env === "production") {
+  SERVER_URI_PY = 'https://movielust-py-api.onrender.com/v1';
+  SERVER_URI = 'https://movielust-node-api.onrender.com';
+} else {
   SERVER_URI = 'http://localhost:3001';
   SERVER_URI_PY = 'http://127.0.0.1:5000/v1';
-
-}
-else if (env === "production") {
-  SERVER_URI_PY = 'https://movielust.herokuapp.com/v1';
-  SERVER_URI = 'https://movielust.up.railway.app';
-
 }
 
 export { SERVER_URI, SERVER_URI_PY };
