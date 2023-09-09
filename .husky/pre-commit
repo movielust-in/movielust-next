@@ -3,7 +3,7 @@
 
 echo -e "\nRunning pre-commit: npm run lint-staged"
 
-yarn lint-staged
+npm run lint-staged
 
 # echo -e "Running pre-commit: 2/2 npm run pretty"
 
