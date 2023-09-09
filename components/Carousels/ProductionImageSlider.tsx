@@ -1,6 +1,6 @@
 /* eslint-disable no-nested-ternary */
 import { useEffect, useState } from 'react';
-import { Navigation, Autoplay } from 'swiper';
+import { Navigation, Autoplay } from 'swiper/modules';
 import Link from 'next/link';
 import StarRatings from 'react-star-ratings';
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -58,7 +58,6 @@ function ProductionImageSlider({ data }: ProductionImageSliderPros) {
                   href={detailLink('movie', movie.id!, movie.title!)}
                   prefetch={false}
                 >
-
                   <div className={styles.Wrap}>
                     <div>
                       <span>{movie.title}</span>
@@ -117,7 +116,6 @@ function ProductionImageSlider({ data }: ProductionImageSliderPros) {
                       />
                     </picture>
                   </div>
-
                 </Link>
               </SwiperSlide>
             )
