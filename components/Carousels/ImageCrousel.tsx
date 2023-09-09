@@ -2,7 +2,7 @@
 /* eslint-disable no-nested-ternary */
 import { memo, useState } from 'react';
 import dynamic from 'next/dynamic';
-import Nimage from 'next/image';
+import Nimage from "next/legacy/image";
 import { SwiperSlide } from 'swiper/react';
 
 import Carousel from './Carousel';

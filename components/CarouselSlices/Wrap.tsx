@@ -1,4 +1,4 @@
-import Image from 'next/future/image';
+import Image from "next/image";
 import { MouseEventHandler, useState } from 'react';
 import { image } from '../../helpers/Urls';
 

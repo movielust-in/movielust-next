@@ -1,6 +1,6 @@
 import { useEffect, useState, useCallback } from 'react';
 import Head from 'next/head';
-import Image from 'next/image';
+import Image from "next/legacy/image";
 import styled from '@emotion/styled';
 import { keyframes } from '@emotion/react';
 import { useRouter } from 'next/router';

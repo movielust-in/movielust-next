@@ -1,6 +1,6 @@
 import { useState, useCallback, useRef } from 'react';
 import ReactModal from 'react-modal';
-import NextImage from 'next/image';
+import NextImage from "next/legacy/image";
 import styled from '@emotion/styled';
 import { FaAngleLeft, FaAngleRight, FaExpand, FaTimes } from 'react-icons/fa';
 

@@ -1,5 +1,5 @@
 import { useMemo } from 'react';
-import Image from 'next/image';
+import Image from "next/legacy/image";
 import { SwiperSlide } from 'swiper/react';
 
 import Carousel from './Carousel';

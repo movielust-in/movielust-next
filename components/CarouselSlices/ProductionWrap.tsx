@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import Image from 'next/image';
+import Image from "next/legacy/image";
 // import ColorThief from 'colorthief';
 
 // import Spinner from '../UI/Spinner';

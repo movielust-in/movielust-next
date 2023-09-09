@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import NextImage from 'next/image';
+import NextImage from "next/legacy/image";
 import Shimmer from '../UI/Shimmer';
 
 import styles from '../../styles/hWrap.module.scss';

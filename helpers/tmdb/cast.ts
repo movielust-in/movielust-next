@@ -1,6 +1,7 @@
 import axios from '../tmdbClient';
 import { GETCAST } from '../Urls';
 
+// eslint-disable-next-line import/prefer-default-export
 export const Casts = (id: string | number, type: string) =>
     new Promise((resolve, reject) => {
         (async () => {

@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import Image from 'next/image';
+import Image from "next/legacy/image";
 import Meta from '../components/Meta';
 
 function Aboutus() {
