@@ -18,7 +18,7 @@ if (env === "production") {
 
 export { SERVER_URI, SERVER_URI_PY };
 
-export const TWO_EMBED = 'https://2embed.org/embed';
+export const TWO_EMBED = 'https://2embed.cc';
 
 export const WEBTOR_URL =
   'https://cdn.jsdelivr.net/npm/@webtor/embed-sdk-js/dist/index.min.js';

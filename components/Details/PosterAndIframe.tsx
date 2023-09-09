@@ -45,7 +45,7 @@ function PosterAndIframe({
             // }
             src={
               showMovie
-                ? `${TWO_EMBED}/${id}`
+                ? `${TWO_EMBED}/embed/${id}`
                 : `https://www.youtube.com/embed/${trailerKey}`
             }
             onLoad={iframeLoaded}

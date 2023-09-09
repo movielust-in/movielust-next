@@ -10,7 +10,7 @@ import {
   FaStop,
 } from 'react-icons/fa';
 
-import Image from "next/image";
+import Image from 'next/image';
 import { useRouter } from 'next/router';
 // import ReactGA from "react-ga";
 
@@ -208,7 +208,6 @@ function Seasons({ id, title, totalSeasons }: SeasonsProps) {
     // });
   };
 
-
   const onEpisodeLoad = () => {
     // if (
     //   magnets &&
@@ -269,7 +268,6 @@ function Seasons({ id, title, totalSeasons }: SeasonsProps) {
           {show &&
             season in seasons &&
             (seasons[season] as TvSeasonResponse).episodes!.map((episode) => (
-              
               <EpisodeContainer
                 key={episode.id}
                 ref={
@@ -327,12 +325,11 @@ function Seasons({ id, title, totalSeasons }: SeasonsProps) {
                             onLoad={iframeLoaded}
                             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                             title={`Season ${season} Episode ${episode.episode_number}`}
-                            src={`${TWO_EMBED}/${episode.id}`}
+                            src={`${TWO_EMBED}/embedtv/${episode.id}&s=${season}&e=${episode.episode_number}`}
                             // sandbox="allow-scripts allow-same-origin allow-forms"
                           />
                         </YouTube>
-                      )
-                     }
+                      )}
 
                       <EpisodeOverview>
                         <EpisodeDescription>
@@ -352,9 +349,10 @@ function Seasons({ id, title, totalSeasons }: SeasonsProps) {
                               unoptimized
                               height={20}
                               style={{
-                                maxWidth: "100%",
-                                height: "auto"
-                              }} />
+                                maxWidth: '100%',
+                                height: 'auto',
+                              }}
+                            />
                           </TorrentDownload>
                         )}
                         {showEpisode === episode.episode_number && (
