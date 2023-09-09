@@ -32,25 +32,25 @@ function FooterTabs() {
     <div className={styles.Footer}>
       <div className={styles.Item}>
         <Link href="/">
-          <a>
-            <HomeIcon
-              size="22px"
-              color={router.pathname === '/' ? 'red' : 'white'}
-            />
-            <h5>Home</h5>
-          </a>
+
+          <HomeIcon
+            size="22px"
+            color={router.pathname === '/' ? 'red' : 'white'}
+          />
+          <h5>Home</h5>
+
         </Link>
       </div>
       <div className={styles.Item}>
         <Link href="/watchlist">
-          <a>
-            <WatchlistIcon
-              size="22px"
-              color={router.pathname === '/watchlist' ? 'red' : 'white'}
-            />
-            {/* <Image src={WatchlistIcon} alt="Watchlist" /> */}
-            <h5>Watchlist</h5>
-          </a>
+
+          <WatchlistIcon
+            size="22px"
+            color={router.pathname === '/watchlist' ? 'red' : 'white'}
+          />
+          {/* <Image src={WatchlistIcon} alt="Watchlist" /> */}
+          <h5>Watchlist</h5>
+
         </Link>
       </div>
       <div className={styles.Item} role="presentation" onClick={showSearch}>
@@ -61,25 +61,25 @@ function FooterTabs() {
       </div>
       <div className={styles.Item}>
         <Link href="/discover/movies">
-          <a>
-            <MovieIcon
-              size="22px"
-              color={router.pathname === '/discover/movies' ? 'red' : 'white'}
-            />
-            {/* <Image src={MovieIcon} alt="Movies" /> */}
-            <h5>Movies</h5>
-          </a>
+
+          <MovieIcon
+            size="22px"
+            color={router.pathname === '/discover/movies' ? 'red' : 'white'}
+          />
+          {/* <Image src={MovieIcon} alt="Movies" /> */}
+          <h5>Movies</h5>
+
         </Link>
       </div>
       <div className={styles.Item}>
         <Link href="/discover/shows">
-          <a>
-            <SeriesIcon
-              size="21px"
-              color={router.pathname === '/discover/shows' ? 'red' : 'white'}
-            />
-            <h5>Shows</h5>
-          </a>
+
+          <SeriesIcon
+            size="21px"
+            color={router.pathname === '/discover/shows' ? 'red' : 'white'}
+          />
+          <h5>Shows</h5>
+
         </Link>
       </div>
     </div>

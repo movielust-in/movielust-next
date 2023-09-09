@@ -30,61 +30,61 @@ function ImgSlider({movies}: {movies: (MovieResult & { imdb_rating?: number })[]
             href={detailLink('movie', movie.id, movie.title)}
             prefetch={false}
           >
-            <a>
-              <div className={styles.Wrap}>
-                <div>
-                  <span>{movie.title}</span>
-                  <br />
 
-                  <p className={styles.Overview}>
-                    {movie.overview!.slice(0, 200)}.
-                  </p>
+            <div className={styles.Wrap}>
+              <div>
+                <span>{movie.title}</span>
+                <br />
 
-                  {movie.vote_average ? (
-                    <StarRatings
-                      rating={movie.imdb_rating || movie.vote_average}
-                      numberOfStars={10}
-                      starRatedColor="gold"
-                      starEmptyColor="gray"
-                      starDimension="16px"
-                    />
-                  ) : null}
+                <p className={styles.Overview}>
+                  {movie.overview!.slice(0, 200)}.
+                </p>
 
-                  {movie.imdb_rating ? (
-                    <h5>
-                      IMDB Rating :&nbsp;
-                      {movie.imdb_rating.toFixed(1)}
-                      /10
-                    </h5>
-                  ) : movie.vote_average ? (
-                    <h5>
-                      TMDB Rating :&nbsp;
-                      {movie.vote_average.toFixed(1)}
-                      /10
-                    </h5>
-                  ) : null}
-                </div>
+                {movie.vote_average ? (
+                  <StarRatings
+                    rating={movie.imdb_rating || movie.vote_average}
+                    numberOfStars={10}
+                    starRatedColor="gold"
+                    starEmptyColor="gray"
+                    starDimension="16px"
+                  />
+                ) : null}
 
-                <picture>
-                  <source
-                    media="(max-width:1280px)"
-                    srcSet={image(1280, movie.backdrop_path)}
-                  />
-                  <source
-                    media="(max-width:780px)"
-                    srcSet={image(780, movie.backdrop_path)}
-                  />
-                  <source
-                    media="(max-width:300px)"
-                    srcSet={image(300, movie.backdrop_path)}
-                  />
-                  <img
-                    src={`https://image.tmdb.org/t/p/w1280/${movie.backdrop_path}`}
-                    alt={movie.title}
-                  />
-                </picture>
+                {movie.imdb_rating ? (
+                  <h5>
+                    IMDB Rating :&nbsp;
+                    {movie.imdb_rating.toFixed(1)}
+                    /10
+                  </h5>
+                ) : movie.vote_average ? (
+                  <h5>
+                    TMDB Rating :&nbsp;
+                    {movie.vote_average.toFixed(1)}
+                    /10
+                  </h5>
+                ) : null}
               </div>
-            </a>
+
+              <picture>
+                <source
+                  media="(max-width:1280px)"
+                  srcSet={image(1280, movie.backdrop_path)}
+                />
+                <source
+                  media="(max-width:780px)"
+                  srcSet={image(780, movie.backdrop_path)}
+                />
+                <source
+                  media="(max-width:300px)"
+                  srcSet={image(300, movie.backdrop_path)}
+                />
+                <img
+                  src={`https://image.tmdb.org/t/p/w1280/${movie.backdrop_path}`}
+                  alt={movie.title}
+                />
+              </picture>
+            </div>
+
           </Link>
         </SwiperSlide>
       ))}

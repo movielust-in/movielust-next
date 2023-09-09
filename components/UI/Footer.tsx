@@ -6,21 +6,21 @@ function Footer() {
   return (
     <div className={styles.Container}>
       <Link href="/">
-        <a>
-          <div className={styles.TitleBar}>
-            <h1 className={styles.Title}> Movielust </h1>
-          </div>
-        </a>
+
+        <div className={styles.TitleBar}>
+          <h1 className={styles.Title}> Movielust </h1>
+        </div>
+
       </Link>
       <div className={styles.Footernotice}>
         <Link href="/aboutus">
-          <a>About us</a>
+          About us
         </Link>
         <Link href="/disclaimer">
-          <a>Disclaimer</a>
+          Disclaimer
         </Link>
         <Link href="/contactus">
-          <a>Contact us</a>
+          Contact us
         </Link>
       </div>
       <div className={styles.MDBContainer}>

@@ -104,27 +104,27 @@ function Movie() {
       <div className={styles.CardContainer}>
         {Object.values(data).map((results) =>
           results.map((movie) => (
-            <Link
+            (<Link
               key={movie.id}
               href={detailLink('movie', movie.id!, movie.title!)}
             >
-              <a>
-                <div className={styles.Card} style={{ width: '150px' }}>
-                  <Wrap
-                    src={image(200, movie.poster_path!)}
-                    showCard
-                    alt={movie.title!}
-                    title={movie.title!}
-                    backdrop={movie.backdrop_path!}
-                    description={movie.overview!}
-                    genres={
-                      movie.genre_ids?.map((id) => getGenreName(id, 'movie')) ||
-                      []
-                    }
-                  />
-                </div>
-              </a>
-            </Link>
+
+              <div className={styles.Card} style={{ width: '150px' }}>
+                <Wrap
+                  src={image(200, movie.poster_path!)}
+                  showCard
+                  alt={movie.title!}
+                  title={movie.title!}
+                  backdrop={movie.backdrop_path!}
+                  description={movie.overview!}
+                  genres={
+                    movie.genre_ids?.map((id) => getGenreName(id, 'movie')) ||
+                    []
+                  }
+                />
+              </div>
+
+            </Link>)
           ))
         )}
       </div>

@@ -70,16 +70,16 @@ function RecentCarousel() {
                     )
               }
             >
-              <a>
-                <WrapH
-                  src={`https://image.tmdb.org/t/p/w300/${content.backdrop_path}`}
-                  alt={content.title || content.name || ''}
-                  title={
-                    content.title ||
-                    `${content.name} S${content.season_number} E${content.episode_number}`
-                  }
-                />
-              </a>
+
+              <WrapH
+                src={`https://image.tmdb.org/t/p/w300/${content.backdrop_path}`}
+                alt={content.title || content.name || ''}
+                title={
+                  content.title ||
+                  `${content.name} S${content.season_number} E${content.episode_number}`
+                }
+              />
+
             </Link>
           </SwiperSlide>
         ))}

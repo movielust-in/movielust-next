@@ -82,123 +82,121 @@ function Header({ isOnline }: HeaderProps) {
 
   useEventListener('keydown', slash);
 
-  return (
-    <>
-      <nav
-        className={`${styles.Navbar} ${
-          // eslint-disable-next-line no-nested-ternary
-          (!hash || (!hash.includes('search') && !hash.includes('player'))) &&
-          !router.pathname.includes('/play')
-            ? scroll <= 20
-              ? styles.transparent
-              : styles.gradient
+  return <>
+    <nav
+      className={`${styles.Navbar} ${
+        // eslint-disable-next-line no-nested-ternary
+        (!hash || (!hash.includes('search') && !hash.includes('player'))) &&
+        !router.pathname.includes('/play')
+          ? scroll <= 20
+            ? styles.transparent
             : styles.gradient
-        }`}
-      >
-        <LeftArrow className={styles.Back} onClick={() => router.back()} />
+          : styles.gradient
+      }`}
+    >
+      <LeftArrow className={styles.Back} onClick={() => router.back()} />
 
+      <Link href="/" className={styles.LogoContainer}>
+
+        <Image
+          width={50}
+          height={50}
+          src="https://ik.imagekit.io/movielust/logo_uIeABdFs3.webp"
+          alt="Movielust Logo"
+          unoptimized
+          className={styles.Logo}
+        />
+
+      </Link>
+
+      <div className={styles.NavMenu}>
         <Link href="/">
-          <a className={styles.LogoContainer}>
-            <Image
-              width={50}
-              height={50}
-              src="https://ik.imagekit.io/movielust/logo_uIeABdFs3.webp"
-              alt="Movielust Logo"
-              unoptimized
-              className={styles.Logo}
-            />
-          </a>
+
+          <HomeIcon />
+          <h1 className={styles.Title}>
+            {/* // active={router.pathname === "/"} */}
+            Home
+          </h1>
+
+        </Link>
+        <Link href="/watchlist">
+
+          <WatchlistIcon />
+          <h1
+            className={styles.Title}
+            // active={router.pathname === "/watchlist"}
+          >
+            Watchlist
+          </h1>
+
         </Link>
 
-        <div className={styles.NavMenu}>
-          <Link href="/">
-            <a>
-              <HomeIcon />
-              <h1 className={styles.Title}>
-                {/* // active={router.pathname === "/"} */}
-                Home
-              </h1>
-            </a>
-          </Link>
-          <Link href="/watchlist">
-            <a>
-              <WatchlistIcon />
-              <h1
-                className={styles.Title}
-                // active={router.pathname === "/watchlist"}
-              >
-                Watchlist
-              </h1>
-            </a>
-          </Link>
+        <Link href="/discover/movies">
 
-          <Link href="/discover/movies">
-            <a>
-              <MoviesIcon />
-              <h1
-                className={styles.Title}
-                // active={router.pathname === "/discover/movies"}
-              >
-                Movies
-              </h1>
-            </a>
-          </Link>
+          <MoviesIcon />
+          <h1
+            className={styles.Title}
+            // active={router.pathname === "/discover/movies"}
+          >
+            Movies
+          </h1>
 
-          <Link href="/discover/shows">
-            <a>
-              <SeriesIcon />
-              <h1
-                className={styles.Title}
-                // active={router.pathname === "/discover/series"}
-              >
-                Shows
-              </h1>
-            </a>
-          </Link>
-        </div>
+        </Link>
 
-        {isOnline ? null : <div className={styles.Offline}>No internet!</div>}
+        <Link href="/discover/shows">
 
-        <button
-          type="button"
-          className={`${styles.LoginPrompt} ${styles.SearchIconContainer}`}
-          onClick={showSearch}
-        >
-          <SearchIcon size={20} />
-        </button>
+          <SeriesIcon />
+          <h1
+            className={styles.Title}
+            // active={router.pathname === "/discover/series"}
+          >
+            Shows
+          </h1>
 
-        <div className={styles.StatusContainer}>
-          {user.isLoggedIn ? (
-            <img
-              className={styles.UserImg}
-              alt="avatar"
-              role="presentation"
-              src={user.avatar as string}
-              onClick={() => {
-                router.push('/account');
-              }}
-              onError={({ currentTarget }) => {
-                currentTarget.onerror = null; // prevents looping
-                currentTarget.src = 'LoginImage.src';
-              }}
-            />
-          ) : (
-            <button
-              type="button"
-              className={styles.LoginPrompt}
-              onClick={() => {
-                router.push(`/signin?redirectto=${router.asPath}`);
-              }}
-            >
-              LOGIN
-            </button>
-          )}
-        </div>
-      </nav>
+        </Link>
+      </div>
 
-      {searchView ? <Search show={searchView} /> : null}
-    </>
-  );
+      {isOnline ? null : <div className={styles.Offline}>No internet!</div>}
+
+      <button
+        type="button"
+        className={`${styles.LoginPrompt} ${styles.SearchIconContainer}`}
+        onClick={showSearch}
+      >
+        <SearchIcon size={20} />
+      </button>
+
+      <div className={styles.StatusContainer}>
+        {user.isLoggedIn ? (
+          <img
+            className={styles.UserImg}
+            alt="avatar"
+            role="presentation"
+            src={user.avatar as string}
+            onClick={() => {
+              router.push('/account');
+            }}
+            onError={({ currentTarget }) => {
+              currentTarget.onerror = null; // prevents looping
+              currentTarget.src = 'LoginImage.src';
+            }}
+          />
+        ) : (
+          <button
+            type="button"
+            className={styles.LoginPrompt}
+            onClick={() => {
+              router.push(`/signin?redirectto=${router.asPath}`);
+            }}
+          >
+            LOGIN
+          </button>
+        )}
+      </div>
+    </nav>
+
+    {searchView ? <Search show={searchView} /> : null}
+  </>;
 }
 
 export default Header;

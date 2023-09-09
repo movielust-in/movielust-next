@@ -11,8 +11,8 @@ const CustomErrorComponent = ({ status }: { status: number }) => (
       <title>{status} | Error - Movielust</title>
     </Head>
     <BackgroundImage src="/images/crash.webp" />
-    <Link href="/" replace>
-      <a className={styles.homeButton}>Go Home</a>
+    <Link href="/" replace className={styles.homeButton}>
+      Go Home
     </Link>
     <p className={styles.message}>
       {status} &nbsp;|&nbsp; An error has occured.
