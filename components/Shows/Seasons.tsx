@@ -325,7 +325,7 @@ function Seasons({ id, title, totalSeasons }: SeasonsProps) {
                             onLoad={iframeLoaded}
                             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                             title={`Season ${season} Episode ${episode.episode_number}`}
-                            src={`${TWO_EMBED}/embedtv/${episode.id}&s=${season}&e=${episode.episode_number}`}
+                            src={`${TWO_EMBED}/embedanime/one-piece-dub-100`}
                             // sandbox="allow-scripts allow-same-origin allow-forms"
                           />
                         </YouTube>
