@@ -42,7 +42,8 @@ function Form({ formik, fields, isSubmitting, extraData }: FormProps) {
   useEffect(() => {
     if (avatars.length > 0) return;
     fetchAvatars().then((res) => {
-      setAvatars(res.data as any);
+      if (res && res.data && (res.data as any).length > 0)
+        setAvatars(res.data as any);
     });
   }, [avatars]);
 
@@ -313,11 +314,9 @@ function Form({ formik, fields, isSubmitting, extraData }: FormProps) {
               {fields.links &&
                 fields.links.length > 0 &&
                 fields.links.map((link: any) => (
-                  (<Link href={link.href} key={link.text}>
-
+                  <Link href={link.href} key={link.text}>
                     <p>{link.text}</p>
-
-                  </Link>)
+                  </Link>
                 ))}
             </ul>
           </form>

@@ -46,7 +46,8 @@ function Account() {
   useEffect(() => {
     if (avatars?.avatars?.length && avatars?.avatars?.length > 0) return;
     fetchAvatars().then((res) => {
-      setAvatars(res.data as any);
+      if (res && res.data && (res.data as any).length > 0)
+        setAvatars(res.data as any);
     });
   }, [avatars?.avatars]);
 
