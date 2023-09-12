@@ -1,4 +1,4 @@
-import { SERVER_URI, SERVER_URI_PY } from '../config';
+import { SERVER_URI } from '../config';
 
 const newDate = new Date();
 let date: number | string = newDate.getDate();
@@ -157,7 +157,7 @@ const CASTTV = (id: string | number) =>
 
 const RESET_PASS = `${SERVER_URI}/auth/resetpassword`;
 
-const VERIFY_OTP =`${SERVER_URI}/auth/verifyotp`;
+const VERIFY_OTP = `${SERVER_URI}/auth/verifyotp`;
 
 const RESET_OTP = `${SERVER_URI}/auth/sendotp`;
 
@@ -176,19 +176,11 @@ const FETCH_WATCHED = `${SERVER_URI}/user/watched`;
 const DELETE_USER = `${SERVER_URI}/user/delete`;
 
 const IMDB_RATING = (imdb_id: string) =>
-  `${SERVER_URI}/movie/imdb-rating/${imdb_id}`;
+  `${SERVER_URI}/flask/v1/movie/imdb-rating/${imdb_id}`;
 
-  const GET_IMDB_RATING = (title: string, releaseYear: string | number) => {
-    title = title.replace(/[&/\\#,+()$~%.'":*?<>{}]/g, '');
-    const url = `${SERVER_URI}/movie/imdb-rating/${title
-      .toLowerCase()
-      .split(' ')
-      .join('-')}-${releaseYear}`;
-    return url;
-  };
 
 const IMDB_RATINGS = (ids: string[]) =>
-  `${SERVER_URI_PY}/movie/imdb-ratings/${ids.join(',')}`;
+  `${SERVER_URI}/flask/v1/movie/imdb-ratings/${ids.join(',')}`;
 
 // ------------------Get Magnets-----------
 const SHOW_MAGNETS = (
@@ -196,7 +188,7 @@ const SHOW_MAGNETS = (
   showName: string,
   season: string | number,
   totalEpisodes: number
-) => `${SERVER_URI_PY}/torrent/show/${id}/${showName}/${season}/${totalEpisodes}`;
+) => `${SERVER_URI}/flask/v1/torrent/show/${id}/${showName}/${season}/${totalEpisodes}`;
 
 
 
@@ -209,7 +201,7 @@ const HINDI_TORRRENT = (
     .replace('-', '')
     .replace('  ', ' ')
     .replace(/[&/\\#,+()$~%.'":*?<>{}]/g, '');
-  const url = `${SERVER_URI_PY}/torrent/movie/hindi/${id}/${title
+  const url = `${SERVER_URI}/flask/v1/torrent/movie/hindi/${id}/${title
     .toLowerCase()
     .split(' ')
     .join('-')}-${releaseYear}`;
@@ -223,7 +215,7 @@ const MAGNET = (
   releaseYear: string | number
 ) => {
   title = title.replace(/[&/\\#,+()$~%.'":*?<>{}]/g, '');
-  const url = `${SERVER_URI_PY}/torrent/movie/${id}/${title
+  const url = `${SERVER_URI}/flask/v1/torrent/movie/${id}/${title
     .toLowerCase()
     .split(' ')
     .join('-')}-${releaseYear}`;
@@ -276,7 +268,6 @@ export {
   TVIMAGES,
   ALL_WATCHED,
   WATCH_PROVIDERS,
-  GET_IMDB_RATING,
   LATEST_SHOWS,
   TAGGED_IMG,
   RESET_OTP,

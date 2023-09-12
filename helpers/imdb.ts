@@ -11,11 +11,11 @@ export const fetchIMDBRating = (imdb_id: string): Promise<IMDBRating> =>
         if (res.status !== 200) {
           reject();
         }
-        resolve(res.data.movieRating);
+        resolve(res.data);
       } catch (err) {
         reject();
       }
     })();
   });
 
-  export const fetchIMDBRatings = (ids: string[]) => axios.get<ImdbRatingsRes>(IMDB_RATINGS(ids));
+export const fetchIMDBRatings = (ids: string[]) => axios.get<ImdbRatingsRes>(IMDB_RATINGS(ids));
