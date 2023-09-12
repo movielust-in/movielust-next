@@ -2,7 +2,7 @@
 /* eslint-disable no-nested-ternary */
 import { useState } from 'react';
 
-import Image from "next/image";
+import Image from 'next/image';
 import dynamic from 'next/dynamic';
 import { NextRouter } from 'next/router';
 
@@ -154,9 +154,10 @@ export default function InformationComponent({
             alt="loading"
             className={styles.ShareButton}
             style={{
-              maxWidth: "100%",
-              height: "auto"
-            }} />
+              maxWidth: '100%',
+              height: 'auto',
+            }}
+          />
         ) : (
           <FaShareAlt className={styles.ShareButton} onClick={share}>
             <div className={styles.HoverMessage}>Share</div>
@@ -225,44 +226,20 @@ export default function InformationComponent({
           ) : null)}
       </div>
 
-      {type === 'movie' && magnets!.length > 0 && (
-        <>
-          <div className={styles.ContentOptions}>
-            <FaPlay />
-            {magnets!.map(({ magnet, quality }) => (
-              <div
-                role="button"
-                tabIndex={0}
-                key={magnet}
-                onClick={() =>
-                  location.push(
-                    `/play/movie/${commonData?.id}?m=${magnet}&q=${quality}`
-                  )
-                }
-                onKeyDown={() =>
-                  location.push(
-                    `/play/movie/${commonData?.id}?m=${magnet}&q=${quality}`
-                  )
-                }
-              >
-                {quality}
-              </div>
-            ))}
-          </div>
-          <div className={styles.ContentOptions}>
-            <FaDownload />
-            {magnets!.map((magnet) => (
-              <div key={magnet.magnet}>
-                <a href={magnet.magnet} download>
-                  {magnet.quality}
-                  &nbsp;(
-                  {magnet.size})
-                </a>
-              </div>
-            ))}
-          </div>
-        </>
-      )}
+      {type === 'movie' && magnets!.length > 0 ? (
+        <div className={styles.ContentOptions}>
+          <FaDownload />
+          {magnets!.map((magnet) => (
+            <div key={magnet.magnet}>
+              <a href={magnet.magnet} download>
+                {magnet.quality}
+                &nbsp;(
+                {magnet.size})
+              </a>
+            </div>
+          ))}
+        </div>
+      ) : null}
 
       {externalIds ? (
         <Social

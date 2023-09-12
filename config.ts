@@ -7,9 +7,6 @@ export const SERVER_URI = process.env.NODE_ENV === "production" ? 'https://movie
 
 export const TWO_EMBED = 'https://2embed.cc';
 
-export const WEBTOR_URL =
-  'https://cdn.jsdelivr.net/npm/@webtor/embed-sdk-js/dist/index.min.js';
-
 export const SORT_OPTIONS = [
   { label: 'Most Popular', value: 'popularity.desc' },
   { label: 'Top Rated', value: 'vote_average.desc' },

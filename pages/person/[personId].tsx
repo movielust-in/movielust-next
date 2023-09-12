@@ -30,6 +30,7 @@ import {
   PersonImagesResponse,
   TVCreditCast,
 } from '../../types/tmdb';
+
 import Meta from '../../components/Meta';
 
 interface PeopleDeatail {
