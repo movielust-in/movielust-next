@@ -1,6 +1,6 @@
 #!/bin/sh
 . "$(dirname "$0")/_/husky.sh"
 
-echo -e "\nRunning post-commit: git status\n"
+echo "\nRunning post-commit: git status\n"
 
 git status
