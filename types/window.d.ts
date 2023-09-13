@@ -2,3 +2,6 @@ declare global {
   interface Window {
   }
 }
+
+
+

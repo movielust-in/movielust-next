@@ -21,11 +21,10 @@ import { fetchIMDBRatings } from '../helpers/imdb';
 
 interface HomeProps {
   trendingMovies: (MovieResult & { imdb_rating?: number })[];
-  homeMovies: HomeMovies; 
+  homeMovies: HomeMovies;
 }
 
 function Home({ trendingMovies, homeMovies }: HomeProps) {
-
   const structeredData = {
     '@context': 'https://schema.org',
     '@type': 'ItemList',
@@ -52,7 +51,6 @@ function Home({ trendingMovies, homeMovies }: HomeProps) {
         },
       })),
   };
-  
 
   return (
     <>
@@ -69,7 +67,6 @@ function Home({ trendingMovies, homeMovies }: HomeProps) {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structeredData) }}
       />
       <div className={`${styles.container} header_padding`}>
-
         <TrendingCarousel movies={trendingMovies} />
         <Movies movies={homeMovies} />
       </div>
@@ -93,13 +90,12 @@ export const getStaticProps = async () => {
     (externalId) => externalId.imdb_id as string
   );
 
-  const  ratingsRes = await fetchIMDBRatings(imdbIds)
-  const ratings =  ratingsRes.data.results;
+  const ratingsRes = await fetchIMDBRatings(imdbIds);
+  const ratings = ratingsRes.data.results;
 
-  const trendingMovies = movies.results!.map((movie,index) => (
-    {
+  const trendingMovies = movies.results!.map((movie, index) => ({
     ...movie,
-    imdb_rating:ratings[index].rating,
+    imdb_rating: ratings[index].rating,
   }));
 
   const homeMovies: HomeMovies = await Promise.all([

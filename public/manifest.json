@@ -1,7 +1,9 @@
 {
+  "id": "movielust-in-movielust",
   "short_name": "Movielust",
   "name": "Movielust",
-  "description": "Movielust is India's largest free streaming platform that offers a wide variety of premium TV shows, movies, anime, documentaries and even more",
+  "description": "Find and read about your favourite Movies and Shows on Movielust.",
+  "categories": ["entertainment"],
 
   "icons": [
     {
@@ -156,7 +158,14 @@
     }
   ],
 
+  "launch_handler": {
+    "client_mode": ["focus-existing", "auto"]
+  },
+
   "start_url": "/",
+  "lang": "en",
+  "dir": "ltr",
+  "orientation": "natural",
   "display": "standalone",
   "display_override": ["window-controls-overlay"],
   "theme_color": "#090c14",

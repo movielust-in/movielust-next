@@ -1,6 +1,5 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import { useEffect, useRef, useState } from 'react';
-import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer } from 'react-toastify';
 import Router from 'next/router';
 import type { AppProps } from 'next/app';
@@ -17,6 +16,7 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import '../styles/global.scss';
 import '../styles/font.css';
+import 'react-toastify/dist/ReactToastify.css';
 
 function MyApp({ Component, pageProps }: AppProps) {
   const [loading, setLoading] = useState(false);
@@ -49,7 +49,18 @@ function MyApp({ Component, pageProps }: AppProps) {
       <Provider store={store}>
         <Layout>{loading ? <Loading /> : <Component {...pageProps} />}</Layout>
       </Provider>
-      <ToastContainer />
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="dark"
+      />
     </>
   );
 }

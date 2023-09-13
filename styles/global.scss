@@ -131,8 +131,14 @@ a {
   }
 }
 
-@media (display-mode: window-controls-overlay)  and (min-width:724px) { 
- .layout__main{
-   padding-top: env(titlebar-area-height, 33px);
- }
+@media (display-mode: window-controls-overlay) and (min-width: 724px) {
+  .layout__main {
+    padding-top: env(titlebar-area-height, 33px);
+  }
+}
+
+.install_pwa {
+  text-align: center;
+  cursor: pointer;
+  font-weight: bold;
 }
