@@ -130,3 +130,9 @@ a {
     padding-top: 60px;
   }
 }
+
+@media (display-mode: window-controls-overlay)  and (min-width:724px) { 
+ .layout__main{
+   padding-top: env(titlebar-area-height, 33px);
+ }
+}

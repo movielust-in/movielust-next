@@ -2,7 +2,6 @@
 import { useEffect, useRef, useState } from 'react';
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer } from 'react-toastify';
-import Script from 'next/script';
 import Router from 'next/router';
 import type { AppProps } from 'next/app';
 import { Provider } from 'react-redux';
@@ -47,21 +46,6 @@ function MyApp({ Component, pageProps }: AppProps) {
 
   return (
     <>
-      {/* <!-- Google tag (gtag.js) --> */}
-
-      <Script
-        src="https://www.googletagmanager.com/gtag/js?id=G-2ZW05V0RYV"
-        strategy="afterInteractive"
-      />
-      <Script id="google-analytics" strategy="afterInteractive">
-        {`
-          window.dataLayer = window.dataLayer || [];
-          function gtag(){window.dataLayer.push(arguments);}
-          gtag('js', new Date());
-          gtag('config', 'G-2ZW05V0RYV');
-        `}
-      </Script>
-
       <Provider store={store}>
         <Layout>{loading ? <Loading /> : <Component {...pageProps} />}</Layout>
       </Provider>

@@ -89,6 +89,7 @@
       "purpose": "maskable"
     }
   ],
+
   "shortcuts": [
     {
       "name": "Movies",
@@ -124,6 +125,34 @@
       "description": "Your Movielust Account.",
       "url": "/account",
       "icons": [{ "src": "maskable/192.png", "sizes": "192x192" }]
+    }
+  ],
+
+  "screenshots": [
+    {
+      "src": "/screenshots/mobile/screenshot1.jpg",
+      "type": "image/jpg",
+      "sizes": "900x1600"
+    },
+    {
+      "src": "/screenshots/mobile/screenshot2.jpg",
+      "type": "image/jpg",
+      "sizes": "900x1600"
+    },
+    {
+      "src": "/screenshots/mobile/screenshot3.jpg",
+      "type": "image/jpg",
+      "sizes": "900x1600"
+    },
+    {
+      "src": "/screenshots/mobile/screenshot4.jpg",
+      "type": "image/jpg",
+      "sizes": "900x1600"
+    },
+    {
+      "src": "/screenshots/mobile/screenshot5.jpg",
+      "type": "image/jpg",
+      "sizes": "900x1600"
     }
   ],
 

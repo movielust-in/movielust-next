@@ -37,3 +37,10 @@ next-env.d.ts
 
 # Sentry
 .sentryclirc
+
+workbox-*.js
+workbox-*.js.map
+sw.js
+sw.js.map
+worker-*.js
+fallback-development.js
