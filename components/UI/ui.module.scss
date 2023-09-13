@@ -2,6 +2,9 @@
   display: flex;
   flex-direction: column;
   gap: 10px;
+  @media (max-width: 724px) {
+    margin-bottom: 100px;
+  }
 }
 
 .InstallPromptContainer_button_container {
