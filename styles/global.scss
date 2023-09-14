@@ -133,7 +133,7 @@ a {
 
 @media (display-mode: window-controls-overlay) and (min-width: 724px) {
   .layout__main {
-    padding-top: env(titlebar-area-height, 33px);
+    padding-top: calc(env(titlebar-area-height, 33px) + 10px);
   }
 }
 

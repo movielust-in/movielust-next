@@ -23,6 +23,10 @@
       rgba(9, 12, 20, 1) 0%,
       rgba(3, 29, 48, 1) 79%
     );
+
+    @media (display-mode: window-controls-overlay) {
+      position: fixed;
+    }
   }
 
   @media (max-width: 724px) and (display-mode: standalone),
@@ -40,9 +44,9 @@
 
   @media (display-mode: window-controls-overlay) and (min-width: 724px) {
     top: 0;
-    height: env(titlebar-area-height, 33px);
-    width: env(titlebar-area-width, 100%);
-    padding: 0 10px 0 15px;
+    height: calc(env(titlebar-area-height, 33px) + 10px);
+    width: 100%;
+    padding: 0 calc(100% - env(titlebar-area-width, 100%)) 0 15px;
     -webkit-app-region: drag;
     app-region: drag;
   }
@@ -135,6 +139,11 @@
 
   @media (display-mode: window-controls-overlay) and (min-width: 724px) {
     padding: 3.5px 20px 0px 20px;
+
+    & > a > svg {
+      -webkit-app-region: no-drag;
+      app-region: no-drag;
+    }
   }
 }
 
@@ -162,7 +171,7 @@
   }
 
   @media (display-mode: window-controls-overlay) and (min-width: 724px) {
-    font-size: 11px;
+    font-size: 12px;
     margin-left: 2px;
     -webkit-app-region: no-drag;
     app-region: no-drag;

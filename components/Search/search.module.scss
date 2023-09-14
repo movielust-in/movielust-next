@@ -38,10 +38,9 @@
     margin-bottom: 50px;
   }
 
-  @media(display-mode: window-controls-overlay) and (min-width:724px){
-    margin-top: env(titlebar-area-height,33px);
+  @media (display-mode: window-controls-overlay) and (min-width: 724px) {
+    margin-top: calc(env(titlebar-area-height, 33px) + 10px);
   }
-
 }
 
 .SearchBarContainer {
