@@ -44,3 +44,5 @@ sw.js
 sw.js.map
 worker-*.js
 fallback-development.js
+
+.vscode
