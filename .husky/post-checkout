@@ -1,8 +1,8 @@
 #!/bin/sh
 . "$(dirname "$0")/_/husky.sh"
 
-echo "Running post-checkout: npm install"
+echo "Running post-checkout: pnpm install"
 
-npm install
+pnpm install
 
 echo "\n"
