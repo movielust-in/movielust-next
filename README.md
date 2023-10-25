@@ -2,7 +2,7 @@
 
 [![Production](https://github.com/movielust-in/movielust-next/actions/workflows/deploy.yml/badge.svg?branch=main)](https://github.com/movielust-in/movielust-next/actions/workflows/deploy.yml) 
 
-Movielust was born out of need; A platform that allows to stream any entertainment content for free with almost no ads.
+
 
 <!-- <p align='center'>
 <img src='https://github.com/Nitin2806/movielust/blob/main/public/images/gifs/movielust.gif' width='600' alt='npm start'>
