@@ -10,10 +10,9 @@ export interface AvatarResponse {
 }
 
 export interface IMDBRating {
-  id: string;
-  success: boolean;
+  imdb_id: string;
   rating: number;
-  votes: number;
+  vote_count: number;
 }
 
 export interface ImdbRating {
