@@ -18,5 +18,6 @@ export interface CommonData {
 
 export interface ImdbRating {
   rating: number;
-  votes: number;
+  vote_count: number;
+  imdb_id: string;
 }
