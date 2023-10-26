@@ -10,14 +10,13 @@ import {
   fetchUpcomingMovies,
 } from '../helpers/tmdb/movies';
 
-// import { fetchIMDBRatings } from '../helpers/imdb';
 import { MovieResult } from '../types/tmdb';
 import { fetchLatestSeries, fetchPopularSeries } from '../helpers/tmdb/series';
 import { HomeMovies } from '../types/apiResponses';
 import styles from '../styles/index.module.scss';
 import Meta from '../components/Meta';
 import { dashedTitle } from '../utils';
-import { fetchIMDBRatings } from '../helpers/imdb';
+import { _getIMDBRating } from '../helpers/server-side/_imdb';
 
 interface HomeProps {
   trendingMovies: (MovieResult & { imdb_rating?: number })[];
@@ -90,12 +89,13 @@ export const getStaticProps = async () => {
     (externalId) => externalId.imdb_id as string
   );
 
-  const ratingsRes = await fetchIMDBRatings(imdbIds);
-  const ratings = ratingsRes.data.results;
+  const ratingsRes = await _getIMDBRating(imdbIds);
+  const ratings = ratingsRes.documents;
 
   const trendingMovies = movies.results!.map((movie, index) => ({
     ...movie,
-    imdb_rating: ratings[index].rating,
+    imdb_rating:
+      ratings.find((rating) => rating.imdb_id === imdbIds[index])?.rating || 0,
   }));
 
   const homeMovies: HomeMovies = await Promise.all([

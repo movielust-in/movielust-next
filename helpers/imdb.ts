@@ -1,17 +1,16 @@
 /* eslint-disable no-console */
 import axios from 'axios';
 import { IMDBRating, ImdbRatingsRes } from '../types/apiResponses';
-import { IMDB_RATING, IMDB_RATINGS } from './Urls';
 
 export const fetchIMDBRating = (imdb_id: string): Promise<IMDBRating> =>
   new Promise((resolve, reject) => {
     (async () => {
       try {
-        const res = await axios.get(IMDB_RATING(imdb_id));
+        const res = await axios.get(`/api/imdb-rating?imdbId=${imdb_id}`);
         if (res.status !== 200) {
           reject();
         }
-        resolve(res.data);
+        resolve(res.data[0]);
       } catch (err) {
         reject();
       }
@@ -19,4 +18,4 @@ export const fetchIMDBRating = (imdb_id: string): Promise<IMDBRating> =>
   });
 
 export const fetchIMDBRatings = (ids: string[]) =>
-  axios.get<ImdbRatingsRes>(IMDB_RATINGS(ids));
+  axios.get<ImdbRatingsRes>(`/api/imdb-rating?imdbId=${ids.join(',')}`);

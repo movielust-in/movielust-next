@@ -190,8 +190,8 @@ export default function InformationComponent({
                 externalIds && openImdbRatingCharts(externalIds.imdb_id!)
               }
             >
-              {IMDBRating.rating} ({IMDBRating.votes.toLocaleString()} votes)
-              &nbsp;&nbsp;
+              {IMDBRating.rating} ({IMDBRating.vote_count.toLocaleString()}{' '}
+              votes) &nbsp;&nbsp;
               <img
                 width="30px"
                 src="https://m.media-amazon.com/images/G/01/IMDb/BG_rectangle._CB1509060989_SY230_SX307_AL_.png"
