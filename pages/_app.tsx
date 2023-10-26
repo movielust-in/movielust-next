@@ -47,7 +47,10 @@ function MyApp({ Component, pageProps }: AppProps) {
   return (
     <>
       <Provider store={store}>
-        <Layout>{loading ? <Loading /> : <Component {...pageProps} />}</Layout>
+        <Layout>
+          {loading ? <Loading /> : null}
+          <Component {...pageProps} />
+        </Layout>
       </Provider>
       <ToastContainer
         position="top-right"
