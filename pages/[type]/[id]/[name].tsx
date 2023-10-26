@@ -89,6 +89,7 @@ const Detail: NextPage<DetailProps> = ({ contentData }: DetailProps) => {
         imdb
           .fetchIMDBRating(contentData.imdb_id!)
           .then((res) => setImdbRating(res))
+          .catch(() => {})
       );
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
