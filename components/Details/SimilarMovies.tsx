@@ -1,7 +1,6 @@
-import axios from 'axios';
-import React, { useState, useEffect, memo } from 'react';
-
-import { Content, Genre } from '../../types/tmdb';
+import React, {  memo } from 'react';
+import {headers} from 'next/headers';
+import {  Genre } from '../../types/tmdb';
 import MovieCarousel from '../Carousels/MovieCarousel';
 
 import styles from './Detail.module.scss';
@@ -14,55 +13,48 @@ interface SimilarMoviesProps {
   genres: Genre[];
 }
 
-function SimilarMovies({
+const  getSimilarContent = async (id:string,type:String,genres:Genre[]) => {
+  let host = headers().get("host");
+
+  if(host==="localhost")host ="127.0.0.1";
+  const protocal = process?.env.NODE_ENV==="development"?"http":"https"
+
+  const url =`${protocal}:/${host}/api/similar/?id=${id}&type=${type}&genres=${genres
+    .map((genre) => genre.id)
+    .join(',')}`
+  
+  const res = await fetch(url);
+  
+  const {results} = await res.json();
+
+
+  return results;
+}
+
+async function SimilarMovies({
   id,
   type,
   title,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   toBeFiltered,
   genres,
 }: SimilarMoviesProps) {
-  const [similar, setSimilar] = useState<Array<Content | undefined>>();
+  
+  const similar = await getSimilarContent(id,type,genres);
 
-  useEffect(() => {
-    axios
-      .get<{ results: Content[] }>(
-        `/api/similar/${id}/${type}/${genres
-          .map((genre) => genre.id)
-          .join(',')}`
-      )
-      .then((response) => {
-        if (type === 'movie' && toBeFiltered?.length) {
-          setSimilar(
-            response.data.results
-              .filter(
-                (movie) =>
-                  !toBeFiltered.find((filtered) => filtered.id === movie!.id)!
-              )!
-              .slice(0, 21)!
-          );
-        } else {
-          setSimilar(response.data.results.slice(0, 21));
-        }
-      });
 
-    return () => {
-      setSimilar(undefined);
-    };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [genres, id, type]);
 
-  return (
+  return similar && similar.length > 0 ? (
     <div className={styles.similarContainer}>
-      {similar && similar.length > 0 ? (
         <MovieCarousel
           title={title}
           type={type}
           movies={similar}
           showCard={false}
         />
-      ) : null}
-    </div>
-  );
+        </div>
+        ) : null
+  
 }
 
 export default memo(

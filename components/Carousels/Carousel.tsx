@@ -11,23 +11,24 @@ interface CaroselProps {
   breakPoints?: Record<number, Record<'slidesPerView', number>>;
 }
 
-Carousel.defaultProps = {
-  carosel_id: '',
-  breakPoints: {
-    1024: {
-      slidesPerView: 7,
-      as: 'sdasd',
-    },
-    464: {
-      slidesPerView: 7,
-    },
-    0: {
-      slidesPerView: 3,
-    },
+const defaultBreakpoints = {
+  1024: {
+    slidesPerView: 7,
+    as: 'sdasd',
+  },
+  464: {
+    slidesPerView: 7,
+  },
+  0: {
+    slidesPerView: 3,
   },
 };
 
-function Carousel({ children, carosel_id, breakPoints }: CaroselProps) {
+function Carousel({
+  children,
+  carosel_id = '',
+  breakPoints = defaultBreakpoints,
+}: CaroselProps) {
   return (
     <Swiper
       freeMode

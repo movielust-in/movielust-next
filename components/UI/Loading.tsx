@@ -7,11 +7,9 @@ interface LoadingProps {
   delay?: number;
 }
 
-Loading.defaultProps = {
-  delay: 250,
-};
 
-function Loading({ delay }: LoadingProps) {
+
+function Loading({ delay =250}: LoadingProps) {
   const [message, setMessage] = useState('Coming Up...');
 
   const [show, setShow] = useState(false);

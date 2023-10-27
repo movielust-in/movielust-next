@@ -1,3 +1,5 @@
+'use client';
+
 /* eslint-disable no-nested-ternary */
 import { useState, useEffect, useRef, BaseSyntheticEvent, memo } from 'react';
 import styled from '@emotion/styled';
@@ -11,18 +13,16 @@ import {
 } from 'react-icons/fa';
 
 import Image from 'next/image';
-import { useRouter } from 'next/router';
+import { useRouter, useSearchParams } from 'next/navigation';
 
-import { useDispatch, useSelector } from '../../redux';
 import Spinner from '../UI/Spinner';
 import { image } from '../../helpers/Urls';
-import { addWatched } from '../../helpers/user';
+// import { addWatched } from '../../helpers/user';
 import { fetchSeason } from '../../helpers/tmdb/series';
 import { fetchShowMagnets } from '../../helpers/torrent';
 
 import { FULL_MONTHS, TWO_EMBED } from '../../config';
 
-import { markRecentStale } from '../../redux/reducers/recent.reducer';
 import { TvSeasonResponse } from '../../types/tmdb';
 import { ShowMagnet } from '../../types/apiResponses';
 
@@ -47,14 +47,13 @@ function Seasons({ id, title, totalSeasons }: SeasonsProps) {
   const [gettingEpisodes, setGettingEpisodes] = useState(false);
   const [playEpisode, tooglePlay] = useState(false);
   const [iframeLoading, setFrameLoading] = useState(false);
-  const isAuthenticated = useSelector((state) => state.user.isLoggedIn);
 
-  const dispatch = useDispatch();
 
   const episodeRef = useRef();
 
-  const s = router.query.s as string;
-  const e = router.query.e as string;
+  const searchParams = useSearchParams();
+  const s = searchParams?.get('s');
+  const e = searchParams?.get('e');
 
   if (
     s &&
@@ -82,8 +81,6 @@ function Seasons({ id, title, totalSeasons }: SeasonsProps) {
         .split(' ')
         .join('-')
         .toLowerCase()}?s=${season}&e=${index}`,
-      undefined,
-      { shallow: true }
     );
     if (showEpisode === index) {
       return setEpisode(undefined);
@@ -158,8 +155,6 @@ function Seasons({ id, title, totalSeasons }: SeasonsProps) {
       `/tv/${id}/${title.split(' ').join('-').toLowerCase()}?s=${
         seasonNumber + 1
       }&e=0`,
-      undefined,
-      { shallow: true }
     );
     if (seasonNumber === -1) {
       setShow(false);
@@ -183,23 +178,24 @@ function Seasons({ id, title, totalSeasons }: SeasonsProps) {
     setFrameLoading(false);
   };
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const playEmbed = (episode: any, path: string) => {
     tooglePlay((state) => !state);
     setFrameLoading(true);
-    setTimeout(() => {
-      if (path === window.location.pathname) {
-        if (isAuthenticated) {
-          addWatched({
-            content_id: id,
-            type: 'tv',
-            timeStamp: new Date(),
-            season,
-            episode: episode.episode_number,
-          });
-          dispatch(markRecentStale());
-        }
-      }
-    }, 1.5 * 60 * 1000);
+    // setTimeout(() => {
+    //   if (path === window.location.pathname) {
+    //     if (isAuthenticated) {
+    //       addWatched({
+    //         content_id: id,
+    //         type: 'tv',
+    //         timeStamp: new Date(),
+    //         season,
+    //         episode: episode.episode_number,
+    //       });
+    //       dispatch(markRecentStale());
+    //     }
+    //   }
+    // }, 1.5 * 60 * 1000);
     // ReactGA.event({
     //   category: "Show",
     //   action: "Play Episode",

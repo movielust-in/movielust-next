@@ -1,3 +1,5 @@
+'use client';
+
 import Image from "next/image";
 import { MouseEventHandler, useState } from 'react';
 import { image } from '../../helpers/Urls';
@@ -16,13 +18,13 @@ interface WrapPros {
   showCard?: boolean;
 }
 
-Wrap.defaultProps = {
-  title: null,
-  description: null,
-  backdrop: null,
-  genres: [],
-  showCard: false,
-};
+// Wrap.defaultProps = {
+//   title: null,
+//   description: null,
+//   backdrop: null,
+//   genres: [],
+//   showCard: false,
+// };
 
 enum Directions {
   LEFT = 'LEFT',
@@ -37,8 +39,8 @@ function Wrap({
   title,
   description,
   backdrop,
-  genres,
-  showCard,
+  genres=[],
+  showCard=false,
 }: WrapPros) {
   const [imgSrc, setImgSrc] = useState(src);
 

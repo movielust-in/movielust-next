@@ -11,9 +11,7 @@ interface WrapPros {
   rating?: number;
 }
 
-WrapH.defaultProps = {
-  rating: null,
-};
+
 
 function WrapH({ src, alt, title, rating }: WrapPros) {
   const [loading, setLoading] = useState(true);

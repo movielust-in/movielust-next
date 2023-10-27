@@ -25,11 +25,16 @@ interface FormProps {
   extraData?: any;
 }
 
-Form.defaultProps = {
-  extraData: () => {},
-};
+// Form.defaultProps = {
+//   extraData: () => {},
+// };
 
-function Form({ formik, fields, isSubmitting, extraData }: FormProps) {
+function Form({
+  formik,
+  fields,
+  isSubmitting,
+  extraData = () => {},
+}: FormProps) {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [avatars, setAvatars] = useState<any>([]);
   const [showPassword, setShowPassword] = useState<any>(false);

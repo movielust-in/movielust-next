@@ -1,10 +1,12 @@
+'use client';
+
 /* eslint-disable @next/next/no-img-element */
 /* eslint-disable no-nested-ternary */
 import { useState } from 'react';
 
 import Image from 'next/image';
 import dynamic from 'next/dynamic';
-import { NextRouter } from 'next/router';
+import { usePathname } from 'next/navigation';
 
 import { MdPlaylistAdd } from 'react-icons/md';
 import { FaDownload, FaPlay, FaStar, FaStop, FaShareAlt } from 'react-icons/fa';
@@ -14,9 +16,9 @@ import Social from '../Social';
 
 import { image } from '../../helpers/Urls';
 
-import { CommonData, ImdbRating } from './DetailTypes';
+import { ImdbRating } from './DetailTypes';
 import { Magnet } from '../../types/apiResponses';
-import { MovieExternalIdsResponse } from '../../types/tmdb';
+import {  DetailResponse, MovieExternalIdsResponse } from '../../types/tmdb';
 
 import styles from './Detail.module.scss';
 
@@ -28,22 +30,16 @@ const openImdbRatingCharts = (movieImdbId: string) => {
 };
 
 interface InformationComponentProps {
-  domColor?: any;
   purpose?: string;
   type: string;
-  commonData: CommonData | undefined;
-  releaseDate: string | undefined;
-  playMovie: (movieTitle: string, path: string) => void;
-  loadingMovieIframe: boolean;
+  contentData: DetailResponse;
+  togglePlayer: (movieTitle: string, path: string) => void;
+  iframeLoading: boolean;
   showMovie: boolean;
   IMDBRating?: ImdbRating;
   magnets: Magnet[] | undefined;
-  runtime: string | undefined;
   externalIds?: MovieExternalIdsResponse | undefined;
-  released: boolean;
   addToWatchlsit?: () => any;
-  releaseYear: string | undefined;
-  location: NextRouter;
 }
 
 const playButtonMsg = (isMovieShown: boolean) =>
@@ -51,31 +47,25 @@ const playButtonMsg = (isMovieShown: boolean) =>
 
 export default function InformationComponent({
   purpose,
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  domColor,
   type,
-  commonData,
-  releaseDate,
-  playMovie,
-  loadingMovieIframe,
+  contentData,
+  togglePlayer: playMovie,
+  iframeLoading,
   showMovie,
   IMDBRating,
   magnets,
-  runtime,
   externalIds,
-  released,
   addToWatchlsit,
-  releaseYear,
-  location,
 }: InformationComponentProps) {
-  // const [showShareOptions, setShowShareOptions] = useState(false);
 
   const [loadingShareImg, setLoadingShareImg] = useState(false);
 
+  const pathname = usePathname();
+
   const share = async () => {
-    if (navigator.share) {
+    if (navigator.share && contentData?.poster_path) {
       setLoadingShareImg(true);
-      const imageBlob = await fetch(image(200, commonData?.poster!)).then(
+      const imageBlob = await fetch(image(200, contentData?.poster_path)).then(
         (res) => {
           setLoadingShareImg(false);
           return res.blob();
@@ -84,13 +74,15 @@ export default function InformationComponent({
 
       navigator
         .share({
-          title: commonData?.title,
-          text: `Check out ${commonData?.title} on Movielust.\n`,
+          title: contentData?.title,
+          text: `Check out ${contentData?.title} on Movielust.\n`,
           url: window.location.href,
           files: [
             new File(
               [imageBlob],
-              `${commonData?.title.split(' ').join('-')}.png`,
+              `${(contentData?.title! || contentData.name!)
+                .split(' ')
+                .join('-')}.png`,
               {
                 type: imageBlob.type,
               }
@@ -99,7 +91,6 @@ export default function InformationComponent({
         })
         .catch(() => {});
     }
-    // else setShowShareOptions((state) => !state);
   };
 
   return (
@@ -114,19 +105,24 @@ export default function InformationComponent({
     >
       <div className={styles.Controls}>
         {type === 'movie' &&
-          releaseDate &&
-          new Date() > new Date(releaseDate) &&
-          commonData && (
+          contentData.release_date &&
+          new Date() > new Date(contentData.release_date) &&
+          contentData && (
             <span
               role="presentation"
               style={{
-                width: loadingMovieIframe ? '80px' : '120px',
+                width: iframeLoading ? '80px' : '120px',
               }}
               className={styles.PlayMovie}
-              onClick={() => playMovie(commonData.title, location.pathname)}
+              onClick={() =>
+                playMovie(
+                  contentData.title || contentData.name!,
+                  pathname as string
+                )
+              } // !!!
             >
               {!showMovie ? <FaPlay /> : <FaStop />}
-              {!loadingMovieIframe ? (
+              {!iframeLoading ? (
                 playButtonMsg(showMovie)
               ) : (
                 <Spinner width={20} height={20} />
@@ -164,21 +160,18 @@ export default function InformationComponent({
           </FaShareAlt>
         )}
 
-        {/* <ShareOptions
-          title={commonData!.title}
-          type={type!}
-          show={showShareOptions}
-        /> */}
+
       </div>
 
       <div className={styles.Title}>
-        <h2>{commonData!.title}</h2> {releaseYear && <h4>({releaseYear})</h4>}
+        <h2>{contentData!.title}</h2>{' '}
+        {contentData.release_date?.split(' ')[-1] || null}
       </div>
 
       {/* Ratings */}
-      {IMDBRating || commonData?.tmdbRating ? (
+      {IMDBRating || contentData?.vote_average ? (
         <div className={styles.Rating}>
-          {IMDBRating?.rating || commonData?.tmdbRating ? (
+          {IMDBRating?.rating || contentData?.vote_average ? (
             <FaStar size="20px" color="rgba(255,255,0,0.8)" />
           ) : // <img width={20} src={FaStar} alt="star" />
           null}
@@ -198,10 +191,10 @@ export default function InformationComponent({
                 alt="TMDB"
               />{' '}
             </span>
-          ) : commonData?.tmdbRating ? (
+          ) : contentData?.vote_average ? (
             <span>
-              {commonData.tmdbRating} ({commonData.voteCount?.toLocaleString()}{' '}
-              votes)
+              {contentData.vote_average} (
+              {contentData.vote_count?.toLocaleString()} votes)
               {'   '}
               <img
                 width="30px"
@@ -216,17 +209,18 @@ export default function InformationComponent({
 
       {/* Genres and Release Date */}
       <div className={styles.SubTitle}>
-        {runtime !== '0 hrs 0 mins' ? runtime : null}
-        <br /> {commonData?.genreString}
+        {contentData.runtime !== '0 hrs 0 mins' ? contentData.runtime : null}
+        <br /> {contentData?.genres?.map(genre=>genre.name).join(" | ")}
         {type === 'movie' &&
-          (releaseDate ? (
+          (contentData.release_date ? (
             <div className={styles.SubTitle}>
-              {released ? 'Released: ' : 'Releasing: '} {releaseDate}
+              {contentData.released ? 'Released: ' : 'Releasing: '}{' '}
+              {contentData.release_date}
             </div>
           ) : null)}
       </div>
 
-      {type === 'movie' && magnets!.length > 0 ? (
+      {type === 'movie' && magnets?.length  ? (
         <div className={styles.ContentOptions}>
           <FaDownload />
           {magnets!.map((magnet) => (
@@ -245,18 +239,18 @@ export default function InformationComponent({
         <Social
           externalIds={externalIds as MovieExternalIdsResponse}
           type="title"
-          title={commonData?.title}
+          title={contentData?.title}
         />
       ) : null}
 
-      {commonData && commonData.overview ? (
+      {contentData && contentData.overview ? (
         <div
           className={styles.Description}
           style={{
             maxWidth: purpose ? '100vw' : '77vw',
           }}
         >
-          {commonData.overview}
+          {contentData.overview}
         </div>
       ) : null}
     </div>

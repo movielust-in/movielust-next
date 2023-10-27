@@ -1,3 +1,5 @@
+"use client";
+
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable no-nested-ternary */
 import { memo, useState } from 'react';
@@ -23,19 +25,14 @@ interface ImageCrouselProps {
   height?: number;
 }
 
-ImageCrousel.defaultProps = {
-  title: null,
-  width: 200,
-  height: 120,
-};
 
 function ImageCrousel({
   images,
   type,
   title,
   dom,
-  width,
-  height,
+  width=200,
+  height=120,
 }: ImageCrouselProps) {
   const [open, setOpen] = useState(false);
   const closeModal = () => setOpen(false);

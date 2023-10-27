@@ -1,28 +1,28 @@
 import Head from 'next/head';
 import { image } from '../../helpers/Urls';
 
-import { CommonData } from './DetailTypes';
+import { DetailResponse } from '../../types/tmdb';
 
 interface DetailHelmetProps {
-  commonData: CommonData | undefined;
+  contentData: DetailResponse;
   link: string;
 }
 
-function DetailHelmet({ commonData, link }: DetailHelmetProps) {
+function DetailHelmet({ contentData, link }: DetailHelmetProps) {
   return (
     <Head>
-      <title>{`${commonData?.title} - Movielust`}</title>
+      <title>{`${contentData?.title || contentData?.name} - Movielust`}</title>
       <meta
         name="description"
-        content={commonData?.overview}
+        content={contentData?.overview}
         key="description"
       />
       <meta
         property="og:title"
         name="og:title"
-        content={`${commonData?.title} - Movielust`}
+        content={`${contentData?.title || contentData?.name} - Movielust`}
       />
-      <meta property="og:description" content={commonData?.overview} />
+      <meta property="og:description" content={contentData?.overview} />
       <meta property="og:site_name" content="Movielust" />
       <meta
         property="og:url"
@@ -30,16 +30,16 @@ function DetailHelmet({ commonData, link }: DetailHelmetProps) {
       />
       <meta
         property="og:image"
-        content={image(200, commonData?.poster || '')}
+        content={image(200, contentData?.poster_path || '')}
       />
-      <meta name="twitter:title" content={`${commonData?.title} - Movielust`} />
-      <meta name="twitter:description" content={commonData?.overview} />
+      <meta name="twitter:title" content={`${contentData?.title || contentData?.name} - Movielust`} />
+      <meta name="twitter:description" content={contentData?.overview} />
       <meta name="twitter:card" content="summary_large_image" />
       <meta name="twitter:site" content="@movielust_in" />
       <meta name="twitter:url" content="https://www.movie-lust.vercel.app" />
       <meta
         name="twitter:image"
-        content={image(780, commonData?.backdrop || commonData?.poster || '')}
+        content={image(780, contentData?.backdrop_path || contentData?.poster_path || '')}
       />
     </Head>
   );

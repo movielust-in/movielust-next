@@ -17,13 +17,6 @@ interface PeopleModalProps {
   at?: number;
 }
 
-PeopleModal.defaultProps = {
-  imagess: [
-    'https://image.tmdb.org/t/p/original/1953j0QEbtN17WFFTnJHIm6bn6I.jpg',
-  ],
-  at: 0,
-};
-
 const customStyles: ReactModal.Styles = {
   overlay: {
     backgroundColor: 'rgba(1,1,1,0.6)',
@@ -47,7 +40,13 @@ const customStyles: ReactModal.Styles = {
   },
 };
 
-function PeopleModal({ imagess, onClose, at }: PeopleModalProps) {
+function PeopleModal({
+  imagess = [
+    'https://image.tmdb.org/t/p/original/1953j0QEbtN17WFFTnJHIm6bn6I.jpg',
+  ],
+  onClose,
+  at = 0,
+}: PeopleModalProps) {
   useLockBodyScroll();
 
   const [index, setState] = useState(at || 0);

@@ -1,3 +1,5 @@
+'use client'
+
 import Link from 'next/link';
 import { SwiperSlide } from 'swiper/react';
 
@@ -17,18 +19,12 @@ interface MovieCarouselInterface {
   showCard?: boolean;
 }
 
-MovieCarousel.defaultProps = {
-  title: null,
-  watchall: null,
-  showCard: true,
-};
-
 function MovieCarousel({
   movies,
   title,
   type,
   watchall,
-  showCard,
+  showCard=true,
 }: MovieCarouselInterface) {
   return <>
     {title && (

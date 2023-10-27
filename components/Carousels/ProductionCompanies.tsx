@@ -1,5 +1,7 @@
+'use client';
+
 import { SwiperSlide } from 'swiper/react';
-import { useRouter } from 'next/router';
+// import { useRouter } from 'next/router';
 
 import Carousel from './Carousel';
 import ProductionWrap from '../CarouselSlices/ProductionWrap';
@@ -21,7 +23,7 @@ function ProductionCompanies({
   title,
 }: // dom
 ProductionCompaniesPros) {
-  const router = useRouter();
+  // const router = useRouter();
   return (
     <div
       className={prodCompaniesStyles.Container}
@@ -40,7 +42,7 @@ ProductionCompaniesPros) {
               <SwiperSlide
                 key={detail.id}
                 onClick={() => {
-                  router.push(`/production/${detail.id}`);
+                  // router.push(`/production/${detail.id}`);
                 }}
               >
                 <ProductionWrap
@@ -58,7 +60,7 @@ ProductionCompaniesPros) {
               <SwiperSlide
                 key={detail.id}
                 onClick={() => {
-                  router.push(`/production/${detail.id}`);
+                  // router.push(`/production/${detail.id}`);
                 }}
               >
                 <ProductionWrap

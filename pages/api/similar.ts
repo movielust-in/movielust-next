@@ -1,8 +1,8 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-import { getAll } from '../../../../../helpers/Get';
-import tmdbClient from '../../../../../helpers/tmdbClient';
-import { SIMILAR } from '../../../../../helpers/Urls';
-import { Content } from '../../../../../types/tmdb';
+import { getAll } from '../../helpers/Get';
+import tmdbClient from '../../helpers/tmdbClient';
+import { SIMILAR } from '../../helpers/Urls';
+import { Content } from '../../types/tmdb';
 
 export default function SimilarMovies(
   req: NextApiRequest,

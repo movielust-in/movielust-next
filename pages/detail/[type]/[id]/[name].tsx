@@ -6,33 +6,33 @@ import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
 import { toast } from 'react-toastify';
 
-import BackgroundImage from '../../../components/Details/BackgroundImage';
-import InformationComponent from '../../../components/Details/Information';
-import DetailHelmet from '../../../components/Details/DetailHelmet';
-import PosterAndIframe from '../../../components/Details/PosterAndIframe';
-import MovieCarousel from '../../../components/Carousels/MovieCarousel';
-import CastCarousel from '../../../components/Carousels/CastCarousel';
-import ImageCrousel from '../../../components/Carousels/ImageCrousel';
-import ProductionCompanies from '../../../components/Carousels/ProductionCompanies';
-import SimilarMovies from '../../../components/Details/SimilarMovies';
+import BackgroundImage from '../../../../components/Details/BackgroundImage';
+import InformationComponent from '../../../../components/Details/Information';
+import DetailHelmet from '../../../../components/Details/DetailHelmet';
+import PosterAndIframe from '../../../../components/Details/PosterAndIframe';
+import MovieCarousel from '../../../../components/Carousels/MovieCarousel';
+import CastCarousel from '../../../../components/Carousels/CastCarousel';
+import ImageCrousel from '../../../../components/Carousels/ImageCrousel';
+import ProductionCompanies from '../../../../components/Carousels/ProductionCompanies';
+import SimilarMovies from '../../../../components/Details/SimilarMovies';
 
 // FOR SSR
-import { FULL_MONTHS } from '../../../config';
-import { VIDEO } from '../../../helpers/Urls';
-import tmdbClient from '../../../helpers/tmdbClient';
-import { fetchDetails } from '../../../helpers/tmdb';
+import { FULL_MONTHS } from '../../../../config';
+import { VIDEO } from '../../../../helpers/Urls';
+import tmdbClient from '../../../../helpers/tmdbClient';
+import { fetchDetails } from '../../../../helpers/tmdb';
 
 // Magnets
-import { fetchMagnetsfromYTSapi } from '../../../helpers/torrent';
+import { fetchMagnetsfromYTSapi } from '../../../../helpers/torrent';
 
 // Redux Hooks
-import { useDispatch, useSelector } from '../../../redux/store';
+import { useDispatch, useSelector } from '../../../../redux/store';
 
 // Redux Actions
 import {
   addMovieToWatchlist,
   addShowToWatchlist,
-} from '../../../redux/reducers/watchlist.reducer';
+} from '../../../../redux/reducers/watchlist.reducer';
 
 // Types
 import {
@@ -42,14 +42,14 @@ import {
   MovieExternalIdsResponse,
   MovieImagesResponse,
   ShowResponse,
-} from '../../../types/tmdb';
+} from '../../../../types/tmdb';
 
-import { IMDBRating } from '../../../types/apiResponses';
+import { IMDBRating } from '../../../../types/apiResponses';
 
-import styles from '../../../components/Details/Detail.module.scss';
-import MinutesToDuration from '../../../utils/minutesToDuration';
+import styles from '../../../../components/Details/Detail.module.scss';
+import MinutesToDuration from '../../../../utils/minutesToDuration';
 
-const Seasons = dynamic(() => import('../../../components/Shows/Seasons'));
+const Seasons = dynamic(() => import('../../../../components/Shows/Seasons'));
 
 interface DetailProps {
   contentData: DetailResponse;
@@ -76,7 +76,7 @@ const Detail: NextPage<DetailProps> = ({ contentData }: DetailProps) => {
 
   useEffect(() => {
     if (contentData.belongs_to_collection) {
-      import('../../../helpers/tmdb/movies').then((r) =>
+      import('../../../../helpers/tmdb/movies').then((r) =>
         r
           .fetchCollection(contentData.belongs_to_collection!.id)
           .then((res) => setCollection(res))
@@ -84,7 +84,7 @@ const Detail: NextPage<DetailProps> = ({ contentData }: DetailProps) => {
     }
 
     if (contentData.imdb_id && type === 'movie') {
-      import('../../../helpers/imdb').then((imdb) =>
+      import('../../../../helpers/imdb').then((imdb) =>
         imdb
           .fetchIMDBRating(contentData.imdb_id!)
           .then((res) => setImdbRating(res))
@@ -104,11 +104,11 @@ const Detail: NextPage<DetailProps> = ({ contentData }: DetailProps) => {
   useEffect(() => {
     if (!id || !type) return;
 
-    import('../../../helpers/tmdb/movies').then((r) =>
+    import('../../../../helpers/tmdb/movies').then((r) =>
       r.fetchExternalIds(id, type).then((res) => setExternalIds(res))
     );
 
-    import('../../../helpers/tmdb/series').then((r) =>
+    import('../../../../helpers/tmdb/series').then((r) =>
       r
         .fetchTvImages(id, type)
         .then((imageRes) => setImages(imageRes.backdrops))
@@ -124,7 +124,7 @@ const Detail: NextPage<DetailProps> = ({ contentData }: DetailProps) => {
     }
     try {
       const { addToWatchlist } = await import(
-        '../../../helpers/user/watchlist'
+        '../../../../helpers/user/watchlist'
       );
 
       await addToWatchlist(parseInt(id!, 10), type!);
@@ -224,7 +224,7 @@ const Detail: NextPage<DetailProps> = ({ contentData }: DetailProps) => {
         id="movie_tv_structed_data"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
       />
-      <DetailHelmet link={router.asPath} commonData={commonData} />
+      <DetailHelmet link={router.asPath} contentData={commonData} />
 
       <BackgroundImage backdrop={contentData.backdrop_path} />
 
@@ -233,7 +233,7 @@ const Detail: NextPage<DetailProps> = ({ contentData }: DetailProps) => {
         poster={contentData.poster_path}
         showMovie={showMovie}
         trailerKey={contentData.trailerKey}
-        iframeLoaded={iframeLoaded}
+        onIframeLoad={iframeLoaded}
       />
 
       <InformationComponent
@@ -241,8 +241,8 @@ const Detail: NextPage<DetailProps> = ({ contentData }: DetailProps) => {
         commonData={commonData}
         releaseDate={contentData.release_date}
         releaseYear={contentData?.release_date?.split(' ')[-1] || ''}
-        playMovie={toggleMovie}
-        loadingMovieIframe={loadingMovieIframe}
+        togglePlayer={toggleMovie}
+        iframeLoading={loadingMovieIframe}
         showMovie={showMovie}
         IMDBRating={imdbRating}
         magnets={magnets}

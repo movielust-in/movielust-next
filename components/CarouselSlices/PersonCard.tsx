@@ -1,5 +1,7 @@
+'use client';
+
 import { useState } from 'react';
-import Image from "next/image";
+import Image from 'next/image';
 
 import styles from '../../styles/personCard.module.scss';
 
@@ -47,9 +49,10 @@ function PersonCard({ title, src, alt }: WrapPros) {
         onError={onError}
         loading="lazy"
         style={{
-          maxWidth: "100%",
-          height: "auto"
-        }} />
+          maxWidth: '100%',
+          height: 'auto',
+        }}
+      />
       {!loading && title && (
         <div className={styles.Information}>
           {title && <h3 className={styles.Title}>{title}</h3>}

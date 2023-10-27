@@ -11,10 +11,6 @@ interface SocialProps {
   title?: string;
 }
 
-Social.defaultProps = {
-  name: null,
-  title: null,
-};
 
 function Social({ externalIds, type, name, title }: SocialProps) {
   if (!externalIds) return null;

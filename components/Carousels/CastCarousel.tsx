@@ -1,5 +1,7 @@
+'use client'
+
 import { memo, useMemo } from 'react';
-import { useRouter } from 'next/router';
+// import { useRouter } from 'next/router';
 import { SwiperSlide } from 'swiper/react';
 
 import Carousel from './Carousel';
@@ -18,11 +20,7 @@ interface CastCarouselProps {
   contentTitle?: string;
 }
 
-CastCarousel.defaultProps = {
-  id: null,
-  type: null,
-  contentTitle: '',
-};
+
 
 function CastCarousel({
   cast,
@@ -31,7 +29,7 @@ function CastCarousel({
   id,
   contentTitle,
 }: CastCarouselProps) {
-  const router = useRouter();
+  // const router = useRouter();
 
   const casts = useMemo(() => cast.slice(0, 20), [cast]);
 
@@ -41,7 +39,7 @@ function CastCarousel({
         <h2>{title}</h2>
         {id && contentTitle ? (
           <ShowAllButton
-            link={`/cast/${type}/${id}/${dashedTitle(contentTitle)}`}
+            link={`/cast/${type}/${id}/${dashedTitle(contentTitle||'')}`}
             label="See all cast"
           />
         ) : null}
@@ -55,7 +53,7 @@ function CastCarousel({
               id="cast_slider"
               key={member.id}
               onClick={() => {
-                router.push(`/person/${member.id}`);
+                // router.push(`/person/${member.id}`);
               }}
             >
               {type === 'tv' ? (

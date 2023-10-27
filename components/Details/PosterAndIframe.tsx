@@ -1,3 +1,4 @@
+
 /* eslint-disable @next/next/no-img-element */
 import { TWO_EMBED } from '../../config';
 
@@ -7,7 +8,7 @@ interface PosterAndIframeProps {
   poster?: string;
   showMovie: boolean;
   trailerKey?: string;
-  iframeLoaded: () => void;
+  onIframeLoad: () => void;
   id: string;
 }
 
@@ -16,7 +17,7 @@ function PosterAndIframe({
   showMovie,
   poster,
   trailerKey,
-  iframeLoaded,
+  onIframeLoad,
 }: PosterAndIframeProps) {
   return (
     <div className={styles.TopContainer}>
@@ -48,7 +49,7 @@ function PosterAndIframe({
                 ? `${TWO_EMBED}/embed/${id}`
                 : `https://www.youtube.com/embed/${trailerKey}`
             }
-            onLoad={iframeLoaded}
+            onLoad={onIframeLoad}
             title="Trailer"
             frameBorder="0"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
