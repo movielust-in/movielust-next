@@ -1,8 +1,9 @@
+'use client';
+
 import React, { useState, memo } from 'react';
 
 import dynamic from 'next/dynamic';
 
-import { useSelector } from '../../redux';
 import MovieCarousel from '../Carousels/MovieCarousel';
 import ShowAllButton from '../CarouselSlices/ShowAllButton';
 
@@ -12,7 +13,7 @@ import { HomeMovies } from '../../types/apiResponses';
 
 import styles from './HomeMovies.module.scss';
 
-const RecentCarousel = dynamic(() => import('../Carousels/RecentCarousel'));
+// const RecentCarousel = dynamic(() => import('../Carousels/RecentCarousel'));
 const InfiniteMovies = dynamic(() => import('./InfiniteMovies'));
 
 interface MoviesProps {
@@ -20,15 +21,13 @@ interface MoviesProps {
 }
 
 function Movies({ movies }: MoviesProps) {
-  const isAuthenticated = useSelector((state) => state.user.isLoggedIn);
-
   const [showInfinite, setShowInfinite] = useState(false);
 
   const observer = useObserver(() => setShowInfinite(true), { threshold: 0.1 });
 
   return (
     <div className={styles.Container}>
-      {isAuthenticated ? <RecentCarousel /> : null}
+      {/* {isAuthenticated ? <RecentCarousel /> : null} */}
 
       <div className={styles.CarouselContainer} key="trending">
         <div className={styles.Title}>

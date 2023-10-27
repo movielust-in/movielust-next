@@ -1,3 +1,5 @@
+'use client';
+
 /* eslint-disable no-nested-ternary */
 import {
   useState,
@@ -11,7 +13,7 @@ import {
 
 import Image from 'next/image';
 
-import { useRouter } from 'next/router';
+import { useRouter, usePathname } from 'next/navigation';
 
 import { FaArrowLeft } from 'react-icons/fa';
 
@@ -52,6 +54,7 @@ function Search({ show }: { show: boolean }) {
   const inputRef = useRef<HTMLInputElement>();
   const router = useRouter();
   const cLocation = useRef<string>();
+  const pathname = usePathname();
 
   const [loading, setLoading] = useState(false);
   const [searchQuery, setSearch] = useState('');
@@ -60,8 +63,8 @@ function Search({ show }: { show: boolean }) {
   const [people, setPeople] = useState<Content[]>();
 
   useEffect(() => {
-    [cLocation.current] = router.asPath.split('#');
-  }, [router]);
+    cLocation.current = pathname;
+  }, [pathname]);
 
   /// ///////////////////////////////////////////////////////////////////  Recent Search   //////////////////////////////////////////////////////////////////////////////////////////
   const parentRef = useRef<HTMLDivElement>();

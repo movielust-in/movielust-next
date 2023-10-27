@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, useState } from 'react';
 import { Carousel } from './HomeType';
 import {
   BOLLYWOOD,
@@ -9,10 +9,8 @@ import {
   TR_ANIME,
 } from '../../helpers/Urls';
 import CarouselContainer from './CarouselContainer';
-import { useDispatch, useSelector } from '../../redux/store';
 import LoadingCarousel from '../Carousels/LoadingCarousel';
 import useObserver from '../../hooks/useObserver';
-import { nextPage } from '../../redux/reducers/infiniteHome.reducer';
 
 import styles from './HomeMovies.module.scss';
 import { MOVIE_GENRES, TV_GENRES } from '../../config';
@@ -49,7 +47,7 @@ const FixCarousels: Carousel[] = [
 ];
 
 const InfiniteMovies = () => {
-  const { currPage } = useSelector((state) => state.home);
+  const [currPage, setCurrPage] = useState(1);
 
   const Carousels = useMemo(
     () => [
@@ -78,9 +76,7 @@ const InfiniteMovies = () => {
     []
   ) as Carousel[];
 
-  const dispatch = useDispatch();
-
-  const setTrigger = useObserver(() => dispatch(nextPage()), {
+  const setTrigger = useObserver(() => setCurrPage((page) => page + 1), {
     threshold: [0.25, 1],
   });
 

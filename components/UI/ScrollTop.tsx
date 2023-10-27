@@ -1,5 +1,7 @@
+'use client';
+
 import { useState } from 'react';
-import Image from "next/image";
+import Image from 'next/image';
 import { useEventListener } from '../../hooks';
 import scrollToTop from '../../utils/scrollToTop';
 
@@ -33,9 +35,10 @@ export default function ScrollTop() {
         alt="Scroll to top"
         unoptimized
         style={{
-          maxWidth: "100%",
-          height: "auto"
-        }} />
+          maxWidth: '100%',
+          height: 'auto',
+        }}
+      />
     </button>
   );
 }

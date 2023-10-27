@@ -1,3 +1,5 @@
+'use client';
+
 /* eslint-disable no-nested-ternary */
 /* eslint-disable @next/next/no-img-element */
 import { useState, useEffect, KeyboardEvent } from 'react';
@@ -5,7 +7,7 @@ import { useState, useEffect, KeyboardEvent } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import dynamic from 'next/dynamic';
-import { useRouter } from 'next/router';
+import { useParams, usePathname, useRouter } from 'next/navigation';
 
 import {
   MdPlaylistPlay as WatchlistIcon,
@@ -15,8 +17,6 @@ import {
 import { FaHome as HomeIcon } from 'react-icons/fa';
 import { AiFillPlaySquare as SeriesIcon } from 'react-icons/ai';
 import { BiSearchAlt as SearchIcon } from 'react-icons/bi';
-
-import { useSelector } from '../../redux';
 
 import { useEventListener, useScroll } from '../../hooks';
 
@@ -30,12 +30,19 @@ interface HeaderProps {
 
 function Header({ isOnline }: HeaderProps) {
   const router = useRouter();
+  const params = useParams();
+  const pathname = usePathname();
+  const [hash, setHash] = useState('');
 
-  const hash = router.asPath.split('#')[1];
+  useEffect(() => {
+    setHash(window.location.hash.split('#')[1]);
+  }, [params]);
+
+  // eslint-disable-next-line prefer-destructuring
 
   const [searchView, setSearchView] = useState(false);
 
-  const user = useSelector((state) => state.user);
+  const user = { isLoggedIn: false, avatar: '' };
 
   const scrollValue = useScroll(200);
 
@@ -70,11 +77,11 @@ function Header({ isOnline }: HeaderProps) {
 
   const showSearch = () => {
     if (hash && hash.includes('search')) {
-      router.push(router.asPath.split('#')[0] + hash.replace('search', ''));
+      router.push(pathname + hash.replace('search', ''));
     } else if (hash && hash.includes('#')) {
-      router.push(`${`${router.asPath.split('#')[0]}#${hash}`}search`);
+      router.push(`${`${pathname}#${hash}`}search`);
     } else {
-      router.push(`${router.asPath.split('#')[0]}#search`);
+      router.push(`${pathname}#search`);
     }
   };
 
@@ -88,7 +95,7 @@ function Header({ isOnline }: HeaderProps) {
         className={`${styles.Navbar} ${
           // eslint-disable-next-line no-nested-ternary
           (!hash || (!hash.includes('search') && !hash.includes('player'))) &&
-          !router.pathname.includes('/play')
+          !pathname?.includes('/play')
             ? scroll <= 20
               ? styles.transparent
               : styles.gradient
@@ -181,7 +188,7 @@ function Header({ isOnline }: HeaderProps) {
               type="button"
               className={styles.LoginPrompt}
               onClick={() => {
-                router.push(`/signin?redirectto=${router.asPath}`);
+                router.push(`/signin?redirectto=${pathname}`);
               }}
             >
               LOGIN

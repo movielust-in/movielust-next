@@ -1,6 +1,8 @@
+'use client';
+
 /* eslint-disable no-nested-ternary */
 import React from 'react';
-import StarRatings from 'react-star-ratings';
+// import StarRatings from 'react-star-ratings';
 import Link from 'next/link';
 import { Navigation, Autoplay } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -43,7 +45,7 @@ function ImgSlider({
                   {movie.overview!.slice(0, 200)}.
                 </p>
 
-                {movie.vote_average ? (
+                {/* {movie.vote_average ? (
                   <StarRatings
                     rating={movie.imdb_rating || movie.vote_average}
                     numberOfStars={10}
@@ -51,7 +53,7 @@ function ImgSlider({
                     starEmptyColor="gray"
                     starDimension="16px"
                   />
-                ) : null}
+                ) : null} */}
 
                 {movie.imdb_rating ? (
                   <h5>
