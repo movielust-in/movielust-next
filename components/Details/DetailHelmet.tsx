@@ -24,7 +24,10 @@ function DetailHelmet({ commonData, link }: DetailHelmetProps) {
       />
       <meta property="og:description" content={commonData?.overview} />
       <meta property="og:site_name" content="Movielust" />
-      <meta property="og:url" content={`https://movielust.in/${link}`} />
+      <meta
+        property="og:url"
+        content={`https://movie-lust.vercel.app/${link}`}
+      />
       <meta
         property="og:image"
         content={image(200, commonData?.poster || '')}
@@ -33,7 +36,7 @@ function DetailHelmet({ commonData, link }: DetailHelmetProps) {
       <meta name="twitter:description" content={commonData?.overview} />
       <meta name="twitter:card" content="summary_large_image" />
       <meta name="twitter:site" content="@movielust_in" />
-      <meta name="twitter:url" content="https://www.movielust.in" />
+      <meta name="twitter:url" content="https://www.movie-lust.vercel.app" />
       <meta
         name="twitter:image"
         content={image(780, commonData?.backdrop || commonData?.poster || '')}

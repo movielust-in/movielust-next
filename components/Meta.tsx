@@ -64,7 +64,7 @@ const Meta = ({ title, description, url, image, lgImage }: MetaProps) => (
     <meta name="twitter:site" content="@movielust_in" key="twitter_site" />
     <meta
       name="twitter:url"
-      content="https://www.movielust.in"
+      content="https://www.movie-lust.vercel.app"
       key="twitter_url"
     />
     {lgImage || image ? (

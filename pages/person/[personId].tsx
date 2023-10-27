@@ -75,7 +75,7 @@ function PeopleDetail({ person }: PeopleDeatail) {
     '@context': 'https://schema.org',
     '@type': 'Person',
     name: person.name,
-    url: `https://movielust.in/person/${person.id}`,
+    url: `https://movie-lust.vercel.app/person/${person.id}`,
     image: person.profile_path
       ? `https://image.tmdb.org/t/p/w200${person.profile_path}`
       : undefined,
@@ -101,7 +101,7 @@ function PeopleDetail({ person }: PeopleDeatail) {
       <Meta
         title={`${person.name}`}
         description={person.biography?.split(' ').slice(0, 160).join(' ')}
-        url={`https://movielust.in/person/${person.id}`}
+        url={`https://movie-lust.vercel.app/person/${person.id}`}
         image={`https://image.tmdb.org/t/p/w200${person.profile_path}`}
         lgImage={`https://image.tmdb.org/t/p/w500${person.profile_path}`}
       />

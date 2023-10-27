@@ -66,7 +66,7 @@ function SignUp() {
         values.name,
         'SIGNUP'
       );
-    
+
       if (sendOTP.data === 'E-mail already exists') {
         toast(sendOTP.data);
       } else {
@@ -104,11 +104,9 @@ function SignUp() {
 
           router.push('/signin');
         }
-      }
-      else if(verifyOtpRes.data==="Wrong OTP")  {
-        toast("Wrong OTP")
-      }
-       else {
+      } else if (verifyOtpRes.data === 'Wrong OTP') {
+        toast('Wrong OTP');
+      } else {
         toast('Error! Please Signup again');
       }
     } catch (err: any) {
@@ -199,7 +197,7 @@ function SignUp() {
       <Meta
         title="Sign up"
         description="Become a member of Movielust."
-        url="https://movielust.in/signup"
+        url="https://movie-lust.vercel.app/signup"
       />
       <Form
         formik={step.formik}

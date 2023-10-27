@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:ror="http://rorweb.com/0.1/">
   <channel>
-    <title>ROR Sitemap for https://www.movielust.in/</title>
-    <link>https://www.movielust.in/</link>
+    <title>ROR Sitemap for https://www.movie-lust.vercel.app/</title>
+    <link>https://www.movie-lust.vercel.app/</link>
 
     <item>
-      <link>https://www.movielust.in/</link>
+      <link>https://www.movie-lust.vercel.app/</link>
       <title>Movielust - Watch and Download Free Latest Movie,Series and TV Shows</title>
       <description>Watch and download movies with amazing new experience on Movielust</description>
       <ror:updatePeriod></ror:updatePeriod>

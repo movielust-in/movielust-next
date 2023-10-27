@@ -76,7 +76,7 @@ function Movie() {
       <Meta
         title="Movies"
         description="Discover a vast collection of Movies on Movielust."
-        url="https://movielust.in/discover/movies"
+        url="https://movie-lust.vercel.app/discover/movies"
       />
       <div className={styles.Filters}>
         <SortBy type="movie" />
@@ -104,11 +104,10 @@ function Movie() {
       <div className={styles.CardContainer}>
         {Object.values(data).map((results) =>
           results.map((movie) => (
-            (<Link
+            <Link
               key={movie.id}
               href={detailLink('movie', movie.id!, movie.title!)}
             >
-
               <div className={styles.Card} style={{ width: '150px' }}>
                 <Wrap
                   src={image(200, movie.poster_path!)}
@@ -123,8 +122,7 @@ function Movie() {
                   }
                 />
               </div>
-
-            </Link>)
+            </Link>
           ))
         )}
       </div>

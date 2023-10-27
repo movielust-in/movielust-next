@@ -82,7 +82,7 @@ export default function Document() {
 
         <link rel="manifest" href="/manifest.json" />
 
-        <link rel="canonical" href="https://movielust.in" />
+        <link rel="canonical" href="https://movie-lust.vercel.app" />
 
         <meta name="mobile-web-app-capable" content="yes" />
         <meta name="application-name" content="Movielust" />
@@ -99,12 +99,12 @@ export default function Document() {
               '@context': 'https://schema.org',
               '@type': 'Organization',
               name: 'Movielust',
-              email: 'support@movielust.in',
-              url: 'http://www.movielust.in',
-              logo: 'http://next.movielust.in/favicons/android-icon-144x144.png',
+              email: 'support@movie-lust.vercel.app',
+              url: 'http://www.movie-lust.vercel.app',
+              logo: 'http://next.movie-lust.vercel.app/favicons/android-icon-144x144.png',
               location: {
                 '@type': 'VirtualLocation',
-                url: 'https://movielust.in',
+                url: 'https://movie-lust.vercel.app',
               },
             }),
           }}
@@ -117,19 +117,19 @@ export default function Document() {
             __html: JSON.stringify({
               '@context': 'https://schema.org',
               '@type': 'WebSite',
-              url: 'https://www.movielust.in/',
-              '@id': 'https://movielust.in/',
+              url: 'https://www.movie-lust.vercel.app/',
+              '@id': 'https://movie-lust.vercel.app/',
               name: 'Movielust',
               description:
                 "Movielust is India's largest free streaming platform that offers a wide variety of premium TV shows, movies, anime, documentaries and even more",
-              publisher: { '@id': 'https://movielust.in/aboutus' },
+              publisher: { '@id': 'https://movie-lust.vercel.app/aboutus' },
               potentialAction: [
                 {
                   '@type': 'SearchAction',
                   target: {
                     '@type': 'EntryPoint',
                     urlTemplate:
-                      'https://www.movielust.in/#search?q={search_term_string}',
+                      'https://www.movie-lust.vercel.app/#search?q={search_term_string}',
                   },
                   'query-input': 'required name=search_term_string',
                 },

@@ -59,7 +59,7 @@ function Series() {
       <Meta
         title="Shows"
         description="Discover latest collection of Shows on Movielust."
-        url="https://movielust.in/discover/shows"
+        url="https://movie-lust.vercel.app/discover/shows"
       />
       <div style={{ display: 'flex', justifyContent: 'center' }}>
         <GenreFilter type={type} />

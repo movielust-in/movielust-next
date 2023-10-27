@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import Image from "next/image";
+import Image from 'next/image';
 import Meta from '../components/Meta';
 
 function Aboutus() {
@@ -8,7 +8,7 @@ function Aboutus() {
       <Meta
         title="About us"
         description="See more about movielust here."
-        url="https://movielust.in/aboutus"
+        url="https://movie-lust.vercel.app/aboutus"
       />
       <h3>About Us</h3>
       <Notice>
@@ -30,9 +30,10 @@ function Aboutus() {
                 unoptimized
                 alt="YTS logo"
                 style={{
-                  maxWidth: "100%",
-                  height: "auto"
-                }} />
+                  maxWidth: '100%',
+                  height: 'auto',
+                }}
+              />
             </a>
             <a href="https://en.wikipedia.org/wiki/YIFY">
               <Image
@@ -42,9 +43,10 @@ function Aboutus() {
                 unoptimized
                 alt="YTS logo"
                 style={{
-                  maxWidth: "100%",
-                  height: "auto"
-                }} />
+                  maxWidth: '100%',
+                  height: 'auto',
+                }}
+              />
             </a>
           </div>
 

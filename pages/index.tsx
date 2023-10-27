@@ -35,7 +35,7 @@ function Home({ trendingMovies, homeMovies }: HomeProps) {
         position: index + 1,
         item: {
           '@type': 'Movie',
-          url: `https://movielust.in/movie/${movie.id}/${dashedTitle(
+          url: `https://movie-lust.vercel.app/movie/${movie.id}/${dashedTitle(
             movie.title!
           )}`,
           name: movie.title,
@@ -56,7 +56,7 @@ function Home({ trendingMovies, homeMovies }: HomeProps) {
       <Meta
         title="Home"
         description="Movielust is India's largest free streaming platform that offers a wide variety of premium TV shows, movies, anime, documentaries and even more"
-        url="https://movielust.in"
+        url="https://movie-lust.vercel.app"
         image="/favicon/android-icon-192x192.png"
       />
 

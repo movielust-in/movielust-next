@@ -22,12 +22,12 @@ function Disclaimer() {
           <h2>02</h2>
           <p>
             Movielust does not host any files on servers.All files or contents
-            hosted on third party websites. Movielust.in does not accept
-            responsibility for contents hosted on third party websites. We just
-            index those links which are already available in internet This is a
-            promotional website only, all the content provided on this site (All
-            materials) is for testing/promotion purposes only. All files placed
-            here are for introducing purpose.
+            hosted on third party websites. movie-lust.vercel.app does not
+            accept responsibility for contents hosted on third party websites.
+            We just index those links which are already available in internet
+            This is a promotional website only, all the content provided on this
+            site (All materials) is for testing/promotion purposes only. All
+            files placed here are for introducing purpose.
           </p>
         </li>
         <li>

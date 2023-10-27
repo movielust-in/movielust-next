@@ -1,4 +1,4 @@
-import { memo } from 'react';
+import { memo, useMemo } from 'react';
 import { useRouter } from 'next/router';
 import { SwiperSlide } from 'swiper/react';
 
@@ -31,10 +31,9 @@ function CastCarousel({
   id,
   contentTitle,
 }: CastCarouselProps) {
-
   const router = useRouter();
 
-  const casts = cast.slice(0, 20);
+  const casts = useMemo(() => cast.slice(0, 20), [cast]);
 
   return (
     <div className={styles.big_container}>

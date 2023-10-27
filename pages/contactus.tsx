@@ -73,7 +73,7 @@ function Contactus() {
       <Meta
         title="Contact us"
         description="Submit your queries."
-        url="https://movielust.in/contactus"
+        url="https://movie-lust.vercel.app/contactus"
       />
       <Form formik={formik} fields={fields} isSubmitting={submitting} />;
     </>

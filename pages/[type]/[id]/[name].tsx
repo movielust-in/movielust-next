@@ -1,11 +1,10 @@
 /* eslint-disable no-alert */
 import React, { useCallback, useEffect, useState } from 'react';
 import { GetServerSideProps, NextPage } from 'next';
-import { toast } from 'react-toastify';
-
 import Script from 'next/script';
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
+import { toast } from 'react-toastify';
 
 import BackgroundImage from '../../../components/Details/BackgroundImage';
 import InformationComponent from '../../../components/Details/Information';
@@ -192,7 +191,7 @@ const Detail: NextPage<DetailProps> = ({ contentData }: DetailProps) => {
   const structuredData = {
     '@context': 'https://schema.org',
     '@type': type === 'movie' ? 'Movie' : 'TVSeries',
-    url: `https://movielust.in/${type}/${id}/${title}`,
+    url: `https://movie-lust.vercel.app/${type}/${id}/${title}`,
     name: commonData.title,
     image: contentData.poster_path
       ? `https://image.tmdb.org/t/p/w200${contentData.poster_path}`
@@ -211,7 +210,7 @@ const Detail: NextPage<DetailProps> = ({ contentData }: DetailProps) => {
       contentData.overview?.split(' ').slice(0, 100).join(' ') || undefined,
     potentialAction: {
       '@type': 'WatchAction',
-      target: `https://movielust.in/${type}/${id}/${title}`,
+      target: `https://movie-lust.vercel.app/${type}/${id}/${title}`,
     },
     sameAs: contentData.imdb_id
       ? `www.imdb.com/title/${contentData.imdb_id}/`
@@ -255,15 +254,15 @@ const Detail: NextPage<DetailProps> = ({ contentData }: DetailProps) => {
       />
 
       {type === 'tv' &&
-        contentData &&
-        contentData.name &&
-        contentData.number_of_seasons && (
-          <Seasons
-            id={id!}
-            title={contentData.name}
-            totalSeasons={contentData.number_of_seasons}
-          />
-        )}
+      contentData &&
+      contentData.name &&
+      contentData.number_of_seasons ? (
+        <Seasons
+          id={id!}
+          title={contentData.name}
+          totalSeasons={contentData.number_of_seasons}
+        />
+      ) : null}
 
       {/* Cast */}
       {contentData?.credits?.cast && contentData?.credits?.cast.length > 0 ? (
@@ -281,12 +280,7 @@ const Detail: NextPage<DetailProps> = ({ contentData }: DetailProps) => {
       collection.parts?.length > 0 &&
       collection.parts.filter((movie: any) => movie.poster_path !== null)
         .length > 1 ? (
-        <div
-          // style={{
-          //   backgroundColor: `rgba(${domColor[0]}, ${domColor[1]}, ${domColor[2]}, 0.3)`,
-          // }}
-          className={styles.Collection}
-        >
+        <div className={styles.Collection}>
           <MovieCarousel
             type={type!}
             movies={collection.parts as any}
@@ -306,11 +300,9 @@ const Detail: NextPage<DetailProps> = ({ contentData }: DetailProps) => {
           <ProductionCompanies
             data={contentData?.production_companies}
             title="Production"
-            // dom={domColor}
           />
         )}
 
-      {/* TODO: move similar movie fetching logic to supabase functions */}
       {contentData?.genres && contentData?.genres?.length > 0 ? (
         <SimilarMovies
           id={id!}
@@ -320,7 +312,6 @@ const Detail: NextPage<DetailProps> = ({ contentData }: DetailProps) => {
           }
           genres={contentData?.genres}
           toBeFiltered={collection?.parts || []}
-          // dom={domColor}
         />
       ) : null}
     </div>
@@ -346,10 +337,7 @@ export const getServerSideProps: GetServerSideProps = async ({
     };
   }
 
-  res.setHeader(
-    'Cache-Control',
-    'public, s-maxage=604800, stale-while-revalidate=86400'
-  );
+  res.setHeader('Cache-Control', 'public, s-maxage=604800, immutable');
 
   let { data } = await fetchDetails(id, type);
 
