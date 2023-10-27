@@ -63,6 +63,7 @@ function Search({ show }: { show: boolean }) {
   const [people, setPeople] = useState<Content[]>();
 
   useEffect(() => {
+    if(!pathname)return;
     cLocation.current = pathname;
   }, [pathname]);
 
