@@ -3,6 +3,7 @@ on:
   push:
     branches:
       - test
+      - migrate-app-router
 jobs:
   deploy:
     runs-on: ubuntu-latest
@@ -14,8 +15,8 @@ jobs:
       - uses: amondnet/vercel-action@v25 #deploy
         with:
           vercel-token: ${{ secrets.VERCEL_TOKEN }} # Required
-          github-token: ${{ secrets.GH_TOKEN }} #Optional
+          github-token: ${{ secrets.GITHUB_TOKEN }} #Optional
           vercel-org-id: ${{ secrets.VERCEL_ORG_ID}} #Required
           vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID}} #Required
-          alias: test.movie-lust.vercel.app
+          alias-domains: movielust-test.vercel.app
           working-directory: ./
