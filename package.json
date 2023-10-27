@@ -38,8 +38,8 @@
     "@next/bundle-analyzer": "^12.3.0",
     "@svgr/webpack": "^6.3.1",
     "@types/node": "^18.7.6",
-    "@types/react": "^18.0.19",
-    "@types/react-dom": "^18.0.6",
+    "@types/react": "^18.2.33",
+    "@types/react-dom": "^18.2.14",
     "@types/react-modal": "^3.13.1",
     "@types/react-star-ratings": "^2.3.0",
     "@typescript-eslint/eslint-plugin": "^5.36.2",
@@ -55,6 +55,6 @@
     "husky": "^8.0.3",
     "lint-staged": "^14.0.1",
     "next-sitemap": "^4.2.3",
-    "typescript": "^4.7.4"
+    "typescript": "^5.2.2"
   }
 }
