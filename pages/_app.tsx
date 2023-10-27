@@ -5,7 +5,7 @@ import Router from 'next/router';
 import type { AppProps } from 'next/app';
 import { Provider } from 'react-redux';
 
-import store, { wrapper } from '../redux/store';
+import { useWrappedStore } from '../redux/store';
 
 import Layout from '../components/Layout';
 import Loading from '../components/UI/Loading';
@@ -18,8 +18,10 @@ import '../styles/global.scss';
 import '../styles/font.css';
 import 'react-toastify/dist/ReactToastify.css';
 
-function MyApp({ Component, pageProps }: AppProps) {
+function MyApp({ Component, ...rest }: AppProps) {
   const [loading, setLoading] = useState(false);
+
+  const { store, props } = useWrappedStore(rest);
 
   const currentLink = useRef('');
 
@@ -49,7 +51,7 @@ function MyApp({ Component, pageProps }: AppProps) {
       <Provider store={store}>
         <Layout>
           {loading ? <Loading /> : null}
-          <Component {...pageProps} />
+          <Component {...props.pageProps} />
         </Layout>
       </Provider>
       <ToastContainer
@@ -68,4 +70,4 @@ function MyApp({ Component, pageProps }: AppProps) {
   );
 }
 
-export default wrapper.withRedux(MyApp);
+export default MyApp;

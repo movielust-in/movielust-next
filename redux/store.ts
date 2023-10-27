@@ -16,19 +16,22 @@ import modalReducer from './reducers/modal.reducer';
 import recentReducer from './reducers/recent.reducer';
 import infiniteHomeReducer from './reducers/infiniteHome.reducer';
 
-const store = configureStore({
-  reducer: {
-    user: userReducer,
-    movie: movieReducer,
-    series: seriesReducer,
-    nav: navReducer,
-    watchlist: watchlistReducer,
-    modal: modalReducer,
-    recents: recentReducer,
-    home: infiniteHomeReducer,
-  },
-  devTools: process.env.NODE_ENV !== 'production',
-});
+const makeStore = () =>
+  configureStore({
+    reducer: {
+      user: userReducer,
+      movie: movieReducer,
+      series: seriesReducer,
+      nav: navReducer,
+      watchlist: watchlistReducer,
+      modal: modalReducer,
+      recents: recentReducer,
+      home: infiniteHomeReducer,
+    },
+    devTools: process.env.NODE_ENV !== 'production',
+  });
+
+const store = makeStore();
 
 export default store;
 
@@ -40,6 +43,5 @@ export type AppDispatch = typeof store.dispatch;
 export const useDispatch = () => defaultUseDispatch<AppDispatch>();
 export const useSelector: TypedUseSelectorHook<RootState> = defaultUseSelector;
 
-const makeStore = () => store;
-
-export const wrapper = createWrapper<ReturnType<typeof makeStore>>(makeStore);
+export const { useWrappedStore } =
+  createWrapper<ReturnType<typeof makeStore>>(makeStore);
