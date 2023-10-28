@@ -1,7 +1,7 @@
 import Head from 'next/head';
-import { image } from '../../helpers/Urls';
+import { image } from '../../../../helpers/Urls';
 
-import { DetailResponse } from '../../types/tmdb';
+import { DetailResponse } from '../../../../types/tmdb';
 
 interface DetailHelmetProps {
   contentData: DetailResponse;

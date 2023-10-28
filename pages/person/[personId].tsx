@@ -16,7 +16,7 @@ import MovieCarousel from '../../components/Carousels/MovieCarousel';
 
 import CastCarousel from '../../components/Carousels/CastCarousel';
 
-import Social from '../../components/Social';
+import Social from '../../components/External/Social';
 
 import { FULL_MONTHS } from '../../config';
 

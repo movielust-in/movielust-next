@@ -1,7 +1,7 @@
 import React, {  memo } from 'react';
 import {headers} from 'next/headers';
-import {  Genre } from '../../types/tmdb';
-import MovieCarousel from '../Carousels/MovieCarousel';
+import {  Genre } from '../../../../types/tmdb';
+import MovieCarousel from '../../../../components/Carousels/MovieCarousel';
 
 import styles from './Detail.module.scss';
 

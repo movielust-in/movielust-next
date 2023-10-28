@@ -11,18 +11,18 @@ import { usePathname } from 'next/navigation';
 import { MdPlaylistAdd } from 'react-icons/md';
 import { FaDownload, FaPlay, FaStar, FaStop, FaShareAlt } from 'react-icons/fa';
 
-import Social from '../Social';
+import Social from '../../../../components/External/Social';
 // import ShareOptions from '../ShareOptions';
 
-import { image } from '../../helpers/Urls';
+import { image } from '../../../../helpers/Urls';
 
 import { ImdbRating } from './DetailTypes';
-import { Magnet } from '../../types/apiResponses';
-import { DetailResponse, MovieExternalIdsResponse } from '../../types/tmdb';
+import { Magnet } from '../../../../types/apiResponses';
+import { DetailResponse, MovieExternalIdsResponse } from '../../../../types/tmdb';
 
 import styles from './Detail.module.scss';
 
-const Spinner = dynamic(() => import('../UI/Spinner'));
+const Spinner = dynamic(() => import('../../../../components/UI/Spinner'));
 
 const openImdbRatingCharts = (movieImdbId: string) => {
   const IMDB = `https://www.imdb.com/title/${movieImdbId}/ratings`;
@@ -216,7 +216,7 @@ export default function InformationComponent({
               </div>
             ) : null)}
         </div>
-      )
+      
 
       {type === 'movie' && magnets?.length ? (
         <div className={styles.ContentOptions}>

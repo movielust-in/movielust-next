@@ -1,51 +1,28 @@
 
-/* eslint-disable no-alert */
 import Script from 'next/script';
 import dynamic from 'next/dynamic';
-// import { toast } from 'react-toastify';
 
-import BackgroundImage from '../../../../components/Details/BackgroundImage';
-import DetailHelmet from '../../../../components/Details/DetailHelmet';
-// import MovieCarousel from '../../../../components/Carousels/MovieCarousel';
+import BackgroundImage from './BackgroundImage';
+import DetailHelmet from './DetailHelmet';
 import CastCarousel from '../../../../components/Carousels/CastCarousel';
-// import ImageCrousel from '../../../../components/Carousels/ImageCrousel';
 import ProductionCompanies from '../../../../components/Carousels/ProductionCompanies';
-import SimilarMovies from '../../../../components/Details/SimilarMovies';
+import SimilarMovies from './SimilarMovies';
 
-// FOR SSR
 import { FULL_MONTHS } from '../../../../config';
 import { VIDEO } from '../../../../helpers/Urls';
 import tmdbClient from '../../../../helpers/tmdbClient';
 import { fetchDetails } from '../../../../helpers/tmdb';
 
-// Magnets
-// import { fetchMagnetsfromYTSapi } from '../../../../helpers/torrent';
-
-// Redux Hooks
-
-// Redux Actions
-// import {
-//   addMovieToWatchlist,
-//   addShowToWatchlist,
-// } from '../../../../redux/reducers/watchlist.reducer';
-
-// Types
 import {  ShowResponse } from '../../../../types/tmdb';
-
-// import { IMDBRating } from '../../../../types/apiResponses';
 
 import MinutesToDuration from '../../../../utils/minutesToDuration';
 import PosterIframeInfo from './Poster-Iframe-Info';
 import Collection from './Collection';
 import Images from './Images';
 
-import styles from '../../../../components/Details/Detail.module.scss';
+import styles from './Detail.module.scss';
 
 const Seasons = dynamic(() => import('../../../../components/Shows/Seasons'));
-
-// interface DetailProps {
-//   contentData: DetailResponse;
-// }
 
 interface Params {
   id: string;
@@ -58,56 +35,8 @@ const Detail = async ({ params }: { params: Params }) => {
 
   const contentData = await getData({ id, type });
 
-  // const [magnets, setMagnets] = useState([]);
+ 
 
-  // const [externalIds, setExternalIds] = useState<MovieExternalIdsResponse>();
-
-  // const [images, setImages] = useState<MovieImagesResponse['backdrops']>();
-
-  // const dispatch  = useDispatch();
-
-  // useEffect(() => {
-  //   if (contentData.belongs_to_collection) {
-  //     import('../../../../helpers/tmdb/movies').then((r) =>
-  //       r
-  //         .fetchCollection(contentData.belongs_to_collection!.id)
-  //         .then((res) => setCollection(res))
-  //     );
-  //   }
-
-  //   if (contentData.imdb_id && type === 'movie') {
-  //     import('../../../../helpers/imdb').then((imdb) =>
-  //       imdb
-  //         .fetchIMDBRating(contentData.imdb_id!)
-  //         .then((res) => setImdbRating(res))
-  //         .catch(() => {})
-  //     );
-  //   }
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [contentData]);
-
-  // useEffect(() => {
-  //   if (type !== 'movie' || !contentData.imdb_id || !id) return;
-  //   fetchMagnetsfromYTSapi(contentData.imdb_id, id).then((res) => {
-  //     setMagnets(res as any);
-  //   });
-  // }, [contentData.imdb_id, id, type]);
-
-  // useEffect(() => {
-  //   if (!id || !type) return;
-
-  //   import('../../../../helpers/tmdb/movies').then((r) =>
-  //     r.fetchExternalIds(id, type).then((res) => setExternalIds(res))
-  //   );
-
-  //   import('../../../../helpers/tmdb/series').then((r) =>
-  //     r
-  //       .fetchTvImages(id, type)
-  //       .then((imageRes) => setImages(imageRes.backdrops))
-  //   );
-  // }, [id, type]);
-
-  // const isAuthenticated = useSelector((state) => state.user.isLoggedIn);
 
   // const toWatchlist = useCallback(async () => {
   //   if (!isAuthenticated) {
@@ -222,26 +151,6 @@ const Detail = async ({ params }: { params: Params }) => {
         />
       ) : null}
 
-      {/* {collection &&
-      collection.parts &&
-      collection.parts?.length > 0 &&
-      collection.parts.filter((movie: any) => movie.poster_path !== null)
-        .length > 1 ? (
-        <div className={styles.Collection}>
-          <MovieCarousel
-            type={type!}
-            movies={collection.parts as any}
-            title={collection.name}
-            showCard={false}
-          />
-        </div>
-      ) : null} */}
-
-      {/* IMAGES */}
-
-      {/* {images && images.length > 0 ? (
-        <ImageCrousel images={images} type={type!} title="Images" />
-      ) : null} */}
 
       <Images id={id} type={type} />
 

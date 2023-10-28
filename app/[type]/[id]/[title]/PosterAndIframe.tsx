@@ -1,6 +1,6 @@
 
 /* eslint-disable @next/next/no-img-element */
-import { TWO_EMBED } from '../../config';
+import { TWO_EMBED } from '../../../../config';
 
 import styles from './Detail.module.scss';
 
@@ -48,7 +48,7 @@ function PosterAndIframe({
             src={
               showMovie
                 ? `${TWO_EMBED}/embed/${id}`
-                : `https://www.youtube.com/embed/${trailerKey}`
+                : `https://www.youtube-nocookie.com/embed/${trailerKey}`
             }
             onLoad={onIframeLoad}
             title="Trailer"

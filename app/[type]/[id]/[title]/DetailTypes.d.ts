@@ -1,4 +1,4 @@
-import { Cast as CastType, Genre, ProductionCompany } from '../../types/tmdb';
+import { Cast as CastType, Genre, ProductionCompany } from '../../../../types/tmdb';
 
 export interface CommonData {
   id: string | number;

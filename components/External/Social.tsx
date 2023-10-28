@@ -1,8 +1,8 @@
 import Image from 'next/image';
-import { InstagramIcon, TwitterIcon, FaceBookIcon, IMDBIcon } from '../assets';
-import { MovieExternalIdsResponse, TvExternalIdsResponse } from '../types/tmdb';
+import { InstagramIcon, TwitterIcon, FaceBookIcon, IMDBIcon } from '../../assets';
+import { MovieExternalIdsResponse, TvExternalIdsResponse } from '../../types/tmdb';
 
-import styles from './Details/Detail.module.scss';
+import styles from './Social.module.scss';
 
 interface SocialProps {
   externalIds: MovieExternalIdsResponse | TvExternalIdsResponse;
@@ -10,7 +10,6 @@ interface SocialProps {
   name?: string;
   title?: string;
 }
-
 
 function Social({ externalIds, type, name, title }: SocialProps) {
   if (!externalIds) return null;
@@ -20,13 +19,10 @@ function Social({ externalIds, type, name, title }: SocialProps) {
   const Facebook = `https://www.facebook.com/${externalIds.facebook_id}`;
   const Twitter = `https://twitter.com/${externalIds.twitter_id}`;
 
-  let Wikipedia;
-
-  if (name)
-    Wikipedia = `https://en.wikipedia.org/wiki/${name.replace(' ', '_')}`;
-
-  if (title)
-    Wikipedia = `https://en.wikipedia.org/wiki/${title.replace(' ', '_')}`;
+  const Wikipedia = `https://en.wikipedia.org/wiki/${(title! || name!).replace(
+    ' ',
+    '_'
+  )}`;
 
   return (
     <div className={styles.Socials}>

@@ -1,13 +1,13 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import InformationComponent from '../../../../components/Details/Information';
-import PosterAndIframe from '../../../../components/Details/PosterAndIframe';
+import InformationComponent from './Information';
+import PosterAndIframe from './PosterAndIframe';
 import {
   DetailResponse,
   MovieExternalIdsResponse,
 } from '../../../../types/tmdb';
-import { ImdbRating } from '../../../../components/Details/DetailTypes';
+import { ImdbRating } from './DetailTypes';
 import { fetchExternalIds } from '../../../../helpers/tmdb/movies';
 import { fetchMagnetsfromYTSapi } from '../../../../helpers/torrent';
 
