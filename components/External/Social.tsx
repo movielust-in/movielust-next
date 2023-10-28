@@ -1,3 +1,4 @@
+
 import Image from 'next/image';
 import { InstagramIcon, TwitterIcon, FaceBookIcon, IMDBIcon } from '../../assets';
 import { MovieExternalIdsResponse, TvExternalIdsResponse } from '../../types/tmdb';

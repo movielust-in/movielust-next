@@ -9,7 +9,7 @@ import MovieIcon from "./images/svgs/movie-icon.svg";
 import IMDBIcon from "./images/svgs/imdb.svg";
 import HomeIcon from "./images/svgs/home-icon.svg";
 import FaceBookIcon from "./images/svgs/facebook.svg";
-import CancelIcon from "./images/svgs/cancel.svg";
+// import CancelIcon from "./images/svgs/cancel.svg";
 import ColorSpinner from "./images/svgs/spinner.svg";
 import PlayerSpinner from "./images/svgs/player_loading.svg";
 
@@ -42,7 +42,7 @@ export {
   MovielustLogo,
   DefaultBackground,
   ContactBackground,
-  CancelIcon,
+  // CancelIcon,
   LoadingGhost,
   FaceBookIcon,
   LoginImage,

@@ -27,7 +27,7 @@ export const fetchPerson = (id: string | number) =>
   >(PERSON(id));
 
 export const fetchPersonMovies = (id: string | number) =>
-  new Promise((resolve, reject) => {
+  new Promise<PersonMovieCreditsResponse["cast"]>((resolve, reject) => {
     axios
       .get<PersonMovieCreditsResponse>(PERSONMOVIES(id))
       .then((response) => {

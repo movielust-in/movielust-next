@@ -1,6 +1,8 @@
-import Link from 'next/link';
+'use client';
 
+import Link from 'next/link';
 import { SwiperSlide } from 'swiper/react';
+
 import Wrap from '../CarouselSlices/Wrap';
 import Carousel from './Carousel';
 import ShowAllButton from '../CarouselSlices/ShowAllButton';
