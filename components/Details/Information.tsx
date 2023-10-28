@@ -18,7 +18,7 @@ import { image } from '../../helpers/Urls';
 
 import { ImdbRating } from './DetailTypes';
 import { Magnet } from '../../types/apiResponses';
-import {  DetailResponse, MovieExternalIdsResponse } from '../../types/tmdb';
+import { DetailResponse, MovieExternalIdsResponse } from '../../types/tmdb';
 
 import styles from './Detail.module.scss';
 
@@ -57,7 +57,6 @@ export default function InformationComponent({
   externalIds,
   addToWatchlsit,
 }: InformationComponentProps) {
-
   const [loadingShareImg, setLoadingShareImg] = useState(false);
 
   const pathname = usePathname();
@@ -159,15 +158,11 @@ export default function InformationComponent({
             <div className={styles.HoverMessage}>Share</div>
           </FaShareAlt>
         )}
-
-
       </div>
-
       <div className={styles.Title}>
         <h2>{contentData!.title}</h2>{' '}
         {contentData.release_date?.split(' ')[-1] || null}
       </div>
-
       {/* Ratings */}
       {IMDBRating || contentData?.vote_average ? (
         <div className={styles.Rating}>
@@ -206,21 +201,24 @@ export default function InformationComponent({
         </div>
       ) : null}
       {/* Ratings end */}
-
       {/* Genres and Release Date */}
-      <div className={styles.SubTitle}>
-        {contentData.runtime !== '0 hrs 0 mins' ? contentData.runtime : null}
-        <br /> {contentData?.genres?.map(genre=>genre.name).join(" | ")}
-        {type === 'movie' &&
-          (contentData.release_date ? (
-            <div className={styles.SubTitle}>
-              {contentData.released ? 'Released: ' : 'Releasing: '}{' '}
-              {contentData.release_date}
-            </div>
-          ) : null)}
-      </div>
 
-      {type === 'movie' && magnets?.length  ? (
+            <div className={styles.SubTitle}>
+          {contentData.runtime && contentData.runtime !== '0 hrs 0 mins'
+            ? contentData.runtime
+            : null}
+          <br /> {contentData?.genres?.map((genre) => genre.name).join(' | ')}
+          {type === 'movie' &&
+            (contentData.release_date ? (
+              <div className={styles.SubTitle}>
+                {contentData.released ? 'Released: ' : 'Releasing: '}{' '}
+                {contentData.release_date}
+              </div>
+            ) : null)}
+        </div>
+      )
+
+      {type === 'movie' && magnets?.length ? (
         <div className={styles.ContentOptions}>
           <FaDownload />
           {magnets!.map((magnet) => (
@@ -234,7 +232,6 @@ export default function InformationComponent({
           ))}
         </div>
       ) : null}
-
       {externalIds ? (
         <Social
           externalIds={externalIds as MovieExternalIdsResponse}
@@ -242,7 +239,6 @@ export default function InformationComponent({
           title={contentData?.title}
         />
       ) : null}
-
       {contentData && contentData.overview ? (
         <div
           className={styles.Description}

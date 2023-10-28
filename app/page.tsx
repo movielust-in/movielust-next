@@ -1,6 +1,6 @@
 import Script from 'next/script';
 import Movies from '../components/Movies/HomeMovies';
-import TrendingCarousel from '../components/Carousels/HomeCarousel';
+import HomeCarousel from '../components/Carousels/HomeCarousel';
 import { fetchTrending, fetchTrendingToday } from '../helpers/tmdb/trending';
 
 import {
@@ -71,7 +71,7 @@ async function Home() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structeredData) }}
       />
       <div className={`${styles.container} header_padding`}>
-        <TrendingCarousel movies={trendingMovies as any} />
+        <HomeCarousel movies={trendingMovies as any} />
         <Movies movies={homeMovies} />
       </div>
     </>

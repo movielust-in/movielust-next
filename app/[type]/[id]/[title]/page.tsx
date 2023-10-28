@@ -34,11 +34,12 @@ import {  ShowResponse } from '../../../../types/tmdb';
 
 // import { IMDBRating } from '../../../../types/apiResponses';
 
-import styles from '../../../../components/Details/Detail.module.scss';
 import MinutesToDuration from '../../../../utils/minutesToDuration';
 import PosterIframeInfo from './Poster-Iframe-Info';
 import Collection from './Collection';
 import Images from './Images';
+
+import styles from '../../../../components/Details/Detail.module.scss';
 
 const Seasons = dynamic(() => import('../../../../components/Shows/Seasons'));
 
@@ -47,22 +48,15 @@ const Seasons = dynamic(() => import('../../../../components/Shows/Seasons'));
 // }
 
 interface Params {
-  id:string;
-  type:string;
-  title:string;
+  id: string;
+  type: string;
+  title: string;
 }
 
-const Detail = async ({
-   params
-}: {
-  params: Params
-}) => {
+const Detail = async ({ params }: { params: Params }) => {
+  const { id, type, title } = params;
 
-
-  const {id,type,title} = params;
-  
   const contentData = await getData({ id, type });
-
 
   // const [magnets, setMagnets] = useState([]);
 
@@ -70,7 +64,7 @@ const Detail = async ({
 
   // const [images, setImages] = useState<MovieImagesResponse['backdrops']>();
 
-  // const dispatch = useDispatch();
+  // const dispatch  = useDispatch();
 
   // useEffect(() => {
   //   if (contentData.belongs_to_collection) {
@@ -156,15 +150,11 @@ const Detail = async ({
   //   type,
   // ]);
 
-
-
-
-
   const structuredData = {
     '@context': 'https://schema.org',
     '@type': type === 'movie' ? 'Movie' : 'TVSeries',
     url: `https://movie-lust.vercel.app/${type}/${id}/${title}`,
-    name: contentData.title||contentData.name,
+    name: contentData.title || contentData.name,
     image: contentData.poster_path
       ? `https://image.tmdb.org/t/p/w200${contentData.poster_path}`
       : undefined,
@@ -201,10 +191,7 @@ const Detail = async ({
 
       <BackgroundImage backdrop={contentData.backdrop_path} />
 
-
-    <PosterIframeInfo type={type} contentData={contentData} />
-
-
+      <PosterIframeInfo type={type} contentData={contentData} />
 
       {type === 'tv' &&
       contentData &&
@@ -228,8 +215,12 @@ const Detail = async ({
         />
       ) : null}
 
-
-      <Collection collectionId={contentData.belongs_to_collection.id} type={type}/>
+      {contentData?.belongs_to_collection ? (
+        <Collection
+          collectionId={contentData.belongs_to_collection.id}
+          type={type}
+        />
+      ) : null}
 
       {/* {collection &&
       collection.parts &&
@@ -252,7 +243,7 @@ const Detail = async ({
         <ImageCrousel images={images} type={type!} title="Images" />
       ) : null} */}
 
-      <Images id={id} type={type}/>
+      <Images id={id} type={type} />
 
       {contentData?.production_companies &&
         contentData?.production_companies.length > 0 && (

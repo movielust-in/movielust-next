@@ -29,6 +29,7 @@ function PosterAndIframe({
           }}
         >
           <img
+            // !!!
             alt="movie_poster"
             src={`https://image.tmdb.org/t/p/w300/${poster}`}
           />

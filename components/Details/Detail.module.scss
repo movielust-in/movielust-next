@@ -16,10 +16,11 @@
   font-family: 'Bariol', sans-serif;
   min-height: calc(100vh - 50px);
   overflow: hidden;
-  padding: calc(3.5vw + 5px);
+  padding: 0 0 calc(3.5vw + 5px) calc(2vw + 5px);
   position: relative;
   width: 100%;
   @media (max-width: 724px) {
+  padding: calc(3.5vw + 5px);
     padding-bottom: 80px;
   }
 
@@ -100,8 +101,9 @@
 
 .TopContainer {
   display: flex;
-  margin: 20px 0 0 0;
+  margin: 10px 0 0 0;
   max-width: 100%;
+
   @media (max-width: 870px) {
     margin: 0;
   }
@@ -112,7 +114,7 @@
 }
 
 .Poster {
-  animation: fadeIn 200ms linear 300ms 1 forwards;
+  // animation: fadeIn 200ms linear 300ms 1 forwards;
   display: flex;
   flex-direction: column;
   height: 400px;
@@ -120,7 +122,7 @@
   min-height: 400px;
   min-width: 280px;
   object-fit: contain;
-  opacity: 0;
+  opacity: 1;
   width: 280px;
   img {
     border-radius: 20px;
@@ -155,13 +157,13 @@
 }
 
 .YouTube {
-  animation: fadeIn 200ms linear 300ms 1 forwards;
+  // animation: fadeIn 200ms linear 300ms 1 forwards;
   iframe {
     border: none;
     border-radius: 18px;
   }
   margin-left: 200px;
-  opacity: 0;
+  opacity: 1;
   @media (orientation: landscape) and (min-width: 600px) and (max-width: 896px) {
     iframe {
       border-radius: 10px;

@@ -19,7 +19,8 @@ function BackgroundComp({ backdrop }: DetailBackgroundProps) {
             : '/images/25559.webp'
         }
         fill
-        sizes="100vw" />
+        sizes="100vw"
+      />
     </div>
   );
 }
