@@ -34,3 +34,13 @@
   letter-spacing: 0.5px;
   font-weight: 200;
 }
+
+.error-message {
+  font-size: 20px;
+  transition: all 500ms ease;
+  letter-spacing: 0.5px;
+  font-weight: 100;
+  opacity: 0.6;
+  color: lightcoral;
+  text-align: center;
+}
