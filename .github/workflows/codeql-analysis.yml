@@ -1,25 +1,48 @@
-name: Code Analysis
+name: CodeQL
 
 on:
   push:
-    branches: [main, migrate-app-router]
+    branches:
+      - main
   pull_request:
-    branches: [main]
+    branches:
+      - main
+  schedule:
+    - cron: '31 7 * * 3'
 
 jobs:
   analyze:
-    name: Verify
+    name: Analyze
     runs-on: ubuntu-latest
+
+    permissions:
+      actions: read
+      checks: write
+      contents: read
+      security-events: write
+
     strategy:
       fail-fast: false
       matrix:
-        language: ['javascript']
+        language:
+          - TypeScript
+
     steps:
-      - name: Checkout repository
+      - name: Checkout
+        id: checkout
         uses: actions/checkout@v4
+
       - name: Initialize CodeQL
+        id: initialize
         uses: github/codeql-action/init@v2
         with:
           languages: ${{ matrix.language }}
+          source-root: src
+
+      - name: Autobuild
+        id: autobuild
+        uses: github/codeql-action/autobuild@v2
+
       - name: Perform CodeQL Analysis
+        id: analyze
         uses: github/codeql-action/analyze@v2
