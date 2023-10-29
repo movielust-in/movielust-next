@@ -1,0 +1,25 @@
+name: Code Analysis
+
+on:
+  push:
+    branches: [main, migrate-app-router]
+  pull_request:
+    branches: [main]
+
+jobs:
+  analyze:
+    name: Verify
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        language: ['javascript']
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@v2
+        with:
+          languages: ${{ matrix.language }}
+      - name: Perform CodeQL Analysis
+        uses: github/codeql-action/analyze@v2
