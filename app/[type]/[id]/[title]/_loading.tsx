@@ -1,6 +1,6 @@
 import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
 
-import styles from '../../../../components/Details/Detail.module.scss';
+import styles from './Detail.module.scss';
 
 import 'react-loading-skeleton/dist/skeleton.css';
 
@@ -33,7 +33,7 @@ const LoadingUI = () => (
               height="100%"
             />
           </div>
-        </div> 
+        </div>
         {/* <div className= {styles.YouTube}>
           <div
             style={{
