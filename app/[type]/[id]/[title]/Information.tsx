@@ -52,7 +52,7 @@ export default function InformationComponent({
   purpose,
   type,
   contentData,
-  togglePlayer: playMovie,
+  togglePlayer,
   iframeLoading,
   showMovie,
   IMDBRating,
@@ -117,7 +117,7 @@ export default function InformationComponent({
               }}
               className={styles.PlayMovie}
               onClick={() =>
-                playMovie(
+                togglePlayer(
                   contentData.title || contentData.name!,
                   pathname as string
                 )
