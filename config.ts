@@ -7,6 +7,8 @@ export const SERVER_URI = process.env.NODE_ENV === "production" ? 'https://movie
 
 export const TWO_EMBED = 'https://2embed.cc';
 
+export const TMDB_BASE_PATH = 'https://api.themoviedb.org/3';
+
 export const SORT_OPTIONS = [
   { label: 'Most Popular', value: 'popularity.desc' },
   { label: 'Top Rated', value: 'vote_average.desc' },

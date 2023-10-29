@@ -1,6 +1,7 @@
 'use client'
 
 import { memo, useMemo } from 'react';
+import Link from 'next/link'
 // import { useRouter } from 'next/router';
 import { SwiperSlide } from 'swiper/react';
 
@@ -53,9 +54,10 @@ function CastCarousel({
               id="cast_slider"
               key={member.id}
               onClick={() => {
-                // router.push(`/person/${member.id}`);
+                
               }}
-            >
+            ><Link href={`/person/${member.id}`}>
+                
               {type === 'tv' ? (
                 <PersonCard
                   src={`https://image.tmdb.org/t/p/w780/${member.profile_path}`}
@@ -73,8 +75,9 @@ function CastCarousel({
                   title={`${member.name} ${
                     member.character ? ` as ${member.character}` : ''
                   }`}
-                />
-              )}
+                  />
+                  )}
+            </Link>
             </SwiperSlide>
           ))}
       </Carousel>

@@ -25,7 +25,7 @@ import {
 } from "../Urls";
 import fetchAllPages from "./fetchAllPages";
 
-export const fetchAllTvCast = (
+export const fetchCompleteShowCast = (
   id: string | number,
   totalseason: number
 ): Promise<AllResponse> =>

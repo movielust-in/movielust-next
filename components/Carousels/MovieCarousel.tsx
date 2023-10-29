@@ -31,7 +31,7 @@ function MovieCarousel({
       <div className={styles.Title}>
         <h2>{title}</h2>
         {watchall && (
-          <ShowAllButton link={`/peoplemovies/${watchall}`} label="See all" />
+          <ShowAllButton link={`/person-movies/${watchall}`} label="See all" />
         )}
       </div>
     )}

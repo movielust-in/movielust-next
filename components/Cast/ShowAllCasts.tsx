@@ -6,7 +6,7 @@ import { keyframes } from "@emotion/react";
 import { useRouter } from "next/router";
 
 import { fetchDetails } from "../../helpers/tmdb";
-import { fetchAllTvCast } from "../../helpers/tmdb/series";
+import { fetchCompleteShowCast } from "../../helpers/tmdb/series";
 
 // import { Loading, Scroller } from '..';
 
@@ -33,7 +33,7 @@ function ShowAllCasts() {
     const setSeries = (data: ShowResponse) => {
       const seasons = data.number_of_seasons;
 
-      fetchAllTvCast(id, seasons as number).then((fullCast) => {
+      fetchCompleteShowCast(id, seasons as number).then((fullCast) => {
         setTvCast(fullCast);
         document.title = `${title}- Movielust`;
         setIsLoading(false);

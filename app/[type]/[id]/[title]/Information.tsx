@@ -236,7 +236,7 @@ export default function InformationComponent({
         <Social
           externalIds={externalIds as MovieExternalIdsResponse}
           type="title"
-          title={contentData?.title}
+          title={contentData?.title || contentData?.name}
         />
       ) : null}
       {contentData && contentData.overview ? (

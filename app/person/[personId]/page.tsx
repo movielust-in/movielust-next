@@ -139,7 +139,11 @@ async function PeopleDetail({ params }: { params: { personId: string } }) {
               movies={personMovies}
               type="movie"
               title="Movies"
-              watchall={personId}
+              watchall={
+                personData.name
+                  ? `${personId}-${personData.name.replaceAll(' ', '-')}`
+                  : personId
+              }
             />
           </div>
         ) : null}

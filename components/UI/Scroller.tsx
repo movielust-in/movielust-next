@@ -40,23 +40,20 @@ function Scroller({ movies, total, type }: ScrollerProps) {
           movies.slice(0, page * 20 - 1).map((movie) => (
             <div className={styles.Card} key={movie.id}>
               {type === 'cast' ? (
-                (<Link href={`/person/${movie.id}`}>
-
+                <Link href={`/person/${movie.id}`}>
                   <PersonCard
-                    title={movie.name}
+                    title={`${movie.name}`}
                     key={movie.id}
                     alt={movie.name}
                     src={`https://image.tmdb.org/t/p/w185/${movie.profile_path}`}
                     // hover
-                    // role={movie.roles[0].character}
+                    role={movie.roles.map((role) => role.character).join(' / ')}
                   />
-
-                </Link>)
+                </Link>
               ) : (
-                (<Link
+                <Link
                   href={detailLink(type, movie.id, movie.title || movie.name)}
                 >
-
                   <Wrap
                     alt={movie.title || movie.name}
                     title={movie.title || movie.name}
@@ -71,8 +68,7 @@ function Scroller({ movies, total, type }: ScrollerProps) {
                       ) || []
                     }
                   />
-
-                </Link>)
+                </Link>
               )}
             </div>
           ))}

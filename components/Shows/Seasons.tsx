@@ -48,7 +48,6 @@ function Seasons({ id, title, totalSeasons }: SeasonsProps) {
   const [playEpisode, tooglePlay] = useState(false);
   const [iframeLoading, setFrameLoading] = useState(false);
 
-
   const episodeRef = useRef();
 
   const searchParams = useSearchParams();
@@ -80,7 +79,7 @@ function Seasons({ id, title, totalSeasons }: SeasonsProps) {
       `/tv/${id}/${title
         .split(' ')
         .join('-')
-        .toLowerCase()}?s=${season}&e=${index}`,
+        .toLowerCase()}?s=${season}&e=${index}`
     );
     if (showEpisode === index) {
       return setEpisode(undefined);
@@ -154,7 +153,7 @@ function Seasons({ id, title, totalSeasons }: SeasonsProps) {
     router.push(
       `/tv/${id}/${title.split(' ').join('-').toLowerCase()}?s=${
         seasonNumber + 1
-      }&e=0`,
+      }&e=0`
     );
     if (seasonNumber === -1) {
       setShow(false);

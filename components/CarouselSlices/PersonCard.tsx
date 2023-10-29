@@ -11,9 +11,10 @@ interface WrapPros {
   src: string;
   title: string;
   alt: string;
+  role?: string;
 }
 
-function PersonCard({ title, src, alt }: WrapPros) {
+function PersonCard({ title, src, alt, role }: WrapPros) {
   const [loading, setLoading] = useState(true);
   // const [opacity, setOpacity] = useState(false);
   const [imgSrc, setImgSrc] = useState(src);
@@ -55,7 +56,12 @@ function PersonCard({ title, src, alt }: WrapPros) {
       />
       {!loading && title && (
         <div className={styles.Information}>
-          {title && <h3 className={styles.Title}>{title}</h3>}
+          {title && (
+            <h3 className={styles.Title}>
+              {title}
+              {role ? <> as {role}</> : null}
+            </h3>
+          )}
         </div>
       )}
     </div>

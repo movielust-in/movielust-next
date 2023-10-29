@@ -1,6 +1,8 @@
+'use client';
+
 import { useEffect, useState } from 'react';
 import styled from '@emotion/styled';
-import { useRouter } from 'next/router';
+import { useParams } from 'next/navigation';
 
 import { useDispatch, useSelector } from '../../redux';
 
@@ -17,10 +19,10 @@ import {
 } from '../../redux/reducers/movie.reducer';
 
 function PeopleMovies() {
-  const router = useRouter();
+  const params = useParams()
   const dispatch = useDispatch();
 
-  const id = router.query.personmovieId as string;
+  const id = params?.personID as string;
 
   const [isLoading, setIsLoading] = useState(true);
 
