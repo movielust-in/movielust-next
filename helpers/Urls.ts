@@ -151,9 +151,7 @@ const CASTMOVIES = (id: string | number, page: string | number) =>
 const CASTTV = (id: string | number) =>
   `person/${id}/tv_credits?&language=en-US`;
 
-
-// ------------------------------------- SERVER ------------------------------------------------------------------------ 
-
+// ------------------------------------- SERVER ------------------------------------------------------------------------
 
 const RESET_PASS = `${SERVER_URI}/auth/resetpassword`;
 
@@ -178,7 +176,6 @@ const DELETE_USER = `${SERVER_URI}/user/delete`;
 const IMDB_RATING = (imdb_id: string) =>
   `${SERVER_URI}/flask/v1/movie/imdb-rating/${imdb_id}`;
 
-
 const IMDB_RATINGS = (ids: string[]) =>
   `${SERVER_URI}/flask/v1/movie/imdb-ratings/${ids.join(',')}`;
 
@@ -188,9 +185,8 @@ const SHOW_MAGNETS = (
   showName: string,
   season: string | number,
   totalEpisodes: number
-) => `${SERVER_URI}/flask/v1/torrent/show/${id}/${showName}/${season}/${totalEpisodes}`;
-
-
+) =>
+  `${SERVER_URI}/flask/v1/torrent/show/${id}/${showName}/${season}/${totalEpisodes}`;
 
 const HINDI_TORRRENT = (
   id: string | number,
@@ -207,7 +203,6 @@ const HINDI_TORRRENT = (
     .join('-')}-${releaseYear}`;
   return url;
 };
-
 
 const MAGNET = (
   id: string | number,

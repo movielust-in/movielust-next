@@ -8,16 +8,18 @@ import styles from '../../styles/carousel.module.scss';
 interface CaroselProps {
   children: ReactNode;
   carosel_id?: string;
-  breakPoints?: Record<number, Record<'slidesPerView', number>>;
+  breakPoints?: Record<number, Record<string, number>>;
 }
 
 const defaultBreakpoints = {
   1024: {
     slidesPerView: 7,
-    as: 'sdasd',
+  },
+  724: {
+    slidesPerView: 6,
   },
   464: {
-    slidesPerView: 7,
+    slidesPerView: 5,
   },
   0: {
     slidesPerView: 3,

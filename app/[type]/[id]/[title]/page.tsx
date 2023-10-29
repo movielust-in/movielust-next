@@ -1,4 +1,3 @@
-
 import Script from 'next/script';
 import dynamic from 'next/dynamic';
 
@@ -13,7 +12,7 @@ import { VIDEO } from '../../../../helpers/Urls';
 import tmdbClient from '../../../../helpers/tmdbClient';
 import { fetchDetails } from '../../../../helpers/tmdb';
 
-import {  ShowResponse } from '../../../../types/tmdb';
+import { ShowResponse } from '../../../../types/tmdb';
 
 import MinutesToDuration from '../../../../utils/minutesToDuration';
 import PosterIframeInfo from './Poster-Iframe-Info';
@@ -34,9 +33,6 @@ const Detail = async ({ params }: { params: Params }) => {
   const { id, type, title } = params;
 
   const contentData = await getData({ id, type });
-
- 
-
 
   // const toWatchlist = useCallback(async () => {
   //   if (!isAuthenticated) {
@@ -151,7 +147,6 @@ const Detail = async ({ params }: { params: Params }) => {
         />
       ) : null}
 
-
       <Images id={id} type={type} />
 
       {contentData?.production_companies &&
@@ -169,6 +164,7 @@ const Detail = async ({ params }: { params: Params }) => {
           title={
             type === 'movie' ? 'Movies you may like' : 'Shows you may like'
           }
+          lang={contentData.original_language}
           genres={contentData?.genres}
           toBeFiltered={[]}
         />
@@ -180,7 +176,6 @@ const Detail = async ({ params }: { params: Params }) => {
 export default Detail;
 
 async function getData(query: { id: string; type: string }): Promise<any> {
-
   enum TYPE {
     movie = 'movie',
     tv = 'tv',

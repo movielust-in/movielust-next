@@ -3,7 +3,10 @@ import { Genre } from './types/tmdb';
 
 export const TMDB_KEY = '2a7d4498c790ee971ae3369d0327d57c';
 
-export const SERVER_URI = process.env.NODE_ENV === "production" ? 'https://movielust-api-xnzw.onrender.com' : 'http://localhost:3001';
+export const SERVER_URI =
+  process.env.NODE_ENV === 'production'
+    ? 'https://movielust-api-xnzw.onrender.com'
+    : 'http://localhost:3001';
 
 export const TWO_EMBED = 'https://2embed.cc';
 
