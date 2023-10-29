@@ -1,3 +1,5 @@
+'use client';
+
 /* eslint-disable no-nested-ternary */
 import { useEffect, useState } from 'react';
 import { Navigation, Autoplay } from 'swiper';
@@ -18,7 +20,7 @@ import { detailLink } from '../../utils';
 import styles from '../../styles/prodctuion_img_slider.module.scss';
 
 interface ProductionImageSliderPros {
-  data: [];
+  data: MovieResult[];
 }
 
 function ProductionImageSlider({ data }: ProductionImageSliderPros) {
