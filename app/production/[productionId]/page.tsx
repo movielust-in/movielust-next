@@ -23,7 +23,7 @@ const getProductionCompanyData = async (productionId: string) => {
   };
 };
 
-export async function Production({
+export default async function Production({
   params: { productionId },
 }: {
   params: { productionId: string };
@@ -71,4 +71,3 @@ export async function Production({
     </div>
   );
 }
-export default Production;
