@@ -47,7 +47,9 @@ function Scroller({ movies, total, type }: ScrollerProps) {
                     alt={movie.name}
                     src={`https://image.tmdb.org/t/p/w185/${movie.profile_path}`}
                     // hover
-                    role={movie.roles.map((role) => role.character).join(' / ')}
+                    role={movie.roles
+                      .map((role: any) => role.character)
+                      .join(' / ')}
                   />
                 </Link>
               ) : (
