@@ -16,6 +16,7 @@
   "dependencies": {
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
+    "@next/third-parties": "^14.0.0",
     "@reduxjs/toolkit": "^1.9.5",
     "axios": "^1.6.0",
     "formik": "^2.4.4",

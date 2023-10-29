@@ -5,23 +5,16 @@ import { fetchTrending, fetchTrendingToday } from '../helpers/tmdb/trending';
 
 import {
   fetchExternalIds,
-  // fetchExternalIds,
   fetchTRM,
   fetchUpcomingMovies,
 } from '../helpers/tmdb/movies';
 
-// import { MovieResult } from '../types/tmdb';
 import { fetchLatestSeries, fetchPopularSeries } from '../helpers/tmdb/series';
 import { HomeMovies } from '../types/apiResponses';
 import styles from '../styles/index.module.scss';
 import Meta from '../components/Meta';
 import { dashedTitle } from '../utils';
 import { _getIMDBRating } from '../helpers/server-side/_imdb';
-
-// interface HomeProps {
-//   trendingMovies: (MovieResult & { imdb_rating?: number })[];
-//   homeMovies: HomeMovies;
-// }
 
 async function Home() {
   const { trendingMovies, homeMovies } = await getData();
