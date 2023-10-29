@@ -14,7 +14,7 @@ import { HomeMovies } from '../types/apiResponses';
 import styles from '../styles/index.module.scss';
 import Meta from '../components/Meta';
 import { dashedTitle } from '../utils';
-import { _getIMDBRating } from '../helpers/server-side/_imdb';
+import { getImdbRatingFromDB } from '../helpers/server-only/_imdb';
 
 async function Home() {
   const { trendingMovies, homeMovies } = await getData();
@@ -87,7 +87,7 @@ async function getData() {
     (externalId) => externalId.imdb_id as string
   );
 
-  const ratingsRes = await _getIMDBRating(imdbIds);
+  const ratingsRes = await getImdbRatingFromDB(imdbIds);
   const ratings = ratingsRes.documents;
 
   const trendingMovies = movies.results!.map((movie, index) => ({

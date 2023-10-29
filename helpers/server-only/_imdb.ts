@@ -6,7 +6,7 @@
 
 /* eslint-disable no-underscore-dangle */
 // eslint-disable-next-line import/prefer-default-export
-export const _getIMDBRating = async (imdbId: string[]) => {
+export const getImdbRatingFromDB = async (imdbId: string[]) => {
   // eslint-disable-next-line no-undef
   const options: RequestInit = {
     method: 'post',

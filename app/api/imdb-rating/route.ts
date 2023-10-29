@@ -1,4 +1,4 @@
-import { _getIMDBRating } from '../../../helpers/server-side/_imdb';
+import { getImdbRatingFromDB } from '../../../helpers/server-only/_imdb';
 
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
@@ -22,7 +22,7 @@ export async function GET(request: Request) {
   imdbId = (imdbId as string).split(',');
 
   try {
-    const data = await _getIMDBRating(imdbId);
+    const data = await getImdbRatingFromDB(imdbId);
     return Response.json(data.documents);
   } catch (error) {
     return new Response(
