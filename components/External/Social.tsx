@@ -1,7 +1,9 @@
-
 import Image from 'next/image';
-import { InstagramIcon, TwitterIcon, FaceBookIcon, IMDBIcon } from '../../assets';
-import { MovieExternalIdsResponse, TvExternalIdsResponse } from '../../types/tmdb';
+
+import {
+  MovieExternalIdsResponse,
+  TvExternalIdsResponse,
+} from '../../types/tmdb';
 
 import styles from './Social.module.scss';
 
@@ -30,7 +32,16 @@ function Social({ externalIds, type, name, title }: SocialProps) {
       {externalIds.instagram_id && (
         <div className={styles.SocialIcon}>
           <a href={Instagram} target="_blank" rel="noreferrer">
-            <InstagramIcon width="25px" height="25px" />
+            <Image
+              alt="Instagram"
+              src="/images/svgs/instagram.svg"
+              width={25}
+              height={25}
+              style={{
+                maxWidth: '100%',
+                height: 'auto',
+              }}
+            />
           </a>
         </div>
       )}
@@ -38,21 +49,48 @@ function Social({ externalIds, type, name, title }: SocialProps) {
         <div className={styles.SocialIcon}>
           {' '}
           <a href={Twitter} target="_blank" rel="noreferrer">
-            <TwitterIcon width="25px" height="25px" />
+            <Image
+              alt="Twitter"
+              src="/images/svgs/twitter.svg"
+              width={25}
+              height={25}
+              style={{
+                maxWidth: '100%',
+                height: 'auto',
+              }}
+            />
           </a>
         </div>
       )}
       {externalIds.facebook_id && (
         <div className={styles.SocialIcon}>
           <a href={Facebook} target="_blank" rel="noreferrer">
-            <FaceBookIcon width="25px" height="25px" />
+            <Image
+              alt="Facebook"
+              src="/images/svgs/facebook.svg"
+              width={25}
+              height={25}
+              style={{
+                maxWidth: '100%',
+                height: 'auto',
+              }}
+            />
           </a>
         </div>
       )}
       {externalIds.imdb_id && (
         <div className={styles.SocialIcon}>
           <a href={IMDB} target="_blank" rel="noreferrer">
-            <IMDBIcon width="25px" height="25px" />
+            <Image
+              alt="IMDB"
+              src="/images/svgs/imdb.svg"
+              width={25}
+              height={25}
+              style={{
+                maxWidth: '100%',
+                height: 'auto',
+              }}
+            />
           </a>
         </div>
       )}
@@ -60,7 +98,7 @@ function Social({ externalIds, type, name, title }: SocialProps) {
       <div className={styles.WikiIcon}>
         <a href={Wikipedia} target="_blank" rel="noreferrer">
           <Image
-            alt=""
+            alt="WikiPedia"
             src="/images/svgs/wikipedia-logo.svg"
             width={25}
             height={25}
