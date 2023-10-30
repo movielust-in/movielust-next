@@ -1,39 +1,37 @@
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
+import { mutate } from 'swr';
 import styled from '@emotion/styled';
 import { FaAngleDoubleDown } from 'react-icons/fa';
-import { useDispatch, useSelector } from '../../redux';
-import { SORT_OPTIONS } from '../../config';
-import {
-  resetMovies,
-  setSortByOption,
-} from '../../redux/reducers/movie.reducer';
-import { resetSeries } from '../../redux/reducers/series.reducer';
+import { usePathname, useSearchParams, useRouter } from 'next/navigation';
+import { SORT_OPTIONS, TMDB_BASE_PATH, TMDB_KEY } from '../../../../config';
+import { DISCOVER_MOVIES } from '../../../../helpers/Urls';
 
-interface SortByProps {
-  type: string;
-}
+// interface SortByProps {
+//   type: string;
+// }
 
-function SortBy({ type }: SortByProps) {
+function SortBy() {
   const [sortDropDownOpen, setSortDropDownOpen] = useState(false);
 
-  const dispatch = useDispatch();
+  const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
 
-  const selectedSortBy = useSelector((state) => state.movie.filters.sortBy);
+  const selectedSortBy = searchParams?.get('sortBy');
 
-  const reset = () =>
-    dispatch(type === 'movie' ? resetMovies() : resetSeries());
+  const setSortOption = useCallback(
+    (option: string) => {
+      if (selectedSortBy === option || !searchParams) return;
+      const params = new URLSearchParams(searchParams);
+      params.set('sortBy', option);
 
-  const setSortOption = (option: string) => {
-    if (selectedSortBy === option) return;
-
-    if (type === 'movie') {
-      reset();
-      dispatch(setSortByOption(option));
-    } else {
-      reset();
-      dispatch(setSortByOption(option));
-    }
-  };
+      router.push(`${pathname}?${params.toString()}`);
+      mutate(
+        `${TMDB_BASE_PATH}/${DISCOVER_MOVIES('movie')}&api_key=${TMDB_KEY}&`
+      );
+    },
+    [pathname, router, searchParams, selectedSortBy]
+  );
 
   return (
     <Container>

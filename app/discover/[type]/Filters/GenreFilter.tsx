@@ -1,19 +1,9 @@
-import { useState, useEffect } from 'react';
+import { useCallback, useState } from 'react';
+import { useRouter, usePathname, useSearchParams } from 'next/navigation';
 import styled from '@emotion/styled';
 import { FaAngleDoubleDown } from 'react-icons/fa';
 
-import { useDispatch, useSelector } from '../../redux';
-import { MOVIE_GENRES, TV_GENRES } from '../../config';
-import {
-  resetMovies,
-  toggleMovieGenreId,
-  setMovieGenres,
-} from '../../redux/reducers/movie.reducer';
-import {
-  resetSeries,
-  toggleSeriesGenreId,
-  setSeriesGenres,
-} from '../../redux/reducers/series.reducer';
+import { MOVIE_GENRES, TV_GENRES } from '../../../../config';
 
 interface GenreFilterProps {
   type: string;
@@ -21,61 +11,47 @@ interface GenreFilterProps {
 
 function GenreFilter({ type }: GenreFilterProps) {
   const [genreDropDownOpen, setGenreDropDownOpen] = useState(false);
-  const dispatch = useDispatch();
 
-  const genres = type === 'movie' ? MOVIE_GENRES : TV_GENRES;
+  const GENRES = type === 'movie' ? MOVIE_GENRES : TV_GENRES;
 
-  const filters = useSelector((state) =>
-    type === 'movie' ? state.movie.filters : state.series.filters
-  );
+  const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
 
-  const reset = () =>
-    dispatch(type === 'movie' ? resetMovies() : resetSeries());
+  const selectedGenres = searchParams
+    ?.get('genres')
+    ?.split(',')
+    .map((n) => parseInt(n, 10));
 
-  const addOrRemoveGenreIdFromFilter = (id: number) => {
-    if (type === 'movie') {
-      reset();
-      dispatch(toggleMovieGenreId(id));
-    } else {
-      reset();
-      dispatch(toggleSeriesGenreId(id));
-    }
-  };
+  const addOrRemoveGenreIdFromFilter = useCallback(
+    (id: number) => {
+      if (!searchParams) return;
 
-  useEffect(() => {
-    const urlParams = new URLSearchParams(window.location.search).get('genre');
+      const tempGenres = selectedGenres?.slice() || [];
+      const index = selectedGenres?.indexOf(id);
 
-    if (urlParams) {
-      let urlGenres = urlParams
-        .split(',')
-        .map((id) => parseInt(id, 10))
-        .filter(
-          (id) => !Number.isNaN(id) && genres.find((genre) => genre.id === id)
-        );
+      if (index !== undefined && index > -1) tempGenres?.splice(index, 1);
+      else tempGenres.push(id);
 
-      if (urlGenres.length) {
-        urlGenres = Array.from(new Set(urlGenres));
-        dispatch(
-          type === 'movie'
-            ? setMovieGenres(urlGenres)
-            : setSeriesGenres(urlGenres)
-        );
+      const params = new URLSearchParams(searchParams);
+      if (tempGenres.length) {
+        params.set('genres', tempGenres.join(','));
+      } else {
+        params.delete('genres');
       }
-    }
-  }, [genres, type, dispatch]);
+      router.push(`${pathname}?${params.toString()}`);
+    },
+    [pathname, router, searchParams, selectedGenres]
+  );
 
   return (
     <Container>
-      <Button
-        onClick={() => {
-          setGenreDropDownOpen((state) => !state);
-        }}
-      >
+      <Button onClick={() => setGenreDropDownOpen((state) => !state)}>
         Genres <FaAngleDoubleDown />
       </Button>
 
       <DropList open={genreDropDownOpen}>
-        {genres.map((genre) => (
+        {GENRES.map((genre) => (
           <Item
             role="presentation"
             key={genre.id}
@@ -84,11 +60,11 @@ function GenreFilter({ type }: GenreFilterProps) {
               setGenreDropDownOpen(false);
             }}
             style={{
-              backgroundColor: filters.genres.includes(genre.id!)
+              backgroundColor: selectedGenres?.includes(genre.id!)
                 ? 'silver'
                 : '',
-              borderRadius: filters.genres.includes(genre.id!) ? '5px' : '',
-              color: filters.genres.includes(genre.id!) ? 'black' : '',
+              borderRadius: selectedGenres?.includes(genre.id!) ? '5px' : '',
+              color: selectedGenres?.includes(genre.id!) ? 'black' : '',
             }}
           >
             <div>{genre.name}</div>

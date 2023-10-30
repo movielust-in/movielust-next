@@ -103,7 +103,11 @@ const DISCOVER = (page: string | number, type: string, genre: number[]) => {
   return baseUrl;
 };
 
-export const DISCOVER_MOVIES = 'discover/movie?&language=en-US';
+export const DISCOVER_MOVIES = (type: string) =>
+  `discover/${type}/?language=en-US`;
+
+// eslint-disable-next-line no-underscore-dangle
+export const _DISCOVER_MOVIES = `discover/movie/?language=en-US`;
 
 const GETCAST = (id: string | number, type: string) => `${type}/${id}/credits`;
 
