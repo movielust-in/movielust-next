@@ -1,31 +1,30 @@
+'use client';
+
 import { useEffect, useState } from 'react';
 import * as Yup from 'yup';
 import Head from 'next/head';
 
-import { useRouter } from 'next/router';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { toast } from 'react-toastify';
 
-import { useDispatch } from '../redux';
-import Form from '../components/Form/Form';
-import Validate from '../components/Form/Validation';
-import { setUserLogin } from '../redux/reducers/user.reducer';
-import { login as loginUser } from '../helpers/user/auth';
-import { useSelector } from '../redux/store';
+import Form from '../../components/Form/Form';
+import Validate from '../../components/Form/Validation';
+import { login as loginUser } from '../../helpers/user/auth';
 
 function Login() {
   const router = useRouter();
 
-  const isLoggedIn = useSelector((state) => state.user.isLoggedIn);
+  const isLoggedIn = false;
 
   useEffect(() => {
     if (isLoggedIn) router.replace('/');
   }, [isLoggedIn, router]);
 
-  const dispatch = useDispatch();
-
   const [submitting, setSubmitting] = useState(false);
 
-  let redirectTo = (router.query.redirectto || '/') as string;
+  const searchParams = useSearchParams();
+
+  let redirectTo = searchParams?.get('redirectTo') || '/';
 
   redirectTo =
     redirectTo !== '/' &&
@@ -82,7 +81,7 @@ function Login() {
           isLoggedIn: user.success,
           token: user.token,
         };
-        dispatch(setUserLogin(userObj));
+        // dispatch(setUserLogin(userObj));
         localStorage.setItem('movielust_user', user.token);
         localStorage.setItem('user', JSON.stringify(userObj));
         router.push(redirectTo);

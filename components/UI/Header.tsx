@@ -7,6 +7,7 @@ import { useState, useEffect, KeyboardEvent } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import dynamic from 'next/dynamic';
+import { useSession } from 'next-auth/react';
 import { useParams, usePathname, useRouter } from 'next/navigation';
 
 import {
@@ -34,6 +35,10 @@ function Header({ isOnline }: HeaderProps) {
   const pathname = usePathname();
   const [hash, setHash] = useState('');
 
+  const { data } = useSession();
+
+  const user = data?.user;
+
   useEffect(() => {
     setHash(window.location.hash.split('#')[1]);
   }, [params]);
@@ -41,8 +46,6 @@ function Header({ isOnline }: HeaderProps) {
   // eslint-disable-next-line prefer-destructuring
 
   const [searchView, setSearchView] = useState(false);
-
-  const user = { isLoggedIn: false, avatar: '' };
 
   const scrollValue = useScroll(200);
 
@@ -169,12 +172,12 @@ function Header({ isOnline }: HeaderProps) {
         </button>
 
         <div className={styles.StatusContainer}>
-          {user.isLoggedIn ? (
+          {user ? (
             <img
               className={styles.UserImg}
               alt="avatar"
               role="presentation"
-              src={user.avatar as string}
+              src={user.image as string}
               onClick={() => {
                 router.push('/account');
               }}
