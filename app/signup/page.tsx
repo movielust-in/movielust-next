@@ -1,8 +1,10 @@
+'use client';
+
 /* eslint-disable no-console */
 import { useState, useEffect, useRef } from 'react';
 import * as Yup from 'yup';
 import { toast } from 'react-toastify';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 import Form from '../../components/Form/Form';
 import Validate from '../../components/Form/Validation';
 import {
@@ -10,7 +12,7 @@ import {
   submitSingUp,
   verifyOtp,
 } from '../../helpers/user/auth';
-import { useSelector } from '../../redux/store';
+// import { useSelector } from '../../redux/store';
 import Meta from '../../components/Meta';
 
 interface StepOneDataInterface {
@@ -26,7 +28,7 @@ function SignUp() {
 
   const stepOneData = useRef<StepOneDataInterface>();
 
-  const isLoggedIn = useSelector((state) => state.user.isLoggedIn);
+  const isLoggedIn = false;
 
   useEffect(() => {
     if (isLoggedIn) router.replace('/');
@@ -158,8 +160,6 @@ function SignUp() {
     },
   };
 
-  const submitTwo = () => {};
-
   const stepTwo = {
     fields: {
       submitValue: 'Submit',
@@ -185,11 +185,12 @@ function SignUp() {
     formik: {
       initialValues: { OTP: '' },
       validationSchema: resetOneSchema,
-      onSubmit: submitTwo,
+      onSubmit: () => {},
     },
   };
 
   const [step, setStep] = useState<any>(stepOne);
+
   const [submitting, setSubmitting] = useState(false);
 
   return (
@@ -199,16 +200,18 @@ function SignUp() {
         description="Become a member of Movielust."
         url="https://movie-lust.vercel.app/signup"
       />
-      <Form
-        formik={step.formik}
-        fields={step.fields}
-        isSubmitting={submitting}
-        extraData={
-          step.fields.name === 'Sign Up'
-            ? (pic: string) => setProfile(pic)
-            : (otp: string) => handleOtp(otp)
-        }
-      />
+      <div style={{}}>
+        <Form
+          formik={step.formik}
+          fields={step.fields}
+          isSubmitting={submitting}
+          extraData={
+            step.fields.name === 'Sign Up'
+              ? (pic: string) => setProfile(pic)
+              : (otp: string) => handleOtp(otp)
+          }
+        />
+      </div>
     </>
   );
 }

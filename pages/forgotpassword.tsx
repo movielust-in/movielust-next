@@ -2,7 +2,6 @@ import { useState, useRef } from 'react';
 import * as Yup from 'yup';
 import { toast } from 'react-toastify';
 import { useRouter } from 'next/router';
-// import { Validate, Form } from '..';
 import 'react-toastify/dist/ReactToastify.css';
 
 import Form from '../components/Form/Form';
@@ -30,6 +29,7 @@ function ResetPass() {
       });
       return;
     }
+
     verifyOtp(email, otp, 'resetpassword')
       .then((res: any) => {
         if (res.data === true) {
@@ -200,6 +200,7 @@ function ResetPass() {
       formik={step.formik}
       fields={step.fields}
       isSubmitting={submitting}
+      formLogo="/images/password.png"
       extraData={(otp: any) => handleOtp(otp)}
     />
   );

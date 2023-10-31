@@ -75,7 +75,13 @@ function Contactus() {
         description="Submit your queries."
         url="https://movie-lust.vercel.app/contactus"
       />
-      <Form formik={formik} fields={fields} isSubmitting={submitting} />;
+      <Form
+        formik={formik}
+        fields={fields}
+        isSubmitting={submitting}
+        formLogo="/images/phone.png"
+      />
+      ;
     </>
   );
 }

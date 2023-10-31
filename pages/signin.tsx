@@ -109,6 +109,7 @@ function Login() {
         formik={formik}
         fields={fields}
         isSubmitting={submitting}
+        formLogo="/images/login.png"
         extraData={() => login()}
       />
     </>
