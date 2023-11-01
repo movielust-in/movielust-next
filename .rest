@@ -2,3 +2,26 @@ http://localhost:3000/api/similar/361743/movie/28,18
 
 ###
 https://api.themoviedb.org/3/movie/361743/similar?&language=en-US&page=6&api_key=2a7d4498c790ee971ae3369d0327d57c
+
+###
+POST http://localhost:3000/api/auth/send-otp
+Content-Type: application/json
+
+{
+    "name":"Anurag",
+    "email":"01anuragparmar@gmail.com",
+    "otp_type": "SIGN_UP"
+}
+
+###
+POST http://localhost:3000/api/auth/register
+Content-Type: application/json
+
+{
+    "otp":123456,
+    "name":"Anurag",
+    "password":"asdfghjkl",
+    "image":"https://anurag.com",
+    "email":"01anuragparmar@gmail.com",
+    "otp_type": "SIGN_UP"
+}

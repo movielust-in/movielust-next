@@ -29,7 +29,7 @@ function ShowAllCasts() {
     setIsLoading(true);
     fetch(`/api/tv/aggregateCredits/?id=${id}&type=${type}`)
       .then((res) => res.json())
-      .then((data) => {
+      .then(({ data }) => {
         setBackdrop(data.details.backdrop_path);
         setTvCast(data.aggregateCredits.cast);
         setTitle(data.details.name);

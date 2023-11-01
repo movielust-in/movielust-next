@@ -10,7 +10,15 @@ export async function GET(request: Request) {
   const lang: string | undefined = searchParams.get('lang');
 
   if (!id || !type || !genres || !lang)
-    return new Response('Bad Request', { status: 400 });
+    return new Response(
+      JSON.stringify({ status: 'success', message: 'Bad Request' }),
+      {
+        status: 400,
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      }
+    );
 
   const genreIds = genres.split(',').map((a) => parseInt(a, 10));
 
@@ -56,6 +64,9 @@ export async function GET(request: Request) {
   }
 
   return Response.json({
-    results: lang === 'en' ? similar : results.slice(0, 20),
+    status: 'success',
+    data: {
+      results: lang === 'en' ? similar : results.slice(0, 20),
+    },
   });
 }

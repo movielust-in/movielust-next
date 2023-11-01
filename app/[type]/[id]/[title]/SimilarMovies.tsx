@@ -31,7 +31,9 @@ const getSimilarContent = async (
 
   const res = await fetch(url);
 
-  const { results } = await res.json();
+  const {
+    data: { results },
+  } = await res.json();
 
   return results;
 };

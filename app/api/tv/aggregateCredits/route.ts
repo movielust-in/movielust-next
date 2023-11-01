@@ -8,7 +8,11 @@ export async function GET(request: Request) {
   const id = searchParams.get('id');
   const type = searchParams.get('type');
 
-  if (!id || !type) return new Response('Bad Request!', { status: 400 });
+  if (!id || !type)
+    return new Response(
+      JSON.stringify({ status: 'error', message: 'Bad Request!' }),
+      { status: 400, headers: { 'Content-Type': 'application/json' } }
+    );
 
   const detailRes = await fetch(
     `${TMDB_BASE_PATH}/${SHALLOW_DETAIL(id, type)}?api_key=${TMDB_KEY}`,
@@ -39,5 +43,8 @@ export async function GET(request: Request) {
 
   const aggregateCredits = await creditsRes.json();
 
-  return Response.json({ details: pickedDetails, aggregateCredits });
+  return Response.json({
+    status: 'success',
+    data: { details: pickedDetails, aggregateCredits },
+  });
 }

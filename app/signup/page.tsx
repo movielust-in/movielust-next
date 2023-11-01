@@ -7,13 +7,12 @@ import { toast } from 'react-toastify';
 import { useRouter } from 'next/navigation';
 import Form from '../../components/Form/Form';
 import Validate from '../../components/Form/Validation';
-import {
-  sendEmailVerifyOtp,
-  submitSingUp,
-  verifyOtp,
-} from '../../helpers/user/auth';
+import // submitSingUp,
+// verifyOtp,
+'../../helpers/user/auth';
 // import { useSelector } from '../../redux/store';
 import Meta from '../../components/Meta';
+import { OTP_TYPES } from '../../constants';
 
 interface StepOneDataInterface {
   email: string;
@@ -34,7 +33,7 @@ function SignUp() {
     if (isLoggedIn) router.replace('/');
   }, [isLoggedIn, router]);
 
-  const [email, setEmail] = useState('');
+  // const [email, setEmail] = useState('');
 
   const [ProfilePicture, setProfile] = useState(
     'https://image.freepik.com/free-vector/mysterious-mafia-man-smoking-cigarette_52683-34828.jpg'
@@ -55,7 +54,7 @@ function SignUp() {
     try {
       setSubmitting(true);
 
-      setEmail(values.email);
+      // setEmail(values.email);
 
       stepOneData.current = {
         email: values.email,
@@ -63,18 +62,37 @@ function SignUp() {
         password: values.password,
       };
 
-      const sendOTP: any = await sendEmailVerifyOtp(
-        values.email,
-        values.name,
-        'SIGNUP'
-      );
+      console.log({
+        name: values.name,
+        email: values.email,
+        otp_type: OTP_TYPES[0],
+      });
 
-      if (sendOTP.data === 'E-mail already exists') {
-        toast(sendOTP.data);
+      const otpRes = await fetch('/api/auth/send-otp', {
+        method: 'POST',
+        cache: 'no-store',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          name: values.name,
+          email: values.email,
+          otp_type: OTP_TYPES[0],
+        }),
+      });
+
+      const otpData = await otpRes.json();
+
+      console.log(otpData);
+
+      if (otpData.status !== 'success') {
+        toast(otpData.message);
       } else {
+        console.log('Done');
         setStep(stepTwo);
       }
     } catch (err: any) {
+      console.log(err);
       toast(err.response.data.message || 'Something went wrong!');
     } finally {
       setSubmitting(false);
@@ -91,25 +109,37 @@ function SignUp() {
 
       setSubmitting(true);
 
-      const verifyOtpRes = await verifyOtp(email, otp, 'SIGNUP');
-
-      if (verifyOtpRes.data === true) {
+      try {
         if (stepOneData.current) {
-          await submitSingUp({
-            name: stepOneData.current.name,
-            email: stepOneData.current.email,
-            profile: ProfilePicture,
-            password: stepOneData.current.password,
+          const res = await fetch(`/api/auth/register`, {
+            method: 'POST',
+            cache: 'no-store',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              name: stepOneData.current.name,
+              email: stepOneData.current.email,
+              image: ProfilePicture,
+              password: stepOneData.current.password,
+              otp: Number(otpRef.current),
+            }),
           });
 
-          toast('Account Created');
+          const { status, message } = await res.json();
 
-          router.push('/signin');
+          if (status === 'success') {
+            toast('Account Created');
+
+            router.push('/signin');
+          } else {
+            toast(message);
+          }
         }
-      } else if (verifyOtpRes.data === 'Wrong OTP') {
-        toast('Wrong OTP');
-      } else {
-        toast('Error! Please Signup again');
+      } catch (err: any) {
+        toast(
+          (err && err.message) || 'Something went Wrong. Please try again.'
+        );
       }
     } catch (err: any) {
       toast(err.response.data.message || 'Something went wrong!');
