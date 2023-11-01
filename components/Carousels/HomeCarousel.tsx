@@ -1,6 +1,5 @@
 'use client';
 
-/* eslint-disable no-nested-ternary */
 import React from 'react';
 // import StarRatings from 'react-star-ratings';
 import Link from 'next/link';
@@ -61,7 +60,9 @@ function ImgSlider({
                     {movie.imdb_rating.toFixed(1)}
                     /10
                   </h5>
-                ) : movie.vote_average ? (
+                ) : null}
+
+                {!movie.imdb_rating && movie.vote_average ? (
                   <h5>
                     TMDB Rating :&nbsp;
                     {movie.vote_average.toFixed(1)}

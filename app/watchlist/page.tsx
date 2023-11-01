@@ -1,6 +1,5 @@
 'use client';
 
-/* eslint-disable no-nested-ternary */
 import { useEffect, useState } from 'react';
 import Head from 'next/head';
 

@@ -1,6 +1,5 @@
 'use client';
 
-/* eslint-disable no-nested-ternary */
 import {
   useState,
   useEffect,
@@ -37,7 +36,7 @@ const Titles = {
 
 let clearSearch: Function | null = null;
 
-function SaveDataToLocalStorage(data: any, cb: Function) {
+function saveDataToLocalStorage(data: any, cb: Function) {
   let a = [];
   a = JSON.parse(localStorage.getItem('Search') as string) || [];
   if (a.includes(data)) {
@@ -63,7 +62,7 @@ function Search({ show }: { show: boolean }) {
   const [people, setPeople] = useState<Content[]>();
 
   useEffect(() => {
-    if(!pathname)return;
+    if (!pathname) return;
     cLocation.current = pathname;
   }, [pathname]);
 
@@ -386,21 +385,17 @@ function ResultSection({ data, type, weight, cb }: CardProps) {
               key={content.id}
               onClick={() => {
                 if (typeof clearSearch === 'function') clearSearch();
-                router.push(
-                  type === 'movie'
+                router.replace(
+                  type === 'movie' || type === 'tv'
                     ? detailLink(
-                        'movie',
+                        type,
                         parseInt(content.id, 10),
-                        content.title!
+                        content.title! || content.name!
                       )
-                    : type === 'tv'
-                    ? detailLink('tv', parseInt(content.id, 10), content.name!)
                     : `/person/${content.id}`
-                  // { replace: true }
                 );
 
-                if (type === 'movie') SaveDataToLocalStorage(content.title, cb);
-                else SaveDataToLocalStorage(content.name, cb);
+                saveDataToLocalStorage(content.title || content.name, cb);
               }}
             >
               {(type === 'person'

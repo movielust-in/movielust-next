@@ -1,7 +1,5 @@
 'use client';
 
-/* eslint-disable no-nested-ternary */
-
 import Link from 'next/link';
 import { useEffect, useMemo, useState } from 'react';
 import { useSearchParams, useParams } from 'next/navigation';
@@ -128,7 +126,6 @@ function Movie() {
         description="Discover a vast collection of Movies on Movielust."
         url="https://movie-lust.vercel.app/discover/movies"
       />
-
       {/* <div className={styles.Filters}>
         {type === 'movie' && (
           <SortBy
@@ -140,12 +137,9 @@ function Movie() {
         )}
         <GenreFilter type={type} />
       </div> */}
-
-      {isLoading ? (
-        <Loading />
-      ) : isEmpty ? (
-        <div>Empty</div>
-      ) : (
+      {isLoading ? <Loading /> : null}
+      {!isLoading && isEmpty ? <div>Empty</div> : null}
+      {!isLoading && !isEmpty && (
         <>
           <div className={styles.CardContainer}>
             {movies?.map((movie) => (

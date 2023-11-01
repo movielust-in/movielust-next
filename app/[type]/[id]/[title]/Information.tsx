@@ -1,7 +1,6 @@
 'use client';
 
 /* eslint-disable @next/next/no-img-element */
-/* eslint-disable no-nested-ternary */
 import { useState } from 'react';
 
 import Image from 'next/image';
@@ -171,8 +170,8 @@ export default function InformationComponent({
         <div className={styles.Rating}>
           {IMDBRating?.rating || contentData?.vote_average ? (
             <FaStar size="20px" color="rgba(255,255,0,0.8)" />
-          ) : // <img width={20} src={FaStar} alt="star" />
-          null}
+          ) : null}
+
           {IMDBRating && IMDBRating.rating > 0 ? (
             <span
               role="presentation"
@@ -189,7 +188,9 @@ export default function InformationComponent({
                 alt="TMDB"
               />{' '}
             </span>
-          ) : contentData?.vote_average ? (
+          ) : null}
+
+          {!(IMDBRating && IMDBRating.rating) && contentData?.vote_average ? (
             <span>
               {contentData.vote_average} (
               {contentData.vote_count?.toLocaleString()} votes)

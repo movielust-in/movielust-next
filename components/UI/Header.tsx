@@ -1,7 +1,7 @@
 'use client';
 
 /* eslint-disable @next/next/no-img-element */
-import { useState, useEffect, KeyboardEvent } from 'react';
+import { useState, useEffect } from 'react';
 
 import Link from 'next/link';
 import Image from 'next/image';
@@ -18,7 +18,7 @@ import { FaHome as HomeIcon } from 'react-icons/fa';
 import { AiFillPlaySquare as SeriesIcon } from 'react-icons/ai';
 import { BiSearchAlt as SearchIcon } from 'react-icons/bi';
 
-import { useEventListener, useScroll } from '../../hooks';
+import { useScroll } from '../../hooks';
 
 import styles from '../../styles/header.module.scss';
 
@@ -41,8 +41,6 @@ function Header({ isOnline }: HeaderProps) {
   useEffect(() => {
     setHash(window.location.hash.split('#')[1]);
   }, [params]);
-
-  // eslint-disable-next-line prefer-destructuring
 
   const [searchView, setSearchView] = useState(false);
 
@@ -87,23 +85,14 @@ function Header({ isOnline }: HeaderProps) {
     }
   };
 
-  const slash = (e: KeyboardEvent) => e.key === '/' && showSearch();
-
-  useEventListener('keydown', slash);
+  const transparentOrGradient =
+    scroll >= 20 || (hash && hash.includes('search'))
+      ? styles.gradient
+      : styles.transparent;
 
   return (
     <>
-      <nav
-        className={`${styles.Navbar} ${
-          // eslint-disable-next-line no-nested-ternary
-          (!hash || (!hash.includes('search') && !hash.includes('player'))) &&
-          !pathname?.includes('/play')
-            ? scroll <= 20
-              ? styles.transparent
-              : styles.gradient
-            : styles.gradient
-        }`}
-      >
+      <nav className={`${styles.Navbar} ${transparentOrGradient}`}>
         <LeftArrow className={styles.Back} onClick={() => router.back()} />
 
         <Link href="/" className={styles.LogoContainer}>
