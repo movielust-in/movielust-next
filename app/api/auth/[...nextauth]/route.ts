@@ -4,6 +4,18 @@ import NextAuth from 'next-auth/next';
 import Credentials from 'next-auth/providers/credentials';
 import { SERVER_URI } from '../../../../config';
 
+declare module 'next-auth' {
+  interface Session {
+    user: {
+      id: string;
+      name: string;
+      email: string;
+      image: string;
+      accessToken: string;
+    };
+  }
+}
+
 const options: AuthOptions = {
   session: { strategy: 'jwt', maxAge: 30 * 24 * 60 * 60 },
   providers: [
@@ -58,20 +70,24 @@ const options: AuthOptions = {
         token.name = user.name;
         token.email = user.email;
         token.image = user.image;
-        token.accessToken = user.accessToken;
+        token.accessToken = user.token;
       }
       return token;
     },
-    session({ session, token }) {
+    // @ts-ignore
+    async session({ session, token }) {
       if (token && session.user) {
-        // session.user.id = token.id;
-        session.user.name = token.name;
-        session.user.email = token.email;
+        session.user.id = token.id as string;
+        session.user.name = token.name as string;
+        session.user.email = token.email as string;
         session.user.image = token.image as string;
-        // session.user.accessToken = token.accessToken;
+        session.user.accessToken = token.accessToken as string;
       }
       return session;
     },
+  },
+  pages: {
+    signIn: '/signin',
   },
 };
 

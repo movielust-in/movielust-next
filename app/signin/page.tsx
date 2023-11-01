@@ -3,34 +3,25 @@
 import { useEffect, useState } from 'react';
 import * as Yup from 'yup';
 import Head from 'next/head';
+import { signIn, useSession } from 'next-auth/react';
 
-import { useRouter, useSearchParams } from 'next/navigation';
-import { toast } from 'react-toastify';
+import { useRouter } from 'next/navigation';
+// import { toast } from 'react-toastify';
 
 import Form from '../../components/Form/Form';
 import Validate from '../../components/Form/Validation';
-import { login as loginUser } from '../../helpers/user/auth';
+import Loading from '../../components/UI/Loading';
 
 function Login() {
   const router = useRouter();
 
-  const isLoggedIn = false;
+  const { status } = useSession();
 
   useEffect(() => {
-    if (isLoggedIn) router.replace('/');
-  }, [isLoggedIn, router]);
+    if (status === 'authenticated') router.replace('/');
+  }, [status, router]);
 
   const [submitting, setSubmitting] = useState(false);
-
-  const searchParams = useSearchParams();
-
-  let redirectTo = searchParams?.get('redirectTo') || '/';
-
-  redirectTo =
-    redirectTo !== '/' &&
-    (redirectTo.includes('/signin') || redirectTo.includes('/signup'))
-      ? '/'
-      : redirectTo;
 
   const login = () => {};
 
@@ -66,31 +57,12 @@ function Login() {
   const onSubmit = async (values: any) => {
     setSubmitting(true);
 
-    try {
-      const response = await loginUser(values.email, values.password);
+    await signIn('credentials', {
+      email: values.email,
+      password: values.password,
+    });
 
-      toast(response.data);
-
-      if (response.status === 200 && response.data.success) {
-        const user = response.data;
-        const userObj = {
-          id: user.id,
-          name: user.name,
-          email: user.email,
-          avatar: user.profile,
-          isLoggedIn: user.success,
-          token: user.token,
-        };
-        // dispatch(setUserLogin(userObj));
-        localStorage.setItem('movielust_user', user.token);
-        localStorage.setItem('user', JSON.stringify(userObj));
-        router.push(redirectTo);
-      }
-    } catch (err: any) {
-      toast(err.response.data.message);
-    } finally {
-      setSubmitting(false);
-    }
+    setSubmitting(false);
   };
 
   const formik = {
@@ -98,6 +70,8 @@ function Login() {
     validationSchema: loginSchema,
     onSubmit,
   };
+
+  if (status === 'loading') return <Loading />;
 
   return (
     <>
