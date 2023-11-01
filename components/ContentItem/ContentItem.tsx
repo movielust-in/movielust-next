@@ -22,13 +22,7 @@ function WatchlistItem({
   remove,
 }: WatchlistItemProps) {
   return (
-    <li
-      className={styles.Item}
-      // initial={{ x: 30, opacity: 0 }}
-      // whileInView={{ x: 0, opacity: 1 }}
-      // exit={{ x: -10, opacity: 0 }}
-      // transition={{ duration: 0.3 }}
-    >
+    <li className={styles.Item}>
       <Image
         className={styles.Thumbnail}
         width={100}
