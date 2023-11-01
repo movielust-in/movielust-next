@@ -124,39 +124,21 @@ function Header({ isOnline }: HeaderProps) {
         <div className={styles.NavMenu}>
           <Link href="/">
             <HomeIcon />
-            <h1 className={styles.Title}>
-              {/* // active={router.pathname === "/"} */}
-              Home
-            </h1>
+            <h1 className={styles.Title}>Home</h1>
           </Link>
           <Link href="/watchlist">
             <WatchlistIcon />
-            <h1
-              className={styles.Title}
-              // active={router.pathname === "/watchlist"}
-            >
-              Watchlist
-            </h1>
+            <h1 className={styles.Title}>Watchlist</h1>
           </Link>
 
           <Link href="/discover/movies">
             <MoviesIcon />
-            <h1
-              className={styles.Title}
-              // active={router.pathname === "/discover/movies"}
-            >
-              Movies
-            </h1>
+            <h1 className={styles.Title}>Movies</h1>
           </Link>
 
           <Link href="/discover/shows">
             <SeriesIcon />
-            <h1
-              className={styles.Title}
-              // active={router.pathname === "/discover/series"}
-            >
-              Shows
-            </h1>
+            <h1 className={styles.Title}>Shows</h1>
           </Link>
         </div>
 
