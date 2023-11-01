@@ -1,6 +1,5 @@
 'use client';
 
-/* eslint-disable no-nested-ternary */
 /* eslint-disable @next/next/no-img-element */
 import { useState, useEffect, KeyboardEvent } from 'react';
 
@@ -35,7 +34,7 @@ function Header({ isOnline }: HeaderProps) {
   const pathname = usePathname();
   const [hash, setHash] = useState('');
 
-  const { data } = useSession();
+  const { data, status } = useSession();
 
   const user = data?.user;
 
@@ -172,7 +171,7 @@ function Header({ isOnline }: HeaderProps) {
         </button>
 
         <div className={styles.StatusContainer}>
-          {user ? (
+          {status === 'authenticated' && user ? (
             <img
               className={styles.UserImg}
               alt="avatar"
@@ -186,7 +185,18 @@ function Header({ isOnline }: HeaderProps) {
                 currentTarget.src = 'LoginImage.src';
               }}
             />
-          ) : (
+          ) : null}
+
+          {status === 'loading' ? (
+            <img
+              alt="loading"
+              src="/images/svgs/spinning-tail.svg"
+              height={20}
+              width={20}
+            />
+          ) : null}
+
+          {status === 'unauthenticated' ? (
             <button
               type="button"
               className={styles.LoginPrompt}
@@ -196,7 +206,7 @@ function Header({ isOnline }: HeaderProps) {
             >
               LOGIN
             </button>
-          )}
+          ) : null}
         </div>
       </nav>
 
