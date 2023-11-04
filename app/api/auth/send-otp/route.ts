@@ -1,8 +1,8 @@
 import { z } from 'zod';
 import { OTP_TYPES } from '../../../../constants';
-import dbConnect from '../../../../lib/databse';
 import Otp from '../../../../models/Otp';
 import { User } from '../../../../models/User';
+import { catchAsync } from '../../apiHandler';
 
 const validationSchema = z
   .object({
@@ -12,26 +12,14 @@ const validationSchema = z
   })
   .required();
 
-export async function POST(request: Request) {
-  try {
-    const data = await request.json();
-    const user = validationSchema.safeParse(data);
-
-    if (!user.success) {
-      const error = user.error.flatten();
-      return new Response(JSON.stringify({ error: error.fieldErrors }), {
-        status: 400,
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      });
-    }
-
-    await dbConnect();
+export const POST = catchAsync(
+  async (request) => {
+    const data = await request!.json();
+    const user = validationSchema.parse(data);
 
     const randomOtp = Math.floor(100_000 + Math.random() * 900_000);
 
-    const userExists = await User.findOne({ email: user.data.email });
+    const userExists = await User.findOne({ email: user.email });
 
     if (userExists) {
       return new Response(
@@ -49,16 +37,15 @@ export async function POST(request: Request) {
     }
 
     const otp = new Otp({
-      name: user.data.name,
-      email: user.data.email,
+      name: user.name,
+      email: user.email,
       otp: randomOtp,
-      type: user.data.otp_type,
+      type: user.otp_type,
     });
 
     await otp.save();
 
     return Response.json({ status: 'success', message: 'Otp sent.' });
-  } catch (err) {
-    return Response.json(err);
-  }
-}
+  },
+  { db: true }
+);

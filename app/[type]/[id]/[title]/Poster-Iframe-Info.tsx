@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import InformationComponent from './Information';
 import PosterAndIframe from './PosterAndIframe';
 import {
@@ -46,11 +46,35 @@ const PosterIframeInfo = ({
     );
 
     if (contentData.imdb_id)
-      fetchMagnetsfromYTSapi(contentData.imdb_id, contentData.id!).then((res) =>
-        {setMagnets(res as any)}
+      fetchMagnetsfromYTSapi(contentData.imdb_id, contentData.id!).then(
+        (res) => {
+          setMagnets(res as any);
+        }
       );
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  const addToWatchlist = useCallback(async () => {
+    try {
+      const body = JSON.stringify({
+        content_id: contentData.id,
+        type,
+      });
+
+      // const addRes =
+      await fetch('/api/user/watchlist', {
+        method: 'POST',
+        body,
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+      // !!!
+      // console.log(addRes);
+    } catch (err) {
+      // console.log(err);
+    }
+  }, [contentData.id, type]);
 
   return (
     <>
@@ -71,7 +95,7 @@ const PosterIframeInfo = ({
         IMDBRating={imdbRating} // !!!
         magnets={magnets} // !!!
         externalIds={externalIds} // !!!
-        addToWatchlsit={undefined} // !!!
+        addToWatchlsit={addToWatchlist} // !!!
       />
     </>
   );

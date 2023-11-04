@@ -19,9 +19,17 @@ Content-Type: application/json
 
 {
     "otp":123456,
-    "name":"Anurag",
     "password":"asdfghjkl",
     "image":"https://anurag.com",
     "email":"01anuragparmar@gmail.com",
     "otp_type": "SIGN_UP"
+}
+
+###
+POST http://localhost:3000/api/user/watchlist
+Content-Type: application/json
+
+{
+    "content_id": "84958",
+    "type": "tv"
 }

@@ -6,34 +6,25 @@ import { getAll } from '../Get';
 import tmdbClient from '../tmdbClient';
 import { DETAIL } from '../Urls';
 
-const fetchWatchlistRaw = (
-  token: string
-): Promise<Array<Content & { type: string }>> =>
+const fetchWatchlistRaw = (): Promise<Array<Content & { type: string }>> =>
   new Promise((resolve, reject) => {
-    if (token) {
-      axios
-        .get(`${SERVER_URI}/user/watchlist/get`, {
-          headers: { Authorization: `Bearer ${token}` },
-        })
-        .then((response) =>
-          response.status === 200 ? resolve(response.data) : reject(response)
-        )
-        .catch((err) => {
-          reject(err);
-        });
-    } else {
-      reject();
-    }
+    axios
+      .get('/api/user/watchlist')
+      .then((response) => {
+        resolve(response.data.data.watchlist);
+      })
+      .catch((err) => reject(err));
   });
 
-export const fetchWatchlist = async (token: string) =>
+export const fetchWatchlist = async () =>
   new Promise<{ movies: MovieResult[]; series: TvResult[] }>(
     (resolve, reject) => {
       try {
         (async () => {
           const movies: any = [];
           const series: any = [];
-          const rawWatchlist = await fetchWatchlistRaw(token);
+          const rawWatchlist = await fetchWatchlistRaw();
+          // console.log(rawWatchlist);
           rawWatchlist.forEach((result) =>
             result.type === 'movie' ? movies.push(result) : series.push(result)
           );
@@ -99,32 +90,21 @@ export const addToWatchlist = (id: number, type: string) =>
     }
   });
 
-export const removeFromWL = (
-  id: string | number,
-  type: string,
-  token: string
-) =>
+export const removeFromWL = (id: string | number, type: string) =>
   new Promise((resolve, reject) => {
-    if (token) {
-      axios
-        .delete(`${SERVER_URI}/user/watchlist/remove`, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-          data: { content_id: id, type },
-        })
-        .then((response) => {
-          if (response.status === 200) {
-            toast('Removed from Watchlist');
-            resolve(true);
-          } else {
-            reject();
-          }
-        })
-        .catch((err) => {
-          reject(err);
-        });
-    } else {
-      reject();
-    }
+    axios
+      .delete(`${SERVER_URI}/user/watchlist`, {
+        data: { content_id: id, type },
+      })
+      .then((response) => {
+        if (response.status === 200) {
+          toast('Removed from Watchlist');
+          resolve(true);
+        } else {
+          reject();
+        }
+      })
+      .catch((err) => {
+        reject(err);
+      });
   });

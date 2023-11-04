@@ -1,9 +1,10 @@
 import { TMDB_BASE_PATH, TMDB_KEY } from '../../../config';
 import { SIMILAR } from '../../../helpers/Urls';
 import { Content } from '../../../types/tmdb';
+import { catchAsync } from '../apiHandler';
 
-export async function GET(request: Request) {
-  const { searchParams }: any = new URL(request.url);
+export const GET = catchAsync(async (request) => {
+  const { searchParams }: any = new URL(request!.url);
   const id: string | undefined = searchParams.get('id');
   const type: string | undefined = searchParams.get('type');
   const genres: string | undefined = searchParams.get('genres');
@@ -69,4 +70,4 @@ export async function GET(request: Request) {
       results: lang === 'en' ? similar : results.slice(0, 20),
     },
   });
-}
+});

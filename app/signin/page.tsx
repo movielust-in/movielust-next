@@ -58,6 +58,7 @@ function Login() {
     setSubmitting(true);
 
     await signIn('credentials', {
+      redirect: false,
       email: values.email,
       password: values.password,
     });

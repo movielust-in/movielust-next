@@ -1,8 +1,8 @@
 import { z } from 'zod';
 import Otp from '../../../../models/Otp';
-import dbConnect from '../../../../lib/databse';
 import { OTP_TYPE } from '../../../../constants';
 import { User } from '../../../../models/User';
+import { catchAsync } from '../../apiHandler';
 
 const validationSchema = z
   .object({
@@ -14,32 +14,13 @@ const validationSchema = z
   })
   .required();
 
-export async function POST(request: Request) {
-  try {
-    const res = await request.json();
+export const POST = catchAsync(
+  async (request) => {
+    const res = await request!.json();
 
-    const user = validationSchema.safeParse(res);
+    const user = validationSchema.parse(res);
 
-    if (!user.success) {
-      const error = user.error.flatten().fieldErrors;
-      return new Response(
-        JSON.stringify({
-          status: 'error',
-          message: 'Bad Request!',
-          error,
-        }),
-        {
-          status: 400,
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        }
-      );
-    }
-
-    await dbConnect();
-
-    const userExists = await User.findOne({ email: user.data.email });
+    const userExists = await User.findOne({ email: user.email });
 
     if (userExists) {
       return new Response(
@@ -57,8 +38,8 @@ export async function POST(request: Request) {
     }
 
     const otpExists = await Otp.findOne({
-      email: user.data.email,
-      otp: user.data.otp,
+      email: user.email,
+      otp: user.otp,
       type: OTP_TYPE[0],
     });
 
@@ -75,23 +56,16 @@ export async function POST(request: Request) {
     otpExists.deleteOne();
 
     const userDoc = new User({
-      name: user.data.name,
-      email: user.data.email,
-      password: user.data.password,
-      image: user.data.image,
+      name: user.name,
+      email: user.email,
+      password: user.password,
+      image: user.image,
       verified: true,
     });
 
     const userSaveResult = await userDoc.save();
 
     return Response.json({ status: 'success', data: userSaveResult });
-  } catch (error) {
-    return new Response(
-      JSON.stringify({ status: 'error', message: 'Internal Server Error!' }),
-      {
-        status: 500,
-        headers: { 'Content-Type': 'application/json' },
-      }
-    );
-  }
-}
+  },
+  { db: true }
+);

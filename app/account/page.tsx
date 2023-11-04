@@ -27,11 +27,11 @@ function Account() {
 
   const user = data?.user;
 
-  useEffect(() => {
-    if (!user) {
-      router.push('/signin');
-    }
-  }, [router, user]);
+  // useEffect(() => {
+  //   if (!user) {
+  //     router.push('/signin');
+  //   }
+  // }, [router, user]);
 
   const customStyles = {
     overlay: {

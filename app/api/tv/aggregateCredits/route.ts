@@ -1,10 +1,12 @@
 import { TMDB_BASE_PATH, TMDB_KEY } from '../../../../config';
 import { SHALLOW_DETAIL } from '../../../../helpers/Urls';
 import { DetailResponse } from '../../../../types/tmdb';
+import { catchAsync } from '../../apiHandler';
 
 /* eslint-disable import/prefer-default-export */
-export async function GET(request: Request) {
-  const { searchParams } = new URL(request.url);
+
+export const GET = catchAsync(async (request) => {
+  const { searchParams } = new URL(request!.url);
   const id = searchParams.get('id');
   const type = searchParams.get('type');
 
@@ -47,4 +49,4 @@ export async function GET(request: Request) {
     status: 'success',
     data: { details: pickedDetails, aggregateCredits },
   });
-}
+});

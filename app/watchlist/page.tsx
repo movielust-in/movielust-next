@@ -5,7 +5,7 @@ import Head from 'next/head';
 
 import { useSession } from 'next-auth/react';
 
-import { fetchWatchlist, removeFromWL } from '../../helpers/user/watchlist';
+import { fetchWatchlist } from '../../helpers/user/watchlist';
 
 import LoginRedirect from '../../components/UI/LoginRedirect';
 import Loading from '../../components/UI/Loading';
@@ -25,18 +25,23 @@ function Watchlist() {
 
   const [isLoading, setIsLoading] = useState(false);
 
-  const { data, status } = useSession();
-
-  const token = data?.user.accessToken;
+  const { status } = useSession();
 
   // const isAuthenticated = useSelector((state) => state.user.isLoggedIn);
 
   const remove = async (id: number) => {
-    if (!token) return;
+    if (status !== 'authenticated') return;
 
     try {
-      const res = await removeFromWL(id, view, token);
-      if (res === true) {
+      const res = await fetch(
+        `/api/user/watchlist?content_id=${id}&type=${view}`,
+        {
+          method: 'DELETE',
+        }
+      );
+      // const data = await res.json();
+      // console.log(data);
+      if (res.status === 200) {
         // dispatch(removeFromWatchlist({ id, view }));
         const filtered = watchlist[
           view === 'movie' ? 'movies' : 'series'
@@ -53,15 +58,15 @@ function Watchlist() {
   };
 
   useEffect(() => {
-    if (token) {
+    if (status === 'authenticated') {
       setIsLoading(true);
-      fetchWatchlist(token)
+      fetchWatchlist()
         .then((result) => {
           setWatchlist(result);
         })
         .finally(() => setIsLoading(false));
     }
-  }, [token]);
+  }, [status]);
 
   if (status === 'loading') return <Loading />;
 
