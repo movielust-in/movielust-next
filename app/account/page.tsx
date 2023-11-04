@@ -7,7 +7,6 @@ import { FaEdit } from 'react-icons/fa';
 import { signOut, useSession } from 'next-auth/react';
 import Modal from 'react-modal';
 
-import { deleteUser } from '../../helpers/user';
 import modalStyles from '../../styles/avatar_modal.module.scss';
 
 import styles from './account.module.scss';
@@ -64,7 +63,6 @@ function Account() {
 
   const deleteUserAccount = () => {
     if (user?.id) {
-      deleteUser(user.id);
       localStorage.removeItem('movielust_user');
       router.push('/');
     }

@@ -1,7 +1,5 @@
 import axios from 'axios';
-import { toast } from 'react-toastify';
 
-import { SERVER_URI } from '../../config';
 import { Content, MovieResult, TvResult } from '../../types/tmdb';
 import { getAll } from '../Get';
 import tmdbClient from '../tmdbClient';
@@ -52,60 +50,3 @@ export const fetchWatchlist = async () =>
       }
     }
   );
-
-export const addToWatchlist = (id: number, type: string) =>
-  new Promise((resolve, reject) => {
-    const token = localStorage.getItem('movielust_user');
-
-    if (id && type && token && token !== '') {
-      axios
-        .post(
-          `${SERVER_URI}/user/watchlist/add`,
-          {
-            content_id: id,
-            type,
-          },
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        )
-        .then((response) => {
-          if (response.status === 201 && response.data.success === true) {
-            resolve('Added to watchlist.');
-          } else if (
-            response.status === 202 &&
-            response.data.message === 'Already Exists'
-          ) {
-            resolve('Already in watchlist');
-          } else {
-            resolve('Something went wrong!');
-          }
-        })
-        .catch((error) => {
-          reject(error);
-        });
-    } else {
-      reject();
-    }
-  });
-
-export const removeFromWL = (id: string | number, type: string) =>
-  new Promise((resolve, reject) => {
-    axios
-      .delete(`${SERVER_URI}/user/watchlist`, {
-        data: { content_id: id, type },
-      })
-      .then((response) => {
-        if (response.status === 200) {
-          toast('Removed from Watchlist');
-          resolve(true);
-        } else {
-          reject();
-        }
-      })
-      .catch((err) => {
-        reject(err);
-      });
-  });
