@@ -28,11 +28,14 @@ export const addToWatchlist = catchAsync(
       { $push: { watchlist: watchlistItem } }
     );
 
-    return Response.json({
-      status: 'success',
-      message: 'Added to Watchlist',
-      data: addResult,
-    });
+    return Response.json(
+      {
+        status: 'success',
+        message: 'Added to Watchlist',
+        data: addResult,
+      },
+      { status: 201 }
+    );
   },
   { db: true }
 );

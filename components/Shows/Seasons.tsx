@@ -164,15 +164,6 @@ function Seasons({ id, title, totalSeasons }: SeasonsProps) {
     else if (!show) setShow(true);
   };
 
-  // const onEpisodePlay = (episode: any, episodeNum: string | number) => {
-  //   // play/show/title/season/episode/totalEpisode/showId?m=magent&q=quality
-  //   router.push(
-  //     `/play/show/${title}/${season}/${episodeNum}/${
-  //       magnets[season].length
-  //     }/${id}?m=${episode.magnet || episode.torrent}&q=${episode.quality}`
-  //   );
-  // };
-
   const iframeLoaded = () => {
     setFrameLoading(false);
   };

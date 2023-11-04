@@ -34,47 +34,6 @@ const Detail = async ({ params }: { params: Params }) => {
 
   const contentData = await getData({ id, type });
 
-  // const toWatchlist = useCallback(async () => {
-  //   if (!isAuthenticated) {
-  //     alert('Login to access watchlist!');
-  //     return;
-  //   }
-  //   try {
-  //     const { addToWatchlist } = await import(
-  //       '../../../../helpers/user/watchlist'
-  //     );
-
-  //     await addToWatchlist(parseInt(id!, 10), type!);
-
-  //     const data = {
-  //       id,
-  //       type,
-  //       title: contentData?.title,
-  //       overview: contentData?.overview,
-  //       poster_path: contentData?.poster_path,
-  //     };
-
-  //     if (type === 'movie') dispatch(addMovieToWatchlist(data));
-  //     else dispatch(addShowToWatchlist(data));
-
-  //     toast('Added to Watchlist');
-  //   } catch (err: any) {
-  //     if (err && err.response && err.response.statusText) {
-  //       alert('Already in Watchlist!');
-  //       return;
-  //     }
-  //     alert('Something went wrong!');
-  //   }
-  // }, [
-  //   contentData?.overview,
-  //   contentData?.poster_path,
-  //   contentData?.title,
-  //   dispatch,
-  //   id,
-  //   isAuthenticated,
-  //   type,
-  // ]);
-
   const structuredData = {
     '@context': 'https://schema.org',
     '@type': type === 'movie' ? 'Movie' : 'TVSeries',

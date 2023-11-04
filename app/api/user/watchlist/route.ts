@@ -1,5 +1,5 @@
 import { addToWatchlist } from './add-to-watchlist';
-import { deleteFromWatchlist } from './delete-from-watchlits';
+import { deleteFromWatchlist } from './delete-from-watchlist';
 import { fetchWatchlist } from './fetch-watchlist';
 
 export const GET = fetchWatchlist;
