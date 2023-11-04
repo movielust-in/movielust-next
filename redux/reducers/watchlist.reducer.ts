@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
+
 import { Content } from '../../types/tmdb';
 
 interface WatchlistState {

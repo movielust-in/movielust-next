@@ -1,7 +1,7 @@
 import axios from 'axios';
+
 import { MagnetResponse, ShowMagnet } from '../../types/apiResponses';
 import { get } from '../Get';
-
 import { SHOW_MAGNETS, MAGNET, YTS_API_TORRENTS } from '../Urls';
 
 export const fetchShowMagnets = (

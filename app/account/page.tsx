@@ -8,9 +8,9 @@ import { signOut, useSession } from 'next-auth/react';
 import Modal from 'react-modal';
 
 import { deleteUser } from '../../helpers/user';
+import modalStyles from '../../styles/avatar_modal.module.scss';
 
 import styles from './account.module.scss';
-import modalStyles from '../../styles/avatar_modal.module.scss';
 
 function Account() {
   const router = useRouter();

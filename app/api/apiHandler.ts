@@ -1,4 +1,5 @@
 import dbConnect from '../../lib/databse';
+
 import { errorHandler } from './errorsHandler';
 // import { INTERNAL_SERVER_ERROR } from './errors';
 

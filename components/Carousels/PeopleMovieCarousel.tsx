@@ -4,11 +4,11 @@ import Link from 'next/link';
 import { SwiperSlide } from 'swiper/react';
 
 import Wrap from '../CarouselSlices/Wrap';
-import Carousel from './Carousel';
 import ShowAllButton from '../CarouselSlices/ShowAllButton';
 import { detailLink } from '../../utils';
-
 import styles from '../../styles/PeopleMovieCarousel.module.scss';
+
+import Carousel from './Carousel';
 
 interface PeopleMovieCarouselProps {
   movies: any[];

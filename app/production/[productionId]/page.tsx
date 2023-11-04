@@ -1,11 +1,8 @@
 import Image from 'next/image';
 
 import { fetchCompanies } from '../../../helpers/tmdb/company';
-
 import Scroller from '../../../components/UI/Scroller';
-
 import ProductionImageSlider from '../../../components/Carousels/ProductionImageSlider';
-
 import {
   fetchCompanyMovies,
   CompaniesTopImages,

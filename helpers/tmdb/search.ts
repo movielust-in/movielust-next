@@ -1,7 +1,5 @@
 import axios from "../tmdbClient";
-
 import { SearchMultiResponse } from "../../types/tmdb";
-
 import { SEARCH } from "../Urls";
 
 const search = (query: string): Promise<SearchMultiResponse> =>

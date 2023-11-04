@@ -7,7 +7,6 @@ import { toast } from 'react-toastify';
 import Form from '../components/Form/Form';
 import Validate from '../components/Form/Validation';
 import Meta from '../components/Meta';
-
 import { submitContactForm } from '../helpers/user';
 import { ContactFormInterface } from '../types/requestData';
 

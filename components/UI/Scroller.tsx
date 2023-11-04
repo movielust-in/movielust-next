@@ -5,11 +5,8 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 
 import styles from '../../styles/scroller.module.scss';
-
 import Wrap from '../CarouselSlices/Wrap';
-
 import PersonCard from '../CarouselSlices/PersonCard';
-
 import { detailLink } from '../../utils';
 import getGenreName from '../../utils/getGenreName';
 import useObserver from '../../hooks/useObserver';

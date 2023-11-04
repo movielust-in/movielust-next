@@ -9,21 +9,14 @@ import {
   MutableRefObject,
   useMemo,
 } from 'react';
-
 import Image from 'next/image';
-
 import { useRouter, usePathname } from 'next/navigation';
-
 import { FaArrowLeft } from 'react-icons/fa';
 
 import { image } from '../../helpers/Urls';
-
 import search from '../../helpers/tmdb/search';
-
 import { useLockBodyScroll } from '../../hooks';
-
 import { Content } from '../../types/tmdb';
-
 import { detailLink } from '../../utils';
 
 import styles from './search.module.scss';

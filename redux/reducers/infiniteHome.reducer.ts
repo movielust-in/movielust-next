@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+
 import { MovieResult, TvResult } from '../../types/tmdb';
 
 interface InitialState {

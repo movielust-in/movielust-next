@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
+
 import { TvResult } from '../../types/tmdb';
 
 interface InitialState {

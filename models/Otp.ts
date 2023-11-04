@@ -1,4 +1,5 @@
 import mongoose, { Document, Model, Schema, model } from 'mongoose';
+
 import { OTP_TYPES } from '../constants';
 import { sendMail } from '../lib/mail';
 import { verifyEmailOTP } from '../templates/verifyOTP';

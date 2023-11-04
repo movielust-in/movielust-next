@@ -2,26 +2,21 @@
 
 /* eslint-disable @next/next/no-img-element */
 import { useState } from 'react';
-
 import Image from 'next/image';
 import dynamic from 'next/dynamic';
 import { usePathname } from 'next/navigation';
-
 import { MdPlaylistAdd } from 'react-icons/md';
 import { FaDownload, FaPlay, FaStar, FaStop, FaShareAlt } from 'react-icons/fa';
 
 import Social from '../../../../components/External/Social';
-// import ShareOptions from '../ShareOptions';
-
 import { image } from '../../../../helpers/Urls';
-
-import { ImdbRating } from './DetailTypes';
 import { Magnet } from '../../../../types/apiResponses';
 import {
   DetailResponse,
   MovieExternalIdsResponse,
 } from '../../../../types/tmdb';
 
+import { ImdbRating } from './DetailTypes';
 import styles from './Detail.module.scss';
 
 const Spinner = dynamic(() => import('../../../../components/UI/Spinner'));

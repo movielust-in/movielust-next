@@ -1,4 +1,5 @@
 import axios from "axios";
+
 import { SERVER_URI } from "../../config";
 
 export const mostWatchedMovies = () =>

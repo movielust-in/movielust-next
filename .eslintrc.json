@@ -18,6 +18,20 @@
     "no-shadow": "off",
     "camelcase": "off",
     "@typescript-eslint/no-shadow": ["error"],
-    "import/prefer-default-export": "off"
+    "import/prefer-default-export": "off",
+    "import/order": [
+      "error",
+      {
+        "newlines-between": "always",
+        "groups": [
+          "builtin",
+          "external",
+          "internal",
+          "parent",
+          "sibling",
+          "index"
+        ]
+      }
+    ]
   }
 }

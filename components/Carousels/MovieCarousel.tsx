@@ -3,13 +3,13 @@
 import Link from 'next/link';
 import { SwiperSlide } from 'swiper/react';
 
-import Carousel from './Carousel';
 import Wrap from '../CarouselSlices/Wrap';
 import ShowAllButton from '../CarouselSlices/ShowAllButton';
 import { detailLink } from '../../utils';
 import getGenreName from '../../utils/getGenreName';
-
 import styles from '../../styles/carousel.module.scss';
+
+import Carousel from './Carousel';
 
 interface MovieCarouselInterface {
   movies: any[];

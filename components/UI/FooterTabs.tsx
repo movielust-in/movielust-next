@@ -1,16 +1,11 @@
 import Link from 'next/link';
-
 import { useRouter } from 'next/router';
-
 import {
   MdPlaylistPlay as WatchlistIcon,
   MdLocalMovies as MovieIcon,
 } from 'react-icons/md';
-
 import { FaHome as HomeIcon } from 'react-icons/fa';
-
 import { AiFillPlaySquare as SeriesIcon } from 'react-icons/ai';
-
 import { BiSearchAlt as SearchIcon } from 'react-icons/bi';
 
 import styles from '../../styles/footerTabs.module.scss';

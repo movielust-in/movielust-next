@@ -3,6 +3,7 @@ import { mutate } from 'swr';
 import styled from '@emotion/styled';
 import { FaAngleDoubleDown } from 'react-icons/fa';
 import { usePathname, useSearchParams, useRouter } from 'next/navigation';
+
 import { SORT_OPTIONS, TMDB_BASE_PATH, TMDB_KEY } from '../../../../config';
 import { DISCOVER_MOVIES } from '../../../../helpers/Urls';
 

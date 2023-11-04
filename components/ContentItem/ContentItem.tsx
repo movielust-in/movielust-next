@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import Image from 'next/image';
+
 import { detailLink } from '../../utils';
 
 import styles from './contentItem.module.scss';

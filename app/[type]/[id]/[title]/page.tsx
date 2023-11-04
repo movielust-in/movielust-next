@@ -1,24 +1,20 @@
 import Script from 'next/script';
 import dynamic from 'next/dynamic';
 
-import BackgroundImage from './BackgroundImage';
-import DetailHelmet from './DetailHelmet';
 import CastCarousel from '../../../../components/Carousels/CastCarousel';
 import ProductionCompanies from '../../../../components/Carousels/ProductionCompanies';
-import SimilarMovies from './SimilarMovies';
-
 import { FULL_MONTHS } from '../../../../config';
 import { VIDEO } from '../../../../helpers/Urls';
 import tmdbClient from '../../../../helpers/tmdbClient';
 import { fetchDetails } from '../../../../helpers/tmdb';
-
 import { ShowResponse } from '../../../../types/tmdb';
-
 import MinutesToDuration from '../../../../utils/minutesToDuration';
+
+import SimilarMovies from './SimilarMovies';
+import BackgroundImage from './BackgroundImage';
 import PosterIframeInfo from './Poster-Iframe-Info';
 import Collection from './Collection';
 import Images from './Images';
-
 import styles from './Detail.module.scss';
 
 const Seasons = dynamic(() => import('../../../../components/Shows/Seasons'));
@@ -71,7 +67,7 @@ const Detail = async ({ params }: { params: Params }) => {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
       />
       {/*  !!! */}
-      <DetailHelmet link="router.asPath" contentData={contentData} />
+      {/* <DetailHelmet link="router.asPath" contentData={contentData} /> */}
 
       <BackgroundImage backdrop={contentData.backdrop_path} />
 

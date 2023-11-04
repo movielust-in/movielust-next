@@ -1,14 +1,11 @@
 'use client';
 
 import React, { useState, memo } from 'react';
-
 import dynamic from 'next/dynamic';
 
 import MovieCarousel from '../Carousels/MovieCarousel';
 import ShowAllButton from '../CarouselSlices/ShowAllButton';
-
 import useObserver from '../../hooks/useObserver';
-
 import { HomeMovies } from '../../types/apiResponses';
 
 import styles from './HomeMovies.module.scss';

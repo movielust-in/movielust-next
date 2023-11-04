@@ -4,7 +4,6 @@ import { useEffect, useState } from 'react';
 import * as Yup from 'yup';
 import Head from 'next/head';
 import { signIn, useSession } from 'next-auth/react';
-
 import { useRouter } from 'next/navigation';
 // import { toast } from 'react-toastify';
 

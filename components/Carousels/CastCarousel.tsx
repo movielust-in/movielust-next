@@ -5,13 +5,12 @@ import Link from 'next/link'
 // import { useRouter } from 'next/router';
 import { SwiperSlide } from 'swiper/react';
 
-import Carousel from './Carousel';
 import PersonCard from '../CarouselSlices/PersonCard';
 import ShowAllButton from '../CarouselSlices/ShowAllButton';
-
 import { dashedTitle } from '../../utils';
-
 import styles from '../../styles/carousel.module.scss';
+
+import Carousel from './Carousel';
 
 interface CastCarouselProps {
   cast: any[];

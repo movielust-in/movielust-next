@@ -1,4 +1,5 @@
 import React, { memo, useEffect, useState } from 'react';
+
 import tmdbClient from '../../helpers/tmdbClient';
 import LoadingCarousel from '../Carousels/LoadingCarousel';
 import MovieCarousel from '../Carousels/MovieCarousel';

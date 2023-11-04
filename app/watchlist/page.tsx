@@ -2,18 +2,15 @@
 
 import { useEffect, useState } from 'react';
 import Head from 'next/head';
-
 import { useSession } from 'next-auth/react';
 
 import { fetchWatchlist } from '../../helpers/user/watchlist';
-
 import LoginRedirect from '../../components/UI/LoginRedirect';
 import Loading from '../../components/UI/Loading';
-
-import styles from './watchlist.module.scss';
-
 import WatchlistItems from '../../components/ContentItem/ContentItem';
 import { MovieResult, TvResult } from '../../types/tmdb';
+
+import styles from './watchlist.module.scss';
 
 function Watchlist() {
   const [view, setView] = useState<'movie' | 'tv'>('movie');

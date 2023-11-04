@@ -9,7 +9,6 @@ import { Formik } from 'formik';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 
 import FormContainer from './FormContainer';
-
 import styles from './form.module.scss';
 
 const Spinner = dynamic(() => import('../UI/Spinner'));

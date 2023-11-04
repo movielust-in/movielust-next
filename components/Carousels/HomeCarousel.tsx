@@ -5,6 +5,7 @@ import React from 'react';
 import Link from 'next/link';
 import { Navigation, Autoplay } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
+
 import { image } from '../../helpers/Urls';
 import { detailLink } from '../../utils';
 import { MovieResult } from '../../types/tmdb';

@@ -1,5 +1,4 @@
 import axios from '../tmdbClient';
-
 import { COMPANIES, COMPANIESIMAGES } from '../Urls';
 import { CompanyImagesResponse, ProductionCompany } from '../../types/tmdb';
 

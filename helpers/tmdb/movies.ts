@@ -1,5 +1,4 @@
 import tmdbClient from '../tmdbClient';
-
 import {
   AllResponse,
   CollectionInfoResponse,
@@ -7,9 +6,7 @@ import {
   MovieExternalIdsResponse,
   MovieResult,
 } from '../../types/tmdb';
-
 import { getAll } from '../Get';
-
 import {
   COLLECTION,
   BOLLYWOOD,
@@ -27,10 +24,10 @@ import {
   CASTMOVIES,
   _DISCOVER_MOVIES,
 } from '../Urls';
+import { Filters } from '../../types/requestData';
 
 import fetchAllPages from './fetchAllPages';
 
-import { Filters } from '../../types/requestData';
 
 export const discoverMovie = (filters: Filters, page: number) => {
   let params: {} = {

@@ -1,5 +1,4 @@
 import { Content, DetailResponse, Genre } from "../../types/tmdb";
-
 import axios from "../tmdbClient";
 import { getAll } from "../Get";
 import { DETAIL, SIMILAR } from "../Urls";

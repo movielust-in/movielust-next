@@ -1,5 +1,4 @@
 import axios from '../tmdbClient';
-
 import {
   Person,
   PersonExternalIdsResponse,
@@ -8,7 +7,6 @@ import {
   PersonPopularResponse,
   PersonTvCreditsResponse,
 } from '../../types/tmdb';
-
 import {
   PERSON,
   PERSONMOVIES,

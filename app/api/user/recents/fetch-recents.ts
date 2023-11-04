@@ -1,4 +1,5 @@
 import { getServerSession } from 'next-auth';
+
 import authOptions from '../../auth/[...nextauth]/authOptions';
 import { User } from '../../../../models/User';
 import { catchAsync } from '../../apiHandler';

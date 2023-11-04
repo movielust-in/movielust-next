@@ -5,10 +5,8 @@ import styled from '@emotion/styled';
 import { useParams } from 'next/navigation';
 
 import { useDispatch, useSelector } from '../../redux';
-
 import Loading from '../../components/UI/Loading';
 import Scroller from '../../components/UI/Scroller';
-
 import { setCurrentPage } from '../../redux/reducers/nav.reducer';
 import { fetchPerson } from '../../helpers/tmdb/person';
 import { fetchCastMovies } from '../../helpers/tmdb/movies';

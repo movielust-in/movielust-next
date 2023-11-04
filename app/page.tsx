@@ -1,14 +1,13 @@
 import Script from 'next/script';
+
 import Movies from '../components/Movies/HomeMovies';
 import HomeCarousel from '../components/Carousels/HomeCarousel';
 import { fetchTrending, fetchTrendingToday } from '../helpers/tmdb/trending';
-
 import {
   fetchExternalIds,
   fetchTRM,
   fetchUpcomingMovies,
 } from '../helpers/tmdb/movies';
-
 import { fetchLatestSeries, fetchPopularSeries } from '../helpers/tmdb/series';
 import { HomeMovies } from '../types/apiResponses';
 import styles from '../styles/index.module.scss';

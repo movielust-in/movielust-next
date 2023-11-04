@@ -1,4 +1,5 @@
 import { UUID } from 'crypto';
+
 import { Document, Schema, model, models } from 'mongoose';
 
 export interface AvatarInterface extends Document {

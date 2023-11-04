@@ -1,5 +1,6 @@
 import React, { memo } from 'react';
 import { headers } from 'next/headers';
+
 import { Genre } from '../../../../types/tmdb';
 import MovieCarousel from '../../../../components/Carousels/MovieCarousel';
 

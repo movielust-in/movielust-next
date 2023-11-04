@@ -1,4 +1,5 @@
 import { z } from 'zod';
+
 import { OTP_TYPES } from '../../../../constants';
 import Otp from '../../../../models/Otp';
 import { User } from '../../../../models/User';

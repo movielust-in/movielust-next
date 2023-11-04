@@ -2,12 +2,13 @@ import { ReactNode, useEffect, useRef } from 'react';
 import { Id, toast } from 'react-toastify';
 
 import { useSetUser } from '../hooks';
+import BeforeInstallPromptEvent from '../types/beforeInstallPrompt';
+
 import FooterTabs from './UI/FooterTabs';
 import Header from './UI/Header';
 import Footer from './UI/Footer';
 import ScrollTop from './UI/ScrollTop';
 import InstallPrompt from './UI/InstallPrompt';
-import BeforeInstallPromptEvent from '../types/beforeInstallPrompt';
 
 export default function Layout({ children }: { children: ReactNode }) {
   useSetUser();

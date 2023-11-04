@@ -7,18 +7,11 @@ import { useSearchParams, useParams } from 'next/navigation';
 import useSWRInfinite from 'swr/infinite';
 
 import { DISCOVER_MOVIES, image } from '../../../helpers/Urls';
-
-// import SortBy from './Filters/SortBy';
-// import GenreFilter from './Filters/GenreFilter';
 import Wrap from '../../../components/CarouselSlices/Wrap';
-
 import { Content } from '../../../types/tmdb';
-
 import { TMDB_BASE_PATH, TMDB_KEY } from '../../../config';
-
 import { detailLink } from '../../../utils';
 import getGenreName from '../../../utils/getGenreName';
-
 import useObserver from '../../../hooks/useObserver';
 import Meta from '../../../components/Meta';
 import styles from '../../../styles/scroller.module.scss';

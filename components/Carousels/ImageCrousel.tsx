@@ -6,11 +6,11 @@ import dynamic from 'next/dynamic';
 import Nimage from 'next/image';
 import { SwiperSlide } from 'swiper/react';
 
-import Carousel from './Carousel';
 import Shimmer from '../UI/Shimmer';
-
 import carouselStyles from '../../styles/carousel.module.scss';
 import imageCarouselStyles from '../../styles/imageCarousel.module.scss';
+
+import Carousel from './Carousel';
 
 const ImageModal = dynamic(() => import('../Modal/ImageModal'));
 const PeopleModal = dynamic(() => import('../Modal/PeopleModal'));

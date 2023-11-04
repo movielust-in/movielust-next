@@ -2,6 +2,7 @@
 import { AuthOptions } from 'next-auth';
 import bcrypt from 'bcrypt';
 import Credentials from 'next-auth/providers/credentials';
+
 import { User } from '../../../../models/User';
 import { encode, decode } from '../../../../lib/jwt';
 import dbConnect from '../../../../lib/databse';

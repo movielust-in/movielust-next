@@ -10,7 +10,7 @@
     "postbuild": "next-sitemap",
     "analyze": "cross-env ANALYZE=true next build",
     "prepare": "husky install",
-    "lint:js-ts": "eslint . --ext .ts,.tsx,.js --max-warnings=0",
+    "lint:fix": "eslint . --fix",
     "lint-staged": "lint-staged --config lint-staged.config.mjs --quiet"
   },
   "dependencies": {

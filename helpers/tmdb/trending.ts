@@ -1,7 +1,5 @@
 import axios from "../tmdbClient";
-
 import { TRENDING, TRENDINGTODAY } from "../Urls";
-
 import { MixedResponse, MovieResult } from "../../types/tmdb";
 
 export const fetchTrending = (): Promise<MixedResponse> =>

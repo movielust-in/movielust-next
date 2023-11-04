@@ -2,10 +2,9 @@
 
 import Image from "next/image";
 import { MouseEventHandler, useState } from 'react';
+
 import { image } from '../../helpers/Urls';
-
 import { Genre } from '../../types/tmdb';
-
 import styles from '../../styles/Wrap.module.scss';
 
 interface WrapPros {

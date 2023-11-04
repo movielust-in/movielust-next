@@ -6,7 +6,6 @@ import type { AppProps } from 'next/app';
 import { Provider } from 'react-redux';
 
 import { useWrappedStore } from '../redux/store';
-
 import Layout from '../components/Layout';
 import Loading from '../components/UI/Loading';
 

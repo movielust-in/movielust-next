@@ -1,5 +1,4 @@
 import tmdbClient from "../tmdbClient";
-
 import {
   AllResponse,
   DiscoverMovieResponse,
@@ -23,6 +22,7 @@ import {
   ANIME,
   DISCOVER,
 } from "../Urls";
+
 import fetchAllPages from "./fetchAllPages";
 
 export const fetchCompleteShowCast = (

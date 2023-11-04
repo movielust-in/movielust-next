@@ -1,5 +1,5 @@
 import React, { useMemo, useState } from 'react';
-import { Carousel } from './HomeType';
+
 import {
   BOLLYWOOD,
   GUJARATI,
@@ -8,12 +8,13 @@ import {
   SOUTH,
   TR_ANIME,
 } from '../../helpers/Urls';
-import CarouselContainer from './CarouselContainer';
 import LoadingCarousel from '../Carousels/LoadingCarousel';
 import useObserver from '../../hooks/useObserver';
+import { MOVIE_GENRES, TV_GENRES } from '../../config';
 
 import styles from './HomeMovies.module.scss';
-import { MOVIE_GENRES, TV_GENRES } from '../../config';
+import CarouselContainer from './CarouselContainer';
+import { Carousel } from './HomeType';
 
 const FixCarousels: Carousel[] = [
   {

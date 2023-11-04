@@ -1,4 +1,5 @@
 import withAuth from 'next-auth/middleware';
+
 import { decode } from './lib/jwt';
 
 export default withAuth({

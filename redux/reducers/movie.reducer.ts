@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
+
 import { Filters } from '../../types/requestData';
 import { MovieResult } from '../../types/tmdb';
 

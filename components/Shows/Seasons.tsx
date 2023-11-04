@@ -11,7 +11,6 @@ import {
   FaPlay,
   FaStop,
 } from 'react-icons/fa';
-
 import Image from 'next/image';
 import { useRouter, useSearchParams } from 'next/navigation';
 
@@ -20,9 +19,7 @@ import { image } from '../../helpers/Urls';
 // import { addWatched } from '../../helpers/user';
 import { fetchSeason } from '../../helpers/tmdb/series';
 import { fetchShowMagnets } from '../../helpers/torrent';
-
 import { FULL_MONTHS, TWO_EMBED } from '../../config';
-
 import { TvSeasonResponse } from '../../types/tmdb';
 import { ShowMagnet } from '../../types/apiResponses';
 

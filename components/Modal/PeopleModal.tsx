@@ -4,7 +4,6 @@ import { FaAngleLeft, FaAngleRight, FaExpand, FaTimes } from 'react-icons/fa';
 import ReactModal from 'react-modal';
 
 import Spinner from '../UI/Spinner';
-
 import {
   useEventListener,
   useLockBodyScroll,

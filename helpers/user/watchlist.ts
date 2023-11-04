@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { toast } from 'react-toastify';
+
 import { SERVER_URI } from '../../config';
 import { Content, MovieResult, TvResult } from '../../types/tmdb';
 import { getAll } from '../Get';

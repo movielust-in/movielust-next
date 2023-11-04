@@ -1,8 +1,8 @@
 'use client';
 
 import Link from 'next/link';
-import { BackgroundImage } from '../components/UI';
 
+import { BackgroundImage } from '../components/UI';
 import styles from '../styles/error.module.scss';
 
 interface ErrorProps {

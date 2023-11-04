@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import NextImage from "next/image";
-import Shimmer from '../UI/Shimmer';
 
+import Shimmer from '../UI/Shimmer';
 import styles from '../../styles/hWrap.module.scss';
 
 interface WrapPros {

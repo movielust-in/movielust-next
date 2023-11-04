@@ -5,7 +5,6 @@
 // !!! TODO:Move the cast data fetching and filtering logic to serverless.
 
 import { useEffect, useState, useRef, MutableRefObject } from 'react';
-
 import { useParams } from 'next/navigation';
 
 import Loading from '../../../../../components/UI/Loading';

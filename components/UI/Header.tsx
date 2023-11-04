@@ -2,13 +2,11 @@
 
 /* eslint-disable @next/next/no-img-element */
 import { useState, useEffect } from 'react';
-
 import Link from 'next/link';
 import Image from 'next/image';
 import dynamic from 'next/dynamic';
 import { useSession } from 'next-auth/react';
 import { useParams, usePathname, useRouter } from 'next/navigation';
-
 import {
   MdPlaylistPlay as WatchlistIcon,
   MdLocalMovies as MoviesIcon,
@@ -19,7 +17,6 @@ import { AiFillPlaySquare as SeriesIcon } from 'react-icons/ai';
 import { BiSearchAlt as SearchIcon } from 'react-icons/bi';
 
 import { useScroll } from '../../hooks';
-
 import styles from '../../styles/header.module.scss';
 
 const Search = dynamic(() => import('../Search/Search'));

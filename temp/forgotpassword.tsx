@@ -6,7 +6,6 @@ import 'react-toastify/dist/ReactToastify.css';
 
 import Form from '../components/Form/Form';
 import Validate from '../components/Form/Validation';
-
 import { sendPassReOtp, verifyOtp, resetPassword } from '../helpers/user/auth';
 
 const FORM_NAME = 'Reset Password';

@@ -3,11 +3,11 @@
 // import { useRouter } from 'next/navigation';
 import { SwiperSlide } from 'swiper/react';
 
-import Carousel from './Carousel';
 import ProductionWrap from '../CarouselSlices/ProductionWrap';
-
 import styles from '../../styles/carousel.module.scss';
 import prodCompaniesStyles from '../../styles/production_companies.module.scss';
+
+import Carousel from './Carousel';
 
 interface ProductionCompaniesPros {
   data: any[];

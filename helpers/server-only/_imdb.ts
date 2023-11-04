@@ -7,6 +7,8 @@
 /* eslint-disable no-underscore-dangle */
 // eslint-disable-next-line import/prefer-default-export
 export const getImdbRatingFromDB = async (imdbId: string[]) => {
+  'use server';
+
   // eslint-disable-next-line no-undef
   const options: RequestInit = {
     method: 'post',

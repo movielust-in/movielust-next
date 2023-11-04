@@ -3,15 +3,14 @@ import { SwiperSlide } from 'swiper/react';
 import Link from 'next/link';
 
 import { useDispatch, useSelector } from '../../redux';
-
 import { fetchWatched } from '../../helpers/user';
-import Carousel from './Carousel';
 import WrapH from '../CarouselSlices/Wrap_Horizantal';
 import { setRecents } from '../../redux/reducers/recent.reducer';
 import { detailLink } from '../../utils';
 import { detailLinkWithEpisode } from '../../utils/dashedTitle';
-
 import styles from '../../styles/recent_carousel.module.scss';
+
+import Carousel from './Carousel';
 
 const breakPoints = {
   1024: {

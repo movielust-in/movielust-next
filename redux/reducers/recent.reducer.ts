@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
+
 import { Episode, MediaType, MovieResult, TvResult } from '../../types/tmdb';
 
 interface InitialState {

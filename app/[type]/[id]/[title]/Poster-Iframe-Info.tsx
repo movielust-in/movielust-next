@@ -1,15 +1,18 @@
 'use client';
 
 import { useCallback, useEffect, useState } from 'react';
-import InformationComponent from './Information';
-import PosterAndIframe from './PosterAndIframe';
+
 import {
   DetailResponse,
   MovieExternalIdsResponse,
 } from '../../../../types/tmdb';
-import { ImdbRating } from './DetailTypes';
 import { fetchExternalIds } from '../../../../helpers/tmdb/movies';
 import { fetchMagnetsfromYTSapi } from '../../../../helpers/torrent';
+
+import InformationComponent from './Information';
+import PosterAndIframe from './PosterAndIframe';
+import { ImdbRating } from './DetailTypes';
+
 
 const PosterIframeInfo = ({
   contentData,

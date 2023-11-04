@@ -7,13 +7,9 @@ import {
   fetchPopular,
   fetchPersonTvCredits,
 } from '../../../helpers/tmdb/person';
-
 import Social from '../../../components/External/Social';
-
 import { FULL_MONTHS } from '../../../config';
-
 import ImageCrousel from '../../../components/Carousels/ImageCrousel';
-
 import Meta from '../../../components/Meta';
 import MovieCarousel from '../../../components/Carousels/MovieCarousel';
 import PeopleMovieCarousel from '../../../components/Carousels/PeopleMovieCarousel';

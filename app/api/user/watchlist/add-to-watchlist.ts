@@ -1,5 +1,6 @@
 import { z } from 'zod';
 import { getServerSession } from 'next-auth';
+
 import { catchAsync } from '../../apiHandler';
 import authOptions from '../../auth/[...nextauth]/authOptions';
 import { User } from '../../../../models/User';

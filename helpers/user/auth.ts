@@ -1,5 +1,6 @@
 /* eslint-disable no-console */
 import axios, { AxiosResponse } from 'axios';
+
 import { SERVER_URI } from '../../config';
 import { SingUpDataInterface } from '../../types/requestData';
 import { RESET_OTP, VERIFYEMAIL_OTP, VERIFY_OTP, RESET_PASS } from '../Urls';

@@ -2,9 +2,9 @@
 
 import { useState } from 'react';
 import Image from 'next/image';
+
 import { useEventListener } from '../../hooks';
 import scrollToTop from '../../utils/scrollToTop';
-
 import styles from '../../styles/scrollToTop.module.scss';
 
 export default function ScrollTop() {

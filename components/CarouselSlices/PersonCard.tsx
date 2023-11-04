@@ -4,7 +4,6 @@ import { useState } from 'react';
 import Image from 'next/image';
 
 import styles from '../../styles/personCard.module.scss';
-
 import Shimmer from '../UI/Shimmer';
 
 interface WrapPros {

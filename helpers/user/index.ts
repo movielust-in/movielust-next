@@ -2,7 +2,6 @@ import axios from 'axios';
 
 import tmdbClient from '../tmdbClient';
 import {  AvatarResponse } from '../../types/avatar';
-
 import {
     Get_AVATARS,
     UPDATE_AVATAR,

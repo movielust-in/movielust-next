@@ -9,13 +9,12 @@ import { CASTMOVIES, image } from '../../../helpers/Urls';
 import Wrap from '../../../components/CarouselSlices/Wrap';
 import { detailLink } from '../../../utils';
 import getGenreName from '../../../utils/getGenreName';
-
 import useObserver from '../../../hooks/useObserver';
 import Meta from '../../../components/Meta';
 import tmdbClient from '../../../helpers/tmdbClient';
 import { DiscoverMovieResponse, MovieResult } from '../../../types/tmdb';
-
 import scrollerStyles from '../../../styles/scroller.module.scss';
+
 import styles from './personMovies.module.scss';
 
 const fetcher = (key: string) => tmdbClient.get(key).then((res) => res.data);

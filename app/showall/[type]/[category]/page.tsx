@@ -1,17 +1,14 @@
 import Scroller from '../../../../components/UI/Scroller';
-
 import {
   fetchallBollywood,
   fetchallTRM,
   fetchallSouth,
   fetchallGujarati,
 } from '../../../../helpers/tmdb/movies';
-
 import {
   fetchAllAnimes,
   fetchAllPopularSeries,
 } from '../../../../helpers/tmdb/series';
-
 import styles from '../../../cast/[type]/[id]/[contentName]/allCast.module.scss';
 
 enum Categories {
