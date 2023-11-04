@@ -1,9 +1,8 @@
-import Image from "next/image";
+import Image from 'next/image';
 
 import styles from './Detail.module.scss';
 
 interface DetailBackgroundProps {
-  // setDomColor: any;
   backdrop: string | undefined;
 }
 

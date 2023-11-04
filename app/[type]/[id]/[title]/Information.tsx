@@ -96,9 +96,6 @@ export default function InformationComponent({
 
   return (
     <div
-      // style={{
-      //   backgroundColor: `rgba(${domColor[0]}, ${domColor[1]}, ${domColor[2]}, 0.3)`,
-      // }}
       className={styles.Information}
       style={{
         maxWidth: purpose ? '100vw' : '78vw',

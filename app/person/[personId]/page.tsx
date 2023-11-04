@@ -35,8 +35,6 @@ async function PeopleDetail({ params }: { params: { personId: string } }) {
 
   if (!personData) return null;
 
-  const domColor: any[] = [];
-
   const structeredData = {
     '@context': 'https://schema.org',
     '@type': 'Person',
@@ -103,7 +101,6 @@ async function PeopleDetail({ params }: { params: { personId: string } }) {
             <ImageCrousel
               images={personData.images.profiles}
               type="cast"
-              dom={domColor}
               height={300}
             />
           </div>
@@ -167,7 +164,6 @@ async function PeopleDetail({ params }: { params: { personId: string } }) {
               images={personData.images.profiles}
               type="cast"
               title="Images"
-              dom={domColor}
               height={300}
             />
           </div>
