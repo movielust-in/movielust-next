@@ -47,26 +47,11 @@ const authOptions: AuthOptions = {
           throw new Error('Invalid Email or Password!');
         }
 
-        // const userData = {
-        //   name: user.name,
-        //   email: user.email,
-        //   iat: Date.now(),
-        //   iss: 'Movielust',
-        // };
-
-        // const token = await new Promise((resolve, reject) => {
-        //   jwt.sign(userData, process.env.NEXTAUTH_SECRET!, (err, _token) => {
-        //     if (err) reject(err);
-        //     resolve(_token);
-        //   });
-        // });
-
         return {
           id: user.id,
           name: user.name,
           email: user.email,
           image: user.image,
-          // token,
         };
       },
     }),

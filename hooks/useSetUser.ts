@@ -1,44 +1,44 @@
-import { useEffect } from 'react';
+// import { useEffect } from 'react';
 
-import { useDispatch } from '../redux';
+// import { useDispatch } from '../redux';
 
-export default function useSetUser() {
-  const dispatch = useDispatch();
-  useEffect(() => {
-    const getUserProfile = async () => {
-      try {
-        const token = localStorage.getItem('movielust_user');
+// export default function useSetUser() {
+//   const dispatch = useDispatch();
+//   useEffect(() => {
+//     const getUserProfile = async () => {
+//       try {
+//         const token = localStorage.getItem('movielust_user');
 
-        if (!token) return;
+//         if (!token) return;
 
-        const userStr = localStorage.getItem('user');
+//         const userStr = localStorage.getItem('user');
 
-        if (!userStr) return;
+//         if (!userStr) return;
 
-        const userObj = JSON.parse(userStr);
+//         const userObj = JSON.parse(userStr);
 
-        const { setUserLogin } = await import('../redux/reducers/user.reducer');
+//         const { setUserLogin } = await import('../redux/reducers/user.reducer');
 
-        dispatch(setUserLogin(userObj));
+//         dispatch(setUserLogin(userObj));
 
-        const { getProfile } = await import('../helpers/user/auth');
+//         const { getProfile } = await import('../helpers/user/auth');
 
-        const user = await getProfile(token);
+//         const user = await getProfile(token);
 
-        if (userObj.avatar !== user.data.profile) {
-          dispatch(
-            setUserLogin({
-              name: user.data.name,
-              email: user.data.email,
-              avatar: user.data.profile,
-              token,
-            })
-          );
-        }
-      } catch {
-        localStorage.clear();
-      }
-    };
-    getUserProfile();
-  }, [dispatch]);
-}
+//         if (userObj.avatar !== user.data.profile) {
+//           dispatch(
+//             setUserLogin({
+//               name: user.data.name,
+//               email: user.data.email,
+//               avatar: user.data.profile,
+//               token,
+//             })
+//           );
+//         }
+//       } catch {
+//         localStorage.clear();
+//       }
+//     };
+//     getUserProfile();
+//   }, [dispatch]);
+// }

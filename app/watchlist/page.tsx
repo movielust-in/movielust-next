@@ -5,7 +5,6 @@ import Head from 'next/head';
 import { useSession } from 'next-auth/react';
 
 import { fetchWatchlist } from '../../helpers/user/watchlist';
-import LoginRedirect from '../../components/UI/LoginRedirect';
 import Loading from '../../components/UI/Loading';
 import WatchlistItems from '../../components/ContentItem/ContentItem';
 import { MovieResult, TvResult } from '../../types/tmdb';
@@ -76,62 +75,56 @@ function Watchlist() {
           content="Add you favourite movies and shows to watchlist."
         />
       </Head>
-      {status === 'authenticated' ? (
-        <div className={styles.Container}>
-          <div className={styles.SwitchBox}>
-            <button
-              className={styles.Switch}
-              type="button"
-              onClick={() => setView('movie')}
-              style={{
-                fontWeight: view === 'movie' ? 800 : 600,
-                // border: view === 'movie' ? '2px solid silver' : '1px solid silver',
-                opacity: view === 'movie' ? 1 : 0.8,
-              }}
-            >
-              Movies
-            </button>
-            <button
-              className={styles.Switch}
-              type="button"
-              onClick={() => setView('tv')}
-              style={{
-                fontWeight: view === 'tv' ? 800 : 600,
-                // border: view === 'tv' ? '2px solid silver' : '1px solid silver',
-                opacity: view === 'tv' ? 1 : 0.8,
-              }}
-            >
-              Series
-            </button>
-          </div>
-
-          {isLoading ? (
-            <Loading />
-          ) : (
-            <div className={styles.List}>
-              {watchlist[view === 'movie' ? 'movies' : 'series'].length ? (
-                watchlist[view === 'movie' ? 'movies' : 'series'].map(
-                  (movie) => (
-                    <WatchlistItems
-                      key={movie.id}
-                      id={movie.id!}
-                      title={(movie as any).title || (movie as any).name}
-                      overview={movie.overview!}
-                      posterPath={movie.poster_path!}
-                      remove={remove}
-                      type={view}
-                    />
-                  )
-                )
-              ) : (
-                <h1 className={styles.Lonely}>It feels quite lonely here...</h1>
-              )}
-            </div>
-          )}
+      <div className={styles.Container}>
+        <div className={styles.SwitchBox}>
+          <button
+            className={styles.Switch}
+            type="button"
+            onClick={() => setView('movie')}
+            style={{
+              fontWeight: view === 'movie' ? 800 : 600,
+              // border: view === 'movie' ? '2px solid silver' : '1px solid silver',
+              opacity: view === 'movie' ? 1 : 0.8,
+            }}
+          >
+            Movies
+          </button>
+          <button
+            className={styles.Switch}
+            type="button"
+            onClick={() => setView('tv')}
+            style={{
+              fontWeight: view === 'tv' ? 800 : 600,
+              // border: view === 'tv' ? '2px solid silver' : '1px solid silver',
+              opacity: view === 'tv' ? 1 : 0.8,
+            }}
+          >
+            Series
+          </button>
         </div>
-      ) : (
-        <LoginRedirect afterLoginRedirectTo="/watchlist" />
-      )}
+
+        {isLoading ? (
+          <Loading />
+        ) : (
+          <div className={styles.List}>
+            {watchlist[view === 'movie' ? 'movies' : 'series'].length ? (
+              watchlist[view === 'movie' ? 'movies' : 'series'].map((movie) => (
+                <WatchlistItems
+                  key={movie.id}
+                  id={movie.id!}
+                  title={(movie as any).title || (movie as any).name}
+                  overview={movie.overview!}
+                  posterPath={movie.poster_path!}
+                  remove={remove}
+                  type={view}
+                />
+              ))
+            ) : (
+              <h1 className={styles.Lonely}>It feels quite lonely here...</h1>
+            )}
+          </div>
+        )}
+      </div>
     </>
   );
 }

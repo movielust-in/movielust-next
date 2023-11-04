@@ -61,10 +61,13 @@ function Account() {
     setDeleteModal((state) => !state);
   };
 
-  const deleteUserAccount = () => {
-    if (user?.id) {
-      localStorage.removeItem('movielust_user');
-      router.push('/');
+  const deleteUserAccount = async () => {
+    if (user) {
+      const res = await fetch('/api/user/account', { method: 'DELETE' });
+      if (res.status === 204) {
+        await signOut({ redirect: true });
+        router.push('/');
+      }
     }
   };
 

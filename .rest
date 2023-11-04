@@ -36,3 +36,6 @@ Content-Type: application/json
 
 ###
 GET http://localhost:3000/api/avatars
+
+###
+GET http://localhost:3000/api/kaju 
