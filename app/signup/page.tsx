@@ -8,10 +8,6 @@ import { useRouter } from 'next/navigation';
 
 import Form from '../../components/Form/Form';
 import Validate from '../../components/Form/Validation';
-import // submitSingUp,
-// verifyOtp,
-'../../helpers/user/auth';
-// import { useSelector } from '../../redux/store';
 import Meta from '../../components/Meta';
 import { OTP_TYPES } from '../../constants';
 

@@ -1,21 +1,4 @@
-// import withAuth from 'next-auth/middleware';
-
 import { NextRequest, NextResponse } from 'next/server';
-
-// import { decode } from './lib/jwt';
-
-// export default withAuth({
-//   jwt: { decode } as any,
-
-//   pages: {
-//     signIn: '/signin',
-//   },
-
-//   callbacks: {
-//     authorized: (params) =>
-//       !!params.req.cookies.get('next-auth.session-token')?.value,
-//   },
-// });
 
 // eslint-disable-next-line consistent-return
 export function middleware(request: NextRequest) {

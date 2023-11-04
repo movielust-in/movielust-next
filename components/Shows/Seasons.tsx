@@ -76,7 +76,10 @@ function Seasons({ id, title, totalSeasons }: SeasonsProps) {
       `/tv/${id}/${title
         .split(' ')
         .join('-')
-        .toLowerCase()}?s=${season}&e=${index}`
+        .toLowerCase()}?s=${season}&e=${index}`,
+      {
+        scroll: false,
+      }
     );
     if (showEpisode === index) {
       return setEpisode(undefined);
@@ -197,27 +200,27 @@ function Seasons({ id, title, totalSeasons }: SeasonsProps) {
     //   magnets[season][episode.episode_number! - 1]
     // )
     //   setCurrEpisode(magnets[season][episode.episode_number! - 1]);
-    const rect =
-      (episodeRef.current as unknown as HTMLElement)!.getBoundingClientRect();
-    if (
-      !(
-        rect.top >= 0 &&
-        rect.left >= 0 &&
-        rect.bottom <=
-          (window.innerHeight || document.documentElement.clientHeight) &&
-        rect.right <=
-          (window.innerWidth || document.documentElement.clientWidth)
-      )
-    ) {
-      const offset = 120;
-      const bodyRect = document.body.getBoundingClientRect().top;
-      const elementPos = rect.top - bodyRect;
-      const scrolloffset = elementPos - offset;
-      window.scrollTo({
-        top: scrolloffset,
-        behavior: 'smooth',
-      });
-    }
+    // const rect =
+    //   (episodeRef.current as unknown as HTMLElement)!.getBoundingClientRect();
+    // if (
+    //   !(
+    //     rect.top >= 0 &&
+    //     rect.left >= 0 &&
+    //     rect.bottom <=
+    //       (window.innerHeight || document.documentElement.clientHeight) &&
+    //     rect.right <=
+    //       (window.innerWidth || document.documentElement.clientWidth)
+    //   )
+    // ) {
+    //   const offset = 120;
+    //   const bodyRect = document.body.getBoundingClientRect().top;
+    //   const elementPos = rect.top - bodyRect;
+    //   const scrolloffset = elementPos - offset;
+    //   window.scrollTo({
+    //     top: scrolloffset,
+    //     behavior: 'smooth',
+    //   });
+    // }
   };
 
   return (
