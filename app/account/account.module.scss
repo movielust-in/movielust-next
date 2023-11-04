@@ -145,7 +145,6 @@
 }
 
 .Information {
-  //  styled.div`
   background-color: #090c14;
   background-image: linear-gradient(315deg, #090c14 0%, #031d30 79%);
   border: 2px solid silver;
@@ -161,17 +160,15 @@
       h6 {
         font-size: 1rem;
         font-weight: 300;
-
-        margin: 15px;
+        margin: 5px;
         opacity: 0.6;
       }
       span {
         display: inline-block;
         font-size: 1.2rem;
         font-weight: 400;
-        margin: 10px;
+        margin: 0px 10px;
         opacity: 1;
-        padding: 5px;
         transition: all 250ms;
       }
       border-bottom: 0.1px solid rgba(192, 192, 192, 0.2);
@@ -196,33 +193,24 @@
 }
 
 .Edit {
-  //  styled(FaEdit)`
   background-color: rgba(1, 1, 1, 0.3);
   border-radius: 100%;
-  display: none;
-  height: 100%;
-  padding: 60px;
-  width: 100%;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  cursor: pointer;
 }
 
 .ProfilePicture {
-  //  styled.div<{ src: string }>`
   align-items: center;
-  // background-image: url('https://image.freepik.com/free-vector/mysterious-mafia-man-smoking-cigarette_52683-34828.jpg');
   background-repeat: no-repeat;
   background-size: cover;
-  border-radius: 100%;
-  cursor: pointer;
-  display: flex;
+  border-radius: 50%;
+  position: relative;
+  display: inline-block;
   height: 150px;
   justify-content: center;
   margin: 10px 30px;
   transition: all 200ms ease;
-
-  &:hover {
-    #accountProfileEdit {
-      display: flex;
-    }
-  }
   width: 150px;
 }

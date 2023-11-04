@@ -7,7 +7,7 @@ import { FaEdit } from 'react-icons/fa';
 import { signOut, useSession } from 'next-auth/react';
 import Modal from 'react-modal';
 
-import { fetchAvatars, updateAvatar, deleteUser } from '../../helpers/user';
+import { deleteUser } from '../../helpers/user';
 
 import styles from './account.module.scss';
 import modalStyles from '../../styles/avatar_modal.module.scss';
@@ -15,7 +15,7 @@ import modalStyles from '../../styles/avatar_modal.module.scss';
 function Account() {
   const router = useRouter();
   const [openAvatarModal, setOpenAvatarModal] = useState(false);
-  const [avatars, setAvatars] = useState<any>();
+  const [avatars, setAvatars] = useState<any>([]);
   const [isUpdating, setUpdating] = useState(false);
   const [deleteModal, setDeleteModal] = useState(false);
 
@@ -23,15 +23,9 @@ function Account() {
 
   const closeModal = () => setOpenAvatarModal(false);
 
-  const { data } = useSession();
+  const { data, update: updateSession } = useSession();
 
   const user = data?.user;
-
-  // useEffect(() => {
-  //   if (!user) {
-  //     router.push('/signin');
-  //   }
-  // }, [router, user]);
 
   const customStyles = {
     overlay: {
@@ -40,28 +34,26 @@ function Account() {
   };
 
   useEffect(() => {
-    if (avatars?.avatars?.length && avatars?.avatars?.length > 0) return;
-    fetchAvatars().then((res) => {
-      if (res && res.data && (res.data as any).length > 0)
-        setAvatars(res.data as any);
-    });
-  }, [avatars?.avatars]);
-
-  const changeProfile = (avatarId: number, link: string) => {
-    if (user?.id) {
-      updateAvatar(avatarId).then(() => {
-        const userObj = {
-          id: user.id,
-          name: user.name,
-          email: user.email,
-          avatar: link,
-          isLoggedIn: true,
-        };
-        // dispatch(setUserLogin(userObj));
-        localStorage.setItem('user', JSON.stringify(userObj));
-        setUpdating(false);
+    if (avatars?.length && avatars?.length > 0) return;
+    fetch('/api/avatars')
+      .then((res) => res.json())
+      .then((res) => {
+        if (res && res.data.avatars && res.data.avatars.length > 0)
+          setAvatars(res.data.avatars);
       });
-    }
+  }, [avatars?.length]);
+
+  const changeAvatar = async (link: string) => {
+    setUpdating(true);
+    await fetch('/api/user/avatar', {
+      method: 'PUT',
+      body: JSON.stringify({ avatar_url: link }),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+    await updateSession({ user: { image: link } });
+    setUpdating(false);
   };
 
   const logout = () => signOut();
@@ -108,56 +100,34 @@ function Account() {
       </div>
 
       <div className={styles.Information}>
-        {user?.image ? (
-          <div
-            className={styles.ProfilePicture}
-            style={{
-              backgroundImage: `url(${user.image})`,
-            }}
-            // src={user.image}
-          >
-            {isUpdating ? (
-              <Image
-                alt=""
-                src="/images/player_loading.svg"
-                width={100}
-                unoptimized
-                height={100}
-                style={{
-                  maxWidth: '100%',
-                  height: 'auto',
-                }}
-              />
-            ) : (
-              <div className={styles.Edit}>
-                <FaEdit id="accountProfileEdit" onClick={openModal} />
-              </div>
-            )}
-          </div>
-        ) : (
-          <div
-            className={styles.ProfilePicture}
-            style={{
-              backgroundImage: `url(${user?.image})`,
-            }}
-            // src="/images/login.png"
-          >
-            {isUpdating ? (
-              <Image
-                alt=""
-                src="/images/player_loading.svg"
-                width={100}
-                height={100}
-                style={{
-                  maxWidth: '100%',
-                  height: 'auto',
-                }}
-              />
-            ) : (
-              <FaEdit className={styles.Edit} onClick={openModal} />
-            )}
-          </div>
-        )}
+        <div
+          className={styles.ProfilePicture}
+          style={{
+            backgroundImage: `url(${user?.image})`,
+          }}
+        >
+          {isUpdating ? (
+            <Image
+              alt=""
+              src="/images/svgs/spinner.svg"
+              width={100}
+              unoptimized
+              height={100}
+              style={{
+                maxWidth: '100%',
+                height: 'auto',
+                position: 'absolute',
+                top: '50%',
+                left: '50%',
+                transform: 'translate(-50%,-50%)',
+              }}
+            />
+          ) : (
+            <div className={styles.Edit}>
+              <FaEdit className="accountProfileEdit" onClick={openModal} />
+            </div>
+          )}
+        </div>
 
         <ul className={styles.List}>
           <li>
@@ -187,16 +157,16 @@ function Account() {
         >
           {avatars &&
             avatars.length > 0 &&
-            avatars.map((adata: { id: any; link: any }) => (
+            avatars.map((adata: { link: any }) => (
               // eslint-disable-next-line @next/next/no-img-element
               <img
                 role="presentation"
                 onClick={() => {
-                  changeProfile(adata.id, adata.link);
+                  changeAvatar(adata.link);
                   openModal();
                   setUpdating(true);
                 }}
-                key={adata.id}
+                key={adata.link}
                 src={adata.link}
                 alt="Profile"
                 onError={({ currentTarget }) => {

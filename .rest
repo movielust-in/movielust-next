@@ -33,3 +33,6 @@ Content-Type: application/json
     "content_id": "84958",
     "type": "tv"
 }
+
+###
+GET http://localhost:3000/api/avatars
