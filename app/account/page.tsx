@@ -56,7 +56,6 @@ function Account() {
           email: user.email,
           avatar: link,
           isLoggedIn: true,
-          token: user.accessToken,
         };
         // dispatch(setUserLogin(userObj));
         localStorage.setItem('user', JSON.stringify(userObj));
