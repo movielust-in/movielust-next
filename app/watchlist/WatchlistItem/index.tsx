@@ -1,7 +1,9 @@
+'use client';
+
 import Link from 'next/link';
 import Image from 'next/image';
 
-import { detailLink } from '../../utils';
+import { detailLink } from '../../../utils';
 
 import styles from './contentItem.module.scss';
 
@@ -10,9 +12,18 @@ interface WatchlistItemProps {
   title: string;
   overview: string;
   posterPath: string;
-  remove: Function;
   type: string;
 }
+
+const remove = async (id: number, type: string) => {
+  try {
+    await fetch(`/api/user/watchlist?content_id=${id}&type=${type}`, {
+      method: 'DELETE',
+    });
+  } catch (err) {
+    // console.log('hm...', err);
+  }
+};
 
 function WatchlistItem({
   id,
@@ -20,7 +31,6 @@ function WatchlistItem({
   overview,
   type,
   posterPath,
-  remove,
 }: WatchlistItemProps) {
   return (
     <li className={styles.Item}>
@@ -43,7 +53,7 @@ function WatchlistItem({
           <div
             className={styles.Plus}
             role="presentation"
-            onClick={() => remove(id!)}
+            onClick={() => remove(id!, type)}
           >
             +
           </div>

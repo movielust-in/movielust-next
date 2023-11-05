@@ -1,4 +1,4 @@
-import React, { memo } from 'react';
+import React, { Suspense, memo } from 'react';
 import { headers } from 'next/headers';
 
 import { Genre } from '../../../../types/tmdb';
@@ -50,16 +50,20 @@ async function SimilarMovies({
 }: SimilarMoviesProps) {
   const similar = await getSimilarContent(id, type, genres, lang);
 
-  return similar && similar.length > 0 ? (
-    <div className={styles.similarContainer}>
-      <MovieCarousel
-        title={title}
-        type={type}
-        movies={similar}
-        showCard={false}
-      />
-    </div>
-  ) : null;
+  return (
+    <Suspense fallback={<div>Loading....</div>}>
+      {similar && similar.length > 0 ? (
+        <div className={styles.similarContainer}>
+          <MovieCarousel
+            title={title}
+            type={type}
+            movies={similar}
+            showCard={false}
+          />
+        </div>
+      ) : null}
+    </Suspense>
+  );
 }
 
 export default memo(

@@ -1,52 +1,66 @@
-import axios from 'axios';
+import { getServerSession } from 'next-auth';
 
-import { Content, MovieResult, TvResult } from '../../types/tmdb';
-import { getAll } from '../Get';
-import tmdbClient from '../tmdbClient';
 import { DETAIL } from '../Urls';
+import dbConnect from '../../lib/databse';
+import authOptions from '../../app/api/auth/[...nextauth]/authOptions';
+import { User } from '../../models/User';
+import { TMDB_BASE_PATH, TMDB_KEY } from '../../config';
+import { MovieResult, TvResult } from '../../types/tmdb';
 
-const fetchWatchlistRaw = (): Promise<Array<Content & { type: string }>> =>
-  new Promise((resolve, reject) => {
-    axios
-      .get('/api/user/watchlist')
-      .then((response) => {
-        resolve(response.data.data.watchlist);
-      })
-      .catch((err) => reject(err));
-  });
+const fetchWatchlist = async (): Promise<
+  { content_id: string; type: string }[]
+> => {
+  'use server';
 
-export const fetchWatchlist = async () =>
-  new Promise<{ movies: MovieResult[]; series: TvResult[] }>(
-    (resolve, reject) => {
-      try {
-        (async () => {
-          const movies: any = [];
-          const series: any = [];
-          const rawWatchlist = await fetchWatchlistRaw();
-          // console.log(rawWatchlist);
-          rawWatchlist.forEach((result) =>
-            result.type === 'movie' ? movies.push(result) : series.push(result)
-          );
+  await dbConnect();
 
-          const movieList = await getAll(
-            movies.map((movie: { content_id: string; type: string }) =>
-              DETAIL(movie.content_id, movie.type)
-            ),
-            tmdbClient
-          );
-          const seriesList = await getAll(
-            series.map((show: { content_id: string; type: string }) =>
-              DETAIL(show.content_id, show.type)
-            ),
-            tmdbClient
-          );
-          resolve({
-            movies: movieList.map((movie) => movie.data),
-            series: seriesList.map((show) => show.data),
-          });
-        })();
-      } catch {
-        reject();
-      }
-    }
+  const session = await getServerSession(authOptions);
+
+  if (!session) return [];
+
+  const user = await User.findOne(
+    { email: session.user.email },
+    'watchlist -_id'
   );
+
+  return user?.watchlist || [];
+};
+
+export const fetchContentOfWatchlist = async () => {
+  try {
+    const watchlist = await fetchWatchlist();
+
+    const contentToFetch = watchlist.map((result) =>
+      fetch(
+        `${TMDB_BASE_PATH}/${DETAIL(
+          result.content_id,
+          result.type
+        )}&api_key=${TMDB_KEY}`,
+        { cache: 'force-cache' }
+      )
+    );
+
+    const allRes = await Promise.all(contentToFetch);
+
+    const data = await Promise.all(allRes.map((res) => res.json()));
+
+    const movie: MovieResult[] = [];
+    const tv: TvResult[] = [];
+
+    data.forEach((content) =>
+      // because only movies have a "title" field
+      // while tv shows have "name"
+      content.title ? movie.push(content) : tv.push(content)
+    );
+
+    return {
+      movie,
+      tv,
+    };
+  } catch {
+    return {
+      movie: [],
+      tv: [],
+    };
+  }
+};
