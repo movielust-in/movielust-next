@@ -45,21 +45,10 @@ function ImgSlider({
                   {movie.overview!.slice(0, 200)}.
                 </p>
 
-                {/* {movie.vote_average ? (
-                  <StarRatings
-                    rating={movie.imdb_rating || movie.vote_average}
-                    numberOfStars={10}
-                    starRatedColor="gold"
-                    starEmptyColor="gray"
-                    starDimension="16px"
-                  />
-                ) : null} */}
-
                 {movie.imdb_rating ? (
                   <h5>
                     IMDB Rating :&nbsp;
-                    {movie.imdb_rating.toFixed(1)}
-                    /10
+                    {movie.imdb_rating.toFixed(1)} / 10
                   </h5>
                 ) : null}
 

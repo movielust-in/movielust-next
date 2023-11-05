@@ -33,6 +33,7 @@ function Account() {
   };
 
   useEffect(() => {
+    document.title = 'Account | Movielust';
     if (avatars?.length && avatars?.length > 0) return;
     fetch('/api/avatars')
       .then((res) => res.json())

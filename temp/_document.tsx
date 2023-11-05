@@ -73,7 +73,7 @@
 //           sizes="16x16"
 //           href="/favicons/favicon-16x16.png"
 //         />
-//         <meta name="msapplication-TileColor" content="#da532c" />
+//         <meta name="msapplication-TileColor" content="#081c34" />
 //         <meta
 //           name="msapplication-TileImage"
 //           content="/favicons/ms-icon-144x144.png"

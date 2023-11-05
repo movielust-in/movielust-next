@@ -1,13 +1,14 @@
 import Script from 'next/script';
 import dynamic from 'next/dynamic';
+import { notFound } from 'next/navigation';
+import { Metadata } from 'next';
 
 import CastCarousel from '../../../../components/Carousels/CastCarousel';
 import ProductionCompanies from '../../../../components/Carousels/ProductionCompanies';
-import { FULL_MONTHS } from '../../../../config';
-import { VIDEO } from '../../../../helpers/Urls';
+import { FULL_MONTHS, TMDB_BASE_PATH, TMDB_KEY } from '../../../../config';
+import { VIDEO, image } from '../../../../helpers/Urls';
 import tmdbClient from '../../../../helpers/tmdbClient';
-import { fetchDetails } from '../../../../helpers/tmdb';
-import { ShowResponse } from '../../../../types/tmdb';
+import { ShowResponse, Video } from '../../../../types/tmdb';
 import MinutesToDuration from '../../../../utils/minutesToDuration';
 
 import SimilarMovies from './SimilarMovies';
@@ -130,6 +131,61 @@ const Detail = async ({ params }: { params: Params }) => {
 
 export default Detail;
 
+export async function generateMetadata({
+  params,
+}: {
+  params: { id: string; type: string; title: string };
+}): Promise<Metadata> {
+  const { id, type, title: titleParam } = params;
+
+  if (!(type === 'movie' || type === 'tv') || !parseInt(id, 10)) {
+    notFound();
+  }
+
+  const res = await fetch(
+    `${TMDB_BASE_PATH}/${type}/${id}?append_to_response=videos,credits&api_key=${TMDB_KEY}`,
+    { cache: 'force-cache' }
+  );
+
+  const data = await res.json();
+  const metadata: Metadata = {
+    title: data.title || data.name,
+    description: data.overview,
+    openGraph: {
+      title: data.title || data.name,
+      description:
+        data.overview || 'Discover and found about Movies and Shows.',
+      siteName: 'Movielust',
+      url: `https://movie-lust.vercel.app/${type}/${id}/${titleParam}`,
+      type: 'website',
+      images: data.backdrop_path
+        ? [
+            `https://image.tmdb.org/t/p/original${data.backdrop_path}`,
+            image(1280, data.backdrop_path),
+            image(780, data.backdrop_path),
+            image(300, data.backdrop_path),
+          ]
+        : [],
+    },
+    twitter: {
+      title: data.title || data.name,
+      card: 'summary_large_image',
+      site: '@movielust_in',
+      images: data.backdrop_path
+        ? [
+            `https://image.tmdb.org/t/p/original${data.backdrop_path}`,
+            image(1280, data.backdrop_path),
+            image(780, data.backdrop_path),
+            image(300, data.backdrop_path),
+          ]
+        : [],
+      description: data.overview.slice(0, 200),
+    },
+  };
+
+  return metadata;
+}
+
 async function getData(query: { id: string; type: string }): Promise<any> {
   enum TYPE {
     movie = 'movie',
@@ -139,12 +195,17 @@ async function getData(query: { id: string; type: string }): Promise<any> {
   const { id, type } = query;
 
   if (!(type === 'movie' || type === 'tv') || !parseInt(id, 10)) {
-    return {
-      notFound: true,
-    };
+    notFound();
   }
 
-  let { data } = await fetchDetails(id, type);
+  // let { data } = await fetchDetails(id, type);
+
+  const res = await fetch(
+    `${TMDB_BASE_PATH}/${type}/${id}?append_to_response=videos,credits&api_key=${TMDB_KEY}`,
+    { cache: 'force-cache' }
+  );
+
+  let data = await res.json();
 
   data = {
     ...data,
@@ -200,7 +261,7 @@ async function getData(query: { id: string; type: string }): Promise<any> {
     vids = videoRes.data.results;
     if (vids.length > 0) {
       const officialVideos = vids.filter(
-        (video) => video.official === true && video.type === 'Trailer'
+        (video: Video) => video.official === true && video.type === 'Trailer'
       );
       data = {
         ...data,
@@ -212,7 +273,7 @@ async function getData(query: { id: string; type: string }): Promise<any> {
     }
   } else {
     const officialVideos = vids.filter(
-      (video) => video.official === true && video.type === 'Trailer'
+      (video: Video) => video.official === true && video.type === 'Trailer'
     );
     data = {
       ...data,

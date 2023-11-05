@@ -1,5 +1,7 @@
 import Image from 'next/image';
 import Script from 'next/script';
+import { cache } from 'react';
+import { Metadata } from 'next';
 
 import {
   fetchPerson,
@@ -19,6 +21,7 @@ import {
   PersonPopularResponse,
   PersonTvCreditsResponse,
 } from '../../../types/tmdb';
+import { image } from '../../../helpers/Urls';
 
 import styles from './person.module.scss';
 import Biography from './Biography';
@@ -175,9 +178,55 @@ async function PeopleDetail({ params }: { params: { personId: string } }) {
 
 export default PeopleDetail;
 
+const cachedFetchPerson = cache(fetchPerson);
+
+export async function generateMetadata({
+  params,
+}: {
+  params: { personId: string };
+}) {
+  const { data } = await cachedFetchPerson(params.personId);
+
+  const metadata: Metadata = {
+    title: data.name,
+    description: data.biography?.slice(0, 200),
+    openGraph: {
+      title: data.name,
+      description:
+        data.biography?.slice(0, 200) ||
+        'Discover and found about Movies and Shows.',
+      siteName: 'Movielust',
+      url: `https://movie-lust.vercel.app/person/${params.personId}`,
+      type: 'website',
+      images: data.profile_path
+        ? [
+            `https://image.tmdb.org/t/p/original${data.profile_path}`,
+            image(500, data.profile_path),
+            image(780, data.profile_path),
+          ]
+        : [],
+    },
+    twitter: {
+      title: data.name,
+      card: 'summary_large_image',
+      site: '@movielust_in',
+      images: data.profile_path
+        ? [
+            `https://image.tmdb.org/t/p/original${data.profile_path}`,
+            image(500, data.profile_path),
+            image(780, data.profile_path),
+          ]
+        : [],
+      description: data.biography?.slice(0, 200),
+    },
+  };
+
+  return metadata;
+}
+
 async function getPersonData(personId: string) {
   const all = await Promise.allSettled([
-    fetchPerson(personId),
+    cachedFetchPerson(personId),
     fetchPersonMovies(personId),
     fetchPersonTvCredits(personId),
     fetchPopular(),

@@ -23,8 +23,6 @@ function Watchlist() {
 
   const { status } = useSession();
 
-  // const isAuthenticated = useSelector((state) => state.user.isLoggedIn);
-
   const remove = async (id: number) => {
     if (status !== 'authenticated') return;
 
@@ -35,10 +33,7 @@ function Watchlist() {
           method: 'DELETE',
         }
       );
-      // const data = await res.json();
-      // console.log(data);
       if (res.status === 200) {
-        // dispatch(removeFromWatchlist({ id, view }));
         const filtered = watchlist[
           view === 'movie' ? 'movies' : 'series'
         ].filter((c) => c.id !== id);
@@ -54,6 +49,8 @@ function Watchlist() {
   };
 
   useEffect(() => {
+    document.title = 'Watchlist | Movielust';
+
     if (status === 'authenticated') {
       setIsLoading(true);
       fetchWatchlist()
@@ -83,7 +80,8 @@ function Watchlist() {
             onClick={() => setView('movie')}
             style={{
               fontWeight: view === 'movie' ? 800 : 600,
-              // border: view === 'movie' ? '2px solid silver' : '1px solid silver',
+              border:
+                view === 'movie' ? '2px solid silver' : '1px solid silver',
               opacity: view === 'movie' ? 1 : 0.8,
             }}
           >
@@ -95,7 +93,7 @@ function Watchlist() {
             onClick={() => setView('tv')}
             style={{
               fontWeight: view === 'tv' ? 800 : 600,
-              // border: view === 'tv' ? '2px solid silver' : '1px solid silver',
+              border: view === 'tv' ? '2px solid silver' : '1px solid silver',
               opacity: view === 'tv' ? 1 : 0.8,
             }}
           >

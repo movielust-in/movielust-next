@@ -1,4 +1,5 @@
 import Script from 'next/script';
+import { Metadata } from 'next';
 
 import Movies from '../components/Movies/HomeMovies';
 import HomeCarousel from '../components/Carousels/HomeCarousel';
@@ -111,3 +112,8 @@ async function getData() {
 
   return { trendingMovies, homeMovies };
 }
+
+export const metadata: Metadata = {
+  title: 'Home | Movielust',
+  description: 'Disvoer and found about Movies and Shows.',
+};
