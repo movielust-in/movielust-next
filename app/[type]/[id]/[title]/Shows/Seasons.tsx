@@ -9,10 +9,10 @@ import {
 } from 'react';
 import { useSearchParams } from 'next/navigation';
 
-import Spinner from '../UI/Spinner';
-import { fetchSeason } from '../../helpers/tmdb/series';
-import { TWO_EMBED } from '../../config';
-import { TvSeasonResponse } from '../../types/tmdb';
+import Spinner from '../../../../../components/UI/Spinner';
+import { fetchSeason } from '../../../../../helpers/tmdb/series';
+import { TWO_EMBED } from '../../../../../config';
+import { TvSeasonResponse } from '../../../../../types/tmdb';
 
 import styles from './seasons.module.scss';
 

@@ -18,7 +18,7 @@ import Collection from './Collection';
 import Images from './Images';
 import styles from './Detail.module.scss';
 
-const Seasons = dynamic(() => import('../../../../components/Shows/Seasons'));
+const Seasons = dynamic(() => import('./Shows/Seasons'));
 
 interface Params {
   id: string;
