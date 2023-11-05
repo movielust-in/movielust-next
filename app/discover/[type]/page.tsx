@@ -12,8 +12,8 @@ import { detailLink } from '../../../utils';
 import getGenreName from '../../../utils/getGenreName';
 import useObserver from '../../../hooks/useObserver';
 import Meta from '../../../components/Meta';
-import styles from '../../../styles/scroller.module.scss';
 import Loading from '../../../components/UI/Loading';
+import styles from '../../../styles/scroller.module.scss';
 
 import SortBy from './Filters/SortBy';
 import GenreFilter from './Filters/GenreFilter';

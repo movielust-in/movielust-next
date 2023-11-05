@@ -1,27 +1,16 @@
 'use client';
 
-/* eslint-disable no-nested-ternary */
 import { useState, useEffect, useRef, BaseSyntheticEvent, memo } from 'react';
 import styled from '@emotion/styled';
 import { keyframes } from '@emotion/react';
-import {
-  FaAngleDown,
-  FaAngleUp,
-  FaDownload,
-  FaPlay,
-  FaStop,
-} from 'react-icons/fa';
-import Image from 'next/image';
+import { FaAngleDown, FaAngleUp, FaPlay, FaStop } from 'react-icons/fa';
 import { useRouter, useSearchParams } from 'next/navigation';
 
 import Spinner from '../UI/Spinner';
 import { image } from '../../helpers/Urls';
-// import { addWatched } from '../../helpers/user';
 import { fetchSeason } from '../../helpers/tmdb/series';
-import { fetchShowMagnets } from '../../helpers/torrent';
 import { FULL_MONTHS, TWO_EMBED } from '../../config';
 import { TvSeasonResponse } from '../../types/tmdb';
-import { ShowMagnet } from '../../types/apiResponses';
 
 export interface SeasonsProps {
   id: string;
@@ -39,8 +28,6 @@ function Seasons({ id, title, totalSeasons }: SeasonsProps) {
     empty: true,
   });
   const [showEpisode, setEpisode] = useState<number>();
-  const [magnets, setMagnets] = useState<any>({ empty: true });
-  const [gettingTorrents, setGettingTorrents] = useState(false);
   const [gettingEpisodes, setGettingEpisodes] = useState(false);
   const [playEpisode, tooglePlay] = useState(false);
   const [iframeLoading, setFrameLoading] = useState(false);
@@ -62,13 +49,13 @@ function Seasons({ id, title, totalSeasons }: SeasonsProps) {
     setShow(true);
   }
 
-  const getAir = (Release: string) => {
+  const getAirDateString = (Release: string) => {
     // get air date
     const bDate = new Date(Release);
-    const Releasedse = `${
+    const released = `${
       FULL_MONTHS[bDate.getMonth()]
     }, ${bDate.getDate()} ${bDate.getFullYear()}`;
-    return (new Date() < bDate ? 'Air date: ' : 'Aired On: ') + Releasedse;
+    return (new Date() < bDate ? 'Air date: ' : 'Aired On: ') + released;
   };
 
   const toggle = (index: any) => {
@@ -112,38 +99,11 @@ function Seasons({ id, title, totalSeasons }: SeasonsProps) {
           }
 
           setGettingEpisodes(false);
-
-          setGettingTorrents(true);
-
-          const seasonMagnets = (await fetchShowMagnets(
-            id,
-            title,
-            season,
-            data.episodes!.length
-          )) as (ShowMagnet & { type: string })[][];
-
-          setMagnets((state: any) => {
-            const obj = { ...state, empty: false };
-            obj[data.season_number!] = seasonMagnets.map((episodeMags) =>
-              episodeMags.filter(
-                (magnet) =>
-                  magnet.type === 'magnet' ||
-                  !episodeMags.find(
-                    (mag) =>
-                      mag.quality === magnet.quality && mag.type === 'magnet'
-                  )
-              )
-            );
-
-            return obj;
-          });
-
-          setGettingTorrents(false);
         }
       } catch (err) {
-        setGettingTorrents(false);
+        // setGettingTorrents(false);
       } finally {
-        setGettingTorrents(false);
+        // setGettingTorrents(false);
       }
     })();
   }, [id, season, s, e, seasons, title]);
@@ -168,59 +128,9 @@ function Seasons({ id, title, totalSeasons }: SeasonsProps) {
     setFrameLoading(false);
   };
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const playEmbed = (episode: any, path: string) => {
+  const playEmbed = () => {
     tooglePlay((state) => !state);
     setFrameLoading(true);
-    // setTimeout(() => {
-    //   if (path === window.location.pathname) {
-    //     if (isAuthenticated) {
-    //       addWatched({
-    //         content_id: id,
-    //         type: 'tv',
-    //         timeStamp: new Date(),
-    //         season,
-    //         episode: episode.episode_number,
-    //       });
-    //       dispatch(markRecentStale());
-    //     }
-    //   }
-    // }, 1.5 * 60 * 1000);
-    // ReactGA.event({
-    //   category: "Show",
-    //   action: "Play Episode",
-    //   label: `${title} S${season} E${episode.episode_number}`,
-    // });
-  };
-
-  const onEpisodeLoad = () => {
-    // if (
-    //   magnets &&
-    //   magnets[season] &&
-    //   magnets[season][episode.episode_number! - 1]
-    // )
-    //   setCurrEpisode(magnets[season][episode.episode_number! - 1]);
-    // const rect =
-    //   (episodeRef.current as unknown as HTMLElement)!.getBoundingClientRect();
-    // if (
-    //   !(
-    //     rect.top >= 0 &&
-    //     rect.left >= 0 &&
-    //     rect.bottom <=
-    //       (window.innerHeight || document.documentElement.clientHeight) &&
-    //     rect.right <=
-    //       (window.innerWidth || document.documentElement.clientWidth)
-    //   )
-    // ) {
-    //   const offset = 120;
-    //   const bodyRect = document.body.getBoundingClientRect().top;
-    //   const elementPos = rect.top - bodyRect;
-    //   const scrolloffset = elementPos - offset;
-    //   window.scrollTo({
-    //     top: scrolloffset,
-    //     behavior: 'smooth',
-    //   });
-    // }
   };
 
   return (
@@ -287,20 +197,13 @@ function Seasons({ id, title, totalSeasons }: SeasonsProps) {
                 </Episode>
 
                 {showEpisode === episode.episode_number && (
-                  <EpisodeContent
-                    // animate={{ maxHeight: [0, 500] }}
-                    // transition={{ duration: 0.4 }}
-                    ref={episodeRef as any}
-                    onLoad={onEpisodeLoad}
-                  >
+                  <EpisodeContent ref={episodeRef as any}>
                     <Section>
-                      {!playEpisode ? (
-                        episode.still_path ? (
-                          <Thumbnail
-                            src={image(500, episode.still_path)}
-                            alt={episode.name}
-                          />
-                        ) : null
+                      {!playEpisode && episode.still_path ? (
+                        <Thumbnail
+                          src={image(500, episode.still_path)}
+                          alt={episode.name}
+                        />
                       ) : (
                         <YouTube>
                           <iframe
@@ -310,8 +213,7 @@ function Seasons({ id, title, totalSeasons }: SeasonsProps) {
                             onLoad={iframeLoaded}
                             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                             title={`Season ${season} Episode ${episode.episode_number}`}
-                            src={`${TWO_EMBED}/embedanime/one-piece-dub-100`}
-                            // sandbox="allow-scripts allow-same-origin allow-forms"
+                            src={`${TWO_EMBED}/embedtv/${id}?s=${season}&e=${episode.episode_number}`}
                           />
                         </YouTube>
                       )}
@@ -321,25 +223,9 @@ function Seasons({ id, title, totalSeasons }: SeasonsProps) {
                           {episode.overview}
                         </EpisodeDescription>
                         {episode.air_date && (
-                          <Aired>{getAir(episode.air_date)}</Aired>
+                          <Aired>{getAirDateString(episode.air_date)}</Aired>
                         )}
-                        {/* Loading while Getting torrents */}
-                        {gettingTorrents === true && (
-                          <TorrentDownload>
-                            <FaDownload />
-                            <Image
-                              src="/images/ghost.png"
-                              alt="loading"
-                              width={20}
-                              unoptimized
-                              height={20}
-                              style={{
-                                maxWidth: '100%',
-                                height: 'auto',
-                              }}
-                            />
-                          </TorrentDownload>
-                        )}
+
                         {showEpisode === episode.episode_number && (
                           <ContentOptions>
                             {new Date() >
@@ -347,9 +233,7 @@ function Seasons({ id, title, totalSeasons }: SeasonsProps) {
                               // Button for 2embed
                               <PlayMovie
                                 role="presentation"
-                                onClick={() =>
-                                  playEmbed(episode, window.location.pathname)
-                                }
+                                onClick={() => playEmbed()}
                                 loading={iframeLoading && playEpisode}
                               >
                                 {!playEpisode ? <FaPlay /> : <FaStop />}
@@ -358,28 +242,6 @@ function Seasons({ id, title, totalSeasons }: SeasonsProps) {
                                 ) : null}
                               </PlayMovie>
                             ) : null}
-
-                            {!magnets.empty && season in magnets && (
-                              <TorLinks>
-                                {/* For direct magnet download */}
-                                <TorrentDownload>
-                                  {magnets[season][
-                                    episode.episode_number! - 1
-                                  ] !== undefined &&
-                                    magnets[season][
-                                      episode.episode_number! - 1
-                                    ].map((currEpi: any) => (
-                                      <Download
-                                        key={currEpi.magnet || currEpi.torrent}
-                                        href={currEpi.magnet || currEpi.torrent}
-                                      >
-                                        <FaDownload />
-                                        {`${currEpi.quality} ${currEpi.type}`}
-                                      </Download>
-                                    ))}
-                                </TorrentDownload>
-                              </TorLinks>
-                            )}
                           </ContentOptions>
                         )}
                       </EpisodeOverview>
@@ -439,33 +301,34 @@ const EpisodeDescription = styled.div`
     margin: 0;
   }
 `;
-const TorrentDownload = styled.div`
-  align-items: center;
-  display: flex;
-  flex-direction: row;
-  /* @media (max-width: 724px) {
-        font-size: 12px;
-    } */
-`;
 
-const TorLinks = styled.div`
-  @media (max-width: 724px) {
-    width: 85vw;
-  }
-`;
+// const TorrentDownload = styled.div`
+//   align-items: center;
+//   display: flex;
+//   flex-direction: row;
+//   /* @media (max-width: 724px) {
+//         font-size: 12px;
+//     } */
+// `;
 
-const Download = styled.a`
-  align-items: center;
-  background-color: rgba(200, 200, 200, 0.4);
-  border-radius: 5px;
-  color: white;
-  border: none;
-  cursor: pointer;
-  display: flex;
-  gap: 5px;
-  margin: 0 2px 2px 0;
-  padding: 5px;
-`;
+// const TorLinks = styled.div`
+//   @media (max-width: 724px) {
+//     width: 85vw;
+//   }
+// `;
+
+// const Download = styled.a`
+//   align-items: center;
+//   background-color: rgba(200, 200, 200, 0.4);
+//   border-radius: 5px;
+//   color: white;
+//   border: none;
+//   cursor: pointer;
+//   display: flex;
+//   gap: 5px;
+//   margin: 0 2px 2px 0;
+//   padding: 5px;
+// `;
 
 const PlayMovie = styled.span<{ loading: boolean }>`
   background-color: rgba(200, 200, 200, 0.4);
