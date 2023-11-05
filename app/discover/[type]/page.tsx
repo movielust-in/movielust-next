@@ -4,11 +4,9 @@ import Link from 'next/link';
 import { useEffect, useMemo, useState } from 'react';
 import { useSearchParams, useParams } from 'next/navigation';
 // import { FaTimes } from 'react-icons/fa';
-import useSWRInfinite from 'swr/infinite';
 
 import { DISCOVER_MOVIES, image } from '../../../helpers/Urls';
 import Wrap from '../../../components/CarouselSlices/Wrap';
-import { Content } from '../../../types/tmdb';
 import { TMDB_BASE_PATH, TMDB_KEY } from '../../../config';
 import { detailLink } from '../../../utils';
 import getGenreName from '../../../utils/getGenreName';
@@ -17,12 +15,10 @@ import Meta from '../../../components/Meta';
 import styles from '../../../styles/scroller.module.scss';
 import Loading from '../../../components/UI/Loading';
 
-const fetcher = (key: any) =>
-  fetch(key[0] + new URLSearchParams({ ...key[1], page: key[2] + 1 })).then(
-    (res) => res.json()
-  );
+import SortBy from './Filters/SortBy';
+import GenreFilter from './Filters/GenreFilter';
 
-const genParams = (filters: Record<string, any>) => {
+const genFilterParams = (filters: Record<string, any>) => {
   let params: Record<string, any> = {
     sort_by: filters.sortBy,
   };
@@ -60,57 +56,64 @@ function Movie() {
   const genres = searchParams?.get('genres');
   const sortBy = searchParams?.get('sortBy');
 
-  const filters: { genres?: string | null; sortBy?: string } = {
+  const [filters, setFilters] = useState<{
+    genres?: string | null;
+    sortBy?: string;
+  }>({
     sortBy: sortBy || 'popularity.desc',
     genres,
-  };
-
-  const getKey = (page: number, previousData: any) => {
-    if (previousData && !previousData.results.length) {
-      return null;
-    }
-    const params = genParams(filters);
-
-    return [
-      `${TMDB_BASE_PATH}/${DISCOVER_MOVIES(type)}&api_key=${TMDB_KEY}&`,
-      params,
-      page,
-    ];
-  };
-
-  const { isLoading, data, error, size, setSize } = useSWRInfinite<{
-    results: Content;
-    total_pages: number;
-    total_results: number;
-  }>(getKey, fetcher, {
-    initialSize: 1,
-    revalidateOnFocus: false,
-    // revalidateFirstPage: false,
   });
 
-  const loadMore = () => setSize((s) => s + 1);
+  const [data, setData] = useState<Record<number, any>>({});
+  useEffect(() => {
+    if (filters.genres !== genres || filters.sortBy !== sortBy) {
+      setFilters({ sortBy: sortBy || 'popularity.desc', genres });
+      setData({});
+    }
+  }, [filters.genres, filters.sortBy, genres, sortBy]);
+
+  const [page, setPage] = useState(1);
+
+  const loadMore = () => setPage((s) => s + 1);
 
   const observerRef = useObserver(() => {
     loadMore();
   });
 
-  const [totalPages, setTotalPages] = useState(0);
+  const [totalPages, setTotalPages] = useState(1);
+
+  const [isLoading, setLoading] = useState(false);
 
   useEffect(() => {
-    if (totalPages) return;
-    if (data && data[0].total_pages) setTotalPages(data[0].total_pages);
-  }, [data, totalPages]);
+    if (isLoading || data[page]) return;
+    setLoading(true);
+    const getKey = () => {
+      const params = genFilterParams(filters);
 
-  const movies: Content[] = useMemo(() => {
-    const temp = data?.map((r: any) => r.results!);
-    return temp ? [].concat(...(temp as any)) : [];
-  }, [data]);
+      return `${TMDB_BASE_PATH}/${DISCOVER_MOVIES(type)}&${new URLSearchParams({
+        ...params,
+        page: `${page}`,
+        api_key: TMDB_KEY,
+      })}`;
+    };
 
-  // const resetPage = () => setSize(0);
+    fetch(getKey(), { cache: 'force-cache' })
+      .then((res) => res.json())
+      .then((results) => {
+        setData((state) => ({ ...state, [page]: results.results }));
+        setTotalPages(results.total_pages);
+        setLoading(false);
+      });
+  }, [page, data, filters, type, isLoading]);
 
-  if (error) return <div>Errored!!</div>;
+  const results = useMemo(
+    () =>
+      Object.values(data).map((_page) => _page.map((content: any) => content)),
+    [data]
+  );
 
-  const isEmpty = !movies.length;
+  if (isLoading && !results.length) <Loading />;
+  if (!isLoading && !results.length) return <div>Empty</div>;
 
   return (
     <div className={styles.Container}>
@@ -119,50 +122,46 @@ function Movie() {
         description="Discover a vast collection of Movies on Movielust."
         url="https://movie-lust.vercel.app/discover/movies"
       />
-      {/* <div className={styles.Filters}>
-        {type === 'movie' && (
-          <SortBy
-          // resetPage={() => {
-          //   setSize(0);
-          //   mutate([]);
-          // }}
-          />
-        )}
+      <div className={styles.Filters}>
+        {type === 'movie' && <SortBy />}
         <GenreFilter type={type} />
-      </div> */}
-      {isLoading ? <Loading /> : null}
-      {!isLoading && isEmpty ? <div>Empty</div> : null}
-      {!isLoading && !isEmpty && (
+      </div>
+
+      {results.length > 0 && (
         <>
           <div className={styles.CardContainer}>
-            {movies?.map((movie) => (
-              <Link
-                key={movie.id}
-                href={detailLink(
-                  type,
-                  movie.id!,
-                  movie.title! || movie.name || movie.original_name || ''
-                )}
-              >
-                <div className={styles.Card} style={{ width: '150px' }}>
-                  <Wrap
-                    src={image(200, movie.poster_path!)}
-                    showCard
-                    alt={
-                      movie.title! || movie.name || movie.original_name || ''
-                    }
-                    title={movie.title! || movie.name || movie.original_name}
-                    backdrop={movie.backdrop_path!}
-                    description={movie.overview!}
-                    genres={
-                      movie.genre_ids?.map((id) => getGenreName(id, type)) || []
-                    }
-                  />
-                </div>
-              </Link>
-            ))}
+            {results?.map((x) =>
+              x.map((movie: any) => (
+                <Link
+                  key={movie.id}
+                  href={detailLink(
+                    type,
+                    movie.id!,
+                    movie.title || movie.name || movie.original_name || ''
+                  )}
+                >
+                  <div className={styles.Card} style={{ width: '150px' }}>
+                    <Wrap
+                      src={image(200, movie.poster_path!)}
+                      showCard
+                      alt={
+                        movie.title || movie.name || movie.original_name || ''
+                      }
+                      title={movie.title! || movie.name || movie.original_name}
+                      backdrop={movie.backdrop_path!}
+                      description={movie.overview!}
+                      genres={
+                        movie.genre_ids?.map((id: any) =>
+                          getGenreName(id, type)
+                        ) || []
+                      }
+                    />
+                  </div>
+                </Link>
+              ))
+            )}
           </div>
-          {totalPages > size && (
+          {totalPages > page && (
             <button
               type="button"
               className={styles.Trigger}
@@ -175,7 +174,7 @@ function Movie() {
               </p>
             </button>
           )}
-          {size > 1 && size >= totalPages && (
+          {page > 1 && page >= totalPages && (
             <div className={styles.Info}>Yay! You have scrolled it all.</div>
           )}
         </>
