@@ -121,11 +121,11 @@ a {
 }
 
 .layout__main {
-  min-height: 100vh;
+  min-height: 80vh;
   padding-top: 55px;
-  @media(max-width:870px){
+  @media (max-width: 870px) {
     padding-top: 0;
-  }  
+  }
 }
 
 @media (max-width: 724px) and (display-mode: standalone),
