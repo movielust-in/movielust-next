@@ -1,41 +1,47 @@
 import axios from 'axios';
 
-import tmdbClient from '../tmdbClient';
-import { FETCH_WATCHED, SHALLOW_DETAIL, DELETE_USER } from '../Urls';
-import { SERVER_URI } from '../../config';
+import { SHALLOW_DETAIL, DELETE_USER } from '../Urls';
+import { SERVER_URI, TMDB_BASE_PATH, TMDB_KEY } from '../../config';
 import { ContactFormInterface } from '../../types/requestData';
 
-export const fetchWatched = () =>
-  new Promise((resolve, reject) => {
-    (async () => {
-      const token = localStorage.movielust_user;
-      if (token) {
-        const res = await axios.get(FETCH_WATCHED, {
-          headers: { Authorization: `Bearer ${token}` },
-        });
+export const fetchWatched = async () => {
+  const res = await fetch('/api/user/recents', { cache: 'no-store' });
+  const json = await res.json();
 
-        const rawList = res.data;
+  const rawList = json.data.recents;
 
-        if (rawList.length > 0) {
-          let watchedList = await Promise.all(
-            rawList.map((content: any) =>
-              tmdbClient.get(SHALLOW_DETAIL(content.content_id, content.type))
-            )
-          );
+  if (rawList.length > 0) {
+    const allRes = await Promise.all(
+      rawList.map(
+        (content: {
+          content_id: string;
+          type: 'movie' | 'tv';
+          season?: number;
+          episode?: number;
+        }) => {
+          const url =
+            content.type === 'movie'
+              ? `${TMDB_BASE_PATH}/${SHALLOW_DETAIL(
+                  content.content_id,
+                  'movie'
+                )}`
+              : `${TMDB_BASE_PATH}/tv/${content.content_id}/season/${content.season}/episode/${content.episode}?language=en-US&api_key=${TMDB_KEY}`;
+          return fetch(url, { cache: 'force-cache' });
+        }
+      )
+    );
 
-          watchedList = watchedList.map((content, index) => {
-            const zip = { ...content.data, media_type: rawList[index].type };
-            if (rawList[index].type === 'tv') {
-              zip.season_number = rawList[index].season;
-              zip.episode_number = rawList[index].episode;
-            }
-            return zip;
-          });
-          resolve(watchedList);
-        } else reject();
-      }
-    })();
-  });
+    let watchedList = await Promise.all(allRes.map((_res) => _res.json()));
+
+    watchedList = watchedList.map((content, index) => {
+      const zip = { ...content, media_type: rawList[index].type };
+      zip.show_name = rawList[index].name;
+      return zip;
+    });
+    return watchedList;
+  }
+  return [];
+};
 
 export const deleteUser = (id: string) =>
   new Promise((resolve, reject) => {

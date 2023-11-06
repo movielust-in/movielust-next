@@ -51,21 +51,36 @@ function Seasons({ id, title, totalSeasons }: SeasonsProps) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const changeEpisode = (index: any) => {
+  const changeEpisode = (episodeNum: any) => {
     const newUrl = `/tv/${id}/${title
       .split(' ')
       .join('-')
-      .toLowerCase()}?s=${season}&e=${index}`;
+      .toLowerCase()}?s=${season}&e=${episodeNum}`;
     window.history.replaceState(
       { ...window.history.state, as: newUrl, url: newUrl },
       '',
       newUrl
     );
-    if (showEpisode === index) {
-      return setEpisode(undefined);
-    }
-    return setEpisode(index);
+
+    if (showEpisode === episodeNum) return;
+
+    setEpisode(episodeNum);
   };
+
+  useEffect(() => {
+    if (id && season && showEpisode && title)
+      fetch('/api/user/recents', {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: title,
+          content_id: id,
+          type: 'tv',
+          season,
+          episode: showEpisode,
+        }),
+      });
+  }, [id, season, showEpisode, title]);
 
   const fetchNewSeason = useCallback(
     async (newSeasonNumber = season) => {

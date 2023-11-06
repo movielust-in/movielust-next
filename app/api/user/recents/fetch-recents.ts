@@ -29,9 +29,14 @@ export const fetchRecents = catchAsync(
       'watched -_id'
     );
 
+    const recents =
+      user?.watched && user?.watched.length > 20
+        ? user?.watched.slice(0, 20)
+        : user?.watched;
+
     return Response.json({
       status: 'success',
-      data: { recents: user?.watched },
+      data: { recents },
     });
   },
   { db: true }

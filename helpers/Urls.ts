@@ -1,4 +1,4 @@
-import { SERVER_URI } from '../config';
+import { SERVER_URI, TMDB_KEY } from '../config';
 
 const newDate = new Date();
 let date: number | string = newDate.getDate();
@@ -51,7 +51,8 @@ const ANIME = (page: number) =>
 const DETAIL = (id: string | number, type: string) =>
   `${type}/${id}?append_to_response=videos,credits`;
 
-const SHALLOW_DETAIL = (id: string, type: string) => `${type}/${id}`;
+const SHALLOW_DETAIL = (id: string, type: string) =>
+  `${type}/${id}?api_key=${TMDB_KEY}`;
 
 const EXTERNAL_IDS = (id: string | number, type: string) =>
   `${type}/${id}/external_ids`;

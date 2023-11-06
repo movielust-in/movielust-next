@@ -52,7 +52,7 @@ function Account() {
         'Content-Type': 'application/json',
       },
     });
-    await updateSession({ user: { image: link } });
+    await updateSession({ image: link });
     setUpdating(false);
   };
 

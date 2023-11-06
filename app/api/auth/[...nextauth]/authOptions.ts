@@ -61,12 +61,15 @@ const authOptions: AuthOptions = {
     decode,
   } as any,
   callbacks: {
-    async jwt({ token, user }: any) {
+    async jwt({ token, trigger, user, session }: any) {
       if (user) {
         token.id = user.id;
         token.name = user.name;
         token.email = user.email;
         token.image = user.image;
+      }
+      if (trigger === 'update' && session?.image) {
+        token.image = session.image;
       }
       return token;
     },

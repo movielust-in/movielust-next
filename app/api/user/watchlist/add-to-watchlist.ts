@@ -26,7 +26,7 @@ export const addToWatchlist = catchAsync(
 
     const addResult = await User.updateOne(
       { email },
-      { $push: { watchlist: watchlistItem } }
+      { $push: { watchlist: { $each: [watchlistItem], $position: 0 } } }
     );
 
     return Response.json(

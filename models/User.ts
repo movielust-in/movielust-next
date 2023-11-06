@@ -10,8 +10,10 @@ export interface UserInterface extends Document {
   created_at: Date;
   logins: [Date];
   visits: [Date];
-  watchlist: [{ content_id: string; type: string }];
-  watched: [{ content_id: string; type: string }];
+  watchlist: [{ content_id: string; type: string; created_at: Date }];
+  watched: [
+    { content_id: string; type: string; created_at: Date; name: string }
+  ];
 }
 
 const CONTENT_TYPE = ['movie', 'tv'];
@@ -35,6 +37,7 @@ const UserSchema = new Schema(
     image: {
       type: String,
       default: '',
+      required: true,
     },
     verified: {
       type: Boolean,
@@ -51,8 +54,9 @@ const UserSchema = new Schema(
     ],
     watchlist: [
       {
-        content_id: String,
-        type: { type: String, enum: CONTENT_TYPE },
+        content_id: { type: String, required: true },
+        type: { type: String, enum: CONTENT_TYPE, required: true },
+        created_at: { type: Date, default: Date.now },
       },
     ],
     visits: [
@@ -62,8 +66,12 @@ const UserSchema = new Schema(
     ],
     watched: [
       {
-        content_id: String,
-        type: { type: String, enum: CONTENT_TYPE },
+        content_id: { type: String, required: true },
+        type: { type: String, enum: CONTENT_TYPE, required: true },
+        created_at: { type: Date, default: Date.now },
+        name: { type: String },
+        season: { type: Number },
+        episode: { type: Number },
       },
     ],
   },

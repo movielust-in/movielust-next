@@ -14,6 +14,7 @@ const validationSchema = z.discriminatedUnion('type', [
     .required(),
   z
     .object({
+      name: z.string(),
       content_id: z.coerce.number(),
       type: z.literal('tv'),
       season: z.coerce.number().min(1),
@@ -34,9 +35,19 @@ export const addToRecents = catchAsync(
       user: { email },
     } = session!;
 
+    // removes the item if already in recents list to avoid duplicates
+    await User.updateOne(
+      { email },
+      {
+        $pull: {
+          watched: data,
+        },
+      }
+    );
+
     const addResult = await User.updateOne(
       { email },
-      { $push: { watched: data } }
+      { $push: { watched: { $each: [data], $position: 0 } } }
     );
 
     return Response.json(

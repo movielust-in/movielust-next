@@ -13,7 +13,6 @@ import InformationComponent from './Information';
 import PosterAndIframe from './PosterAndIframe';
 import { ImdbRating } from './DetailTypes';
 
-
 const PosterIframeInfo = ({
   contentData,
   type,
@@ -26,11 +25,6 @@ const PosterIframeInfo = ({
   const [imdbRating, setImdbRating] = useState<ImdbRating>();
   const [externalIds, setExternalIds] = useState<MovieExternalIdsResponse>();
   const [magnets, setMagnets] = useState();
-
-  const onTogglePlayer = () => {
-    setIframeLoading(true);
-    setShowMovie((state) => !state);
-  };
 
   const onIframeLoaded = () => setIframeLoading(false);
 
@@ -78,6 +72,30 @@ const PosterIframeInfo = ({
       // console.log(err);
     }
   }, [contentData.id, type]);
+
+  const addMovieToRecents = useCallback(async () => {
+    try {
+      const body = JSON.stringify({
+        content_id: contentData.id,
+        type,
+      });
+      await fetch('/api/user/recents', {
+        method: 'PUT',
+        body,
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+    } catch {
+      // do nothing
+    }
+  }, [contentData.id, type]);
+
+  const onTogglePlayer = () => {
+    setIframeLoading(true);
+    setShowMovie((state) => !state);
+    addMovieToRecents();
+  };
 
   return (
     <>

@@ -2,6 +2,7 @@
 
 import React, { useState, memo } from 'react';
 import dynamic from 'next/dynamic';
+import { useSession } from 'next-auth/react';
 
 import MovieCarousel from '../Carousels/MovieCarousel';
 import ShowAllButton from '../CarouselSlices/ShowAllButton';
@@ -10,7 +11,7 @@ import { HomeMovies } from '../../types/apiResponses';
 
 import styles from './HomeMovies.module.scss';
 
-// const RecentCarousel = dynamic(() => import('../Carousels/RecentCarousel'));
+const RecentCarousel = dynamic(() => import('../Carousels/RecentCarousel'));
 const InfiniteMovies = dynamic(() => import('./InfiniteMovies'));
 
 interface MoviesProps {
@@ -22,9 +23,11 @@ function Movies({ movies }: MoviesProps) {
 
   const observer = useObserver(() => setShowInfinite(true), { threshold: 0.1 });
 
+  const { status } = useSession();
+
   return (
     <div className={styles.Container}>
-      {/* {isAuthenticated ? <RecentCarousel /> : null} */}
+      {status === 'authenticated' ? <RecentCarousel /> : null}
 
       <div className={styles.CarouselContainer} key="trending">
         <div className={styles.Title}>
