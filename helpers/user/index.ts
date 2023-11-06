@@ -36,6 +36,7 @@ export const fetchWatched = async () => {
     watchedList = watchedList.map((content, index) => {
       const zip = { ...content, media_type: rawList[index].type };
       zip.show_name = rawList[index].name;
+      zip.show_id = rawList[index].content_id;
       return zip;
     });
     return watchedList;

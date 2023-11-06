@@ -45,8 +45,8 @@ function RecentCarousel() {
                   ? detailLink(content.media_type, content.id, content.title)
                   : detailLinkWithEpisode(
                       content.media_type,
-                      content.id,
-                      content.name,
+                      content.show_id,
+                      content.show_name,
                       content.season_number,
                       content.episode_number
                     )
