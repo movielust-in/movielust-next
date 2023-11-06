@@ -1,8 +1,9 @@
 import mongoose, { Document, Model, Schema, model } from 'mongoose';
 
-import { OTP_TYPES } from '../constants';
+import { OTP_TYPE, OTP_TYPES } from '../constants';
 import { sendMail } from '../lib/mail';
-import { verifyEmailOTP } from '../templates/verifyOTP';
+import { genVerifyEmailOTPTemplate } from '../templates/verifyOTP';
+import { genResetOTPTemplate } from '../templates/resetOTP';
 
 const OTP_EXPIRY_MINUTES = 15;
 
@@ -53,11 +54,14 @@ const OTP = new Schema(
 OTP.pre('save', async function deleteAnyPreviousOTP() {
   await this.collection.deleteMany({ email: this.email });
 
-  await sendMail(
-    this.email,
-    verifyEmailOTP(this.name, this.otp),
-    'Verify Email'
-  );
+  const template =
+    this.type === OTP_TYPE[0]
+      ? genVerifyEmailOTPTemplate(this.name, this.otp)
+      : genResetOTPTemplate(this.name, this.otp);
+
+  const subject = this.type === OTP_TYPE[0] ? 'Verify Email' : 'Reset Password';
+
+  await sendMail(this.email, template, subject);
 });
 
 const Otp: Model<IOtpDocument> =

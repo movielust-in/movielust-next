@@ -1,12 +1,14 @@
+'use client';
+
 import { useState, useRef } from 'react';
 import * as Yup from 'yup';
 import { toast } from 'react-toastify';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 import 'react-toastify/dist/ReactToastify.css';
 
-import Form from '../components/Form/Form';
-import Validate from '../components/Form/Validation';
-import { sendPassReOtp, verifyOtp, resetPassword } from '../helpers/user/auth';
+import Form from '../../components/Form/Form';
+import Validate from '../../components/Form/Validation';
+import { OTP_TYPE } from '../../constants';
 
 const FORM_NAME = 'Reset Password';
 const OTP_HEADER = 'Enter OTP';
@@ -29,9 +31,17 @@ function ResetPass() {
       return;
     }
 
-    verifyOtp(email, otp, 'resetpassword')
+    // verifyOtp(email, otp, 'resetpassword')
+    fetch('/api/auth/verify-otp', {
+      method: 'PUT',
+      body: JSON.stringify({ email, otp, otp_type: OTP_TYPE[1] }),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+      .then((res) => res.json())
       .then((res: any) => {
-        if (res.data === true) {
+        if (res.status === 'success') {
           toast('Verified', {
             hideProgressBar: true,
             autoClose: 2000,
@@ -63,7 +73,13 @@ function ResetPass() {
     try {
       setSubmitting(true);
       setEmail(values.email);
-      await sendPassReOtp(values.email, 'resetpassword');
+      await fetch('/api/auth/send-otp', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email: values.email, otp_type: OTP_TYPE[1] }),
+      });
       setStep(stepTwo);
     } catch (err: any) {
       toast(err.data.message || 'Something went wrong');
@@ -133,14 +149,25 @@ function ResetPass() {
     if (values.password !== values.cnfPassword) {
       toast('Password does not match!');
     } else {
-      resetPassword(email, otpRef.current!, values.password)
+      fetch('/api/auth/reset-password', {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          email: values.email,
+          otp: otpRef.current,
+          password: values.password,
+          otp_type: OTP_TYPE[1],
+        }),
+      })
+        .then((res) => res.json())
         .then((res: any) => {
-          const { data } = res;
-          if (data === true) {
+          if (res.status === 'success') {
             toast('Password Updated!');
             router.push('/signin');
           } else {
-            toast(data.message);
+            toast(res.message);
             router.push('/signin');
           }
         })

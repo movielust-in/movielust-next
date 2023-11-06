@@ -1,17 +1,15 @@
 import { z } from 'zod';
 
-import { OTP_TYPES } from '../../../../constants';
+import { OTP_TYPE, OTP_TYPES } from '../../../../constants';
 import Otp from '../../../../models/Otp';
 import { User } from '../../../../models/User';
 import { catchAsync } from '../../apiHandler';
 
-const validationSchema = z
-  .object({
-    name: z.string(),
-    email: z.string().email(),
-    otp_type: z.enum(OTP_TYPES),
-  })
-  .required();
+const validationSchema = z.object({
+  name: z.string().optional(),
+  email: z.string().email(),
+  otp_type: z.enum(OTP_TYPES),
+});
 
 export const POST = catchAsync(
   async (request) => {
@@ -22,7 +20,7 @@ export const POST = catchAsync(
 
     const userExists = await User.findOne({ email: user.email });
 
-    if (userExists) {
+    if (userExists && user.otp_type === OTP_TYPE[0]) {
       return new Response(
         JSON.stringify({
           status: 'error',
@@ -37,8 +35,17 @@ export const POST = catchAsync(
       );
     }
 
+    if (!userExists) {
+      return Response.json({
+        status: 'error',
+        message: 'Account does not exists',
+      });
+    }
+
+    await Otp.deleteMany({ email: user.email });
+
     const otp = new Otp({
-      name: user.name,
+      name: user.name || userExists.name,
       email: user.email,
       otp: randomOtp,
       type: user.otp_type,

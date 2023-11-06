@@ -1,6 +1,5 @@
 'use client';
 
-/* eslint-disable no-console */
 import { useState, useEffect, useRef } from 'react';
 import * as Yup from 'yup';
 import { toast } from 'react-toastify';
@@ -9,7 +8,7 @@ import { useRouter } from 'next/navigation';
 import Form from '../../components/Form/Form';
 import Validate from '../../components/Form/Validation';
 import Meta from '../../components/Meta';
-import { OTP_TYPES } from '../../constants';
+import { OTP_TYPE } from '../../constants';
 
 interface StepOneDataInterface {
   email: string;
@@ -59,12 +58,6 @@ function SignUp() {
         password: values.password,
       };
 
-      console.log({
-        name: values.name,
-        email: values.email,
-        otp_type: OTP_TYPES[0],
-      });
-
       const otpRes = await fetch('/api/auth/send-otp', {
         method: 'POST',
         cache: 'no-store',
@@ -74,22 +67,18 @@ function SignUp() {
         body: JSON.stringify({
           name: values.name,
           email: values.email,
-          otp_type: OTP_TYPES[0],
+          otp_type: OTP_TYPE[0],
         }),
       });
 
       const otpData = await otpRes.json();
 
-      console.log(otpData);
-
       if (otpData.status !== 'success') {
         toast(otpData.message);
       } else {
-        console.log('Done');
         setStep(stepTwo);
       }
     } catch (err: any) {
-      console.log(err);
       toast(err.response.data.message || 'Something went wrong!');
     } finally {
       setSubmitting(false);
