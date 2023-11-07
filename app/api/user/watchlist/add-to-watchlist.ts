@@ -24,6 +24,18 @@ export const addToWatchlist = catchAsync(
       user: { email },
     } = session!;
 
+    const ifExists = await User.findOne({
+      email,
+      watchlist: { $elemMatch: watchlistItem },
+    });
+
+    if (ifExists) {
+      return Response.json(
+        { success: 'error', message: 'Already in watchlist.' },
+        { status: 409 }
+      );
+    }
+
     const addResult = await User.updateOne(
       { email },
       { $push: { watchlist: { $each: [watchlistItem], $position: 0 } } }

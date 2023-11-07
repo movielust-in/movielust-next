@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 
 import { detailLink } from '../../../utils';
 
@@ -15,16 +16,6 @@ interface WatchlistItemProps {
   type: string;
 }
 
-const remove = async (id: number, type: string) => {
-  try {
-    await fetch(`/api/user/watchlist?content_id=${id}&type=${type}`, {
-      method: 'DELETE',
-    });
-  } catch (err) {
-    // console.log('hm...', err);
-  }
-};
-
 function WatchlistItem({
   id,
   title,
@@ -32,6 +23,19 @@ function WatchlistItem({
   type,
   posterPath,
 }: WatchlistItemProps) {
+  const { refresh } = useRouter();
+
+  const remove = async (_id: number, _type: string) => {
+    try {
+      await fetch(`/api/user/watchlist?content_id=${_id}&type=${_type}`, {
+        method: 'DELETE',
+      });
+
+      refresh();
+    } catch (err) {
+      // console.log('hm...', err);
+    }
+  };
   return (
     <li className={styles.Item}>
       <Image

@@ -1,5 +1,6 @@
 import React from 'react';
 import { Metadata } from 'next';
+import { Bounce, ToastContainer } from 'react-toastify';
 
 import Footer from '../components/UI/Footer';
 import Header from '../components/UI/Header';
@@ -8,6 +9,7 @@ import AuthContext from '../context/AuthContext';
 
 import 'swiper/css';
 import 'swiper/css/navigation';
+import 'react-toastify/dist/ReactToastify.css';
 import '../styles/global.scss';
 import '../styles/font.css';
 
@@ -19,6 +21,18 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => (
         <main className="layout__main">{children}</main>
         <Footer />
         <ScrollTop />
+        <ToastContainer
+          autoClose={2000}
+          draggable
+          position="top-center"
+          bodyClassName="toastBody_asas"
+          transition={Bounce}
+          className="toast_container_asas"
+          toastClassName="toast_asas"
+          closeButton
+          limit={2}
+          theme="dark"
+        />
       </AuthContext>
     </body>
   </html>

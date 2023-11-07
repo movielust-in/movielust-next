@@ -35,7 +35,7 @@ export const POST = catchAsync(
       );
     }
 
-    if (!userExists) {
+    if (!userExists && user.otp_type === OTP_TYPE[1]) {
       return Response.json({
         status: 'error',
         message: 'Account does not exists',
@@ -45,7 +45,7 @@ export const POST = catchAsync(
     await Otp.deleteMany({ email: user.email });
 
     const otp = new Otp({
-      name: user.name || userExists.name,
+      name: user.name || userExists?.name,
       email: user.email,
       otp: randomOtp,
       type: user.otp_type,

@@ -1,8 +1,6 @@
-
 /* eslint-disable @next/next/no-img-element */
-import { TWO_EMBED } from '../../../../config';
-
-import styles from './Detail.module.scss';
+import { TWO_EMBED } from '../../../../../config';
+import styles from '../Detail.module.scss';
 
 interface PosterAndIframeProps {
   poster?: string;
@@ -40,11 +38,6 @@ function PosterAndIframe({
           <iframe
             width="720"
             height="405"
-            // sandbox={
-            //   showMovie
-            //     ? 'allow-scripts allow-same-origin allow-forms'
-            //     : undefined
-            // }
             src={
               showMovie
                 ? `${TWO_EMBED}/embed/${id}`

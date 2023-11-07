@@ -40,8 +40,7 @@ function WrapH({ src, alt, title, rating }: WrapPros) {
         unoptimized
         style={{
           maxWidth: '100%',
-          aspectRatio: '16/9',
-          objectFit: 'cover',
+          height: 'auto',
         }}
       />
       {!loading && (rating || title) && (

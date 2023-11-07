@@ -262,9 +262,10 @@
     vertical-align: middle;
   }
   &:hover {
-    transform: scale(1.05);
     transition: 1s all;
+    background: rgba(255, 255, 255, 0.1);
   }
+  height: 45px;
 }
 
 .IMDBRatings {
@@ -277,22 +278,19 @@
   border-radius: 10px;
   cursor: pointer;
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
   margin-left: 5px;
-  width: 44px;
-  span {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: white;
-    font-size: 30px;
+  color: white;
+  transition: all 200ms ease;
+  padding: 8px 10px;
+  height: 45px;
+  svg {
+    vertical-align: middle;
+    width: 20px;
   }
   &:hover {
     background: rgba(255, 255, 255, 0.1);
-    // ${HoverMessage} {
-    //     display: flex;
-    // }
   }
 }
 

@@ -4,7 +4,7 @@ import { useState, useRef } from 'react';
 import * as Yup from 'yup';
 import { toast } from 'react-toastify';
 import { useRouter } from 'next/navigation';
-import 'react-toastify/dist/ReactToastify.css';
+// import 'react-toastify/dist/ReactToastify.css';
 
 import Form from '../../components/Form/Form';
 import Validate from '../../components/Form/Validation';

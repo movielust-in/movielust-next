@@ -13,7 +13,7 @@ import MinutesToDuration from '../../../../utils/minutesToDuration';
 
 import SimilarMovies from './SimilarMovies';
 import BackgroundImage from './BackgroundImage';
-import PosterIframeInfo from './Poster-Iframe-Info';
+import PosterIframeInfo from './Poster-Iframe-Information';
 import Collection from './Collection';
 import Images from './Images';
 import styles from './Detail.module.scss';

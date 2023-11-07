@@ -5,13 +5,13 @@ import { useCallback, useEffect, useState } from 'react';
 import {
   DetailResponse,
   MovieExternalIdsResponse,
-} from '../../../../types/tmdb';
-import { fetchExternalIds } from '../../../../helpers/tmdb/movies';
-import { fetchMagnetsfromYTSapi } from '../../../../helpers/torrent';
+} from '../../../../../types/tmdb';
+import { fetchExternalIds } from '../../../../../helpers/tmdb/movies';
+import { fetchMagnetsfromYTSapi } from '../../../../../helpers/torrent';
+import { ImdbRating } from '../DetailTypes';
 
 import InformationComponent from './Information';
 import PosterAndIframe from './PosterAndIframe';
-import { ImdbRating } from './DetailTypes';
 
 const PosterIframeInfo = ({
   contentData,
@@ -50,28 +50,6 @@ const PosterIframeInfo = ({
       );
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
-  const addToWatchlist = useCallback(async () => {
-    try {
-      const body = JSON.stringify({
-        content_id: contentData.id,
-        type,
-      });
-
-      // const addRes =
-      await fetch('/api/user/watchlist', {
-        method: 'POST',
-        body,
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      });
-      // !!!
-      // console.log(addRes);
-    } catch (err) {
-      // console.log(err);
-    }
-  }, [contentData.id, type]);
 
   const addMovieToRecents = useCallback(async () => {
     try {
@@ -116,7 +94,6 @@ const PosterIframeInfo = ({
         IMDBRating={imdbRating} // !!!
         magnets={magnets} // !!!
         externalIds={externalIds} // !!!
-        addToWatchlsit={addToWatchlist} // !!!
       />
     </>
   );

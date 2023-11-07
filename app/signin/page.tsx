@@ -5,7 +5,7 @@ import * as Yup from 'yup';
 import Head from 'next/head';
 import { signIn, useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
-// import { toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 
 import Form from '../../components/Form/Form';
 import Validate from '../../components/Form/Validation';
@@ -56,10 +56,21 @@ function Login() {
   const onSubmit = async (values: any) => {
     setSubmitting(true);
 
-    await signIn('credentials', {
+    const toastId = toast.loading('Signing in...', { autoClose: false });
+
+    const singInResult = await signIn('credentials', {
       redirect: false,
       email: values.email,
       password: values.password,
+    });
+
+    const isError = singInResult?.error;
+
+    toast.update(toastId, {
+      render: isError ?? 'Signed in.',
+      type: isError ? 'error' : 'success',
+      isLoading: false,
+      autoClose: 2000,
     });
 
     setSubmitting(false);
