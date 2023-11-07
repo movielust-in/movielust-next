@@ -2,10 +2,8 @@
 
 /* eslint-disable @next/next/no-img-element */
 import { useState } from 'react';
-import Image from 'next/image';
-import dynamic from 'next/dynamic';
 import { usePathname } from 'next/navigation';
-import { FaDownload, FaPlay, FaStop, FaShareAlt } from 'react-icons/fa';
+import { FaDownload, FaShareAlt } from 'react-icons/fa';
 
 import Social from '../../../../../components/External/Social';
 import { image } from '../../../../../helpers/Urls';
@@ -16,26 +14,23 @@ import {
 } from '../../../../../types/tmdb';
 import { ImdbRating } from '../DetailTypes';
 import styles from '../Detail.module.scss';
+import { nativeShare } from '../../../../../utils/share';
 
 import WatchlistButton from './WatchlistButton';
 import Ratings from './Ratings';
-
-const Spinner = dynamic(() => import('../../../../../components/UI/Spinner'));
+import PlayButton from './PlayButton';
 
 interface InformationComponentProps {
   purpose?: string;
   type: string;
   contentData: DetailResponse;
-  togglePlayer: (movieTitle: string, path: string) => void;
+  togglePlayer: any;
   iframeLoading: boolean;
   showMovie: boolean;
   IMDBRating?: ImdbRating;
   magnets: Magnet[] | undefined;
   externalIds?: MovieExternalIdsResponse | undefined;
 }
-
-const playButtonMsg = (isMovieShown: boolean) =>
-  isMovieShown ? 'Play Trailer' : 'Play Movie';
 
 export default function InformationComponent({
   purpose,
@@ -53,34 +48,14 @@ export default function InformationComponent({
   const pathname = usePathname();
 
   const share = async () => {
-    if (navigator.share && contentData?.poster_path) {
-      setLoadingShareImg(true);
-      const imageBlob = await fetch(image(200, contentData?.poster_path)).then(
-        (res) => {
-          setLoadingShareImg(false);
-          return res.blob();
-        }
-      );
-
-      navigator
-        .share({
-          title: contentData?.title,
-          text: `Check out ${contentData?.title} on Movielust.\n`,
-          url: window.location.href,
-          files: [
-            new File(
-              [imageBlob],
-              `${(contentData?.title! || contentData.name!)
-                .split(' ')
-                .join('-')}.png`,
-              {
-                type: imageBlob.type,
-              }
-            ),
-          ],
-        })
-        .catch(() => {});
-    }
+    setLoadingShareImg(true);
+    await nativeShare({
+      title: contentData.title! || contentData.name!,
+      imageUrl: contentData?.poster_path
+        ? image(200, contentData?.poster_path)
+        : undefined,
+    });
+    setLoadingShareImg(false);
   };
 
   return (
@@ -91,39 +66,21 @@ export default function InformationComponent({
       }}
     >
       <div className={styles.Controls}>
-        {type === 'movie' &&
-          contentData.release_date &&
-          new Date() > new Date(contentData.release_date) &&
-          contentData && (
-            <span
-              role="presentation"
-              style={{
-                width: iframeLoading ? '80px' : '120px',
-              }}
-              className={styles.PlayMovie}
-              onClick={() =>
-                togglePlayer(
-                  contentData.title || contentData.name!,
-                  pathname as string
-                )
-              } // !!!
-            >
-              {!showMovie ? <FaPlay /> : <FaStop />}
-              {!iframeLoading ? (
-                playButtonMsg(showMovie)
-              ) : (
-                <Spinner width={20} height={20} />
-              )}
-            </span>
-          )}
+        <PlayButton
+          iframeLoading={iframeLoading}
+          showMovie={showMovie}
+          togglePlayer={togglePlayer}
+          contentData={contentData}
+          pathname={pathname}
+        />
 
         <WatchlistButton contentData={contentData} type={type} />
 
         {/* ShareButton for Whatsapp,FB */}
 
         {loadingShareImg ? (
-          <Image
-            src="PlayerSpinner"
+          <img
+            src="/images/svgs/player_loading.svg"
             alt="loading"
             className={styles.ShareButton}
             style={{
@@ -156,13 +113,12 @@ export default function InformationComponent({
           ? contentData.runtime
           : null}
         <br /> {contentData?.genres?.map((genre) => genre.name).join(' | ')}
-        {type === 'movie' &&
-          (contentData.release_date ? (
-            <div className={styles.SubTitle}>
-              {contentData.released ? 'Released: ' : 'Releasing: '}{' '}
-              {contentData.release_date}
-            </div>
-          ) : null)}
+        {type === 'movie' && contentData.release_date && (
+          <div className={styles.SubTitle}>
+            {contentData.released ? 'Released: ' : 'Releasing: '}{' '}
+            {contentData.release_date}
+          </div>
+        )}
       </div>
 
       {type === 'movie' && magnets?.length ? (
@@ -179,13 +135,13 @@ export default function InformationComponent({
           ))}
         </div>
       ) : null}
-      {externalIds ? (
-        <Social
-          externalIds={externalIds as MovieExternalIdsResponse}
-          type="title"
-          title={contentData?.title || contentData?.name}
-        />
-      ) : null}
+
+      <Social
+        externalIds={externalIds as MovieExternalIdsResponse}
+        type="title"
+        title={contentData?.title || contentData?.name}
+      />
+
       {contentData && contentData.overview ? (
         <div
           className={styles.Description}

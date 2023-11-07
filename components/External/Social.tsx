@@ -8,7 +8,7 @@ import {
 import styles from './Social.module.scss';
 
 interface SocialProps {
-  externalIds: MovieExternalIdsResponse | TvExternalIdsResponse;
+  externalIds?: MovieExternalIdsResponse | TvExternalIdsResponse;
   type: string;
   name?: string;
   title?: string;

@@ -2,11 +2,16 @@
 import { FaStar } from 'react-icons/fa';
 
 import styles from '../Detail.module.scss';
+import {
+  DetailResponse,
+  MovieExternalIdsResponse,
+} from '../../../../../types/tmdb';
+import { ImdbRating } from '../DetailTypes';
 
 interface Props {
-  IMDBRating?: any;
-  contentData?: any;
-  externalIds?: any;
+  IMDBRating?: ImdbRating;
+  contentData: DetailResponse;
+  externalIds?: MovieExternalIdsResponse;
   type: string;
 }
 

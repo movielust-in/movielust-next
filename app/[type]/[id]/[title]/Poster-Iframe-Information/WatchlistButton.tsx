@@ -5,9 +5,10 @@ import { useSession } from 'next-auth/react';
 import { useCallback, useEffect, useState } from 'react';
 
 import styles from '../Detail.module.scss';
+import { DetailResponse } from '../../../../../types/tmdb';
 
 interface Props {
-  contentData: any;
+  contentData: DetailResponse;
   type: string;
 }
 
