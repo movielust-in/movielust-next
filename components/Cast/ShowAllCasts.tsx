@@ -4,19 +4,18 @@ import styled from '@emotion/styled';
 import { keyframes } from '@emotion/react';
 import { useRouter } from 'next/router';
 
-import { fetchDetails } from '../../helpers/tmdb';
-import { fetchCompleteShowCast } from '../../helpers/tmdb/series';
 import Loading from '../UI/Loading';
 import Scroller from '../UI/Scroller';
-import { ShowResponse } from '../../types/tmdb';
-
+import { fetchCompleteShowCast } from '../../lib/tmdb/tv';
 import '../../styles/font.css';
+import { ShowResponse } from '../../types/tmdb';
+import { getContentDetails } from '../../lib/tmdb';
 
 function ShowAllCasts() {
   const location = useRouter();
   const backgroundRef = useRef<HTMLImageElement>();
   const urlBreakdown = location.pathname.split('/');
-  const type = urlBreakdown[2];
+  const type = urlBreakdown[2] as 'movie' | 'tv';
   const id = urlBreakdown[3];
 
   const [isLoading, setIsLoading] = useState(true);
@@ -35,7 +34,7 @@ function ShowAllCasts() {
         setIsLoading(false);
       });
     };
-    fetchDetails(id, type).then(({ data }) => {
+    getContentDetails(id, type).then((data) => {
       settitle(data.name);
 
       setBackdrop(data.backdrop_path);

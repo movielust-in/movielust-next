@@ -1,6 +1,6 @@
 import { getServerSession } from 'next-auth';
 
-import { DETAIL } from '../Urls';
+import { SHALLOW_DETAIL } from '../../lib/tmdb/Urls';
 import dbConnect from '../../lib/databse';
 import authOptions from '../../app/api/auth/[...nextauth]/authOptions';
 import { User } from '../../models/User';
@@ -32,7 +32,7 @@ export const fetchContentOfWatchlist = async () => {
 
     const contentToFetch = watchlist.map((result) =>
       fetch(
-        `${TMDB_BASE_PATH}/${DETAIL(
+        `${TMDB_BASE_PATH}/${SHALLOW_DETAIL(
           result.content_id,
           result.type
         )}&api_key=${TMDB_KEY}`,

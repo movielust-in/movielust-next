@@ -1,8 +1,8 @@
-import { AllResponse } from "../../types/tmdb";
-import { getAll } from "../Get";
-import tmdbClient from "../tmdbClient";
+import { AllResponse } from '../../types/tmdb';
 
-const fetchAllPages = <T = any>(
+import { tmdbFetch } from './tmdb-fetch';
+
+const fetchAllPages = async <T = any>(
   urlGen: (page: number) => string,
   maxPages = 20
 ): Promise<AllResponse<T[]>> =>
@@ -11,12 +11,11 @@ const fetchAllPages = <T = any>(
     let total_pages: number;
     let total_results: number;
 
-    tmdbClient
-      .get(urlGen(1))
+    tmdbFetch(urlGen(1))
       .then((response) => {
-        movies = response.data.results;
-        total_pages = response.data.total_pages;
-        total_results = response.data.total_results;
+        movies = response.results;
+        total_pages = response.total_pages;
+        total_results = response.total_results;
       })
       .then(() => {
         if (total_results === 0) {
@@ -32,17 +31,16 @@ const fetchAllPages = <T = any>(
             results: movies,
           });
         } else {
-          getAll(
+          Promise.all(
             Array.from(
               { length: total_pages > maxPages ? maxPages : total_pages },
-              (_, i) => urlGen(i + 1)
-            ),
-            tmdbClient
+              (_, i) => tmdbFetch(urlGen(i + 1))
+            )
           )
             .then((results) => {
               movies = [];
               results.forEach((result) => {
-                movies = [...movies, ...result.data.results];
+                movies = [...movies, ...result.results];
               });
             })
             .then(() => {

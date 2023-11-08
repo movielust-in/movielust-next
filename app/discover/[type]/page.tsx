@@ -5,7 +5,7 @@ import { useEffect, useMemo, useState } from 'react';
 import { useSearchParams, useParams } from 'next/navigation';
 // import { FaTimes } from 'react-icons/fa';
 
-import { DISCOVER_MOVIES, image } from '../../../helpers/Urls';
+import { DISCOVER_MOVIES, image } from '../../../lib/tmdb/Urls';
 import Wrap from '../../../components/CarouselSlices/Wrap';
 import { TMDB_BASE_PATH, TMDB_KEY } from '../../../config';
 import { detailLink } from '../../../utils';

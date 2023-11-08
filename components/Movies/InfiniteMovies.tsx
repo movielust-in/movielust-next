@@ -8,8 +8,9 @@ import {
   Gujarati_Movies,
   South_Movies,
   movieWithGenre,
-} from '../../lib/tmdb/movie/urls';
-import { Top_Rated_Anime, seriesWithGenre } from '../../lib/tmdb/tv/urls';
+  seriesWithGenre,
+  Top_Rated_Anime,
+} from '../../lib/tmdb/Urls';
 
 import styles from './HomeMovies.module.scss';
 import CarouselContainer from './CarouselContainer';

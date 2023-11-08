@@ -10,7 +10,9 @@ export async function tmdbFetch<T = any>(
   let url = `${TMDB_BASE_PATH}${endPoint}`;
 
   if (params) {
-    url = `${url}?${new URLSearchParams(params)}`;
+    url = `${url}${url.includes('?') ? '&' : '?'}${new URLSearchParams(
+      params
+    )}`;
   }
 
   const response = await fetch(url, {

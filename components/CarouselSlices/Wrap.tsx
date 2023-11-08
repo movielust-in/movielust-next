@@ -1,9 +1,9 @@
 'use client';
 
-import Image from "next/image";
+import Image from 'next/image';
 import { MouseEventHandler, useState } from 'react';
 
-import { image } from '../../helpers/Urls';
+import { image } from '../../lib/tmdb/Urls';
 import { Genre } from '../../types/tmdb';
 import styles from '../../styles/Wrap.module.scss';
 
@@ -38,8 +38,8 @@ function Wrap({
   title,
   description,
   backdrop,
-  genres=[],
-  showCard=false,
+  genres = [],
+  showCard = false,
 }: WrapPros) {
   const [imgSrc, setImgSrc] = useState(src);
 

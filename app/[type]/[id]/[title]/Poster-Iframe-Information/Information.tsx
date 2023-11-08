@@ -6,7 +6,7 @@ import { usePathname } from 'next/navigation';
 import { FaDownload, FaShareAlt } from 'react-icons/fa';
 
 import Social from '../../../../../components/External/Social';
-import { image } from '../../../../../helpers/Urls';
+import { image } from '../../../../../lib/tmdb/Urls';
 import { Magnet } from '../../../../../types/apiResponses';
 import {
   DetailResponse,

@@ -1,8 +1,5 @@
-import axios from 'axios';
-
-import { SHALLOW_DETAIL, DELETE_USER } from '../Urls';
-import { SERVER_URI, TMDB_BASE_PATH, TMDB_KEY } from '../../config';
-import { ContactFormInterface } from '../../types/requestData';
+import { SHALLOW_DETAIL } from '../../lib/tmdb/Urls';
+import { TMDB_BASE_PATH, TMDB_KEY } from '../../config';
 
 export const fetchWatched = async () => {
   const res = await fetch('/api/user/recents', { cache: 'no-store' });
@@ -43,30 +40,3 @@ export const fetchWatched = async () => {
   }
   return [];
 };
-
-export const deleteUser = (id: string) =>
-  new Promise((resolve, reject) => {
-    (async () => {
-      try {
-        const token = localStorage.getItem('movielust_user');
-        if (token) {
-          const res = await axios.delete(DELETE_USER, {
-            data: {
-              user_id: id,
-            },
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          });
-          resolve(res);
-        } else {
-          reject();
-        }
-      } catch {
-        reject();
-      }
-    })();
-  });
-
-export const submitContactForm = (data: ContactFormInterface) =>
-  axios.post(`${SERVER_URI}/submit-contact-us`, data);

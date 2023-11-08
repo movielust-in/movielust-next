@@ -9,7 +9,7 @@ import {
   TMDB_BASE_PATH,
   TMDB_KEY,
 } from '../../../../lib/tmdb/constants';
-import { DISCOVER_MOVIES } from '../../../../helpers/Urls';
+import { DISCOVER_MOVIES } from '../../../../lib/tmdb/Urls';
 
 // interface SortByProps {
 //   type: string;

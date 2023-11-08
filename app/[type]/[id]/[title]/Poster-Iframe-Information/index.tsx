@@ -6,9 +6,9 @@ import {
   DetailResponse,
   MovieExternalIdsResponse,
 } from '../../../../../types/tmdb';
-import { fetchExternalIds } from '../../../../../helpers/tmdb/movies';
 import { fetchMagnetsfromYTSapi } from '../../../../../helpers/torrent';
 import { ImdbRating } from '../DetailTypes';
+import { fetchExternalIds } from '../../../../../lib/tmdb/external-ids';
 
 import InformationComponent from './Information';
 import PosterAndIframe from './PosterAndIframe';
@@ -18,7 +18,7 @@ const PosterIframeInfo = ({
   type,
 }: {
   contentData: DetailResponse;
-  type: string;
+  type: 'movie' | 'tv';
 }) => {
   const [showMovie, setShowMovie] = useState(false);
   const [iframeLoading, setIframeLoading] = useState(false);

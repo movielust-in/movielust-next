@@ -6,7 +6,7 @@ import Link from 'next/link';
 import { Navigation, Autoplay } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
-import { image } from '../../helpers/Urls';
+import { image } from '../../lib/tmdb/Urls';
 import { detailLink } from '../../utils';
 import { MovieResult } from '../../types/tmdb';
 import styles from '../../styles/HomeCarousel.module.scss';

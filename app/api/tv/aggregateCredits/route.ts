@@ -1,5 +1,5 @@
 import { TMDB_BASE_PATH, TMDB_KEY } from '../../../../config';
-import { SHALLOW_DETAIL } from '../../../../helpers/Urls';
+import { SHALLOW_DETAIL } from '../../../../lib/tmdb/Urls';
 import { DetailResponse } from '../../../../types/tmdb';
 import { catchAsync } from '../../apiHandler';
 

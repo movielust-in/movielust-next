@@ -1,15 +1,15 @@
 import Image from 'next/image';
 
-import { fetchCompanies } from '../../../helpers/tmdb/company';
+import { fetchCompanies } from '../../../lib/tmdb/company';
 import Scroller from '../../../components/UI/Scroller';
 import ProductionImageSlider from '../../../components/Carousels/ProductionImageSlider';
 import {
   fetchCompanyMovies,
-  CompaniesTopImages,
-} from '../../../helpers/tmdb/movies';
+  fetchCompaniesTopMovies,
+} from '../../../lib/tmdb/movie';
 
 const getProductionCompanyData = async (productionId: string) => {
-  const company = await CompaniesTopImages(productionId);
+  const { results: company } = await fetchCompaniesTopMovies(productionId);
   const companyMovies = await fetchCompanyMovies(productionId);
   const production = await fetchCompanies(productionId);
 
@@ -39,7 +39,7 @@ export default async function Production({
         gap: 10,
       }}
     >
-      {company.length ? <ProductionImageSlider data={company} /> : null}
+      {company?.length ? <ProductionImageSlider data={company} /> : null}
 
       {production && (
         <div>

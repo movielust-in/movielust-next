@@ -1,7 +1,9 @@
+import { DetailResponse } from '../../types/tmdb';
+
 import { tmdbFetch } from './tmdb-fetch';
 
 export const getContentDetails = (id: string | number, type: 'movie' | 'tv') =>
-  tmdbFetch(`/${type}/${id}`, {
+  tmdbFetch<DetailResponse>(`/${type}/${id}`, {
     append_to_response: ['videos', 'credits'].toString(),
   });
 

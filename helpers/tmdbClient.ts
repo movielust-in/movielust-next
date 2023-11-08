@@ -1,5 +1,8 @@
 import axios from 'axios';
 
+/**
+ * @deprecated
+ */
 const tmdbClient = axios.create({
   baseURL: 'https://api.themoviedb.org/3',
 });

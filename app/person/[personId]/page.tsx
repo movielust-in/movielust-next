@@ -4,11 +4,11 @@ import { cache } from 'react';
 import { Metadata } from 'next';
 
 import {
-  fetchPerson,
-  fetchPersonMovies,
+  fetchPersonDetails,
+  fetchPersonMoviesCredits,
   fetchPopular,
   fetchPersonTvCredits,
-} from '../../../helpers/tmdb/person';
+} from '../../../lib/tmdb/person';
 import Social from '../../../components/External/Social';
 import { FULL_MONTHS } from '../../../config';
 import ImageCrousel from '../../../components/Carousels/ImageCrousel';
@@ -21,7 +21,7 @@ import {
   PersonPopularResponse,
   PersonTvCreditsResponse,
 } from '../../../types/tmdb';
-import { image } from '../../../helpers/Urls';
+import { image } from '../../../lib/tmdb/Urls';
 
 import styles from './person.module.scss';
 import Biography from './Biography';
@@ -178,14 +178,14 @@ async function PeopleDetail({ params }: { params: { personId: string } }) {
 
 export default PeopleDetail;
 
-const cachedFetchPerson = cache(fetchPerson);
+const cachedFetchPerson = cache(fetchPersonDetails);
 
 export async function generateMetadata({
   params,
 }: {
   params: { personId: string };
 }) {
-  const { data } = await cachedFetchPerson(params.personId);
+  const data = await cachedFetchPerson(params.personId);
 
   const metadata: Metadata = {
     title: data.name,
@@ -227,14 +227,14 @@ export async function generateMetadata({
 async function getPersonData(personId: string) {
   const all = await Promise.allSettled([
     cachedFetchPerson(personId),
-    fetchPersonMovies(personId),
+    fetchPersonMoviesCredits(personId),
     fetchPersonTvCredits(personId),
     fetchPopular(),
   ]);
 
   let personData;
 
-  if (all[0].status === 'fulfilled') personData = all[0].value.data;
+  if (all[0].status === 'fulfilled') personData = all[0].value;
 
   if (personData) {
     if (personData.birthday) {

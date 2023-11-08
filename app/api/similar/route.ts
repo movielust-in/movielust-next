@@ -1,5 +1,5 @@
 import { TMDB_BASE_PATH, TMDB_KEY } from '../../../config';
-import { SIMILAR } from '../../../helpers/Urls';
+import { SIMILAR } from '../../../lib/tmdb/Urls';
 import { Content } from '../../../types/tmdb';
 import { catchAsync } from '../apiHandler';
 
@@ -27,7 +27,7 @@ export const GET = catchAsync(async (request) => {
 
   const urlGen = (page: number) =>
     lang === 'en'
-      ? `${TMDB_BASE_PATH}/${SIMILAR(id, type, page)}&api_key=${TMDB_KEY}`
+      ? `${TMDB_BASE_PATH}${SIMILAR(id, type, page)}&api_key=${TMDB_KEY}`
       : `${TMDB_BASE_PATH}/discover/${type}/?with_original_language=${lang}&with_genres=${genres}&page=${page}&api_key=${TMDB_KEY}`;
 
   const promises = Array.from({ length: PAGES_TO_FETCH }, (_, i) =>

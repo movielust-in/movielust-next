@@ -1,10 +1,10 @@
 import MovieCarousel from '../../../../components/Carousels/MovieCarousel';
-import { fetchCollection } from '../../../../helpers/tmdb/movies';
+import { fetchMovieCollection } from '../../../../lib/tmdb/movie';
 
 import styles from './Detail.module.scss';
 
 const getCollectionData = async (collectionId: string) => {
-  const collectionData = await fetchCollection(collectionId);
+  const collectionData = await fetchMovieCollection(collectionId);
   return collectionData;
 };
 

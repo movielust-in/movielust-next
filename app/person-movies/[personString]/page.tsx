@@ -5,19 +5,19 @@ import Link from 'next/link';
 import useSWRInfinite from 'swr/infinite';
 import { useParams } from 'next/navigation';
 
-import { CASTMOVIES, image } from '../../../helpers/Urls';
+import { Discover_with_Cast, image } from '../../../lib/tmdb/Urls';
 import Wrap from '../../../components/CarouselSlices/Wrap';
 import { detailLink } from '../../../utils';
 import getGenreName from '../../../utils/getGenreName';
 import useObserver from '../../../hooks/useObserver';
 import Meta from '../../../components/Meta';
-import tmdbClient from '../../../helpers/tmdbClient';
 import { DiscoverMovieResponse, MovieResult } from '../../../types/tmdb';
 import scrollerStyles from '../../../styles/scroller.module.scss';
+import { tmdbFetch } from '../../../lib/tmdb/tmdb-fetch';
 
 import styles from './personMovies.module.scss';
 
-const fetcher = (key: string) => tmdbClient.get(key).then((res) => res.data);
+const fetcher = (key: string) => tmdbFetch(key);
 
 function Movie() {
   const params = useParams<{ personString: string }>();
@@ -33,7 +33,8 @@ function Movie() {
     personName = splited.join(' ');
   }
 
-  const getKey = (pageIndex: number) => CASTMOVIES(personID, pageIndex + 1);
+  const getKey = (pageIndex: number) =>
+    Discover_with_Cast(personID, pageIndex + 1);
 
   const { data, size, setSize } = useSWRInfinite<DiscoverMovieResponse>(
     getKey,

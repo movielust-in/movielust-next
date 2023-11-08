@@ -6,7 +6,7 @@ import { Metadata } from 'next';
 import CastCarousel from '../../../../components/Carousels/CastCarousel';
 import ProductionCompanies from '../../../../components/Carousels/ProductionCompanies';
 import { FULL_MONTHS, TMDB_BASE_PATH, TMDB_KEY } from '../../../../config';
-import { image } from '../../../../helpers/Urls';
+import { image } from '../../../../lib/tmdb/Urls';
 import { ShowResponse, Video } from '../../../../types/tmdb';
 import MinutesToDuration from '../../../../utils/minutesToDuration';
 import { getContentDetails, getVideosByLanguage } from '../../../../lib/tmdb';
@@ -72,7 +72,10 @@ const Detail = async ({ params }: { params: Params }) => {
 
       <BackgroundImage backdrop={contentData.backdrop_path} />
 
-      <PosterIframeInfo type={type} contentData={contentData} />
+      <PosterIframeInfo
+        type={type as 'movie' | 'tv'}
+        contentData={contentData}
+      />
 
       {type === 'tv' &&
       contentData &&

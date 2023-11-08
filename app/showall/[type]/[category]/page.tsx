@@ -4,11 +4,8 @@ import {
   fetchallTRM,
   fetchallSouth,
   fetchallGujarati,
-} from '../../../../helpers/tmdb/movies';
-import {
-  fetchAllAnimes,
-  fetchAllPopularSeries,
-} from '../../../../helpers/tmdb/series';
+} from '../../../../lib/tmdb/movie';
+import { fetchAllAnimes, fetchAllPopularSeries } from '../../../../lib/tmdb/tv';
 import styles from '../../../cast/[type]/[id]/[contentName]/allCast.module.scss';
 
 enum Categories {

@@ -3,8 +3,7 @@ import { TrendingMovieResponse } from '../../../types/tmdb';
 import { TYPE } from '../constants';
 import { fetchExternalIds } from '../external-ids';
 import { tmdbFetch } from '../tmdb-fetch';
-
-import { Weekly_Trending_Movies } from './urls';
+import { Weekly_Trending_Movies } from '../Urls';
 
 export const fetchTrendingMovies = async (): Promise<
   TrendingMovieResponse & { imdb_rating: number | Number }
