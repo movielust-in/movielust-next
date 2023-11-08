@@ -1,7 +1,10 @@
 import { TMDB_BASE_PATH } from '../../config';
 
-const TMDB_TOKEN =
-  'eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIwNjA3MjdhZmZhY2NkMjM3ZjdlNmE3MGZhMDI5ZGM5ZSIsInN1YiI6IjYxNjVjNWQxM2E5NjUwMDA0MzQ0MDQ0MCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.W2ZsZ9RnvVfkgf7BPOciB5dgElw_4aTDReDe4Hs4PLM' as const;
+const TMDB_TOKEN = process.env.NEXT_PUBLIC_TMDB_TOKEN;
+
+if (!TMDB_TOKEN) {
+  throw new Error('NEXT_PUBLIC_TMDB_TOKEN not configured in env.');
+}
 
 export async function tmdbFetch<T = any>(
   endPoint: string,
