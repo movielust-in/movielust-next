@@ -10,9 +10,8 @@ import {
   fetchPersonTvCredits,
 } from '../../../lib/tmdb/person';
 import Social from '../../../components/External/Social';
-import { FULL_MONTHS } from '../../../config';
+import { FULL_MONTHS } from '../../../constants';
 import ImageCrousel from '../../../components/Carousels/ImageCrousel';
-import Meta from '../../../components/Meta';
 import MovieCarousel from '../../../components/Carousels/MovieCarousel';
 import PeopleMovieCarousel from '../../../components/Carousels/PeopleMovieCarousel';
 import CastCarousel from '../../../components/Carousels/CastCarousel';
@@ -60,13 +59,6 @@ async function PeopleDetail({ params }: { params: { personId: string } }) {
         strategy="afterInteractive"
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structeredData) }}
-      />
-      <Meta
-        title={`${personData.name}`}
-        description={personData.biography?.split(' ').slice(0, 160).join(' ')}
-        url={`https://movie-lust.vercel.app/person/${personData.id}`}
-        image={`https://image.tmdb.org/t/p/w200${personData.profile_path}`}
-        lgImage={`https://image.tmdb.org/t/p/w500${personData.profile_path}`}
       />
       <div className={styles.Background}>
         <Image

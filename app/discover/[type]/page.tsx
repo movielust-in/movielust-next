@@ -10,7 +10,6 @@ import Wrap from '../../../components/CarouselSlices/Wrap';
 import { detailLink } from '../../../utils';
 import getGenreName from '../../../utils/getGenreName';
 import useObserver from '../../../hooks/useObserver';
-import Meta from '../../../components/Meta';
 import Loading from '../../../components/UI/Loading';
 import styles from '../../../styles/scroller.module.scss';
 import { tmdbFetch } from '../../../lib/tmdb/tmdb-fetch';
@@ -114,11 +113,6 @@ function Movie() {
 
   return (
     <div className={styles.Container}>
-      <Meta
-        title="Movies"
-        description="Discover a vast collection of Movies on Movielust."
-        url="https://movie-lust.vercel.app/discover/movies"
-      />
       <div className={styles.Filters}>
         {type === 'movie' && <SortBy />}
         <GenreFilter type={type} />

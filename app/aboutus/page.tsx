@@ -1,20 +1,16 @@
-
 import Image from 'next/image';
 import { Metadata } from 'next';
-// import Meta from '../../components/Meta'; // !!!
-
 
 import styles from './aboutus.module.scss';
 
-export const metadata:Metadata = {
-  title: "Movielust - About Us",
-  description: "See more about movielust here.",
-}
+export const metadata: Metadata = {
+  title: 'Movielust - About Us',
+  description: 'See more about movielust here.',
+};
 
 function Aboutus() {
   return (
-    <div className={styles.Container} >
-
+    <div className={styles.Container}>
       <h3>About Us</h3>
       <ul className={styles.Notice}>
         <li>
@@ -75,4 +71,3 @@ function Aboutus() {
 }
 
 export default Aboutus;
-

@@ -7,7 +7,6 @@ import { useRouter } from 'next/navigation';
 
 import Form from '../../components/Form/Form';
 import Validate from '../../components/Form/Validation';
-import Meta from '../../components/Meta';
 import { OTP_TYPE } from '../../constants';
 
 interface StepOneDataInterface {
@@ -210,25 +209,18 @@ function SignUp() {
   const [submitting, setSubmitting] = useState(false);
 
   return (
-    <>
-      <Meta
-        title="Sign up"
-        description="Become a member of Movielust."
-        url="https://movie-lust.vercel.app/signup"
+    <div>
+      <Form
+        formik={step.formik}
+        fields={step.fields}
+        isSubmitting={submitting}
+        extraData={
+          step.fields.name === 'Sign Up'
+            ? (pic: string) => setProfile(pic)
+            : (otp: string) => handleOtp(otp)
+        }
       />
-      <div style={{}}>
-        <Form
-          formik={step.formik}
-          fields={step.fields}
-          isSubmitting={submitting}
-          extraData={
-            step.fields.name === 'Sign Up'
-              ? (pic: string) => setProfile(pic)
-              : (otp: string) => handleOtp(otp)
-          }
-        />
-      </div>
-    </>
+    </div>
   );
 }
 

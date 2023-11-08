@@ -68,7 +68,6 @@ const Detail = async ({ params }: { params: Params }) => {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
       />
       {/*  !!! */}
-      {/* <DetailHelmet link="router.asPath" contentData={contentData} /> */}
 
       <BackgroundImage backdrop={contentData.backdrop_path} />
 

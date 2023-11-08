@@ -4,7 +4,6 @@ import { Metadata } from 'next';
 import Movies from '../components/Movies/HomeMovies';
 import HomeCarousel from '../components/Carousels/HomeCarousel';
 import styles from '../styles/index.module.scss';
-import Meta from '../components/Meta';
 import { dashedTitle } from '../utils';
 import { fetchTrendingMovies } from '../lib/tmdb/movie/fetch-trending-movies';
 import { MovieResult } from '../types/tmdb';
@@ -50,13 +49,6 @@ async function Home() {
 
   return (
     <>
-      <Meta
-        title="Home"
-        description="Movielust is India's largest free streaming platform that offers a wide variety of premium TV shows, movies, anime, documentaries and even more"
-        url="https://movie-lust.vercel.app"
-        image="/favicon/android-icon-192x192.png"
-      />
-
       <Script
         type="application/ld+json"
         id="structered-json"
