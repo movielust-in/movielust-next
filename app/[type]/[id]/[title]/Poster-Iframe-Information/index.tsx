@@ -6,9 +6,10 @@ import {
   DetailResponse,
   MovieExternalIdsResponse,
 } from '../../../../../types/tmdb';
-import { fetchMagnetsfromYTSapi } from '../../../../../lib/torrent';
+import { fetchMovieMagnets } from '../../../../../lib/torrent';
 import { ImdbRating } from '../DetailTypes';
 import { fetchExternalIds } from '../../../../../lib/tmdb/external-ids';
+import { MovieTorrent } from '../../../../../types/movie-torrents';
 
 import InformationComponent from './Information';
 import PosterAndIframe from './PosterAndIframe';
@@ -24,7 +25,7 @@ const PosterIframeInfo = ({
   const [iframeLoading, setIframeLoading] = useState(false);
   const [imdbRating, setImdbRating] = useState<ImdbRating>();
   const [externalIds, setExternalIds] = useState<MovieExternalIdsResponse>();
-  const [magnets, setMagnets] = useState();
+  const [magnets, setMagnets] = useState<MovieTorrent[]>();
 
   const onIframeLoaded = () => setIframeLoading(false);
 
@@ -43,11 +44,9 @@ const PosterIframeInfo = ({
     );
 
     if (contentData.imdb_id)
-      fetchMagnetsfromYTSapi(contentData.imdb_id, contentData.id!).then(
-        (res) => {
-          setMagnets(res as any);
-        }
-      );
+      fetchMovieMagnets(contentData.imdb_id, contentData.id!).then((res) => {
+        setMagnets(res.data.torrents as MovieTorrent[]);
+      });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

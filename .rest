@@ -39,3 +39,10 @@ GET http://localhost:3000/api/avatars
 
 ###
 GET http://localhost:3000/api/kaju 
+
+###
+###
+GET http://localhost:3000/api/torrent/movie/yts-api?imdb_id=tt9603212&tmdb_id=575264
+
+###
+GET https://yts.mx/api/v2/movie_details.json?imdb_id=tt9603212

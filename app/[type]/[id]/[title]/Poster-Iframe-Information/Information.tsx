@@ -7,7 +7,6 @@ import { FaDownload, FaShareAlt } from 'react-icons/fa';
 
 import Social from '../../../../../components/External/Social';
 import { image } from '../../../../../lib/tmdb/Urls';
-import { Magnet } from '../../../../../types/apiResponses';
 import {
   DetailResponse,
   MovieExternalIdsResponse,
@@ -15,6 +14,7 @@ import {
 import { ImdbRating } from '../DetailTypes';
 import styles from '../Detail.module.scss';
 import { nativeShare } from '../../../../../utils/share';
+import { MovieTorrent } from '../../../../../types/movie-torrents';
 
 import WatchlistButton from './WatchlistButton';
 import Ratings from './Ratings';
@@ -28,7 +28,7 @@ interface InformationComponentProps {
   iframeLoading: boolean;
   showMovie: boolean;
   IMDBRating?: ImdbRating;
-  magnets: Magnet[] | undefined;
+  magnets?: MovieTorrent[];
   externalIds?: MovieExternalIdsResponse | undefined;
 }
 

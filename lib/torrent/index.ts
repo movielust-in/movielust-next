@@ -1,6 +1,4 @@
-import { YTS_API_TORRENTS } from '../tmdb/Urls';
-
-export const fetchMagnetsfromYTSapi = (
-  imdb_id: string,
-  tmdb_id: string | number
-) => fetch(YTS_API_TORRENTS(tmdb_id, imdb_id)).then((res) => res.json());
+export const fetchMovieMagnets = (imdb_id: string, tmdb_id: string | number) =>
+  fetch(`/api/torrents/movie?imdb_id=${imdb_id}&tmdb_id=${tmdb_id}`).then(
+    (res) => res.json()
+  );
