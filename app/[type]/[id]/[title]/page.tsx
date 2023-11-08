@@ -6,10 +6,10 @@ import { Metadata } from 'next';
 import CastCarousel from '../../../../components/Carousels/CastCarousel';
 import ProductionCompanies from '../../../../components/Carousels/ProductionCompanies';
 import { FULL_MONTHS, TMDB_BASE_PATH, TMDB_KEY } from '../../../../config';
-import { VIDEO, image } from '../../../../helpers/Urls';
-import tmdbClient from '../../../../helpers/tmdbClient';
+import { image } from '../../../../helpers/Urls';
 import { ShowResponse, Video } from '../../../../types/tmdb';
 import MinutesToDuration from '../../../../utils/minutesToDuration';
+import { getContentDetails, getVideosByLanguage } from '../../../../lib/tmdb';
 
 import SimilarMovies from './SimilarMovies';
 import BackgroundImage from './BackgroundImage';
@@ -198,14 +198,7 @@ async function getData(query: { id: string; type: string }): Promise<any> {
     notFound();
   }
 
-  // let { data } = await fetchDetails(id, type);
-
-  const res = await fetch(
-    `${TMDB_BASE_PATH}/${type}/${id}?append_to_response=videos,credits&api_key=${TMDB_KEY}`,
-    { cache: 'force-cache' }
-  );
-
-  let data = await res.json();
+  let data = await getContentDetails(id, type);
 
   data = {
     ...data,
@@ -255,10 +248,12 @@ async function getData(query: { id: string; type: string }): Promise<any> {
 
   let vids = data.videos?.results || [];
   if (vids?.length <= 0) {
-    const videoRes = await tmdbClient.get(
-      VIDEO(id, type, data.original_language!)
+    const videoRes = await getVideosByLanguage(
+      id,
+      type,
+      data.original_language!
     );
-    vids = videoRes.data.results;
+    vids = videoRes.results;
     if (vids.length > 0) {
       const officialVideos = vids.filter(
         (video: Video) => video.official === true && video.type === 'Trailer'
