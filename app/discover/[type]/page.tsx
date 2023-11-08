@@ -7,13 +7,13 @@ import { useSearchParams, useParams } from 'next/navigation';
 
 import { DISCOVER_MOVIES, image } from '../../../lib/tmdb/Urls';
 import Wrap from '../../../components/CarouselSlices/Wrap';
-import { TMDB_BASE_PATH, TMDB_KEY } from '../../../config';
 import { detailLink } from '../../../utils';
 import getGenreName from '../../../utils/getGenreName';
 import useObserver from '../../../hooks/useObserver';
 import Meta from '../../../components/Meta';
 import Loading from '../../../components/UI/Loading';
 import styles from '../../../styles/scroller.module.scss';
+import { tmdbFetch } from '../../../lib/tmdb/tmdb-fetch';
 
 import SortBy from './Filters/SortBy';
 import GenreFilter from './Filters/GenreFilter';
@@ -90,20 +90,17 @@ function Movie() {
     const getKey = () => {
       const params = genFilterParams(filters);
 
-      return `${TMDB_BASE_PATH}/${DISCOVER_MOVIES(type)}&${new URLSearchParams({
+      return `${DISCOVER_MOVIES(type)}&${new URLSearchParams({
         ...params,
         page: `${page}`,
-        api_key: TMDB_KEY,
       })}`;
     };
 
-    fetch(getKey(), { cache: 'force-cache' })
-      .then((res) => res.json())
-      .then((results) => {
-        setData((state) => ({ ...state, [page]: results.results }));
-        setTotalPages(results.total_pages);
-        setLoading(false);
-      });
+    tmdbFetch(getKey()).then((results) => {
+      setData((state) => ({ ...state, [page]: results.results }));
+      setTotalPages(results.total_pages);
+      setLoading(false);
+    });
   }, [page, data, filters, type, isLoading]);
 
   const results = useMemo(

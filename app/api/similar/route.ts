@@ -1,5 +1,5 @@
-import { TMDB_BASE_PATH, TMDB_KEY } from '../../../config';
 import { SIMILAR } from '../../../lib/tmdb/Urls';
+import { tmdbFetch } from '../../../lib/tmdb/tmdb-fetch';
 import { Content } from '../../../types/tmdb';
 import { catchAsync } from '../apiHandler';
 
@@ -27,24 +27,20 @@ export const GET = catchAsync(async (request) => {
 
   const urlGen = (page: number) =>
     lang === 'en'
-      ? `${TMDB_BASE_PATH}${SIMILAR(id, type, page)}&api_key=${TMDB_KEY}`
-      : `${TMDB_BASE_PATH}/discover/${type}/?with_original_language=${lang}&with_genres=${genres}&page=${page}&api_key=${TMDB_KEY}`;
+      ? `${SIMILAR(id, type, page)}`
+      : `/discover/${type}/?with_original_language=${lang}&with_genres=${genres}&page=${page}`;
 
   const promises = Array.from({ length: PAGES_TO_FETCH }, (_, i) =>
-    fetch(urlGen(i + 1))
+    tmdbFetch(urlGen(i + 1))
   );
 
   const promiseAllRes = await Promise.allSettled(promises);
 
-  const settled = await Promise.all(
-    promiseAllRes
-      .filter((res) => res.status === 'fulfilled')
-      .map((res: any) => res.value.json())
-  );
+  const settled = promiseAllRes.filter((res) => res.status === 'fulfilled');
 
   const results = [].concat(
     ...settled
-      .map((r) => r.results)
+      .map((r) => r.status === 'fulfilled' && r.value.results)
       .sort((chinki: any, minki: any) => minki.vote_count - chinki.vote_count)
   );
 

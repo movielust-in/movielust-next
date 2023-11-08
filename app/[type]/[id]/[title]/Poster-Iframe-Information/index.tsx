@@ -6,7 +6,7 @@ import {
   DetailResponse,
   MovieExternalIdsResponse,
 } from '../../../../../types/tmdb';
-import { fetchMagnetsfromYTSapi } from '../../../../../helpers/torrent';
+import { fetchMagnetsfromYTSapi } from '../../../../../lib/torrent';
 import { ImdbRating } from '../DetailTypes';
 import { fetchExternalIds } from '../../../../../lib/tmdb/external-ids';
 

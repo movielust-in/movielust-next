@@ -64,9 +64,7 @@ function WatchlistItem({
         </div>
         <p className={styles.Overview}>
           {' '}
-          {overview === ''
-            ? ''
-            : `${overview!.split(' ').splice(0, 25).join(' ')} ..`}
+          {overview ? `${overview?.split(' ').splice(0, 25).join(' ')} ..` : ''}
         </p>
         <Link href={detailLink(type, id, title)} className={styles.ViewButton}>
           View

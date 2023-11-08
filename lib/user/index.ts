@@ -1,5 +1,5 @@
-import { SHALLOW_DETAIL } from '../../lib/tmdb/Urls';
-import { TMDB_BASE_PATH, TMDB_KEY } from '../../config';
+import { SHALLOW_DETAIL } from '../tmdb/Urls';
+import { tmdbFetch } from '../tmdb/tmdb-fetch';
 
 export const fetchWatched = async () => {
   const res = await fetch('/api/user/recents', { cache: 'no-store' });
@@ -8,7 +8,7 @@ export const fetchWatched = async () => {
   const rawList = json.data.recents;
 
   if (rawList.length > 0) {
-    const allRes = await Promise.all(
+    let watchedList = await Promise.all(
       rawList.map(
         (content: {
           content_id: string;
@@ -18,17 +18,12 @@ export const fetchWatched = async () => {
         }) => {
           const url =
             content.type === 'movie'
-              ? `${TMDB_BASE_PATH}/${SHALLOW_DETAIL(
-                  content.content_id,
-                  'movie'
-                )}`
-              : `${TMDB_BASE_PATH}/tv/${content.content_id}/season/${content.season}/episode/${content.episode}?language=en-US&api_key=${TMDB_KEY}`;
-          return fetch(url, { cache: 'force-cache' });
+              ? `${SHALLOW_DETAIL(content.content_id, 'movie')}`
+              : `/tv/${content.content_id}/season/${content.season}/episode/${content.episode}?language=en-US`;
+          return tmdbFetch(url);
         }
       )
     );
-
-    let watchedList = await Promise.all(allRes.map((_res) => _res.json()));
 
     watchedList = watchedList.map((content, index) => {
       const zip = { ...content, media_type: rawList[index].type };

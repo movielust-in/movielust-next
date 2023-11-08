@@ -1,11 +1,11 @@
 import { getServerSession } from 'next-auth';
 
-import { SHALLOW_DETAIL } from '../../lib/tmdb/Urls';
-import dbConnect from '../../lib/databse';
+import { SHALLOW_DETAIL } from '../tmdb/Urls';
+import dbConnect from '../databse';
 import authOptions from '../../app/api/auth/[...nextauth]/authOptions';
 import { User } from '../../models/User';
-import { TMDB_BASE_PATH, TMDB_KEY } from '../../config';
 import { MovieResult, TvResult } from '../../types/tmdb';
+import { tmdbFetch } from '../tmdb/tmdb-fetch';
 
 const fetchWatchlist = async (): Promise<
   { content_id: string; type: string }[]
@@ -31,18 +31,10 @@ export const fetchContentOfWatchlist = async () => {
     const watchlist = await fetchWatchlist();
 
     const contentToFetch = watchlist.map((result) =>
-      fetch(
-        `${TMDB_BASE_PATH}/${SHALLOW_DETAIL(
-          result.content_id,
-          result.type
-        )}&api_key=${TMDB_KEY}`,
-        { cache: 'force-cache' }
-      )
+      tmdbFetch(`${SHALLOW_DETAIL(result.content_id, result.type)}`)
     );
 
-    const allRes = await Promise.all(contentToFetch);
-
-    const data = await Promise.all(allRes.map((res) => res.json()));
+    const data = await Promise.all(contentToFetch);
 
     const movie: MovieResult[] = [];
     const tv: TvResult[] = [];

@@ -1,4 +1,4 @@
-import { YTS_API_TORRENTS } from '../../lib/tmdb/Urls';
+import { YTS_API_TORRENTS } from '../tmdb/Urls';
 
 export const fetchMagnetsfromYTSapi = (
   imdb_id: string,

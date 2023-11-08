@@ -1,4 +1,4 @@
-import { TMDB_BASE_PATH } from '../../config';
+import { TMDB_BASE_PATH } from './constants';
 
 const TMDB_TOKEN = process.env.NEXT_PUBLIC_TMDB_TOKEN;
 

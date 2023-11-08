@@ -1,6 +1,5 @@
-import { TMDB_BASE_PATH, TMDB_KEY } from '../../../../config';
 import { SHALLOW_DETAIL } from '../../../../lib/tmdb/Urls';
-import { DetailResponse } from '../../../../types/tmdb';
+import { tmdbFetch } from '../../../../lib/tmdb/tmdb-fetch';
 import { catchAsync } from '../../apiHandler';
 
 /* eslint-disable import/prefer-default-export */
@@ -16,12 +15,7 @@ export const GET = catchAsync(async (request) => {
       { status: 400, headers: { 'Content-Type': 'application/json' } }
     );
 
-  const detailRes = await fetch(
-    `${TMDB_BASE_PATH}/${SHALLOW_DETAIL(id, type)}?api_key=${TMDB_KEY}`,
-    { cache: 'force-cache' }
-  );
-
-  const details: DetailResponse = await detailRes.json();
+  const details = await tmdbFetch(`${SHALLOW_DETAIL(id, type)}`);
 
   const pickedDetails = (({
     name,
@@ -38,12 +32,7 @@ export const GET = catchAsync(async (request) => {
     poster_path,
   }))(details);
 
-  const creditsRes = await fetch(
-    `${TMDB_BASE_PATH}/tv/${id}/aggregate_credits?api_key=${TMDB_KEY}`,
-    { cache: 'force-cache' }
-  );
-
-  const aggregateCredits = await creditsRes.json();
+  const aggregateCredits = await tmdbFetch(`/tv/${id}/aggregate_credits`);
 
   return Response.json({
     status: 'success',

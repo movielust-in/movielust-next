@@ -1,15 +1,9 @@
 import { useCallback, useState } from 'react';
-import { mutate } from 'swr';
 import styled from '@emotion/styled';
 import { FaAngleDoubleDown } from 'react-icons/fa';
 import { usePathname, useSearchParams, useRouter } from 'next/navigation';
 
-import {
-  SORT_OPTIONS,
-  TMDB_BASE_PATH,
-  TMDB_KEY,
-} from '../../../../lib/tmdb/constants';
-import { DISCOVER_MOVIES } from '../../../../lib/tmdb/Urls';
+import { SORT_OPTIONS } from '../../../../lib/tmdb/constants';
 
 // interface SortByProps {
 //   type: string;
@@ -31,9 +25,6 @@ function SortBy() {
       params.set('sortBy', option);
 
       router.push(`${pathname}?${params.toString()}`);
-      mutate(
-        `${TMDB_BASE_PATH}/${DISCOVER_MOVIES('movie')}&api_key=${TMDB_KEY}&`
-      );
     },
     [pathname, router, searchParams, selectedSortBy]
   );

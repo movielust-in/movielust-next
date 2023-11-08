@@ -5,8 +5,6 @@ export enum TYPE {
   TV = 'tv',
 }
 
-export const TMDB_KEY = '2a7d4498c790ee971ae3369d0327d57c';
-
 export const TMDB_BASE_PATH = 'https://api.themoviedb.org/3';
 
 export const SORT_OPTIONS = [

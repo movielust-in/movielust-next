@@ -2,7 +2,7 @@ import { SwiperSlide } from 'swiper/react';
 import Link from 'next/link';
 import useSWR from 'swr';
 
-import { fetchWatched } from '../../helpers/user';
+import { fetchWatched } from '../../lib/user';
 import WrapH from '../CarouselSlices/Wrap_Horizantal';
 import { detailLink } from '../../utils';
 import { detailLinkWithEpisode } from '../../utils/dashedTitle';

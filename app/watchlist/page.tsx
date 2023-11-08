@@ -1,6 +1,6 @@
 import { Metadata } from 'next';
 
-import { fetchContentOfWatchlist } from '../../helpers/user/watchlist';
+import { fetchContentOfWatchlist } from '../../lib/user/watchlist';
 
 import View from './view';
 

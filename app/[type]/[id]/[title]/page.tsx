@@ -5,11 +5,11 @@ import { Metadata } from 'next';
 
 import CastCarousel from '../../../../components/Carousels/CastCarousel';
 import ProductionCompanies from '../../../../components/Carousels/ProductionCompanies';
-import { FULL_MONTHS, TMDB_BASE_PATH, TMDB_KEY } from '../../../../config';
 import { image } from '../../../../lib/tmdb/Urls';
 import { ShowResponse, Video } from '../../../../types/tmdb';
 import MinutesToDuration from '../../../../utils/minutesToDuration';
 import { getContentDetails, getVideosByLanguage } from '../../../../lib/tmdb';
+import { FULL_MONTHS } from '../../../../constants';
 
 import SimilarMovies from './SimilarMovies';
 import BackgroundImage from './BackgroundImage';
@@ -145,12 +145,8 @@ export async function generateMetadata({
     notFound();
   }
 
-  const res = await fetch(
-    `${TMDB_BASE_PATH}/${type}/${id}?append_to_response=videos,credits&api_key=${TMDB_KEY}`,
-    { cache: 'force-cache' }
-  );
+  const data = await getContentDetails(id, type);
 
-  const data = await res.json();
   const metadata: Metadata = {
     title: data.title || data.name,
     description: data.overview,
@@ -182,7 +178,7 @@ export async function generateMetadata({
             image(300, data.backdrop_path),
           ]
         : [],
-      description: data.overview.slice(0, 200),
+      description: data?.overview?.slice(0, 200) || '',
     },
   };
 
