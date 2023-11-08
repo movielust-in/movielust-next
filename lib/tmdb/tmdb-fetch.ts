@@ -6,6 +6,12 @@ if (!TMDB_TOKEN) {
   throw new Error('NEXT_PUBLIC_TMDB_TOKEN not configured in env.');
 }
 
+/**
+ * "fetch" wrapper for TMDB API. Only Supports 'GET' method as only data fetching is intended.
+ * @param endPoint TMDB enpoint. Should start with "/".
+ * @param params Query Params to add in URL.
+ * @returns Promise that resolves to JSON data.
+ */
 export async function tmdbFetch<T = any>(
   endPoint: string,
   params?: Record<string, string>
