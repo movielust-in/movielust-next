@@ -3,7 +3,7 @@ import { useRouter, usePathname, useSearchParams } from 'next/navigation';
 import styled from '@emotion/styled';
 import { FaAngleDoubleDown } from 'react-icons/fa';
 
-import { MOVIE_GENRES, TV_GENRES } from '../../../../config';
+import { MOVIE_GENRES, TV_GENRES } from '../../../../lib/tmdb/constants';
 
 interface GenreFilterProps {
   type: string;

@@ -4,7 +4,11 @@ import styled from '@emotion/styled';
 import { FaAngleDoubleDown } from 'react-icons/fa';
 import { usePathname, useSearchParams, useRouter } from 'next/navigation';
 
-import { SORT_OPTIONS, TMDB_BASE_PATH, TMDB_KEY } from '../../../../config';
+import {
+  SORT_OPTIONS,
+  TMDB_BASE_PATH,
+  TMDB_KEY,
+} from '../../../../lib/tmdb/constants';
 import { DISCOVER_MOVIES } from '../../../../helpers/Urls';
 
 // interface SortByProps {

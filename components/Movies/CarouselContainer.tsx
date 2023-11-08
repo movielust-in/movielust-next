@@ -1,9 +1,9 @@
 import React, { memo, useEffect, useState } from 'react';
 
-import tmdbClient from '../../helpers/tmdbClient';
 import LoadingCarousel from '../Carousels/LoadingCarousel';
 import MovieCarousel from '../Carousels/MovieCarousel';
 import ShowAllButton from '../CarouselSlices/ShowAllButton';
+import { tmdbFetch } from '../../lib/tmdb/tmdb-fetch';
 
 import styles from './HomeMovies.module.scss';
 import { Carousel } from './HomeType';
@@ -14,7 +14,7 @@ const CarouselContainer = ({ url, title, showAll, type }: Carousel) => {
   useEffect(() => {
     if (!url) return;
     if (content && content.length) return;
-    tmdbClient.get(url).then((res) => setContent(res.data.results));
+    tmdbFetch(url).then((res) => setContent(res.results));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [url]);
 

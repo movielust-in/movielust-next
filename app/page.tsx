@@ -3,18 +3,17 @@ import { Metadata } from 'next';
 
 import Movies from '../components/Movies/HomeMovies';
 import HomeCarousel from '../components/Carousels/HomeCarousel';
-import { fetchTrending, fetchTrendingToday } from '../helpers/tmdb/trending';
-import {
-  fetchExternalIds,
-  fetchTRM,
-  fetchUpcomingMovies,
-} from '../helpers/tmdb/movies';
-import { fetchLatestSeries, fetchPopularSeries } from '../helpers/tmdb/series';
-import { HomeMovies } from '../types/apiResponses';
 import styles from '../styles/index.module.scss';
 import Meta from '../components/Meta';
 import { dashedTitle } from '../utils';
-import { getImdbRatingFromDB } from '../helpers/server-only/_imdb';
+import { fetchTrendingMovies } from '../lib/tmdb/movie/fetch-trending-movies';
+import { MovieResult } from '../types/tmdb';
+import {
+  fetchUpcomingMovies,
+  fetchTopRatedMovies,
+  fetchTrendingAll,
+} from '../lib/tmdb/movie';
+import { fetchPopularShows, fetchTrendingShows } from '../lib/tmdb/tv';
 
 async function Home() {
   const { trendingMovies, homeMovies } = await getData();
@@ -26,9 +25,9 @@ async function Home() {
     '@context': 'https://schema.org',
     '@type': 'ItemList',
     itemListElement: trendingMovies
-      .filter((content) => content.media_type === 'movie')
+      .filter((content: any) => content.media_type === 'movie')
       .slice(0, 10)
-      .map((movie, index) => ({
+      .map((movie: MovieResult, index: number) => ({
         '@type': 'ListItem',
         position: index + 1,
         item: {
@@ -73,42 +72,25 @@ async function Home() {
 
 export default Home;
 
-// SSR LOGIC
 async function getData() {
-  const movies = await fetchTrending();
-
-  if (!(movies && movies.results)) return {};
-
-  const externalIdsRes = await Promise.all(
-    movies.results.map((movie) => fetchExternalIds(movie.id!, 'movie'))
-  );
-
-  const imdbIds = externalIdsRes.map(
-    (externalId) => externalId.imdb_id as string
-  );
-
-  const ratingsRes = await getImdbRatingFromDB(imdbIds);
-  const ratings = ratingsRes.documents;
-
-  const trendingMovies = movies.results!.map((movie, index) => ({
-    ...movie,
-    imdb_rating:
-      ratings.find((rating) => rating.imdb_id === imdbIds[index])?.rating || 0,
-  }));
-
-  const homeMovies: HomeMovies = await Promise.all([
-    fetchTRM(),
+  const results = await Promise.all([
+    fetchTrendingMovies(),
+    fetchTopRatedMovies(),
     fetchUpcomingMovies(),
-    fetchPopularSeries(),
-    fetchLatestSeries(),
-    fetchTrendingToday(),
-  ]).then((results) => ({
-    TRM: results[0],
-    latestMovies: results[1],
-    popularSeries: results[2],
-    latestSeries: results[3],
-    trendingToday: results[4],
-  }));
+    fetchPopularShows(),
+    fetchTrendingShows(),
+    fetchTrendingAll(),
+  ]);
+
+  const trendingMovies: any = results[0];
+
+  const homeMovies = {
+    TRM: results[1],
+    latestMovies: results[2].results,
+    popularSeries: results[3],
+    latestSeries: results[4].results,
+    trendingToday: results[5].results,
+  };
 
   return { trendingMovies, homeMovies };
 }

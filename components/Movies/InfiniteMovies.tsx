@@ -1,16 +1,15 @@
 import React, { useMemo, useState } from 'react';
 
-import {
-  BOLLYWOOD,
-  GUJARATI,
-  movieWithGenre,
-  seriesWithGenre,
-  SOUTH,
-  TR_ANIME,
-} from '../../helpers/Urls';
 import LoadingCarousel from '../Carousels/LoadingCarousel';
 import useObserver from '../../hooks/useObserver';
-import { MOVIE_GENRES, TV_GENRES } from '../../config';
+import { MOVIE_GENRES, TV_GENRES } from '../../lib/tmdb/constants';
+import {
+  Bollywood_Movies,
+  Gujarati_Movies,
+  South_Movies,
+  movieWithGenre,
+} from '../../lib/tmdb/movie/urls';
+import { Top_Rated_Anime, seriesWithGenre } from '../../lib/tmdb/tv/urls';
 
 import styles from './HomeMovies.module.scss';
 import CarouselContainer from './CarouselContainer';
@@ -20,28 +19,28 @@ const FixCarousels: Carousel[] = [
   {
     id: 'anime',
     type: 'tv',
-    url: TR_ANIME,
+    url: Top_Rated_Anime,
     title: 'Top Rated Anime',
     showAll: 'tv/anime,',
   },
   {
     id: 'bollywood',
     type: 'movie',
-    url: BOLLYWOOD,
+    url: Bollywood_Movies,
     title: 'Bollywood Movies',
     showAll: 'movie/Bollywood',
   },
   {
     id: 'south',
     type: 'movie',
-    url: SOUTH,
+    url: South_Movies,
     title: 'South Indian Movies',
     showAll: 'movie/SouthIndian',
   },
   {
     id: 'gujarati',
     type: 'movie',
-    url: GUJARATI,
+    url: Gujarati_Movies,
     title: 'Gujarati Movies',
     showAll: 'movie/Gujarati',
   },

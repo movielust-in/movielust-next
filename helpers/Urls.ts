@@ -72,7 +72,7 @@ const GETALLTVCAST = (id: string | number, season: string | number) =>
 // -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 const movieWithGenre = (genreId: string | number) =>
-  `discover/movie?&with_genres=${genreId}`;
+  `/discover/movie?&with_genres=${genreId}`;
 
 const seriesWithGenre = (genreId: string | number) =>
   `discover/tv?&with_genres=${genreId}`;
