@@ -121,3 +121,16 @@
 .carousel {
   overflow: visible;
 }
+
+.slide {
+  max-width: 260px;
+  @media (max-width: 1320px) {
+    max-width: 200px;
+  }
+  @media (max-width: 920px) {
+    max-width: 120px;
+  }
+  @media (max-width: 724px) {
+    max-width: 150px;
+  }
+}

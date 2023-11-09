@@ -48,11 +48,9 @@ function Carousel({
       }}
     >
       {children}
-      {/* Prev Button */}
       <div className={`${styles.nav} ${styles.prev}`}>
         <FaAngleLeft />
       </div>
-      {/* Next Button */}
       <div className={`${styles.nav} ${styles.next}`}>
         <FaAngleRight />
       </div>

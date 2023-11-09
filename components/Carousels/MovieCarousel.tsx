@@ -46,7 +46,7 @@ function MovieCarousel({
               movies
                 .filter((movie) => movie?.poster_path !== null)
                 .map((movie) => (
-                  <SwiperSlide key={movie.id}>
+                  <SwiperSlide key={movie.id} className={styles.slide}>
                     <Link
                       prefetch={false}
                       href={detailLink(
