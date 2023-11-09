@@ -26,5 +26,6 @@ export function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ['/account', '/watchlist', '/api/user(=.|/|$)'],
+  // do not add pages routes middleware will fail
+  matcher: ['/api/user(=.|/|$)'],
 };

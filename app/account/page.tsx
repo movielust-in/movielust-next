@@ -2,12 +2,13 @@
 
 import { useEffect, useState } from 'react';
 import Image from 'next/image';
-import { useRouter } from 'next/navigation';
+import { redirect, useRouter } from 'next/navigation';
 import { FaEdit } from 'react-icons/fa';
 import { signOut, useSession } from 'next-auth/react';
 import Modal from 'react-modal';
 
 import modalStyles from '../../styles/avatar_modal.module.scss';
+import Loading from '../loading';
 
 import styles from './account.module.scss';
 
@@ -22,7 +23,13 @@ function Account() {
 
   const closeModal = () => setOpenAvatarModal(false);
 
-  const { data, update: updateSession } = useSession();
+  const { status, data, update: updateSession } = useSession();
+
+  useEffect(() => {
+    if (status === 'unauthenticated') {
+      redirect('/signin');
+    }
+  }, [status]);
 
   const user = data?.user;
 
@@ -71,6 +78,8 @@ function Account() {
       }
     }
   };
+
+  if (status === 'loading') return <Loading />;
 
   return (
     <div className={styles.Container}>
