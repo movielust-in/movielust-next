@@ -1,0 +1,131 @@
+.Container {
+  display: flex;
+  flex-direction: row;
+  font-family: 'Bariol', sans-serif;
+  border-radius: 15px;
+  box-shadow: 5px 3px 20px black;
+  margin: 15px 0 0 0;
+  backdrop-filter: blur(5px);
+  transform: translate3d(0, 0, 0);
+  transform: translateZ(0);
+
+  @media (max-width: 970px) {
+    flex-direction: column;
+  }
+}
+
+.SelectSeason {
+  background-color: rgba(1, 1, 1, 0.2);
+  color: white;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  margin: 8px 12px 0 12px;
+  padding: 6px;
+  backdrop-filter: blur(8px);
+  transform: translate(0);
+}
+
+.iframe_container {
+  width: 45%;
+  min-width: 45%;
+  iframe {
+    width: 100%;
+    border-radius: 8px 0 0 8px;
+    border: 0px;
+    height: auto;
+    aspect-ratio: 16 / 9;
+  }
+  @media (max-width: 970px) {
+    width: 100%;
+    iframe {
+      border-radius: 8px 8px 0 0;
+      width: 100%;
+    }
+  }
+  @media (max-width: 724px) {
+    width: 100%;
+    iframe {
+      height: 260px !important;
+      width: 100%;
+      border-radius: 8px 8px 0 0;
+    }
+  }
+}
+
+.SeasonTab {
+  align-items: center;
+  border-radius: 8px;
+  color: white;
+  cursor: pointer;
+  display: flex;
+  flex: 1 1 auto;
+  font-size: 15px;
+  height: 40px;
+  justify-content: center;
+  margin: 5px;
+  max-width: 100px;
+  padding: 8px;
+  transition: border 100ms ease;
+  transition: all 200ms ease;
+  width: 50px;
+
+  &:hover {
+    background: rgba(1, 1, 1, 0.9);
+    font-size: 15.3px;
+  }
+
+  &:active {
+    background: rgba(1, 1, 1, 1);
+    font-size: 14px;
+  }
+}
+
+.episode_section {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 0 20px;
+}
+
+.Episode {
+  background-color: rgba(0, 0, 0, 0.4);
+  border-radius: 8px;
+  color: #ffddcc;
+  font-size: 16px;
+  letter-spacing: 1px;
+  margin-top: 2px;
+  padding: 10px;
+  text-align: center;
+  transition: all 100ms ease-in;
+  z-index: 0;
+  margin: 4px;
+  backdrop-filter: blur(8px);
+  width: 80px;
+
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.5);
+    cursor: pointer;
+    font-size: 16.1px;
+  }
+  &:active {
+    background-color: rgba(0, 0, 0, 0.55);
+  }
+  @media (max-width: 724px) {
+    flex-direction: column;
+    font-size: 12px;
+    line-height: 2;
+    width: 40px;
+
+    &:hover {
+      font-size: 12px;
+    }
+  }
+  div {
+    margin-left: 90%;
+    position: absolute;
+  }
+}
+
+.Episode_active {
+  background-color: rgba(0, 0, 0, 1);
+  font-weight: bolder;
+}

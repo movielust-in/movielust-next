@@ -1,12 +1,14 @@
-import Link from 'next/link';
+'use client';
 
+import Link from 'next/link';
 import { SwiperSlide } from 'swiper/react';
+
 import Wrap from '../CarouselSlices/Wrap';
-import Carousel from './Carousel';
 import ShowAllButton from '../CarouselSlices/ShowAllButton';
 import { detailLink } from '../../utils';
-
 import styles from '../../styles/PeopleMovieCarousel.module.scss';
+
+import Carousel from './Carousel';
 
 interface PeopleMovieCarouselProps {
   movies: any[];
@@ -26,7 +28,7 @@ function PeopleMovieCarousel({
       <div className={styles.Title}>
         <h2>{title}</h2>
         {watchall ? (
-          <ShowAllButton link={`/peoplemovies/${watchall}`} label="See all" />
+          <ShowAllButton link={`/person-movies/${watchall}`} label="See all" />
         ) : null}
       </div>
     )}

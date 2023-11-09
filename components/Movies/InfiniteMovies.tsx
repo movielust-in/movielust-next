@@ -1,55 +1,54 @@
-import React, { useMemo } from 'react';
-import { Carousel } from './HomeType';
-import {
-  BOLLYWOOD,
-  GUJARATI,
-  movieWithGenre,
-  seriesWithGenre,
-  SOUTH,
-  TR_ANIME,
-} from '../../helpers/Urls';
-import CarouselContainer from './CarouselContainer';
-import { useDispatch, useSelector } from '../../redux/store';
+import React, { useMemo, useState } from 'react';
+
 import LoadingCarousel from '../Carousels/LoadingCarousel';
 import useObserver from '../../hooks/useObserver';
-import { nextPage } from '../../redux/reducers/infiniteHome.reducer';
+import { MOVIE_GENRES, TV_GENRES } from '../../lib/tmdb/constants';
+import {
+  Bollywood_Movies,
+  Gujarati_Movies,
+  South_Movies,
+  movieWithGenre,
+  seriesWithGenre,
+  Top_Rated_Anime,
+} from '../../lib/tmdb/Urls';
 
 import styles from './HomeMovies.module.scss';
-import { MOVIE_GENRES, TV_GENRES } from '../../config';
+import CarouselContainer from './CarouselContainer';
+import { Carousel } from './HomeType';
 
 const FixCarousels: Carousel[] = [
   {
     id: 'anime',
     type: 'tv',
-    url: TR_ANIME,
+    url: Top_Rated_Anime,
     title: 'Top Rated Anime',
     showAll: 'tv/anime,',
   },
   {
     id: 'bollywood',
     type: 'movie',
-    url: BOLLYWOOD,
+    url: Bollywood_Movies,
     title: 'Bollywood Movies',
     showAll: 'movie/Bollywood',
   },
   {
     id: 'south',
     type: 'movie',
-    url: SOUTH,
+    url: South_Movies,
     title: 'South Indian Movies',
     showAll: 'movie/SouthIndian',
   },
   {
     id: 'gujarati',
     type: 'movie',
-    url: GUJARATI,
+    url: Gujarati_Movies,
     title: 'Gujarati Movies',
     showAll: 'movie/Gujarati',
   },
 ];
 
 const InfiniteMovies = () => {
-  const { currPage } = useSelector((state) => state.home);
+  const [currPage, setCurrPage] = useState(1);
 
   const Carousels = useMemo(
     () => [
@@ -78,9 +77,7 @@ const InfiniteMovies = () => {
     []
   ) as Carousel[];
 
-  const dispatch = useDispatch();
-
-  const setTrigger = useObserver(() => dispatch(nextPage()), {
+  const setTrigger = useObserver(() => setCurrPage((page) => page + 1), {
     threshold: [0.25, 1],
   });
 

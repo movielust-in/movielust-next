@@ -1,5 +1,3 @@
-@use '../../styles/headerPadding';
-
 .Container {
   overflow: hidden;
 
@@ -17,8 +15,6 @@
     top: 0;
     z-index: -1;
   }
-
-  @include headerPadding.headerPadding;
 }
 
 .Contact {
@@ -27,7 +23,7 @@
   color: white;
   display: flex;
   height: 550px;
-  margin: 5% 20% 1%;
+  margin: 0 auto;
   text-align: center;
   width: 60vw;
 

@@ -1,12 +1,12 @@
-/* eslint-disable no-nested-ternary */
-/* eslint-disable @next/next/no-img-element */
-import { useState, useEffect, KeyboardEvent } from 'react';
+'use client';
 
+/* eslint-disable @next/next/no-img-element */
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import dynamic from 'next/dynamic';
-import { useRouter } from 'next/router';
-
+import { useSession } from 'next-auth/react';
+import { useParams, usePathname, useRouter } from 'next/navigation';
 import {
   MdPlaylistPlay as WatchlistIcon,
   MdLocalMovies as MoviesIcon,
@@ -16,10 +16,7 @@ import { FaHome as HomeIcon } from 'react-icons/fa';
 import { AiFillPlaySquare as SeriesIcon } from 'react-icons/ai';
 import { BiSearchAlt as SearchIcon } from 'react-icons/bi';
 
-import { useSelector } from '../../redux';
-
-import { useEventListener, useScroll } from '../../hooks';
-
+import { useScroll } from '../../hooks';
 import styles from '../../styles/header.module.scss';
 
 const Search = dynamic(() => import('../Search/Search'));
@@ -30,12 +27,19 @@ interface HeaderProps {
 
 function Header({ isOnline }: HeaderProps) {
   const router = useRouter();
+  const params = useParams();
+  const pathname = usePathname();
+  const [hash, setHash] = useState('');
 
-  const hash = router.asPath.split('#')[1];
+  const { data, status } = useSession();
+
+  const user = data?.user;
+
+  useEffect(() => {
+    setHash(window.location.hash.split('#')[1]);
+  }, [params]);
 
   const [searchView, setSearchView] = useState(false);
-
-  const user = useSelector((state) => state.user);
 
   const scrollValue = useScroll(200);
 
@@ -70,31 +74,22 @@ function Header({ isOnline }: HeaderProps) {
 
   const showSearch = () => {
     if (hash && hash.includes('search')) {
-      router.push(router.asPath.split('#')[0] + hash.replace('search', ''));
+      router.push(pathname + hash.replace('search', ''));
     } else if (hash && hash.includes('#')) {
-      router.push(`${`${router.asPath.split('#')[0]}#${hash}`}search`);
+      router.push(`${`${pathname}#${hash}`}search`);
     } else {
-      router.push(`${router.asPath.split('#')[0]}#search`);
+      router.push(`${pathname}#search`);
     }
   };
 
-  const slash = (e: KeyboardEvent) => e.key === '/' && showSearch();
-
-  useEventListener('keydown', slash);
+  const transparentOrGradient =
+    scroll >= 20 || (hash && hash.includes('search'))
+      ? styles.gradient
+      : styles.transparent;
 
   return (
     <>
-      <nav
-        className={`${styles.Navbar} ${
-          // eslint-disable-next-line no-nested-ternary
-          (!hash || (!hash.includes('search') && !hash.includes('player'))) &&
-          !router.pathname.includes('/play')
-            ? scroll <= 20
-              ? styles.transparent
-              : styles.gradient
-            : styles.gradient
-        }`}
-      >
+      <nav className={`${styles.Navbar} ${transparentOrGradient}`}>
         <LeftArrow className={styles.Back} onClick={() => router.back()} />
 
         <Link href="/" className={styles.LogoContainer}>
@@ -115,39 +110,21 @@ function Header({ isOnline }: HeaderProps) {
         <div className={styles.NavMenu}>
           <Link href="/">
             <HomeIcon />
-            <h1 className={styles.Title}>
-              {/* // active={router.pathname === "/"} */}
-              Home
-            </h1>
+            <h1 className={styles.Title}>Home</h1>
           </Link>
           <Link href="/watchlist">
             <WatchlistIcon />
-            <h1
-              className={styles.Title}
-              // active={router.pathname === "/watchlist"}
-            >
-              Watchlist
-            </h1>
+            <h1 className={styles.Title}>Watchlist</h1>
           </Link>
 
           <Link href="/discover/movies">
             <MoviesIcon />
-            <h1
-              className={styles.Title}
-              // active={router.pathname === "/discover/movies"}
-            >
-              Movies
-            </h1>
+            <h1 className={styles.Title}>Movies</h1>
           </Link>
 
           <Link href="/discover/shows">
             <SeriesIcon />
-            <h1
-              className={styles.Title}
-              // active={router.pathname === "/discover/series"}
-            >
-              Shows
-            </h1>
+            <h1 className={styles.Title}>Shows</h1>
           </Link>
         </div>
 
@@ -162,12 +139,12 @@ function Header({ isOnline }: HeaderProps) {
         </button>
 
         <div className={styles.StatusContainer}>
-          {user.isLoggedIn ? (
+          {status === 'authenticated' && user ? (
             <img
               className={styles.UserImg}
               alt="avatar"
               role="presentation"
-              src={user.avatar as string}
+              src={user.image as string}
               onClick={() => {
                 router.push('/account');
               }}
@@ -176,17 +153,28 @@ function Header({ isOnline }: HeaderProps) {
                 currentTarget.src = 'LoginImage.src';
               }}
             />
-          ) : (
+          ) : null}
+
+          {status === 'loading' ? (
+            <img
+              alt="loading"
+              src="/images/svgs/spinning-tail.svg"
+              height={20}
+              width={20}
+            />
+          ) : null}
+
+          {status === 'unauthenticated' ? (
             <button
               type="button"
               className={styles.LoginPrompt}
               onClick={() => {
-                router.push(`/signin?redirectto=${router.asPath}`);
+                router.push(`/signin?redirectto=${pathname}`);
               }}
             >
               LOGIN
             </button>
-          )}
+          ) : null}
         </div>
       </nav>
 

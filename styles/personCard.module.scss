@@ -33,6 +33,16 @@
   }
 }
 
+@mixin animate($animation, $duration, $method, $times) {
+  animation: $animation $duration $method $times;
+}
+
+@mixin keyframes($name) {
+  @keyframes #{$name} {
+    @content;
+  }
+}
+
 .Wrapper {
   position: relative;
   display: flex;
@@ -69,6 +79,28 @@
   @media (max-width: 1320px) {
     min-height: 130px;
   }
+
+  @include keyframes(popin) {
+    0% {
+      transform: scale(0.2);
+      opacity: 0;
+    }
+    75% {
+      transform: scale(1);
+      animation-timing-function: easeout;
+      opacity: 0.7;
+    }
+    100% {
+      transform: scale(1);
+      opacity: 1;
+    }
+  }
+
+  transform-orgin: center;
+  transition: all 3s ease-in-out;
+  animation-name: popin;
+  animation-duration: 0.5s;
+  animation-timing-function: easeout;
 }
 
 .Loading {

@@ -1,3 +1,5 @@
+'use client';
+
 /* eslint-disable no-nested-ternary */
 import { useEffect, useState } from 'react';
 import { Navigation, Autoplay } from 'swiper';
@@ -8,17 +10,13 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 // import { Loading } from '..';
 
 import Loading from '../UI/Loading';
-
-import { image } from '../../helpers/Urls';
-// import { CompaniesTopImages } from '../../helpers/tmdb/movies';
-
+import { image } from '../../lib/tmdb/Urls';
 import { MovieResult } from '../../types/tmdb';
 import { detailLink } from '../../utils';
-
 import styles from '../../styles/prodctuion_img_slider.module.scss';
 
 interface ProductionImageSliderPros {
-  data: [];
+  data: MovieResult[];
 }
 
 function ProductionImageSlider({ data }: ProductionImageSliderPros) {

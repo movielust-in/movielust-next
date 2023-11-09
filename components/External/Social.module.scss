@@ -1,0 +1,44 @@
+.Socials {
+    display: flex;
+    flex-direction: row;
+    margin-top: 0px;
+    width: 280px;
+  
+    div:first-of-type {
+      margin-left: 0;
+      padding-left: 0;
+    }
+  
+    img {
+      width: 30px;
+    }
+    @media (orientation: landscape) and (min-width: 600px) and (max-width: 896px) {
+      width: 250px;
+      img {
+        width: 25px;
+      }
+    }
+    @media (max-width: 724px) {
+      justify-content: space-between;
+      width: 100%;
+      margin-left: auto;
+      margin-right: auto;
+      img {
+        width: 25px;
+      }
+    }
+  }
+  
+  .WikiIcon {
+    transform: rotate(0deg);
+    &:hover {
+      transform: rotate(360deg);
+      transition: all 2000ms;
+    }
+    transition: all 1000ms;
+  }
+  
+  .SocialIcon {
+    padding: 0 15px;
+  }
+  

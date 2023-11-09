@@ -1,17 +1,19 @@
+'use client';
+
 import { useState } from 'react';
-import Image from "next/image";
+import Image from 'next/image';
 
 import styles from '../../styles/personCard.module.scss';
-
 import Shimmer from '../UI/Shimmer';
 
 interface WrapPros {
   src: string;
   title: string;
   alt: string;
+  role?: string;
 }
 
-function PersonCard({ title, src, alt }: WrapPros) {
+function PersonCard({ title, src, alt, role }: WrapPros) {
   const [loading, setLoading] = useState(true);
   // const [opacity, setOpacity] = useState(false);
   const [imgSrc, setImgSrc] = useState(src);
@@ -47,12 +49,18 @@ function PersonCard({ title, src, alt }: WrapPros) {
         onError={onError}
         loading="lazy"
         style={{
-          maxWidth: "100%",
-          height: "auto"
-        }} />
+          maxWidth: '100%',
+          height: 'auto',
+        }}
+      />
       {!loading && title && (
         <div className={styles.Information}>
-          {title && <h3 className={styles.Title}>{title}</h3>}
+          {title && (
+            <h3 className={styles.Title}>
+              {title}
+              {role ? <> as {role}</> : null}
+            </h3>
+          )}
         </div>
       )}
     </div>

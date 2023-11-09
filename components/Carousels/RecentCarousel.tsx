@@ -1,17 +1,14 @@
-import { useEffect, useRef } from 'react';
 import { SwiperSlide } from 'swiper/react';
 import Link from 'next/link';
+import useSWR from 'swr';
 
-import { useDispatch, useSelector } from '../../redux';
-
-import { fetchWatched } from '../../helpers/user';
-import Carousel from './Carousel';
+import { fetchRecents } from '../../lib/api/user/fetch-recents';
 import WrapH from '../CarouselSlices/Wrap_Horizantal';
-import { setRecents } from '../../redux/reducers/recent.reducer';
 import { detailLink } from '../../utils';
 import { detailLinkWithEpisode } from '../../utils/dashedTitle';
-
 import styles from '../../styles/recent_carousel.module.scss';
+
+import Carousel from './Carousel';
 
 const breakPoints = {
   1024: {
@@ -26,34 +23,19 @@ const breakPoints = {
 };
 
 function RecentCarousel() {
-  const recents = useSelector((state) => state.recents.content);
+  const { data, isLoading, error } = useSWR('/api/user/recents', fetchRecents);
 
-  const isStale = useSelector((state) => state.recents.stale);
+  if (isLoading || error) return null;
 
-  const isAuthenticated = useSelector((state) => state.user.isLoggedIn);
-
-  const dispatch = useDispatch();
-
-  const called = useRef(false);
-
-  useEffect(() => {
-    if (isStale && !called.current && isAuthenticated) {
-      called.current = true;
-      fetchWatched().then((res) => {
-        dispatch(setRecents(res));
-      });
-    }
-  }, [dispatch, isStale, isAuthenticated]);
-
-  return recents.length > 0 ? (
+  return data && data?.length > 0 ? (
     <div className={styles.container}>
       <h2>Recently viewed</h2>
       <Carousel carosel_id="recent_carosel" breakPoints={breakPoints}>
-        {recents.map((content: any) => (
+        {data.map((content: any) => (
           <SwiperSlide
             key={
               content.title ||
-              `${content.name} S${content.season_number} E${content.episode_number}`
+              `${content.show_name} - ${content.name} - S${content.season_number} E${content.episode_number}`
             }
           >
             <Link
@@ -63,23 +45,23 @@ function RecentCarousel() {
                   ? detailLink(content.media_type, content.id, content.title)
                   : detailLinkWithEpisode(
                       content.media_type,
-                      content.id,
-                      content.name,
+                      content.show_id,
+                      content.show_name,
                       content.season_number,
                       content.episode_number
                     )
               }
             >
-
               <WrapH
-                src={`https://image.tmdb.org/t/p/w300/${content.backdrop_path}`}
+                src={`https://image.tmdb.org/t/p/w300/${
+                  content.backdrop_path || content.still_path
+                }`}
                 alt={content.title || content.name || ''}
                 title={
                   content.title ||
-                  `${content.name} S${content.season_number} E${content.episode_number}`
+                  `${content.show_name} - S${content.season_number} E${content.episode_number} ${content.name} `
                 }
               />
-
             </Link>
           </SwiperSlide>
         ))}

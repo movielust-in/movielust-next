@@ -4,7 +4,6 @@ import { FaAngleLeft, FaAngleRight, FaExpand, FaTimes } from 'react-icons/fa';
 import ReactModal from 'react-modal';
 
 import Spinner from '../UI/Spinner';
-
 import {
   useEventListener,
   useLockBodyScroll,
@@ -16,13 +15,6 @@ interface PeopleModalProps {
   onClose: Function;
   at?: number;
 }
-
-PeopleModal.defaultProps = {
-  imagess: [
-    'https://image.tmdb.org/t/p/original/1953j0QEbtN17WFFTnJHIm6bn6I.jpg',
-  ],
-  at: 0,
-};
 
 const customStyles: ReactModal.Styles = {
   overlay: {
@@ -47,7 +39,13 @@ const customStyles: ReactModal.Styles = {
   },
 };
 
-function PeopleModal({ imagess, onClose, at }: PeopleModalProps) {
+function PeopleModal({
+  imagess = [
+    'https://image.tmdb.org/t/p/original/1953j0QEbtN17WFFTnJHIm6bn6I.jpg',
+  ],
+  onClose,
+  at = 0,
+}: PeopleModalProps) {
   useLockBodyScroll();
 
   const [index, setState] = useState(at || 0);

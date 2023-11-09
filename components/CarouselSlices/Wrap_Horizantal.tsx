@@ -1,7 +1,7 @@
 import { useState } from 'react';
-import NextImage from "next/image";
-import Shimmer from '../UI/Shimmer';
+import NextImage from 'next/image';
 
+import Shimmer from '../UI/Shimmer';
 import styles from '../../styles/hWrap.module.scss';
 
 interface WrapPros {
@@ -10,10 +10,6 @@ interface WrapPros {
   alt: string;
   rating?: number;
 }
-
-WrapH.defaultProps = {
-  rating: null,
-};
 
 function WrapH({ src, alt, title, rating }: WrapPros) {
   const [loading, setLoading] = useState(true);
@@ -43,9 +39,10 @@ function WrapH({ src, alt, title, rating }: WrapPros) {
         loading="lazy"
         unoptimized
         style={{
-          maxWidth: "100%",
-          height: "auto"
-        }} />
+          maxWidth: '100%',
+          height: 'auto',
+        }}
+      />
       {!loading && (rating || title) && (
         <div className={styles.Information}>
           {title && <h3 className={styles.WrapText}>{title}</h3>}

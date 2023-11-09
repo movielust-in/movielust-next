@@ -1,26 +1,21 @@
 /* eslint-disable @next/next/no-img-element */
-import { useEffect, useState, useRef, MutableRefObject } from "react";
-import styled from "@emotion/styled";
-import { keyframes } from "@emotion/react";
+import { useEffect, useState, useRef, MutableRefObject } from 'react';
+import styled from '@emotion/styled';
+import { keyframes } from '@emotion/react';
+import { useRouter } from 'next/router';
 
-import { useRouter } from "next/router";
-
-import { fetchDetails } from "../../helpers/tmdb";
-import { fetchAllTvCast } from "../../helpers/tmdb/series";
-
-// import { Loading, Scroller } from '..';
-
-import Loading from "../UI/Loading";
-import Scroller from "../UI/Scroller";
-
-import "../../styles/font.css";
-import { ShowResponse } from "../../types/tmdb";
+import Loading from '../UI/Loading';
+import Scroller from '../UI/Scroller';
+import { fetchCompleteShowCast } from '../../lib/tmdb/tv';
+import '../../styles/font.css';
+import { ShowResponse } from '../../types/tmdb';
+import { getContentDetails } from '../../lib/tmdb';
 
 function ShowAllCasts() {
   const location = useRouter();
   const backgroundRef = useRef<HTMLImageElement>();
-  const urlBreakdown = location.pathname.split("/");
-  const type = urlBreakdown[2];
+  const urlBreakdown = location.pathname.split('/');
+  const type = urlBreakdown[2] as 'movie' | 'tv';
   const id = urlBreakdown[3];
 
   const [isLoading, setIsLoading] = useState(true);
@@ -33,13 +28,13 @@ function ShowAllCasts() {
     const setSeries = (data: ShowResponse) => {
       const seasons = data.number_of_seasons;
 
-      fetchAllTvCast(id, seasons as number).then((fullCast) => {
+      fetchCompleteShowCast(id, seasons as number).then((fullCast) => {
         setTvCast(fullCast);
         document.title = `${title}- Movielust`;
         setIsLoading(false);
       });
     };
-    fetchDetails(id, type).then(({ data }) => {
+    getContentDetails(id, type).then((data) => {
       settitle(data.name);
 
       setBackdrop(data.backdrop_path);
@@ -61,7 +56,7 @@ function ShowAllCasts() {
               src={
                 backdrop
                   ? `https://image.tmdb.org/t/p/w1280/${backdrop}`
-                  : "/images/25559.webp"
+                  : '/images/25559.webp'
               }
             />
           </Background>
@@ -121,7 +116,7 @@ const Title = styled.h1`
   background: linear-gradient(to right, #c0c0c0 0%, #50595b 100%);
   background-clip: text;
   color: #e4e5e6;
-  font-family: "Rubik", sans-serif;
+  font-family: 'Rubik', sans-serif;
   font-size: 6rem;
   margin-bottom: 0.5em;
   position: relative;

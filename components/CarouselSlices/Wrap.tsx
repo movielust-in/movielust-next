@@ -1,9 +1,10 @@
-import Image from "next/image";
-import { MouseEventHandler, useState } from 'react';
-import { image } from '../../helpers/Urls';
+'use client';
 
+import Image from 'next/image';
+import { MouseEventHandler, SyntheticEvent, useState } from 'react';
+
+import { image } from '../../lib/tmdb/Urls';
 import { Genre } from '../../types/tmdb';
-
 import styles from '../../styles/Wrap.module.scss';
 
 interface WrapPros {
@@ -15,14 +16,6 @@ interface WrapPros {
   genres?: Genre[];
   showCard?: boolean;
 }
-
-Wrap.defaultProps = {
-  title: null,
-  description: null,
-  backdrop: null,
-  genres: [],
-  showCard: false,
-};
 
 enum Directions {
   LEFT = 'LEFT',
@@ -37,19 +30,15 @@ function Wrap({
   title,
   description,
   backdrop,
-  genres,
-  showCard,
+  genres = [],
+  showCard = false,
 }: WrapPros) {
-  const [imgSrc, setImgSrc] = useState(src);
-
-  const onError = () => {
-    setImgSrc('/images/placeholder-image.png');
-  };
-
   const [direction, setDirection] = useState({
     x: Directions.RIGHT,
     h: Directions.UP,
   });
+
+  if (!src) return null;
 
   const handleMouseOver: MouseEventHandler<HTMLDivElement> = (e) => {
     if (!showCard) return;
@@ -65,19 +54,16 @@ function Wrap({
     } else {
       setDirection((current) => ({ ...current, x: Directions.LEFT }));
     }
-
-    // if (!cardRef) return;
-
-    // if (cardDimens.y + cardDimens.height >= window.innerHeight) {
-    //   setDirection((current) => ({ ...current, h: Directions.UP }));
-    // } else if (cardDimens.y < 100)
-    //   setDirection((current) => ({ ...current, h: Directions.DOWN }));
-    // else {
-    //   setDirection((current) => ({ ...current, h: Directions.UP }));
-    // }
   };
 
-  return src ? (
+  const handleImageError = ({
+    currentTarget,
+  }: SyntheticEvent<HTMLImageElement, Event>) => {
+    currentTarget.onerror = null;
+    currentTarget.src = '/images/placeholder-image.png';
+  };
+
+  return (
     <div
       className={styles.wrapper}
       onMouseOver={handleMouseOver}
@@ -89,13 +75,12 @@ function Wrap({
         <Image
           className={styles.image}
           placeholder="blur"
-          src={imgSrc}
+          src={src}
           alt={alt || 'no alt'}
-          onError={onError}
+          onError={handleImageError}
           blurDataURL="/images/placeholder-image.png"
           unoptimized
           fill
-          style={{ borderRadius: '6px' }}
         />
       </div>
       {/* Hover Card */}
@@ -112,7 +97,6 @@ function Wrap({
           } ${
             direction.h === Directions.UP ? styles.card_top : styles.card_bottom
           }`}
-          // ref={setCardRef}
           onClick={(e) => {
             e.stopPropagation();
             e.preventDefault();
@@ -138,7 +122,7 @@ function Wrap({
         </div>
       ) : null}
     </div>
-  ) : null;
+  );
 }
 
 export default Wrap;

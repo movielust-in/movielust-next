@@ -1,0 +1,272 @@
+.Container {
+  //  = styled.div`
+  overflow: hidden;
+  user-select: none;
+}
+
+.Background {
+  //  = styled.div`
+  background: linear-gradient(#0c0e10, #446182);
+  height: 100%;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  div {
+    background: #0c0e10;
+    bottom: 0;
+    height: 25vh;
+    position: absolute;
+    width: 100%;
+    @media (max-width: 724px) {
+      /* height: 20vh; */
+    }
+  }
+}
+
+.Childcontainer {
+  //  = styled.div`
+  display: flex;
+  flex-direction: row;
+  height: 100vh;
+  justify-content: space-around;
+  margin: 0 auto;
+  padding-bottom: 25vh;
+  position: relative;
+  width: 85%;
+  @media (max-width: 724px) {
+    flex-direction: column;
+    padding-bottom: 0vh;
+  }
+}
+
+.LeftSection {
+  //  = styled.div`
+  position: relative;
+  width: 40%;
+  @media (max-width: 724px) {
+    width: 100%;
+    height: 40%;
+    position: absolute;
+    top: 0;
+  }
+}
+.Innercontent {
+  //  = styled.div`
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  @media (max-width: 724px) {
+    position: relative;
+    padding: 1rem 0;
+  }
+}
+.Heading {
+  //  = styled.h1`
+  font-size: 9em;
+  line-height: 1.3em;
+  margin: 2rem 0 0.5rem 0;
+  padding: 0;
+  text-align: center;
+  text-shadow: 0 0 1rem #fefefe;
+  @media (max-width: 724px) {
+    font-size: 7em;
+    line-height: 1.15;
+    margin: 0;
+  }
+}
+.Subheading {
+  //  = styled.div`
+  font-family: 'Bariol', sans-serif;
+  font-size: 1.2em;
+  letter-spacing: 0.7px;
+  line-height: 2rem;
+  margin: 0 auto;
+  max-width: 480px;
+  padding: 0 1rem;
+  text-align: center;
+  p {
+    font-size: 10px;
+  }
+  @media (max-width: 724px) {
+    font-size: 1rem;
+    line-height: 1.15;
+    max-width: 100%;
+    p {
+      font-size: 8px;
+    }
+  }
+}
+
+.Rightsection {
+  //  = styled.div`
+  position: relative;
+  width: 50%;
+  @media (max-width: 724px) {
+    height: 60%;
+    position: absolute;
+    bottom: 287px;
+  }
+
+  @media screen and (max-width: 600px) {
+    height: 60%;
+    position: absolute;
+    bottom: 220px;
+  }
+  @media screen and (max-width: 768px) {
+    /* bottom: 00px;         */
+    position: absolute;
+  }
+  @media screen and (max-width: 844px) {
+    position: absolute;
+    bottom: 265px;
+  }
+  @media screen and (max-width: 900px) {
+    bottom: 279px;
+  }
+  @media screen and (max-width: 1024px) {
+    /* margin-top: 400px; */
+  }
+  @media screen and (max-width: 1200px) {
+    /* margin-top: 300px; */
+  }
+}
+
+.Walk {
+  //  = styled.div`
+  animation: walkanim 1s infinite steps(7);
+  background-image: url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/4273/walk-sequence.svg');
+  background-repeat: no-repeat;
+  background-size: 800%;
+  display: inline-block;
+  height: 100%;
+  left: 0;
+  position: absolute;
+  width: 100%;
+  @keyframes walkanim {
+    to {
+      background-position: 100% 0;
+    }
+  }
+  @media (max-width: 724px) {
+    /* margin-top: 800px; */
+  }
+}
+
+.WalkContainer {
+  //  = styled.div`
+  animation: stroll 20s linear infinite;
+  display: inline-block;
+  margin-top: 16em;
+  overflow: hidden;
+  position: relative;
+  vertical-align: middle;
+  width: 20%;
+  @keyframes stroll {
+    from {
+      transform: translateX(-300%);
+    }
+    to {
+      transform: translateX(350%);
+    }
+  }
+
+  @media screen and (max-width: 600px) {
+    margin-bottom: 150px;
+  }
+  @media screen and (max-width: 768px) {
+    height: 10%;
+    margin-top: 17em;
+  }
+  @media screen and (max-width: 844px) {
+    margin-bottom: 53px;
+  }
+  @media screen and (max-width: 900px) {
+    margin-bottom: 32px;
+  }
+  @media screen and (max-width: 1024px) {
+    margin-top: 400px;
+  }
+  @media screen and (max-width: 1200px) {
+    margin-top: 300px;
+  }
+}
+.SVG {
+  //  = styled.svg`
+  bottom: 0;
+  max-height: 100%;
+  max-width: 100%;
+  padding-left: 1vh;
+  padding-top: 10vh;
+  position: absolute;
+  @media (max-width: 724px) {
+    padding: 0;
+  }
+}
+// No need to change
+.BenchLegs {
+  //  = styled.g`
+  fill: #0c0e10;
+}
+.TopBench {
+  //  = styled.g`
+  fill: #5b3e2b;
+  stroke: #0c0e10;
+  stroke-width: 1px;
+}
+.BottomBench {
+  //  = styled.g`
+  fill: #5b3e2b;
+  stroke: #0c0e10;
+  stroke-width: 1px;
+  path:nth-of-type(1) {
+    /* stylelint-disable-next-line function-no-unknown */
+    fill: darken(#5b3e2b, 7%);
+  }
+}
+// .Lamp {
+//   //  = styled.g`}
+// }
+.LampDetails {
+  //  = styled.path`
+  fill: #202425;
+}
+
+.LightGradient {
+  //  = styled.radialGradient`
+  stop {
+    stop-color: #ededed;
+  }
+}
+
+.Lampaccent {
+  //  = styled.path`
+  /* stylelint-disable-next-line function-no-unknown */
+  fill: lighten(#202425, 5%);
+}
+
+.LampLight {
+  //  = styled.circle`
+  fill: #efefef;
+}
+
+.Glow {
+  //  = styled.circle`
+  cursor: pointer;
+
+  @keyframes glow {
+    0% {
+      text-shadow: 0 0 1rem #fefefe;
+    }
+    50% {
+      text-shadow: 0 0 1.5rem #fefefe;
+    }
+    100% {
+      text-shadow: 0 0 1rem #fefefe;
+    }
+  }
+}
+.Lampbottom {
+  //  = styled.path`
+  fill: linear-gradient(#202425, #0c0e10);
+}

@@ -2,7 +2,6 @@
   --toastify-toast-min-height: 50px;
   --toastify-toast-max-height: 50px;
   --toastify-icon-color-error: rgba(255, 0, 0, 0.6);
-
   --header-height: 50px;
 }
 
@@ -121,7 +120,11 @@ a {
 }
 
 .layout__main {
-  min-height: 100vh;
+  min-height: 80vh;
+  padding-top: 55px;
+  @media (max-width: 870px) {
+    padding-top: 0;
+  }
 }
 
 @media (max-width: 724px) and (display-mode: standalone),
@@ -141,4 +144,24 @@ a {
   text-align: center;
   cursor: pointer;
   font-weight: bold;
+}
+
+.toast_asas {
+  margin: 0 0 10px 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 14px;
+  text-align: center;
+  border-radius: 6px;
+  letter-spacing: 0.4px;
+  background-color: #090c14;
+  font-family: Menlo, monospace;
+  background-image: linear-gradient(90deg, #090c14 0%, #031d30 79%);
+}
+
+.toastBody_asas {
+  letter-spacing: 0.4px;
 }

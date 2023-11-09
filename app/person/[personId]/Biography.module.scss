@@ -1,0 +1,29 @@
+.ShowFullBio {
+    //  styled.button`
+    background-color: transparent;
+    border: none;
+    color: lightblue;
+    cursor: pointer;
+    display: inline;
+}
+
+.Bio {
+    //  styled.div`
+    color: rgb(249, 249, 249);
+    flex-direction: column;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 18px;
+    line-height: 2;
+    margin-top: 10px;
+    max-width: 100%;
+    text-align: justify;
+    text-justify: inter-word;
+    @media (orientation: landscape) and (min-width: 600px) and (max-width: 896px) {
+      font-size: 18px;
+    }
+  
+    @media (max-width: 724px) {
+      margin-top: 25px;
+      font-size: 15px;
+    }
+  }

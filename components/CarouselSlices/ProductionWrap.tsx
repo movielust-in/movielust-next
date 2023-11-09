@@ -1,5 +1,7 @@
+'use client';
+
 import { useState } from 'react';
-import Image from "next/image";
+import Image from 'next/image';
 // import ColorThief from 'colorthief';
 
 // import Spinner from '../UI/Spinner';
@@ -13,8 +15,6 @@ interface ProductionWrapProps {
   alt: string;
 }
 
-// const [domColor, setDomColor] = useState([]);
-
 // const backgroundRef = useRef<HTMLImageElement>();
 
 function ProductionWrap({ src, alt }: ProductionWrapProps) {
@@ -25,7 +25,6 @@ function ProductionWrap({ src, alt }: ProductionWrapProps) {
   // const onLoad = () => {
   // setLoading(false);
   // setOpacity(true);
-  // setDomColor(colorThief.getColor(backgroundRef.current));
   // };
 
   const onError = () => {
@@ -52,9 +51,10 @@ function ProductionWrap({ src, alt }: ProductionWrapProps) {
         // opaque={opacity}
         onError={onError}
         style={{
-          maxWidth: "100%",
-          height: "auto"
-        }} />
+          maxWidth: '100%',
+          height: 'auto',
+        }}
+      />
     </div>
   ) : null;
 }

@@ -1,0 +1,10 @@
+.title {
+  font-family: 'Bariol', sans-serif;
+  font-size: 30px;
+  font-weight: 600;
+  margin: 40px;
+  @media (max-width: 724px) {
+    font-size: 20px;
+    margin: 30px;
+  }
+}

@@ -2,10 +2,10 @@ import { useMemo } from 'react';
 import Image from 'next/image';
 import { SwiperSlide } from 'swiper/react';
 
-import Carousel from './Carousel';
 import Shimmer from '../UI/Shimmer';
-
 import styles from '../../styles/carousel.module.scss';
+
+import Carousel from './Carousel';
 
 function LoadingCarousel({ title }: { title?: string }) {
   const shimmer = useMemo(() => Shimmer(150, 220), []);

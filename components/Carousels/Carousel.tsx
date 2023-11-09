@@ -8,26 +8,29 @@ import styles from '../../styles/carousel.module.scss';
 interface CaroselProps {
   children: ReactNode;
   carosel_id?: string;
-  breakPoints?: Record<number, Record<'slidesPerView', number>>;
+  breakPoints?: Record<number, Record<string, number>>;
 }
 
-Carousel.defaultProps = {
-  carosel_id: '',
-  breakPoints: {
-    1024: {
-      slidesPerView: 7,
-      as: 'sdasd',
-    },
-    464: {
-      slidesPerView: 7,
-    },
-    0: {
-      slidesPerView: 3,
-    },
+const defaultBreakpoints = {
+  1024: {
+    slidesPerView: 7,
+  },
+  724: {
+    slidesPerView: 6,
+  },
+  464: {
+    slidesPerView: 5,
+  },
+  0: {
+    slidesPerView: 3,
   },
 };
 
-function Carousel({ children, carosel_id, breakPoints }: CaroselProps) {
+function Carousel({
+  children,
+  carosel_id = '',
+  breakPoints = defaultBreakpoints,
+}: CaroselProps) {
   return (
     <Swiper
       freeMode
@@ -45,11 +48,9 @@ function Carousel({ children, carosel_id, breakPoints }: CaroselProps) {
       }}
     >
       {children}
-      {/* Prev Button */}
       <div className={`${styles.nav} ${styles.prev}`}>
         <FaAngleLeft />
       </div>
-      {/* Next Button */}
       <div className={`${styles.nav} ${styles.next}`}>
         <FaAngleRight />
       </div>

@@ -655,6 +655,10 @@ export interface TrendingRequest extends RequestParams {
   time_window: 'day' | 'week';
 }
 
+export interface TrendingMovieResponse extends PaginatedResponse {
+  results?: Array<MovieResult>;
+}
+
 export interface TrendingResponse extends PaginatedResponse {
   results?: Array<MovieResult | TvResult | PersonResult>;
 }
@@ -1610,5 +1614,5 @@ export interface AllResponse<T = any> {
 }
 
 export interface MixedResponse {
-  results?: Content[];
+  results?: MovieResult[];
 }

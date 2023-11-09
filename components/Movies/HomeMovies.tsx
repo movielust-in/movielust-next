@@ -1,34 +1,41 @@
+'use client';
+
 import React, { useState, memo } from 'react';
-
 import dynamic from 'next/dynamic';
+import { useSession } from 'next-auth/react';
 
-import { useSelector } from '../../redux';
 import MovieCarousel from '../Carousels/MovieCarousel';
 import ShowAllButton from '../CarouselSlices/ShowAllButton';
-
 import useObserver from '../../hooks/useObserver';
-
-import { HomeMovies } from '../../types/apiResponses';
+import { MovieResult, TvResult } from '../../types/tmdb';
 
 import styles from './HomeMovies.module.scss';
 
 const RecentCarousel = dynamic(() => import('../Carousels/RecentCarousel'));
 const InfiniteMovies = dynamic(() => import('./InfiniteMovies'));
 
+interface IHomeMovies {
+  TRM: MovieResult[];
+  latestMovies: MovieResult[];
+  popularSeries: TvResult[];
+  latestSeries: TvResult[];
+  trendingToday: MovieResult[];
+}
+
 interface MoviesProps {
-  movies: HomeMovies;
+  movies: IHomeMovies;
 }
 
 function Movies({ movies }: MoviesProps) {
-  const isAuthenticated = useSelector((state) => state.user.isLoggedIn);
-
   const [showInfinite, setShowInfinite] = useState(false);
 
   const observer = useObserver(() => setShowInfinite(true), { threshold: 0.1 });
 
+  const { status } = useSession();
+
   return (
     <div className={styles.Container}>
-      {isAuthenticated ? <RecentCarousel /> : null}
+      {status === 'authenticated' ? <RecentCarousel /> : null}
 
       <div className={styles.CarouselContainer} key="trending">
         <div className={styles.Title}>

@@ -1,0 +1,216 @@
+.Container {
+  //  styled.div`
+  display: flex;
+  flex-direction: row;
+  height: 100%;
+  margin-bottom: 51px;
+  margin-top: 30px;
+  min-height: 100%;
+  padding: 0 100px;
+
+  @media (max-width: 724px) {
+    flex-direction: column-reverse;
+    margin-top: 30px;
+    padding: 0 30px;
+  }
+
+  @media (max-width: 724px) and (display-mode: standalone),
+    (max-width: 870px) and (display-mode: standalone) {
+    margin-top: 65;
+  }
+}
+
+.LogOut {
+  //  styled.button`
+  background-color: rgba(120, 0, 0, 1);
+  border: none;
+  border-radius: 8px;
+  color: white;
+  cursor: pointer;
+  margin: 0 15px 10px 85%;
+  padding: 8px 20px;
+  &:hover {
+    background-color: rgba(250, 0, 0, 1);
+  }
+  @media (max-width: 870px) {
+    margin: 0 15px 10px 70%;
+  }
+  @media (max-width: 724px) {
+    padding: 8px 20px;
+    margin: 0 15px 10px 60%;
+  }
+}
+
+.DeletePrompt {
+  //  styled.h2`
+  color: white;
+  margin: 10px;
+  text-align: center;
+}
+
+.PromptButton {
+  //  styled.button`
+  border: 1px solid silver;
+  border-radius: 4px;
+  color: white;
+  cursor: pointer;
+  font-size: medium;
+  font-weight: bold;
+  margin: 10px;
+  padding: 10px 20px;
+}
+
+.Yes {
+  //  styled(PromptButton)`
+  background-color: rgba(255, 0, 0, 0.8);
+}
+
+.No {
+  //  styled(PromptButton)`
+  background-color: rgba(128, 128, 128, 0.8);
+}
+
+.IndexItem {
+  //  styled.div`
+  cursor: pointer;
+  font-size: 20px;
+  font-weight: bold;
+  padding: 10px;
+}
+
+.Index {
+  //  styled.div`
+  background-color: #090c14;
+  background-image: linear-gradient(315deg, #090c14 0%, #031d30 79%);
+  border: 2px solid silver;
+  border-radius: 22px;
+  display: flex;
+  flex: 1;
+  height: 40%;
+  justify-content: center;
+  max-width: 380px;
+  position: sticky;
+  top: 60px;
+  width: 300px;
+  ul {
+    width: 100%;
+    li {
+      h6 {
+        font-size: 20px;
+        font-weight: bold;
+        margin: 12px;
+      }
+
+      border-bottom: 1px solid silver;
+      text-align: center;
+    }
+    li:last-child {
+      border: none;
+    }
+  }
+  @media (max-width: 724px) {
+    margin-bottom: 10px;
+    width: 100%;
+    position: relative;
+    top: 0;
+    ul {
+      li {
+        &:last-child {
+          border-bottom: none;
+        }
+      }
+    }
+  }
+}
+
+.List {
+  //  styled.ul`
+  border-top: 0.1px solid rgba(192, 192, 192, 0.2);
+  list-style: none;
+  margin: 2px;
+  padding: 0;
+}
+.Info {
+  //  styled.div`
+  color: rgba(255, 0, 0, 1);
+  font-size: 12px;
+  padding: 10px;
+  text-align: center;
+}
+
+.Sadimg {
+  //  styled.img`
+  margin: 20px 0 0 0;
+  width: 80px;
+}
+
+.Information {
+  background-color: #090c14;
+  background-image: linear-gradient(315deg, #090c14 0%, #031d30 79%);
+  border: 2px solid silver;
+  border-radius: 20px;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  margin-left: 10px;
+
+  ul {
+    /* stylelint-disable-next-line no-descending-specificity */
+    li {
+      h6 {
+        font-size: 1rem;
+        font-weight: 300;
+        margin: 5px;
+        opacity: 0.6;
+      }
+      span {
+        display: inline-block;
+        font-size: 1.2rem;
+        font-weight: 400;
+        margin: 0px 10px;
+        opacity: 1;
+        transition: all 250ms;
+      }
+      border-bottom: 0.1px solid rgba(192, 192, 192, 0.2);
+
+      margin: 25px 5px;
+
+      &:last-child {
+        border-bottom: none;
+      }
+    }
+  }
+  @media (max-width: 724px) {
+    margin-left: 0;
+    margin-bottom: 20px;
+    div {
+      img {
+        width: 70px;
+        height: 70px;
+      }
+    }
+  }
+}
+
+.Edit {
+  background-color: rgba(1, 1, 1, 0.3);
+  border-radius: 100%;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  cursor: pointer;
+}
+
+.ProfilePicture {
+  align-items: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  border-radius: 50%;
+  position: relative;
+  display: inline-block;
+  height: 150px;
+  justify-content: center;
+  margin: 10px 30px;
+  transition: all 200ms ease;
+  width: 150px;
+}

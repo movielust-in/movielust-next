@@ -1,9 +1,10 @@
 import { useRouter } from 'next/router';
-import Wrap from '../CarouselSlices/Wrap';
-import Carousel from './Carousel';
-import { Person } from '../../types/tmdb';
 
+import Wrap from '../CarouselSlices/Wrap';
+import { Person } from '../../types/tmdb';
 import styles from '../../styles/people_carousel.module.scss';
+
+import Carousel from './Carousel';
 
 interface PeopleCrouselProps {
   data: Person[];

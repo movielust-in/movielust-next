@@ -1,6 +1,6 @@
 import { useState, useCallback, useRef } from 'react';
 import ReactModal from 'react-modal';
-import NextImage from "next/image";
+import NextImage from 'next/image';
 import styled from '@emotion/styled';
 import { FaAngleLeft, FaAngleRight, FaExpand, FaTimes } from 'react-icons/fa';
 
@@ -34,16 +34,15 @@ interface ModalProps {
   at?: number;
 }
 
-Modal.defaultProps = {
-  imagess: [
-    'https://image.tmdb.org/t/p/original/1953j0QEbtN17WFFTnJHIm6bn6I.jpg',
-  ],
-  at: 0,
-};
-
 // ReactModal.setAppElement("#root");
 
-function Modal({ imagess, onClose, at }: ModalProps) {
+function Modal({
+  imagess = [
+    'https://image.tmdb.org/t/p/original/1953j0QEbtN17WFFTnJHIm6bn6I.jpg',
+  ],
+  onClose,
+  at = 0,
+}: ModalProps) {
   const [index, setState] = useState(at || 0);
   const [loading, setLoading] = useState(true);
 
@@ -127,9 +126,10 @@ function Modal({ imagess, onClose, at }: ModalProps) {
               unoptimized
               alt="loading"
               style={{
-                maxWidth: "100%",
-                height: "auto"
-              }} />
+                maxWidth: '100%',
+                height: 'auto',
+              }}
+            />
           </Loader>
         )}
         <Image

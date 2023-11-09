@@ -1,10 +1,12 @@
-/* eslint-disable no-nested-ternary */
+'use client';
+
 import React from 'react';
-import StarRatings from 'react-star-ratings';
+// import StarRatings from 'react-star-ratings';
 import Link from 'next/link';
 import { Navigation, Autoplay } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { image } from '../../helpers/Urls';
+
+import { image } from '../../lib/tmdb/Urls';
 import { detailLink } from '../../utils';
 import { MovieResult } from '../../types/tmdb';
 import styles from '../../styles/HomeCarousel.module.scss';
@@ -43,23 +45,14 @@ function ImgSlider({
                   {movie.overview!.slice(0, 200)}.
                 </p>
 
-                {movie.vote_average ? (
-                  <StarRatings
-                    rating={movie.imdb_rating || movie.vote_average}
-                    numberOfStars={10}
-                    starRatedColor="gold"
-                    starEmptyColor="gray"
-                    starDimension="16px"
-                  />
-                ) : null}
-
                 {movie.imdb_rating ? (
                   <h5>
                     IMDB Rating :&nbsp;
-                    {movie.imdb_rating.toFixed(1)}
-                    /10
+                    {movie.imdb_rating.toFixed(1)} / 10
                   </h5>
-                ) : movie.vote_average ? (
+                ) : null}
+
+                {!movie.imdb_rating && movie.vote_average ? (
                   <h5>
                     TMDB Rating :&nbsp;
                     {movie.vote_average.toFixed(1)}

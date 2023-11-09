@@ -1,4 +1,5 @@
-/* eslint-disable no-nested-ternary */
+'use client';
+
 import {
   useState,
   useEffect,
@@ -8,21 +9,14 @@ import {
   MutableRefObject,
   useMemo,
 } from 'react';
-
 import Image from 'next/image';
-
-import { useRouter } from 'next/router';
-
+import { useRouter, usePathname } from 'next/navigation';
 import { FaArrowLeft } from 'react-icons/fa';
 
-import { image } from '../../helpers/Urls';
-
-import search from '../../helpers/tmdb/search';
-
+import { image } from '../../lib/tmdb/Urls';
+import search from '../../lib/tmdb/search';
 import { useLockBodyScroll } from '../../hooks';
-
 import { Content } from '../../types/tmdb';
-
 import { detailLink } from '../../utils';
 
 import styles from './search.module.scss';
@@ -35,7 +29,7 @@ const Titles = {
 
 let clearSearch: Function | null = null;
 
-function SaveDataToLocalStorage(data: any, cb: Function) {
+function saveDataToLocalStorage(data: any, cb: Function) {
   let a = [];
   a = JSON.parse(localStorage.getItem('Search') as string) || [];
   if (a.includes(data)) {
@@ -52,6 +46,7 @@ function Search({ show }: { show: boolean }) {
   const inputRef = useRef<HTMLInputElement>();
   const router = useRouter();
   const cLocation = useRef<string>();
+  const pathname = usePathname();
 
   const [loading, setLoading] = useState(false);
   const [searchQuery, setSearch] = useState('');
@@ -60,8 +55,9 @@ function Search({ show }: { show: boolean }) {
   const [people, setPeople] = useState<Content[]>();
 
   useEffect(() => {
-    [cLocation.current] = router.asPath.split('#');
-  }, [router]);
+    if (!pathname) return;
+    cLocation.current = pathname;
+  }, [pathname]);
 
   /// ///////////////////////////////////////////////////////////////////  Recent Search   //////////////////////////////////////////////////////////////////////////////////////////
   const parentRef = useRef<HTMLDivElement>();
@@ -382,21 +378,17 @@ function ResultSection({ data, type, weight, cb }: CardProps) {
               key={content.id}
               onClick={() => {
                 if (typeof clearSearch === 'function') clearSearch();
-                router.push(
-                  type === 'movie'
+                router.replace(
+                  type === 'movie' || type === 'tv'
                     ? detailLink(
-                        'movie',
+                        type,
                         parseInt(content.id, 10),
-                        content.title!
+                        content.title! || content.name!
                       )
-                    : type === 'tv'
-                    ? detailLink('tv', parseInt(content.id, 10), content.name!)
                     : `/person/${content.id}`
-                  // { replace: true }
                 );
 
-                if (type === 'movie') SaveDataToLocalStorage(content.title, cb);
-                else SaveDataToLocalStorage(content.name, cb);
+                saveDataToLocalStorage(content.title || content.name, cb);
               }}
             >
               {(type === 'person'

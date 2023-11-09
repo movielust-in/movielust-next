@@ -1,14 +1,16 @@
+'use client'
+
 import { memo, useMemo } from 'react';
-import { useRouter } from 'next/router';
+import Link from 'next/link'
+// import { useRouter } from 'next/router';
 import { SwiperSlide } from 'swiper/react';
 
-import Carousel from './Carousel';
 import PersonCard from '../CarouselSlices/PersonCard';
 import ShowAllButton from '../CarouselSlices/ShowAllButton';
-
 import { dashedTitle } from '../../utils';
-
 import styles from '../../styles/carousel.module.scss';
+
+import Carousel from './Carousel';
 
 interface CastCarouselProps {
   cast: any[];
@@ -18,11 +20,7 @@ interface CastCarouselProps {
   contentTitle?: string;
 }
 
-CastCarousel.defaultProps = {
-  id: null,
-  type: null,
-  contentTitle: '',
-};
+
 
 function CastCarousel({
   cast,
@@ -31,7 +29,7 @@ function CastCarousel({
   id,
   contentTitle,
 }: CastCarouselProps) {
-  const router = useRouter();
+  // const router = useRouter();
 
   const casts = useMemo(() => cast.slice(0, 20), [cast]);
 
@@ -41,7 +39,7 @@ function CastCarousel({
         <h2>{title}</h2>
         {id && contentTitle ? (
           <ShowAllButton
-            link={`/cast/${type}/${id}/${dashedTitle(contentTitle)}`}
+            link={`/cast/${type}/${id}/${dashedTitle(contentTitle||'')}`}
             label="See all cast"
           />
         ) : null}
@@ -55,9 +53,10 @@ function CastCarousel({
               id="cast_slider"
               key={member.id}
               onClick={() => {
-                router.push(`/person/${member.id}`);
+                
               }}
-            >
+            ><Link href={`/person/${member.id}`}>
+                
               {type === 'tv' ? (
                 <PersonCard
                   src={`https://image.tmdb.org/t/p/w780/${member.profile_path}`}
@@ -75,8 +74,9 @@ function CastCarousel({
                   title={`${member.name} ${
                     member.character ? ` as ${member.character}` : ''
                   }`}
-                />
-              )}
+                  />
+                  )}
+            </Link>
             </SwiperSlide>
           ))}
       </Carousel>

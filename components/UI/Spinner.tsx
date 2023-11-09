@@ -1,6 +1,12 @@
 import Image from 'next/image';
 
-function Spinner({ width, height }: { width?: number; height?: number }) {
+function Spinner({
+  width = 30,
+  height = 30,
+}: {
+  width?: number;
+  height?: number;
+}) {
   return (
     <Image
       alt="spinner"
@@ -17,8 +23,3 @@ function Spinner({ width, height }: { width?: number; height?: number }) {
 }
 
 export default Spinner;
-
-Spinner.defaultProps = {
-  width: 30,
-  height: 30,
-};
