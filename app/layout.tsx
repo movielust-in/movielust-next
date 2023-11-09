@@ -6,7 +6,7 @@ import Footer from '../components/UI/Footer';
 import Header from '../components/UI/Header';
 import ScrollTop from '../components/UI/ScrollTop';
 import AuthContext from '../context/AuthContext';
-
+import FooterTabs from '../components/UI/FooterTabs';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'react-toastify/dist/ReactToastify.css';
@@ -20,6 +20,7 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => (
         <Header isOnline />
         <main className="layout__main">{children}</main>
         <Footer />
+        <FooterTabs />
         <ScrollTop />
         <ToastContainer
           autoClose={2000}

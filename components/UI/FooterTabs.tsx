@@ -1,5 +1,7 @@
+'use client';
+
 import Link from 'next/link';
-import { useRouter } from 'next/router';
+import { useParams, usePathname, useRouter } from 'next/navigation';
 import {
   MdPlaylistPlay as WatchlistIcon,
   MdLocalMovies as MovieIcon,
@@ -7,13 +9,21 @@ import {
 import { FaHome as HomeIcon } from 'react-icons/fa';
 import { AiFillPlaySquare as SeriesIcon } from 'react-icons/ai';
 import { BiSearchAlt as SearchIcon } from 'react-icons/bi';
+import { useEffect, useState } from 'react';
 
 import styles from '../../styles/footerTabs.module.scss';
 
 function FooterTabs() {
   const router = useRouter();
 
-  const hash = router.asPath.split('#')[1];
+  const params = useParams();
+  const pathname = usePathname();
+
+  const [hash, setHash] = useState('');
+
+  useEffect(() => {
+    setHash(window.location.hash);
+  }, [params]);
 
   const showSearch = () => {
     if (hash && hash === '#search') {
@@ -27,25 +37,18 @@ function FooterTabs() {
     <div className={styles.Footer}>
       <div className={styles.Item}>
         <Link href="/">
-
-          <HomeIcon
-            size="22px"
-            color={router.pathname === '/' ? 'red' : 'white'}
-          />
+          <HomeIcon size="22px" color={pathname === '/' ? 'red' : 'white'} />
           <h5>Home</h5>
-
         </Link>
       </div>
       <div className={styles.Item}>
         <Link href="/watchlist">
-
           <WatchlistIcon
             size="22px"
-            color={router.pathname === '/watchlist' ? 'red' : 'white'}
+            color={pathname === '/watchlist' ? 'red' : 'white'}
           />
           {/* <Image src={WatchlistIcon} alt="Watchlist" /> */}
           <h5>Watchlist</h5>
-
         </Link>
       </div>
       <div className={styles.Item} role="presentation" onClick={showSearch}>
@@ -56,25 +59,21 @@ function FooterTabs() {
       </div>
       <div className={styles.Item}>
         <Link href="/discover/movies">
-
           <MovieIcon
             size="22px"
-            color={router.pathname === '/discover/movies' ? 'red' : 'white'}
+            color={pathname === '/discover/movies' ? 'red' : 'white'}
           />
           {/* <Image src={MovieIcon} alt="Movies" /> */}
           <h5>Movies</h5>
-
         </Link>
       </div>
       <div className={styles.Item}>
         <Link href="/discover/shows">
-
           <SeriesIcon
             size="21px"
-            color={router.pathname === '/discover/shows' ? 'red' : 'white'}
+            color={pathname === '/discover/shows' ? 'red' : 'white'}
           />
           <h5>Shows</h5>
-
         </Link>
       </div>
     </div>
