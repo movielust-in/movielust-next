@@ -23,6 +23,15 @@ export interface MovieTorrent extends YTSTorrent {
   magnet: string;
 }
 
+export interface MovieTorrentResponse {
+  status: 'success' | 'error';
+  message?: string;
+  data?: {
+    torrents: MovieTorrent[];
+  };
+  error?: any;
+}
+
 export interface YTSMovieResponse {
   status: string;
   status_message: string;

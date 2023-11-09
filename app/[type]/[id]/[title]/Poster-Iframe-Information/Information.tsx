@@ -11,7 +11,7 @@ import {
   DetailResponse,
   MovieExternalIdsResponse,
 } from '../../../../../types/tmdb';
-import { ImdbRating } from '../DetailTypes';
+import { ImdbRating } from '../../../../../types/api-responses';
 import styles from '../Detail.module.scss';
 import { nativeShare } from '../../../../../utils/share';
 import { MovieTorrent } from '../../../../../types/movie-torrents';

@@ -35,7 +35,8 @@ export const ANIME = (page: number) =>
 export const DETAIL = (id: string | number, type: string) =>
   `/${type}/${id}?append_to_response=videos,credits`;
 
-export const SHALLOW_DETAIL = (id: string, type: string) => `/${type}/${id}`;
+export const SHALLOW_DETAIL = (id: string | number, type: string) =>
+  `/${type}/${id}`;
 
 export const Aggregate_Credits = (
   id: string | number,

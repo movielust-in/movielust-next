@@ -2,7 +2,7 @@ import { SwiperSlide } from 'swiper/react';
 import Link from 'next/link';
 import useSWR from 'swr';
 
-import { fetchWatched } from '../../lib/user';
+import { fetchRecents } from '../../lib/api/user/fetch-recents';
 import WrapH from '../CarouselSlices/Wrap_Horizantal';
 import { detailLink } from '../../utils';
 import { detailLinkWithEpisode } from '../../utils/dashedTitle';
@@ -23,7 +23,7 @@ const breakPoints = {
 };
 
 function RecentCarousel() {
-  const { data, isLoading, error } = useSWR('/api/user/recents', fetchWatched);
+  const { data, isLoading, error } = useSWR('/api/user/recents', fetchRecents);
 
   if (isLoading || error) return null;
 

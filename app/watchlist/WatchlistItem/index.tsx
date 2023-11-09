@@ -5,6 +5,7 @@ import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 
 import { detailLink } from '../../../utils';
+import { removeFromWatchlist } from '../../../lib/api/user/watchlist';
 
 import styles from './contentItem.module.scss';
 
@@ -27,9 +28,7 @@ function WatchlistItem({
 
   const remove = async (_id: number, _type: string) => {
     try {
-      await fetch(`/api/user/watchlist?content_id=${_id}&type=${_type}`, {
-        method: 'DELETE',
-      });
+      await removeFromWatchlist(_id, _type as 'movie' | 'tv');
 
       refresh();
     } catch (err) {

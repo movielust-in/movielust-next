@@ -23,5 +23,5 @@ export const GET = catchAsync(async (request) => {
   imdbId = (imdbId as string).split(',');
 
   const data = await getImdbRatingFromDB(imdbId);
-  return Response.json(data.documents);
+  return Response.json({ status: 'success', data: data.documents });
 });

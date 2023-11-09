@@ -6,7 +6,7 @@ import {
   DetailResponse,
   MovieExternalIdsResponse,
 } from '../../../../../types/tmdb';
-import { ImdbRating } from '../DetailTypes';
+import { ImdbRating } from '../../../../../types/api-responses';
 
 interface Props {
   IMDBRating?: ImdbRating;

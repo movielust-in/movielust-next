@@ -6,10 +6,12 @@ import {
   DetailResponse,
   MovieExternalIdsResponse,
 } from '../../../../../types/tmdb';
-import { fetchMovieMagnets } from '../../../../../lib/torrent';
-import { ImdbRating } from '../DetailTypes';
+import { fetchMovieMagnets } from '../../../../../lib/api/torrent';
+import { ImdbRating } from '../../../../../types/api-responses';
 import { fetchExternalIds } from '../../../../../lib/tmdb/external-ids';
 import { MovieTorrent } from '../../../../../types/movie-torrents';
+import { fetchIMDBRating } from '../../../../../lib/api/imdb';
+import { addToRecents } from '../../../../../lib/api/user/recents';
 
 import InformationComponent from './Information';
 import PosterAndIframe from './PosterAndIframe';
@@ -31,42 +33,33 @@ const PosterIframeInfo = ({
 
   useEffect(() => {
     if (!imdbRating && contentData.imdb_id) {
-      fetch(`/api/imdb-rating/?imdbId=${contentData.imdb_id}`)
-        .then((res) => res.json())
-        .then((rating) => {
-          if (!rating?.length) return;
-          setImdbRating(rating[0]);
-        });
+      fetchIMDBRating(contentData.imdb_id).then((rating) => {
+        if (!rating?.data?.length) return;
+        setImdbRating(rating.data[0]);
+      });
     }
 
     fetchExternalIds(contentData.id!, type).then((externalIdsRes) =>
       setExternalIds(externalIdsRes)
     );
 
-    if (contentData.imdb_id)
+    if (contentData.imdb_id && type === 'movie')
       fetchMovieMagnets(contentData.imdb_id, contentData.id!).then((res) => {
-        setMagnets(res.data.torrents as MovieTorrent[]);
+        setMagnets(res?.data?.torrents);
       });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const addMovieToRecents = useCallback(async () => {
     try {
-      const body = JSON.stringify({
-        content_id: contentData.id,
-        type,
-      });
-      await fetch('/api/user/recents', {
-        method: 'PUT',
-        body,
-        headers: {
-          'Content-Type': 'application/json',
-        },
+      await addToRecents({
+        content_id: contentData.id!,
+        type: 'movie',
       });
     } catch {
       // do nothing
     }
-  }, [contentData.id, type]);
+  }, [contentData.id]);
 
   const onTogglePlayer = () => {
     setIframeLoading(true);

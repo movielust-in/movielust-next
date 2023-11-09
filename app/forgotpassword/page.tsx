@@ -8,7 +8,8 @@ import { useRouter } from 'next/navigation';
 
 import Form from '../../components/Form/Form';
 import Validate from '../../components/Form/Validation';
-import { OTP_TYPE } from '../../constants';
+import { OTP_TYPES } from '../../constants';
+import { resetUserPassword, sendOTP, verifyOTP } from '../../lib/api/auth';
 
 const FORM_NAME = 'Reset Password';
 const OTP_HEADER = 'Enter OTP';
@@ -32,15 +33,8 @@ function ResetPass() {
     }
 
     // verifyOtp(email, otp, 'resetpassword')
-    fetch('/api/auth/verify-otp', {
-      method: 'PUT',
-      body: JSON.stringify({ email, otp, otp_type: OTP_TYPE[1] }),
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    })
-      .then((res) => res.json())
-      .then((res: any) => {
+    verifyOTP({ email, otp, otp_type: OTP_TYPES[1] })
+      .then((res) => {
         if (res.status === 'success') {
           toast('Verified', {
             hideProgressBar: true,
@@ -73,13 +67,7 @@ function ResetPass() {
     try {
       setSubmitting(true);
       setEmail(values.email);
-      await fetch('/api/auth/send-otp', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ email: values.email, otp_type: OTP_TYPE[1] }),
-      });
+      await sendOTP({ email: values.email, otp_type: OTP_TYPES[1] });
       setStep(stepTwo);
     } catch (err: any) {
       toast(err.data.message || 'Something went wrong');
@@ -149,19 +137,13 @@ function ResetPass() {
     if (values.password !== values.cnfPassword) {
       toast('Password does not match!');
     } else {
-      fetch('/api/auth/reset-password', {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          email: values.email,
-          otp: otpRef.current,
-          password: values.password,
-          otp_type: OTP_TYPE[1],
-        }),
+      if (!otpRef.current) return;
+      resetUserPassword({
+        email: values.email,
+        otp: otpRef.current,
+        password: values.password,
+        otp_type: OTP_TYPES[1],
       })
-        .then((res) => res.json())
         .then((res: any) => {
           if (res.status === 'success') {
             toast('Password Updated!');

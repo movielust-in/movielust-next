@@ -1,4 +1,8 @@
-import { Cast as CastType, Genre, ProductionCompany } from '../../../../types/tmdb';
+import {
+  Cast as CastType,
+  Genre,
+  ProductionCompany,
+} from '../../../../types/tmdb';
 
 export interface CommonData {
   id: string | number;
@@ -14,10 +18,4 @@ export interface CommonData {
   genreString?: string;
   original_language?: string;
   imdbId?: string;
-}
-
-export interface ImdbRating {
-  rating: number;
-  vote_count: number;
-  imdb_id: string;
 }

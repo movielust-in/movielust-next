@@ -7,7 +7,8 @@ import { useRouter } from 'next/navigation';
 
 import Form from '../../components/Form/Form';
 import Validate from '../../components/Form/Validation';
-import { OTP_TYPE } from '../../constants';
+import { OTP_TYPES } from '../../constants';
+import { registerUser, sendOTP } from '../../lib/api/auth';
 
 interface StepOneDataInterface {
   email: string;
@@ -57,20 +58,11 @@ function SignUp() {
         password: values.password,
       };
 
-      const otpRes = await fetch('/api/auth/send-otp', {
-        method: 'POST',
-        cache: 'no-store',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          name: values.name,
-          email: values.email,
-          otp_type: OTP_TYPE[0],
-        }),
+      const otpData = await sendOTP({
+        name: values.name,
+        email: values.email,
+        otp_type: OTP_TYPES[0],
       });
-
-      const otpData = await otpRes.json();
 
       if (otpData.status !== 'success') {
         toast(otpData.message);
@@ -96,22 +88,15 @@ function SignUp() {
 
       try {
         if (stepOneData.current) {
-          const res = await fetch(`/api/auth/register`, {
-            method: 'POST',
-            cache: 'no-store',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-              name: stepOneData.current.name,
-              email: stepOneData.current.email,
-              image: ProfilePicture,
-              password: stepOneData.current.password,
-              otp: Number(otpRef.current),
-            }),
+          const res = await registerUser({
+            name: stepOneData.current.name,
+            email: stepOneData.current.email,
+            image: ProfilePicture,
+            password: stepOneData.current.password,
+            otp: Number(otpRef.current),
           });
 
-          const { status, message } = await res.json();
+          const { status, message } = res;
 
           if (status === 'success') {
             toast('Account Created');

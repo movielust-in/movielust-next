@@ -6,6 +6,10 @@ import { useCallback, useEffect, useState } from 'react';
 
 import styles from '../Detail.module.scss';
 import { DetailResponse } from '../../../../../types/tmdb';
+import {
+  addtoWatchlist,
+  checkPresenceInWatchlist,
+} from '../../../../../lib/api/user/watchlist';
 
 interface Props {
   contentData: DetailResponse;
@@ -24,20 +28,10 @@ const WatchlistButton = ({ contentData, type }: Props) => {
       autoClose: false,
     });
     try {
-      const body = JSON.stringify({
-        content_id: contentData.id,
+      const res = await addtoWatchlist({
+        content_id: contentData.id!,
         type,
-      });
-
-      const addRes = await fetch('/api/user/watchlist', {
-        method: 'POST',
-        body,
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      });
-
-      const res = await addRes.json();
+      } as { content_id: number; type: 'movie' | 'tv' });
 
       setPresentInWatchlist('present');
 
@@ -59,10 +53,7 @@ const WatchlistButton = ({ contentData, type }: Props) => {
 
   useEffect(() => {
     if (status !== 'authenticated' || presentInWatchlist !== 'loading') return;
-    fetch(
-      `/api/user/watchlist/check-presence?content_id=${contentData.id}&type=${type}`
-    )
-      .then((res) => res.json())
+    checkPresenceInWatchlist(contentData.id!, type as 'movie' | 'tv')
       .then((res) =>
         setPresentInWatchlist(res.data.present ? 'present' : 'absent')
       )

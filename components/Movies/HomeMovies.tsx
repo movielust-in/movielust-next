@@ -7,15 +7,23 @@ import { useSession } from 'next-auth/react';
 import MovieCarousel from '../Carousels/MovieCarousel';
 import ShowAllButton from '../CarouselSlices/ShowAllButton';
 import useObserver from '../../hooks/useObserver';
-import { HomeMovies } from '../../types/apiResponses';
+import { MovieResult, TvResult } from '../../types/tmdb';
 
 import styles from './HomeMovies.module.scss';
 
 const RecentCarousel = dynamic(() => import('../Carousels/RecentCarousel'));
 const InfiniteMovies = dynamic(() => import('./InfiniteMovies'));
 
+interface IHomeMovies {
+  TRM: MovieResult[];
+  latestMovies: MovieResult[];
+  popularSeries: TvResult[];
+  latestSeries: TvResult[];
+  trendingToday: MovieResult[];
+}
+
 interface MoviesProps {
-  movies: HomeMovies;
+  movies: IHomeMovies;
 }
 
 function Movies({ movies }: MoviesProps) {

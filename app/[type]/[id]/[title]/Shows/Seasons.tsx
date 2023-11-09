@@ -13,6 +13,7 @@ import Spinner from '../../../../../components/UI/Spinner';
 import { fetchSeason } from '../../../../../lib/tmdb/tv';
 import { TWO_EMBED } from '../../../../../config';
 import { TvSeasonResponse } from '../../../../../types/tmdb';
+import { addToRecents } from '../../../../../lib/api/user/recents';
 
 import styles from './seasons.module.scss';
 
@@ -69,16 +70,12 @@ function Seasons({ id, title, totalSeasons }: SeasonsProps) {
 
   useEffect(() => {
     if (id && season && showEpisode && title)
-      fetch('/api/user/recents', {
-        method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          name: title,
-          content_id: id,
-          type: 'tv',
-          season,
-          episode: showEpisode,
-        }),
+      addToRecents({
+        name: title,
+        content_id: id,
+        type: 'tv',
+        season,
+        episode: showEpisode,
       });
   }, [id, season, showEpisode, title]);
 
