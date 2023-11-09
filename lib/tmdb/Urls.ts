@@ -72,7 +72,7 @@ export const DISCOVER = (
 };
 
 export const DISCOVER_MOVIES = (type: string) =>
-  `/discover/${type}/?language=en-US`;
+  `/discover/${type}?language=en-US`;
 
 // eslint-disable-next-line no-underscore-dangle
 export const Discover_Movies = `/discover/movie`;
