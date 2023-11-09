@@ -15,6 +15,8 @@ const validationSchema = z
   })
   .required();
 
+export const dynamic = 'force-dynamic';
+
 export const GET = catchAsync(
   async (request) => {
     try {
