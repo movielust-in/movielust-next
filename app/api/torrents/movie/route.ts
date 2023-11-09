@@ -15,6 +15,8 @@ const validationSchema = z
   })
   .required();
 
+export const dynamic = 'force-dynamic';
+
 export const GET = catchAsync(
   async (request) => {
     try {
@@ -41,7 +43,11 @@ export const GET = catchAsync(
 
       if (!res.ok) {
         return Response.json(
-          { status: 'error', message: res.statusText || '' },
+          {
+            status: 'error',
+            message: res.statusText || '',
+            error: 'YTS Error',
+          },
           { status: res.status }
         );
       }
@@ -57,6 +63,8 @@ export const GET = catchAsync(
           {
             status: 'error',
             message: 'Not found!',
+            error: 'Empty',
+            data: { torrents: [] },
           },
           { status: 404 }
         );
@@ -92,6 +100,7 @@ export const GET = catchAsync(
         {
           status: 'error',
           message: 'Not found!',
+          error: err instanceof Error ? err?.message : '',
         },
         { status: 404 }
       );
