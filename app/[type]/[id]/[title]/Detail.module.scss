@@ -228,6 +228,18 @@
       padding: 10px 6px;
     }
   }
+
+  .magnet_tooltip {
+    background-color: rgba(10, 10, 10, 0.5);
+    padding: 5px 10px;
+    display: flex;
+    gap: 10;
+    flex-direction: column;
+  }
+
+  .magnet_tooltip_arrow {
+    display: none;
+  }
 }
 
 .Controls {

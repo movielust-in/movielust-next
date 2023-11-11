@@ -1,0 +1,17 @@
+$card-width: 300px;
+$card-height: 200px;
+
+.movie_card_hover_tooltip_container {
+  .tooltip {
+    width: $card-width;
+    max-height: $card-height;
+    background-color: red;
+    border-radius: 8px;
+    z-index: 9999999999;
+    cursor: default;
+    padding: 0;
+    @media (max-width: 724px) {
+      display: none;
+    }
+  }
+}
