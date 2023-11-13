@@ -19,6 +19,7 @@ import { MovieTorrent } from '../../../../../types/movie-torrents';
 import WatchlistButton from './WatchlistButton';
 import Ratings from './Ratings';
 import PlayButton from './PlayButton';
+import MagnetTooltip from './Magnet-Tooltip';
 
 interface InformationComponentProps {
   purpose?: string;
@@ -123,9 +124,15 @@ export default function InformationComponent({
 
       {type === 'movie' && magnets?.length ? (
         <div className={styles.ContentOptions}>
+          <MagnetTooltip />
           <FaDownload />
           {magnets!.map((magnet) => (
-            <div key={magnet.magnet}>
+            <div
+              key={magnet.magnet}
+              data-tooltip-id="magnet_tooltip"
+              data-tooltip-content={magnet.magnet}
+              data-tooltip-html={`<span>Seeds:  ${magnet.seeds}<br/>Peers:  ${magnet.peers}<br/>Channel:  ${magnet.audio_channels}<br/>Codec: ${magnet.video_codec}</span>`}
+            >
               <a href={magnet.magnet} download>
                 {magnet.quality}
                 &nbsp;(

@@ -8,6 +8,7 @@ import MovieCarousel from '../Carousels/MovieCarousel';
 import ShowAllButton from '../CarouselSlices/ShowAllButton';
 import useObserver from '../../hooks/useObserver';
 import { MovieResult, TvResult } from '../../types/tmdb';
+import Tooltip from '../Movie-Card-Tooltip/CardTooltip';
 
 import styles from './HomeMovies.module.scss';
 
@@ -35,6 +36,8 @@ function Movies({ movies }: MoviesProps) {
 
   return (
     <div className={styles.Container}>
+      <Tooltip />
+
       {status === 'authenticated' ? <RecentCarousel /> : null}
 
       <div className={styles.CarouselContainer} key="trending">
