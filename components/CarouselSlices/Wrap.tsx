@@ -42,7 +42,11 @@ function Wrap({
       data-tooltip-content={title}
       data-backdrop={backdrop}
       data-title={title}
-      data-description={description}
+      data-description={
+        description && description?.length > 200
+          ? `${description?.slice(0, 197)}...`
+          : description
+      }
       data-genres={genres?.map((g) => g.name).join(',')}
       data-tooltip-float
     >
@@ -50,10 +54,11 @@ function Wrap({
         <Image
           className={styles.image}
           placeholder="blur"
+          loading="lazy"
           src={src}
           alt={alt || 'no alt'}
           onError={handleImageError}
-          blurDataURL="/images/placeholder-image.png"
+          blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mPU0uKsBwABwQDepPdFVAAAAABJRU5ErkJggg==)"
           unoptimized
           fill
         />

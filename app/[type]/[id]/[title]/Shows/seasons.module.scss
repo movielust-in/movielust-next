@@ -1,13 +1,13 @@
 .Container {
   display: flex;
   flex-direction: row;
-  font-family: 'Bariol', sans-serif;
+  // font-family: 'Bariol', sans-serif;
   border-radius: 15px;
   box-shadow: 5px 3px 20px black;
   margin: 15px 0 0 0;
-  backdrop-filter: blur(5px);
-  transform: translate3d(0, 0, 0);
-  transform: translateZ(0);
+  // backdrop-filter: blur(5px);
+  // transform: translate3d(0, 0, 0);
+  // transform: translateZ(0);
 
   @media (max-width: 970px) {
     flex-direction: column;
@@ -21,8 +21,8 @@
   border-radius: 4px;
   margin: 8px 12px 0 12px;
   padding: 6px;
-  backdrop-filter: blur(8px);
-  transform: translate(0);
+  // backdrop-filter: blur(8px);
+  // transform: translate(0);
 }
 
 .iframe_container {
@@ -98,7 +98,7 @@
   transition: all 100ms ease-in;
   z-index: 0;
   margin: 4px;
-  backdrop-filter: blur(8px);
+  // backdrop-filter: blur(8px);
   width: 80px;
 
   &:hover {

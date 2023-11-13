@@ -18,6 +18,8 @@ import { BiSearchAlt as SearchIcon } from 'react-icons/bi';
 
 import { useScroll } from '../../hooks';
 import styles from '../../styles/header.module.scss';
+import { Bariol } from '../../fonts/Bariol';
+import Logo from '../../assets/images/header_logo.webp';
 
 const Search = dynamic(() => import('../Search/Search'));
 
@@ -89,21 +91,18 @@ function Header({ isOnline }: HeaderProps) {
 
   return (
     <>
-      <nav className={`${styles.Navbar} ${transparentOrGradient}`}>
+      <nav
+        className={`${styles.Navbar} ${transparentOrGradient} ${Bariol.className}`}
+      >
         <LeftArrow className={styles.Back} onClick={() => router.back()} />
 
         <Link prefetch={false} href="/" className={styles.LogoContainer}>
           <Image
+            src={Logo}
             width={50}
-            height={50}
-            src="https://ik.imagekit.io/movielust/logo_uIeABdFs3.webp"
             alt="Movielust Logo"
             unoptimized
             className={styles.Logo}
-            style={{
-              maxWidth: '100%',
-              height: 'auto',
-            }}
           />
         </Link>
 

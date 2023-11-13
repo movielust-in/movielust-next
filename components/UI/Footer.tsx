@@ -1,10 +1,11 @@
 import Link from 'next/link';
 
 import styles from '../../styles/footer.module.scss';
+import { Bariol } from '../../fonts/Bariol';
 
 async function Footer() {
   return (
-    <div className={styles.Container}>
+    <div className={`${styles.Container} ${Bariol.className}`}>
       <Link prefetch={false} href="/">
         <div className={styles.TitleBar}>
           <h1 className={styles.Title}> Movielust </h1>

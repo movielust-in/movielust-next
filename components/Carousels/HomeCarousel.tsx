@@ -63,16 +63,24 @@ function ImgSlider({
 
               <picture>
                 <source
-                  media="(max-width:1280px)"
-                  srcSet={image(1280, movie.backdrop_path)}
+                  media="(max-width:300px)"
+                  srcSet={image(300, movie.backdrop_path)}
+                />
+                <source
+                  media="(max-width:400px)"
+                  srcSet={image(400, movie.backdrop_path)}
+                />
+                <source
+                  media="(max-width:500px)"
+                  srcSet={image(500, movie.backdrop_path)}
                 />
                 <source
                   media="(max-width:780px)"
                   srcSet={image(780, movie.backdrop_path)}
                 />
                 <source
-                  media="(max-width:300px)"
-                  srcSet={image(300, movie.backdrop_path)}
+                  media="(max-width:1280px)"
+                  srcSet={image(1280, movie.backdrop_path)}
                 />
                 <img
                   src={`https://image.tmdb.org/t/p/w1280/${movie.backdrop_path}`}

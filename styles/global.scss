@@ -17,16 +17,6 @@ body {
   padding: 0;
 }
 
-.app_container {
-  @media (max-width: 724px) {
-    margin-bottom: 50px;
-  }
-  @media (max-width: 724px) and (display-mode: standalone),
-    (max-width: 870px) and (display-mode: standalone) {
-    padding-top: 55px;
-  }
-}
-
 body {
   width: 100%;
   margin: 0;
@@ -34,9 +24,6 @@ body {
   color: white;
   overflow-y: scroll;
   background-color: #090c14;
-  font-family: 'Bariol', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto',
-    'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -72,19 +59,6 @@ code {
 
 a {
   text-decoration: none;
-}
-
-.fill {
-  object-fit: fill;
-}
-
-.force-no-hover-transform > div:hover {
-  transform: none !important;
-}
-
-.genre-filter-active {
-  background: rgb(148, 148, 148);
-  color: rgb(0, 0, 0);
 }
 
 .mejs__logo-button {

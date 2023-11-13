@@ -51,7 +51,7 @@ function CastCarousel({
               <Link prefetch={false} href={`/person/${member.id}`}>
                 {type === 'tv' ? (
                   <PersonCard
-                    src={`https://image.tmdb.org/t/p/w780/${member.profile_path}`}
+                    src={`https://image.tmdb.org/t/p/w154/${member.profile_path}`}
                     alt={member.name}
                     title={`${member.name} ${
                       member.roles && member.roles[0].character
@@ -61,7 +61,7 @@ function CastCarousel({
                   />
                 ) : (
                   <PersonCard
-                    src={`https://image.tmdb.org/t/p/w780/${member.profile_path}`}
+                    src={`https://image.tmdb.org/t/p/w154/${member.profile_path}`}
                     alt={member.name}
                     title={`${member.name} ${
                       member.character ? ` as ${member.character}` : ''

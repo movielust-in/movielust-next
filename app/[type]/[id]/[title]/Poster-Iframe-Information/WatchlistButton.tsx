@@ -1,5 +1,5 @@
 import { BsFillBookmarkCheckFill } from 'react-icons/bs';
-import { MdPlaylistAdd } from 'react-icons/md';
+import { PiListPlusFill } from 'react-icons/pi';
 import { toast } from 'react-toastify';
 import { useSession } from 'next-auth/react';
 import { useCallback, useEffect, useState } from 'react';
@@ -66,16 +66,16 @@ const WatchlistButton = ({ contentData, type }: Props) => {
   if (presentInWatchlist === 'present')
     return (
       <span className={styles.AddButton}>
-        {presentInWatchlist ? 'In Watchlist' : 'Add to Watchlist'}
         <BsFillBookmarkCheckFill />
+        In Watchlist
         <div className={styles.HoverMessage}>Add to Watchlist</div>
       </span>
     );
 
   return (
     <button type="button" className={styles.AddButton} onClick={addToWatchlist}>
+      <PiListPlusFill size={18} />
       Add to Watchlist
-      <MdPlaylistAdd />
       <div className={styles.HoverMessage}>Add to Watchlist</div>
     </button>
   );
