@@ -65,7 +65,11 @@ function WatchlistItem({
           {' '}
           {overview ? `${overview?.split(' ').splice(0, 25).join(' ')} ..` : ''}
         </p>
-        <Link href={detailLink(type, id, title)} className={styles.ViewButton}>
+        <Link
+          prefetch={false}
+          href={detailLink(type, id, title)}
+          className={styles.ViewButton}
+        >
           View
         </Link>
       </div>

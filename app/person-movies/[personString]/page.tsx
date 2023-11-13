@@ -72,6 +72,7 @@ function Movie() {
       <div className={scrollerStyles.CardContainer}>
         {movies?.map((movie) => (
           <Link
+            prefetch={false}
             key={movie.id}
             href={detailLink('movie', movie.id!, movie.title!)}
           >

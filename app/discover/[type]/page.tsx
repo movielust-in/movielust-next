@@ -124,6 +124,7 @@ function Movie() {
             {results?.map((x) =>
               x.map((movie: any) => (
                 <Link
+                  prefetch={false}
                   key={movie.id}
                   href={detailLink(
                     type,

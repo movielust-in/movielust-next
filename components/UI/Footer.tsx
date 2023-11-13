@@ -5,15 +5,21 @@ import styles from '../../styles/footer.module.scss';
 async function Footer() {
   return (
     <div className={styles.Container}>
-      <Link href="/">
+      <Link prefetch={false} href="/">
         <div className={styles.TitleBar}>
           <h1 className={styles.Title}> Movielust </h1>
         </div>
       </Link>
       <div className={styles.Footernotice}>
-        <Link href="/aboutus">About us</Link>
-        <Link href="/disclaimer">Disclaimer</Link>
-        <Link href="/contactus">Contact us</Link>
+        <Link prefetch={false} href="/aboutus">
+          About us
+        </Link>
+        <Link prefetch={false} href="/disclaimer">
+          Disclaimer
+        </Link>
+        <Link prefetch={false} href="/contactus">
+          Contact us
+        </Link>
       </div>
       <div className={styles.MDBContainer}>
         &copy; {new Date().getFullYear()} Copyright : The DBA Pvt.{' '}

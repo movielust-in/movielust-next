@@ -36,13 +36,13 @@ function FooterTabs() {
   return (
     <div className={styles.Footer}>
       <div className={styles.Item}>
-        <Link href="/">
+        <Link prefetch={false} href="/">
           <HomeIcon size="22px" color={pathname === '/' ? 'red' : 'white'} />
           <h5>Home</h5>
         </Link>
       </div>
       <div className={styles.Item}>
-        <Link href="/watchlist">
+        <Link prefetch={false} href="/watchlist">
           <WatchlistIcon
             size="22px"
             color={pathname === '/watchlist' ? 'red' : 'white'}
@@ -58,7 +58,7 @@ function FooterTabs() {
         />
       </div>
       <div className={styles.Item}>
-        <Link href="/discover/movies">
+        <Link prefetch={false} href="/discover/movies">
           <MovieIcon
             size="22px"
             color={pathname === '/discover/movies' ? 'red' : 'white'}
@@ -68,7 +68,7 @@ function FooterTabs() {
         </Link>
       </div>
       <div className={styles.Item}>
-        <Link href="/discover/shows">
+        <Link prefetch={false} href="/discover/shows">
           <SeriesIcon
             size="21px"
             color={pathname === '/discover/shows' ? 'red' : 'white'}

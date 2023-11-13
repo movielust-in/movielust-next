@@ -92,7 +92,7 @@ function Header({ isOnline }: HeaderProps) {
       <nav className={`${styles.Navbar} ${transparentOrGradient}`}>
         <LeftArrow className={styles.Back} onClick={() => router.back()} />
 
-        <Link href="/" className={styles.LogoContainer}>
+        <Link prefetch={false} href="/" className={styles.LogoContainer}>
           <Image
             width={50}
             height={50}
@@ -108,21 +108,21 @@ function Header({ isOnline }: HeaderProps) {
         </Link>
 
         <div className={styles.NavMenu}>
-          <Link href="/">
+          <Link prefetch={false} href="/">
             <HomeIcon />
             <h1 className={styles.Title}>Home</h1>
           </Link>
-          <Link href="/watchlist">
+          <Link prefetch={false} href="/watchlist">
             <WatchlistIcon />
             <h1 className={styles.Title}>Watchlist</h1>
           </Link>
 
-          <Link href="/discover/movies">
+          <Link prefetch={false} href="/discover/movies">
             <MoviesIcon />
             <h1 className={styles.Title}>Movies</h1>
           </Link>
 
-          <Link href="/discover/shows">
+          <Link prefetch={false} href="/discover/shows">
             <SeriesIcon />
             <h1 className={styles.Title}>Shows</h1>
           </Link>
