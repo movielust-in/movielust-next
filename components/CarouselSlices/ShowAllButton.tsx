@@ -1,6 +1,6 @@
-import Link from "next/link";
+import Link from 'next/link';
 
-import styles from "../components.module.scss";
+import styles from '../components.module.scss';
 
 interface ShowAllButtonProps {
   link: string;
@@ -9,7 +9,7 @@ interface ShowAllButtonProps {
 
 function ShowAllButton({ link, label }: ShowAllButtonProps) {
   return (
-    <Link href={link} className={styles.show_all_button}>
+    <Link prefetch={false} href={link} className={styles.show_all_button}>
       {label}
     </Link>
   );

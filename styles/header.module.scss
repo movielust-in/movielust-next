@@ -82,11 +82,14 @@
       rgba(3, 29, 48, 0.6) 79%
     );
   }
-  backdrop-filter: blur(8px);
-  transform: translate(0);
+  // backdrop-filter: blur(8px);
+  // transform: translate(0);
 }
 
 .LogoContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   @media (max-width: 724px) and (display-mode: standalone) {
     display: none;
   }
@@ -95,11 +98,6 @@
 .Logo {
   cursor: pointer;
   object-fit: contain;
-  padding: 5px;
-  width: 65px;
-  @media (max-width: 724px) {
-    width: 60px;
-  }
 
   @media (display-mode: window-controls-overlay) and (min-width: 724px) {
     width: 40px;

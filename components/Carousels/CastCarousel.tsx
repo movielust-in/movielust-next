@@ -1,7 +1,7 @@
-'use client'
+'use client';
 
 import { memo, useMemo } from 'react';
-import Link from 'next/link'
+import Link from 'next/link';
 // import { useRouter } from 'next/router';
 import { SwiperSlide } from 'swiper/react';
 
@@ -20,8 +20,6 @@ interface CastCarouselProps {
   contentTitle?: string;
 }
 
-
-
 function CastCarousel({
   cast,
   title,
@@ -39,7 +37,7 @@ function CastCarousel({
         <h2>{title}</h2>
         {id && contentTitle ? (
           <ShowAllButton
-            link={`/cast/${type}/${id}/${dashedTitle(contentTitle||'')}`}
+            link={`/cast/${type}/${id}/${dashedTitle(contentTitle || '')}`}
             label="See all cast"
           />
         ) : null}
@@ -49,34 +47,28 @@ function CastCarousel({
         {casts
           .filter((member) => member.profile_path)
           .map((member) => (
-            <SwiperSlide
-              id="cast_slider"
-              key={member.id}
-              onClick={() => {
-                
-              }}
-            ><Link href={`/person/${member.id}`}>
-                
-              {type === 'tv' ? (
-                <PersonCard
-                  src={`https://image.tmdb.org/t/p/w780/${member.profile_path}`}
-                  alt={member.name}
-                  title={`${member.name} ${
-                    member.roles && member.roles[0].character
-                      ? ` as ${member.roles[0].character}`
-                      : ''
-                  }`}
-                />
-              ) : (
-                <PersonCard
-                  src={`https://image.tmdb.org/t/p/w780/${member.profile_path}`}
-                  alt={member.name}
-                  title={`${member.name} ${
-                    member.character ? ` as ${member.character}` : ''
-                  }`}
+            <SwiperSlide id="cast_slider" key={member.id} onClick={() => {}}>
+              <Link prefetch={false} href={`/person/${member.id}`}>
+                {type === 'tv' ? (
+                  <PersonCard
+                    src={`https://image.tmdb.org/t/p/w154/${member.profile_path}`}
+                    alt={member.name}
+                    title={`${member.name} ${
+                      member.roles && member.roles[0].character
+                        ? ` as ${member.roles[0].character}`
+                        : ''
+                    }`}
                   />
-                  )}
-            </Link>
+                ) : (
+                  <PersonCard
+                    src={`https://image.tmdb.org/t/p/w154/${member.profile_path}`}
+                    alt={member.name}
+                    title={`${member.name} ${
+                      member.character ? ` as ${member.character}` : ''
+                    }`}
+                  />
+                )}
+              </Link>
             </SwiperSlide>
           ))}
       </Carousel>

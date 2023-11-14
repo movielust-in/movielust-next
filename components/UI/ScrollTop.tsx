@@ -31,7 +31,7 @@ export default function ScrollTop() {
       <Image
         width={50}
         height={50}
-        src="/images/up.png"
+        src="/images/up.webp"
         alt="Scroll to top"
         unoptimized
         style={{

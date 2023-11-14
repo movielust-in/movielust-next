@@ -192,7 +192,7 @@ function Form({
               {fields.links &&
                 fields.links.length > 0 &&
                 fields.links.map((link: any) => (
-                  <Link href={link.href} key={link.text}>
+                  <Link prefetch={false} href={link.href} key={link.text}>
                     <p>{link.text}</p>
                   </Link>
                 ))}

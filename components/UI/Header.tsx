@@ -18,14 +18,12 @@ import { BiSearchAlt as SearchIcon } from 'react-icons/bi';
 
 import { useScroll } from '../../hooks';
 import styles from '../../styles/header.module.scss';
+import { Bariol } from '../../fonts/Bariol';
+import Logo from '../../assets/images/header_logo.webp';
 
 const Search = dynamic(() => import('../Search/Search'));
 
-interface HeaderProps {
-  isOnline: boolean;
-}
-
-function Header({ isOnline }: HeaderProps) {
+function Header() {
   const router = useRouter();
   const params = useParams();
   const pathname = usePathname();
@@ -89,46 +87,41 @@ function Header({ isOnline }: HeaderProps) {
 
   return (
     <>
-      <nav className={`${styles.Navbar} ${transparentOrGradient}`}>
+      <nav
+        className={`${styles.Navbar} ${transparentOrGradient} ${Bariol.className}`}
+      >
         <LeftArrow className={styles.Back} onClick={() => router.back()} />
 
-        <Link href="/" className={styles.LogoContainer}>
+        <Link prefetch={false} href="/" className={styles.LogoContainer}>
           <Image
+            src={Logo}
             width={50}
-            height={50}
-            src="https://ik.imagekit.io/movielust/logo_uIeABdFs3.webp"
             alt="Movielust Logo"
             unoptimized
             className={styles.Logo}
-            style={{
-              maxWidth: '100%',
-              height: 'auto',
-            }}
           />
         </Link>
 
         <div className={styles.NavMenu}>
-          <Link href="/">
+          <Link prefetch={false} href="/">
             <HomeIcon />
             <h1 className={styles.Title}>Home</h1>
           </Link>
-          <Link href="/watchlist">
+          <Link prefetch={false} href="/watchlist">
             <WatchlistIcon />
             <h1 className={styles.Title}>Watchlist</h1>
           </Link>
 
-          <Link href="/discover/movies">
+          <Link prefetch={false} href="/discover/movies">
             <MoviesIcon />
             <h1 className={styles.Title}>Movies</h1>
           </Link>
 
-          <Link href="/discover/shows">
+          <Link prefetch={false} href="/discover/shows">
             <SeriesIcon />
             <h1 className={styles.Title}>Shows</h1>
           </Link>
         </div>
-
-        {isOnline ? null : <div className={styles.Offline}>No internet!</div>}
 
         <button
           type="button"

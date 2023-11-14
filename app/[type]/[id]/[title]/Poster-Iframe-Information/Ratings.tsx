@@ -1,5 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 import { FaStar } from 'react-icons/fa';
+import Image from 'next/image';
 
 import styles from '../Detail.module.scss';
 import {
@@ -7,6 +8,7 @@ import {
   MovieExternalIdsResponse,
 } from '../../../../../types/tmdb';
 import { ImdbRating } from '../../../../../types/api-responses';
+import IMDBLogo from '../../../../../assets/images/imdb_logo_small.webp';
 
 interface Props {
   IMDBRating?: ImdbRating;
@@ -36,11 +38,7 @@ const Ratings = ({ IMDBRating, contentData, externalIds, type }: Props) => {
         >
           {IMDBRating.rating} ({IMDBRating.vote_count.toLocaleString()} votes)
           &nbsp;&nbsp;
-          <img
-            width="30px"
-            src="https://m.media-amazon.com/images/G/01/IMDb/BG_rectangle._CB1509060989_SY230_SX307_AL_.png"
-            alt="TMDB"
-          />{' '}
+          <Image src={IMDBLogo} alt="Imdb ratings logo" />{' '}
         </span>
       </div>
     );
@@ -56,7 +54,7 @@ const Ratings = ({ IMDBRating, contentData, externalIds, type }: Props) => {
         <img
           width="30px"
           src="https://www.themoviedb.org/assets/2/v4/logos/v2/blue_short-8e7b30f73a4020692ccca9c88bafe5dcb6f8a62a4c6bc55cd9ba82bb2cd95f6c.svg"
-          alt="TMDB"
+          alt="TMDB ratings logo"
         />
       </span>
     </div>

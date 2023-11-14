@@ -39,7 +39,7 @@ function Scroller({ movies, total, type }: ScrollerProps) {
           movies.slice(0, page * 20 - 1).map((movie) => (
             <div className={styles.Card} key={movie.id}>
               {type === 'cast' ? (
-                <Link href={`/person/${movie.id}`}>
+                <Link prefetch={false} href={`/person/${movie.id}`}>
                   <PersonCard
                     title={`${movie.name}`}
                     key={movie.id}
@@ -53,6 +53,7 @@ function Scroller({ movies, total, type }: ScrollerProps) {
                 </Link>
               ) : (
                 <Link
+                  prefetch={false}
                   href={detailLink(type, movie.id, movie.title || movie.name)}
                 >
                   <Wrap

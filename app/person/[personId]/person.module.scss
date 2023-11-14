@@ -1,6 +1,6 @@
 .Container {
   //  styled.div`
-  font-family: 'Bariol', sans-serif;
+  // font-family: 'Bariol', sans-serif;
   min-height: calc(100vh - 73px);
   overflow: hidden;
   position: relative;
@@ -152,7 +152,6 @@
   //       dom.length > 0 ? `rgba(${dom[0]}, ${dom[1]}, ${dom[2]}, 0.2)` : ''};
   //   }
 }
-
 
 .CastWorks {
   //  styled.div<{ dom: any }>`

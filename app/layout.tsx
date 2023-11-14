@@ -11,14 +11,14 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import 'react-toastify/dist/ReactToastify.css';
 import '../styles/global.scss';
-import '../styles/font.css';
+import { Bariol } from '../fonts/Bariol';
 
 const RootLayout = ({ children }: { children: React.ReactNode }) => (
   <html lang="en">
     <body>
       <AuthContext>
-        <Header isOnline />
-        <main className="layout__main">{children}</main>
+        <Header />
+        <main className={`layout__main ${Bariol.className}`}>{children}</main>
         <Footer />
         <FooterTabs />
         <ScrollTop />
