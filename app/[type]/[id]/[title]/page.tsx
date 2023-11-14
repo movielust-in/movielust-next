@@ -196,35 +196,26 @@ async function getData(query: { id: string; type: string }): Promise<any> {
     notFound();
   }
 
-  let data = await getContentDetails(id, type);
+  const data = await getContentDetails(id, type);
 
-  data = {
-    ...data,
-    credits: {
-      cast: data.credits.cast?.slice(0, 20),
-    },
+  data.credits = {
+    cast: data.credits?.cast?.slice(0, 20),
   };
 
   if (type === TYPE.movie) {
     if (data.release_date) {
       const relDate = new Date(data.release_date);
-      data = {
-        ...data,
-        released: !(relDate > new Date()),
-        release_date: `${
-          FULL_MONTHS[relDate.getMonth()]
-        }, ${relDate.getDate()} ${relDate.getFullYear()}`,
-      };
+      data.released = !(relDate > new Date());
+      data.release_date = `${
+        FULL_MONTHS[relDate.getMonth()]
+      }, ${relDate.getDate()} ${relDate.getFullYear()}`;
     }
 
     if (data.runtime) {
       const time = parseInt(data.runtime, 10) / 60;
-      data = {
-        ...data,
-        runtime: `${Math.floor(time)} hrs ${-Math.round(
-          time - Math.floor(time) * 10
-        )} mins`,
-      };
+      data.runtime = `${Math.floor(time)} hrs ${-Math.round(
+        time - Math.floor(time) * 10
+      )} mins`;
     }
   } else if (type === TYPE.tv) {
     const showData = data as ShowResponse;
@@ -232,16 +223,15 @@ async function getData(query: { id: string; type: string }): Promise<any> {
     const numOfSeasons = showData.number_of_seasons;
 
     // setting number of seasons
-    if (!numOfSeasons) data = { ...data, runtime: undefined };
-    else if (numOfSeasons > 1)
-      data = { ...data, runtime: `${numOfSeasons} Seasons` };
-    else data = { ...data, runtime: '1 Season' };
+    if (!numOfSeasons) data.runtime = undefined;
+    else if (numOfSeasons > 1) data.runtime = `${numOfSeasons} Seasons`;
+    else data.runtime = '1 Season';
 
     const firstYear = showData.first_air_date!.slice(0, 4);
     const lastYear = showData.last_air_date?.slice(0, 4) || firstYear;
 
-    if (firstYear === lastYear) data = { ...data, release_date: lastYear };
-    else data = { ...data, release_date: `${firstYear}-${lastYear}` };
+    if (firstYear === lastYear) data.release_date = lastYear;
+    else data.release_date = `${firstYear}-${lastYear}`;
   }
 
   let vids = data.videos?.results || [];
@@ -256,28 +246,23 @@ async function getData(query: { id: string; type: string }): Promise<any> {
       const officialVideos = vids.filter(
         (video: Video) => video.official === true && video.type === 'Trailer'
       );
-      data = {
-        ...data,
-        trailerKey:
-          officialVideos.length > 0
-            ? officialVideos[officialVideos.length - 1].key
-            : vids[0].key,
-      };
+      data.trailerKey =
+        officialVideos.length > 0
+          ? officialVideos[officialVideos.length - 1].key
+          : vids[0].key;
     }
   } else {
     const officialVideos = vids.filter(
       (video: Video) => video.official === true && video.type === 'Trailer'
     );
-    data = {
-      ...data,
-      trailerKey:
-        officialVideos.length > 0
-          ? officialVideos[officialVideos.length - 1].key
-          : data.videos?.results![0].key,
-    };
+    data.trailerKey =
+      officialVideos.length > 0
+        ? officialVideos[officialVideos.length - 1].key
+        : data.videos?.results![0].key;
   }
 
-  data = { ...data, videos: { results: [] }, production_countries: [] };
+  data.videos = { results: [] };
+  data.production_countries = [];
 
   return data;
 }
