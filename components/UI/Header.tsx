@@ -6,6 +6,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import dynamic from 'next/dynamic';
 import { useSession } from 'next-auth/react';
+import { useParams, usePathname, useRouter } from 'next/navigation';
 import {
   MdPlaylistPlay as WatchlistIcon,
   MdLocalMovies as MoviesIcon,
@@ -23,9 +24,18 @@ import Logo from '../../assets/images/header_logo.webp';
 const Search = dynamic(() => import('../Search/Search'));
 
 function Header() {
+  const router = useRouter();
+  const params = useParams();
+  const pathname = usePathname();
+  const [hash, setHash] = useState('');
+
   const { data, status } = useSession();
 
   const user = data?.user;
+
+  useEffect(() => {
+    setHash(window.location.hash.split('#')[1]);
+  }, [params]);
 
   const [searchView, setSearchView] = useState(false);
 
@@ -36,6 +46,12 @@ function Header() {
   useEffect(() => setScroll(scrollValue || 0), [scrollValue]);
 
   useEffect(() => {
+    if (hash && hash.includes('search')) {
+      setSearchView(true);
+    } else {
+      setSearchView(false);
+    }
+
     const interval = setInterval(() => {
       const currentScroll =
         window.pageYOffset ||
@@ -52,22 +68,29 @@ function Header() {
     return () => {
       clearInterval(interval);
     };
-  }, []);
+  }, [hash]);
 
-  const showSearch = () => setSearchView((state) => !state);
+  const showSearch = () => {
+    if (hash && hash.includes('search')) {
+      router.push(pathname + hash.replace('search', ''));
+    } else if (hash && hash.includes('#')) {
+      router.push(`${`${pathname}#${hash}`}search`);
+    } else {
+      router.push(`${pathname}#search`);
+    }
+  };
 
   const transparentOrGradient =
-    scroll >= 20 || searchView ? styles.gradient : styles.transparent;
+    scroll >= 20 || (hash && hash.includes('search'))
+      ? styles.gradient
+      : styles.transparent;
 
   return (
     <>
       <nav
         className={`${styles.Navbar} ${transparentOrGradient} ${Bariol.className}`}
       >
-        <LeftArrow
-          className={styles.Back}
-          onClick={() => setSearchView(false)}
-        />
+        <LeftArrow className={styles.Back} onClick={() => router.back()} />
 
         <Link prefetch={false} href="/" className={styles.LogoContainer}>
           <Image
@@ -110,18 +133,19 @@ function Header() {
 
         <div className={styles.StatusContainer}>
           {status === 'authenticated' && user ? (
-            <Link href="/account" prefetch={false}>
-              <img
-                className={styles.UserImg}
-                alt="avatar"
-                role="presentation"
-                src={user.image as string}
-                onError={({ currentTarget }) => {
-                  currentTarget.onerror = null; // prevents looping
-                  currentTarget.src = 'LoginImage.src';
-                }}
-              />
-            </Link>
+            <img
+              className={styles.UserImg}
+              alt="avatar"
+              role="presentation"
+              src={user.image as string}
+              onClick={() => {
+                router.push('/account');
+              }}
+              onError={({ currentTarget }) => {
+                currentTarget.onerror = null; // prevents looping
+                currentTarget.src = 'LoginImage.src';
+              }}
+            />
           ) : null}
 
           {status === 'loading' ? (
@@ -134,16 +158,19 @@ function Header() {
           ) : null}
 
           {status === 'unauthenticated' ? (
-            <Link
+            <button
+              type="button"
               className={styles.LoginPrompt}
-              href="/signin"
-              prefetch={false}
+              onClick={() => {
+                router.push(`/signin?redirectto=${pathname}`);
+              }}
             >
               LOGIN
-            </Link>
+            </button>
           ) : null}
         </div>
       </nav>
+
       {searchView ? <Search show={searchView} /> : null}
     </>
   );
