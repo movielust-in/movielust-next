@@ -17,7 +17,7 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => (
   <html lang="en">
     <body>
       <AuthContext>
-        <Header isOnline />
+        <Header />
         <main className={`layout__main ${Bariol.className}`}>{children}</main>
         <Footer />
         <FooterTabs />

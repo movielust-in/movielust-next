@@ -37,7 +37,7 @@ function Wrap({
 
   return (
     <div
-      className={styles.wrapper}
+      className={`${styles.wrapper} ${styles.imageContainer}`}
       data-tooltip-id="movie_card_hover"
       data-tooltip-content={title}
       data-backdrop={backdrop}
@@ -50,19 +50,17 @@ function Wrap({
       data-genres={genres?.map((g) => g.name).join(',')}
       data-tooltip-float
     >
-      <div className={styles.imageContainer}>
-        <Image
-          className={styles.image}
-          placeholder="blur"
-          loading="lazy"
-          src={src}
-          alt={alt || 'no alt'}
-          onError={handleImageError}
-          blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mPU0uKsBwABwQDepPdFVAAAAABJRU5ErkJggg==)"
-          unoptimized
-          fill
-        />
-      </div>
+      <Image
+        className={styles.image}
+        placeholder="blur"
+        loading="lazy"
+        src={src}
+        alt={alt || 'no alt'}
+        onError={handleImageError}
+        blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mPU0uKsBwABwQDepPdFVAAAAABJRU5ErkJggg==)"
+        unoptimized
+        fill
+      />
     </div>
   );
 }

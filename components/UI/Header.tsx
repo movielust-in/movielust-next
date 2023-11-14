@@ -23,11 +23,7 @@ import Logo from '../../assets/images/header_logo.webp';
 
 const Search = dynamic(() => import('../Search/Search'));
 
-interface HeaderProps {
-  isOnline: boolean;
-}
-
-function Header({ isOnline }: HeaderProps) {
+function Header() {
   const router = useRouter();
   const params = useParams();
   const pathname = usePathname();
@@ -126,8 +122,6 @@ function Header({ isOnline }: HeaderProps) {
             <h1 className={styles.Title}>Shows</h1>
           </Link>
         </div>
-
-        {isOnline ? null : <div className={styles.Offline}>No internet!</div>}
 
         <button
           type="button"
