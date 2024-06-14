@@ -91,3 +91,5 @@ export const metadata: Metadata = {
   title: 'Home | Movielust',
   description: 'Discover and found about Movies and Shows.',
 };
+
+export const revalidate = 3600

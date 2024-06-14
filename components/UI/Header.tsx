@@ -4,7 +4,6 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import dynamic from 'next/dynamic';
 import { useSession } from 'next-auth/react';
 import { useParams, usePathname, useRouter } from 'next/navigation';
 import {
@@ -20,8 +19,7 @@ import { useScroll } from '../../hooks';
 import styles from '../../styles/header.module.scss';
 import { Bariol } from '../../fonts/Bariol';
 import Logo from '../../assets/images/header_logo.webp';
-
-const Search = dynamic(() => import('../Search/Search'));
+import Search from '../Search/Search';
 
 function Header() {
   const router = useRouter();
