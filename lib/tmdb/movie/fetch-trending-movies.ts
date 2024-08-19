@@ -27,7 +27,7 @@ export const fetchTrendingMovies = async (): Promise<
   const trendingMovies: any = movies.results?.map((movie, index) => ({
     ...movie,
     imdb_rating:
-      ratings.find((rating) => rating.imdb_id === imdbIds[index])?.rating || 0,
+      ratings?.find((rating) => rating.imdb_id === imdbIds[index])?.rating || 0,
   }));
 
   return trendingMovies;
