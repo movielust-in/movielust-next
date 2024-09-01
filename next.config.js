@@ -1,5 +1,10 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  experimental:{
+    turbo: {
+      
+    }
+  },
   reactStrictMode: true,
   swcMinify: true,
   images: {
@@ -14,12 +19,12 @@ const nextConfig = {
     unoptimized: true,
   },
   compiler: {
-    removeConsole:
-      process.env.NODE_ENV === 'production'
-        ? {
-            exclude: ['error'],
-          }
-        : false,
+    // removeConsole:
+    //   process.env.NODE_ENV === 'production'
+    //     ? {
+    //         exclude: ['error'],
+    //       }
+    //     : false,
   },
 };
 

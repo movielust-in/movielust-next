@@ -1,0 +1,1 @@
+export const TorrentBase = "https://1337x.to"
