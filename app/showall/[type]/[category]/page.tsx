@@ -50,11 +50,18 @@ const getData = async (category: string) => {
   }
 };
 
-async function Showall({
-  params: { type, category },
-}: {
-  params: { type: string; category: string };
-}) {
+async function Showall(
+  props: {
+    params: Promise<{ type: string; category: string }>;
+  }
+) {
+  const params = await props.params;
+
+  const {
+    type,
+    category
+  } = params;
+
   const { data: movies, title } = await getData(category);
 
   return (

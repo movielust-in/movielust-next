@@ -4,7 +4,7 @@ export async function fetchRawHtml(url: string) {
 
     const response = await fetch(url)
 
-    if (response.headers.get('content-type') != 'text/html') {
+    if (response.headers.get('content-type') !== 'text/html') {
         throw new Error("Torrent Url does not return html")
     }
 
@@ -12,5 +12,5 @@ export async function fetchRawHtml(url: string) {
         throw new Error(response.statusText)
     }
 
-    return await response.text()
+    return response.text()
 }

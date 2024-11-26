@@ -15,7 +15,7 @@ export default function useObserver(
 ) {
   const [trigger, setTrigger] = useState<any>();
 
-  const observer = useRef<IntersectionObserver>();
+  const observer = useRef<IntersectionObserver>(undefined);
 
   options = options ? { ...DefaultOptions, ...options } : DefaultOptions;
 

@@ -43,9 +43,9 @@ function saveDataToLocalStorage(data: any, cb: Function) {
 }
 
 function Search({ show }: { show: boolean }) {
-  const inputRef = useRef<HTMLInputElement>();
+  const inputRef = useRef<HTMLInputElement>(undefined);
   const router = useRouter();
-  const cLocation = useRef<string>();
+  const cLocation = useRef<string>(undefined);
   const pathname = usePathname();
 
   const [loading, setLoading] = useState(false);
@@ -60,7 +60,7 @@ function Search({ show }: { show: boolean }) {
   }, [pathname]);
 
   /// ///////////////////////////////////////////////////////////////////  Recent Search   //////////////////////////////////////////////////////////////////////////////////////////
-  const parentRef = useRef<HTMLDivElement>();
+  const parentRef = useRef<HTMLDivElement>(undefined);
 
   const [recentsearch, setRecent] = useState(
     JSON.parse(localStorage.getItem('Search') || '[]')

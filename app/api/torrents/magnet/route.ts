@@ -1,8 +1,7 @@
-import { ZodError, z } from 'zod';
+import { z } from 'zod';
+import { parse } from 'node-html-parser'
 
 import { catchAsync } from '../../apiHandler';
-
-import { parse } from 'node-html-parser'
 import { fetchRawHtml } from '../fetch-raw-html';
 
 const validationSchema = z
@@ -22,15 +21,13 @@ export const GET = catchAsync(
                 url: searchParams.get('url')
             })
 
-            console.log(url)
-
             const html = await fetchRawHtml(url)
 
             const dom = parse(html)
 
             const name = dom.querySelector(".box-info-heading")?.querySelector("h1")?.innerText
 
-            const magnet = dom.querySelector(".no-top-radius")?.querySelector(".clearfix")?.querySelector("ul")?.querySelector("li")?.querySelector("a")?.attributes["href"]
+            const magnet = dom.querySelector(".no-top-radius")?.querySelector(".clearfix")?.querySelector("ul")?.querySelector("li")?.querySelector("a")?.attributes.href
 
             return Response.json({
                 name,

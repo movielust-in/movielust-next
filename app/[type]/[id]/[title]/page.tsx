@@ -26,7 +26,8 @@ interface Params {
   title: string;
 }
 
-const Detail = async ({ params }: { params: Params }) => {
+const Detail = async (props: { params: Promise<Params> }) => {
+  const params = await props.params;
   const { id, type, title } = params;
 
   const contentData = await getData({ id, type });
@@ -133,11 +134,12 @@ const Detail = async ({ params }: { params: Params }) => {
 
 export default Detail;
 
-export async function generateMetadata({
-  params,
-}: {
-  params: { id: string; type: string; title: string };
-}): Promise<Metadata> {
+export async function generateMetadata(
+  props: {
+    params: Promise<{ id: string; type: string; title: string }>;
+  }
+): Promise<Metadata> {
+  const params = await props.params;
   const { id, type, title: titleParam } = params;
 
   if (!(type === 'movie' || type === 'tv') || !parseInt(id, 10)) {

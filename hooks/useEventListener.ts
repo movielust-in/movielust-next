@@ -5,7 +5,7 @@ export default function useEventListener(
   handler: any,
   element = null
 ) {
-  const handlerInstance: any = useRef();
+  const handlerInstance: any = useRef(undefined);
 
   useEffect(() => {
     if (handler instanceof Function) handlerInstance.current = handler;

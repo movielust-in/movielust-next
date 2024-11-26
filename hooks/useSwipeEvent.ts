@@ -1,8 +1,8 @@
 import { useCallback, useRef, TouchEvent, useEffect } from "react";
 
 export default function useSwipeEvent(tasks: any, element: any = null) {
-  const xDown = useRef<any>();
-  const yDown = useRef<any>();
+  const xDown = useRef<any>(undefined);
+  const yDown = useRef<any>(undefined);
 
   function getTouches(evt: TouchEvent) {
     return evt.touches;

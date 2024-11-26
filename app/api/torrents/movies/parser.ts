@@ -13,17 +13,17 @@ export function parse1337xTable(html: string) {
         let seeds = 0;
 
         try {
-            seeds = parseInt(row.querySelector(".seeds")?.innerText!!)
+            seeds = parseInt(row.querySelector(".seeds")?.innerText!!, 2)
         } catch (error) {
-
+            // 
         }
 
         let leeches = 0
 
         try {
-            leeches = parseInt(row.querySelector(".leeches")?.innerText!!)
+            leeches = parseInt(row.querySelector(".leeches")?.innerText!!, 2)
         } catch (error) {
-
+            // 
         }
 
         return {

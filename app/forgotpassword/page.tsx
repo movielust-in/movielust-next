@@ -17,7 +17,7 @@ const NEW_PASSWORD_H = 'Create New Password';
 
 function ResetPass() {
   const router = useRouter();
-  const otpRef = useRef<string>();
+  const otpRef = useRef<string>(undefined);
 
   const [email, setEmail] = useState('');
 

@@ -46,7 +46,7 @@ function Modal({
   const [index, setState] = useState(at || 0);
   const [loading, setLoading] = useState(true);
 
-  const imgRef = useRef();
+  const imgRef = useRef(undefined);
 
   const images = imagess || [
     'https://image.tmdb.org/t/p/original/1953j0QEbtN17WFFTnJHIm6bn6I.jpg',

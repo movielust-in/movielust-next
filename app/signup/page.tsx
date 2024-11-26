@@ -18,10 +18,10 @@ interface StepOneDataInterface {
 
 function SignUp() {
   const router = useRouter();
-  const otpRef = useRef<string>();
+  const otpRef = useRef<string>(undefined);
   const OTP_HEADER = 'Enter OTP';
 
-  const stepOneData = useRef<StepOneDataInterface>();
+  const stepOneData = useRef<StepOneDataInterface>(undefined);
 
   const isLoggedIn = false;
 

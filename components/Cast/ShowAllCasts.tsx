@@ -13,7 +13,7 @@ import { getContentDetails } from '../../lib/tmdb';
 
 function ShowAllCasts() {
   const location = useRouter();
-  const backgroundRef = useRef<HTMLImageElement>();
+  const backgroundRef = useRef<HTMLImageElement>(undefined);
   const urlBreakdown = location.pathname.split('/');
   const type = urlBreakdown[2] as 'movie' | 'tv';
   const id = urlBreakdown[3];

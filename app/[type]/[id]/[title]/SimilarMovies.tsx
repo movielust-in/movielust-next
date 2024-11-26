@@ -21,7 +21,7 @@ const getSimilarContent = async (
   genres: Genre[],
   lang: string
 ) => {
-  let host = headers().get('host');
+  let host = (await headers()).get('host');
 
   if (host === 'localhost') host = '127.0.0.1';
   const protocal = process?.env.NODE_ENV === 'development' ? 'http' : 'https';

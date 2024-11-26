@@ -142,7 +142,7 @@ export const Weekly_Trending_Movies = '/trending/movie/week' as const;
 export const Weekly_Trending_All =
   '/trending/all/week?page=1&language=en-US`' as const;
 
-export const dTop_Rated_Movies_No_Page = `/movie/top_rated` as const;
+export const Top_Rated_Movies_No_Page = `/movie/top_rated` as const;
 
 export const Upcoming_Movies = '/movie/upcoming?&language=en-US&page=1';
 

@@ -13,7 +13,7 @@ import Scroller from '../../../../../components/UI/Scroller';
 import styles from './allCast.module.scss';
 
 function ShowAllCasts() {
-  const backgroundRef = useRef<HTMLImageElement>();
+  const backgroundRef = useRef<HTMLImageElement>(undefined);
 
   const params = useParams();
 

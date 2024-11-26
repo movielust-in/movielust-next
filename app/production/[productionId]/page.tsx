@@ -20,11 +20,17 @@ const getProductionCompanyData = async (productionId: string) => {
   };
 };
 
-export default async function Production({
-  params: { productionId },
-}: {
-  params: { productionId: string };
-}) {
+export default async function Production(
+  props: {
+    params: Promise<{ productionId: string }>;
+  }
+) {
+  const params = await props.params;
+
+  const {
+    productionId
+  } = params;
+
   const { company, companyMovies, production } = await getProductionCompanyData(
     productionId
   );

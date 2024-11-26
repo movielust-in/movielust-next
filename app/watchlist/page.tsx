@@ -7,11 +7,12 @@ import authOptions from '../api/auth/[...nextauth]/authOptions';
 
 import View from './view';
 
-export default async function Watchlist({
-  searchParams,
-}: {
-  searchParams: { view?: 'movie' | 'tv' };
-}) {
+export default async function Watchlist(
+  props: {
+    searchParams: Promise<{ view?: 'movie' | 'tv' }>;
+  }
+) {
+  const searchParams = await props.searchParams;
   const session = await getServerSession(authOptions);
 
   if (!session) {

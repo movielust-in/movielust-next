@@ -1,12 +1,11 @@
-import { ZodError, z } from 'zod';
+import {  z } from 'zod';
 
 import { catchAsync } from '../../apiHandler';
-
-import { TorrentBase } from '../constants';
+    import { TorrentBase } from '../constants';
 import { parse1337xTable } from '../movies/parser';
 import { fetchRawHtml } from '../fetch-raw-html';
 
-const YTS_Movie_Api = 'https://yts.mx/api/v2/movie_details.json';
+// const YTS_Movie_Api = 'https://yts.mx/api/v2/movie_details.json';
 
 const validationSchema = z.discriminatedUnion("complete",
     [
@@ -53,7 +52,7 @@ export const GET = catchAsync(
                 url = `${TorrentBase}/category-search/${params.name} S${seasonString} Complete/TV/1/`
             }
 
-            console.log(url)
+            // console.log(url)
 
             const html = await fetchRawHtml(url)
 

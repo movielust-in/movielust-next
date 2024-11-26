@@ -25,7 +25,8 @@ import { image } from '../../../lib/tmdb/Urls';
 import styles from './person.module.scss';
 import Biography from './Biography';
 
-async function PeopleDetail({ params }: { params: { personId: string } }) {
+async function PeopleDetail(props: { params: Promise<{ personId: string }> }) {
+  const params = await props.params;
   const { personId } = params;
 
   const { personData, personMovies, personShows, popular } =
@@ -172,11 +173,12 @@ export default PeopleDetail;
 
 const cachedFetchPerson = cache(fetchPersonDetails);
 
-export async function generateMetadata({
-  params,
-}: {
-  params: { personId: string };
-}) {
+export async function generateMetadata(
+  props: {
+    params: Promise<{ personId: string }>;
+  }
+) {
+  const params = await props.params;
   const data = await cachedFetchPerson(params.personId);
 
   const metadata: Metadata = {
