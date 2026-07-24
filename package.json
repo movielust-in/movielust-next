@@ -51,7 +51,7 @@
     "@types/bcrypt": "^5.0.1",
     "@types/node": "^20.8.9",
     "@types/react": "npm:types-react@19.0.0-rc.1",
-    "@types/react-dom": "npm:types-react-dom@19.0.0-rc.1",
+    "@types/react-dom": "npm:types-react-dom@19.0.0",
     "@types/react-modal": "^3.13.1",
     "@types/react-star-ratings": "^2.3.0",
     "@typescript-eslint/eslint-plugin": "^6.9.0",
@@ -74,7 +74,7 @@
   "pnpm": {
     "overrides": {
       "@types/react": "npm:types-react@19.0.0-rc.1",
-      "@types/react-dom": "npm:types-react-dom@19.0.0-rc.1"
+      "@types/react-dom": "npm:types-react-dom@19.0.0"
     }
   }
 }
