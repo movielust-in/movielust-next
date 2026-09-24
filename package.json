@@ -54,7 +54,7 @@
     "@types/react-dom": "npm:types-react-dom@19.0.0-rc.1",
     "@types/react-modal": "^3.13.1",
     "@types/react-star-ratings": "^2.3.0",
-    "@typescript-eslint/eslint-plugin": "^6.9.0",
+    "@typescript-eslint/eslint-plugin": "^8.0.0",
     "cross-env": "^7.0.3",
     "eslint": "^8.49.0",
     "eslint-config-airbnb": "^19.0.4",
